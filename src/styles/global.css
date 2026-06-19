@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
-
 :root {
   /* Default: LIGHT theme matching 2026 aesthetics */
   --bg-main: #f8fafc;
@@ -81,76 +79,74 @@
   color-scheme: light dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* DARK theme matching 2026 aesthetics */
-    --bg-main: #06060c;
-    --bg-surface: rgba(15, 15, 30, 0.7);
-    --bg-card: rgba(22, 22, 45, 0.5);
-    --bg-hover: rgba(35, 35, 70, 0.65);
-    
-    --accent-alice: #8b5cf6; /* Alice purple */
-    --accent-alice-glow: rgba(139, 92, 246, 0.3);
-    --accent-alice-semi: rgba(139, 92, 246, 0.2);
-    --accent-alice-trans: rgba(139, 92, 246, 0.05);
-    
-    --accent-cyan: #00f0ff;
-    --accent-cyan-glow: rgba(0, 240, 255, 0.3);
-    --accent-cyan-trans: rgba(0, 240, 255, 0.05);
-    --accent-cyan-semi: rgba(0, 240, 255, 0.3);
-    --accent-emerald: #10b981;
+:root.dark {
+  /* DARK theme matching 2026 aesthetics */
+  --bg-main: #06060c;
+  --bg-surface: rgba(15, 15, 30, 0.7);
+  --bg-card: rgba(22, 22, 45, 0.5);
+  --bg-hover: rgba(35, 35, 70, 0.65);
+  
+  --accent-alice: #8b5cf6; /* Alice purple */
+  --accent-alice-glow: rgba(139, 92, 246, 0.3);
+  --accent-alice-semi: rgba(139, 92, 246, 0.2);
+  --accent-alice-trans: rgba(139, 92, 246, 0.05);
+  
+  --accent-cyan: #00f0ff;
+  --accent-cyan-glow: rgba(0, 240, 255, 0.3);
+  --accent-cyan-trans: rgba(0, 240, 255, 0.05);
+  --accent-cyan-semi: rgba(0, 240, 255, 0.3);
+  --accent-emerald: #10b981;
 
-    --accent-secondary-blue: #6366f1;
-    
-    --text-primary: #f3f4f6;
-    --text-primary-semi: rgba(255, 255, 255, 0.7);
-    --text-primary-trans: rgba(255, 255, 255, 0.04);
-    --text-secondary: #a1a1aa;
-    --text-muted: #6b7280;
-    
-    --border-primary: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(139, 92, 246, 0.4);
-    --border-footer: rgba(255, 255, 255, 0.05);
-    --border-item: rgba(255, 255, 255, 0.04);
-    --border-share: rgba(139, 92, 246, 0.2);
+  --accent-secondary-blue: #6366f1;
+  
+  --text-primary: #f3f4f6;
+  --text-primary-semi: rgba(255, 255, 255, 0.7);
+  --text-primary-trans: rgba(255, 255, 255, 0.04);
+  --text-secondary: #a1a1aa;
+  --text-muted: #6b7280;
+  
+  --border-primary: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(139, 92, 246, 0.4);
+  --border-footer: rgba(255, 255, 255, 0.05);
+  --border-item: rgba(255, 255, 255, 0.04);
+  --border-share: rgba(139, 92, 246, 0.2);
 
-    /* Yandex Brand Colors (CPA buttons) */
-    --yandex-red: #fc3f1d;
-    --yandex-red-dark: #d32f0f;
-    --yandex-red-glow: rgba(252, 63, 29, 0.2);
-    --yandex-red-glow-heavy: rgba(252, 63, 29, 0.4);
+  /* Yandex Brand Colors (CPA buttons) */
+  --yandex-red: #fc3f1d;
+  --yandex-red-dark: #d32f0f;
+  --yandex-red-glow: rgba(252, 63, 29, 0.2);
+  --yandex-red-glow-heavy: rgba(252, 63, 29, 0.4);
 
-    /* Difficulty badges */
-    --diff-easy-bg: rgba(16, 185, 129, 0.12);
-    --diff-easy-text: #10b981;
-    --diff-easy-border: rgba(16, 185, 129, 0.15);
+  /* Difficulty badges */
+  --diff-easy-bg: rgba(16, 185, 129, 0.12);
+  --diff-easy-text: #10b981;
+  --diff-easy-border: rgba(16, 185, 129, 0.15);
 
-    --diff-medium-bg: rgba(245, 158, 11, 0.12);
-    --diff-medium-text: #fbbf24;
-    --diff-medium-border: rgba(245, 158, 11, 0.15);
+  --diff-medium-bg: rgba(245, 158, 11, 0.12);
+  --diff-medium-text: #fbbf24;
+  --diff-medium-border: rgba(245, 158, 11, 0.15);
 
-    --diff-hard-bg: rgba(239, 68, 68, 0.12);
-    --diff-hard-text: #fca5a5;
-    --diff-hard-border: rgba(239, 68, 68, 0.15);
-    
-    /* Shadows & Glows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    
-    --glow-alice: 0 0 25px rgba(139, 92, 246, 0.25);
-    --glow-alice-heavy: 0 0 35px rgba(139, 92, 246, 0.5);
-    --glow-cyan: 0 0 25px rgba(0, 240, 255, 0.2);
-    --glow-cyan-heavy: 0 0 15px rgba(0, 240, 255, 0.4);
-    --shadow-share: 0 4px 20px rgba(139, 92, 246, 0.05);
+  --diff-hard-bg: rgba(239, 68, 68, 0.12);
+  --diff-hard-text: #fca5a5;
+  --diff-hard-border: rgba(239, 68, 68, 0.15);
+  
+  /* Shadows & Glows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --glow-alice: 0 0 25px rgba(139, 92, 246, 0.25);
+  --glow-alice-heavy: 0 0 35px rgba(139, 92, 246, 0.5);
+  --glow-cyan: 0 0 25px rgba(0, 240, 255, 0.2);
+  --glow-cyan-heavy: 0 0 15px rgba(0, 240, 255, 0.4);
+  --shadow-share: 0 4px 20px rgba(139, 92, 246, 0.05);
 
-    /* Graphic Elements */
-    --text-shadow-alice: 0 0 10px rgba(139, 92, 246, 0.4);
-    --text-shadow-white: 0 0 8px rgba(255, 255, 255, 0.5);
-    --header-logo-glow: drop-shadow(0 0 8px var(--accent-alice));
-    --step-item-bg: linear-gradient(135deg, rgba(22, 22, 45, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
-    --bg-item: rgba(255, 255, 255, 0.02);
-  }
+  /* Graphic Elements */
+  --text-shadow-alice: 0 0 10px rgba(139, 92, 246, 0.4);
+  --text-shadow-white: 0 0 8px rgba(255, 255, 255, 0.5);
+  --header-logo-glow: drop-shadow(0 0 8px var(--accent-alice));
+  --step-item-bg: linear-gradient(135deg, rgba(22, 22, 45, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
+  --bg-item: rgba(255, 255, 255, 0.02);
 }
 
 /* Base Reset */
@@ -265,4 +261,49 @@ html {
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
+}
+
+/* Доступность: Ссылка «Перейти к содержанию» */
+.skip-link {
+  position: absolute;
+  top: -10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-alice);
+  color: var(--text-white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-weight: 600;
+  z-index: 9999;
+  box-shadow: var(--glow-alice-heavy);
+  transition: top 0.3s ease;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+}
+
+/* Доступность: Фокус для клавиатурной навигации */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible,
+.scenario-card:focus-visible,
+.trouble-card:focus-visible,
+.related-card:focus-visible {
+  outline: 3px solid var(--accent-alice);
+  outline-offset: 4px;
+}
+
+/* Доступность: Отключение анимаций для пользователей с vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

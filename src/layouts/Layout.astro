@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -13,14 +14,16 @@ interface Props {
 const { 
 	title, 
 	description, 
-	image = '/og-image.jpg', 
+	image = '/og-image.png', 
 	jsonLd 
 } = Astro.props;
 
-let canonicalURLString = new URL(Astro.url.pathname, Astro.site || 'https://alice-smarthome.ru').href.toLowerCase();
-if (canonicalURLString.endsWith('/') && canonicalURLString.split('/').length > 4) {
-  canonicalURLString = canonicalURLString.slice(0, -1);
-}
+// Надежная нормализация canonical URL
+const host = 'https://alice-smarthome.ru';
+const cleanPath = Astro.url.pathname.replace(/\/$/, "");
+const canonicalURLString = cleanPath === "" 
+  ? `${host}/` 
+  : `${host}${cleanPath.toLowerCase()}`;
 ---
 
 <!doctype html>
@@ -35,8 +38,40 @@ if (canonicalURLString.endsWith('/') && canonicalURLString.split('/').length > 4
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
 
+		<!-- View Transitions -->
+		<ClientRouter />
+
+		<!-- Theme Initialization Script to avoid FOUC -->
+		<script is:inline>
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					return 'dark';
+				}
+				return 'light';
+			})();
+			
+			if (theme === 'dark') {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
+
+		<!-- Preconnect and Preload Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" as="style" />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURLString} />
+
+		<!-- Localization Hreflang -->
+		<link rel="alternate" hreflang="ru" href={canonicalURLString} />
+		<link rel="alternate" hreflang="x-default" href={canonicalURLString} />
 
 		<!-- Primary Meta Tags -->
 		<title>{title} | Умный Дом с Алисой</title>
@@ -49,21 +84,24 @@ if (canonicalURLString.endsWith('/') && canonicalURLString.split('/').length > 4
 		<meta property="og:title" content={`${title} | Умный Дом с Алисой`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL(image, Astro.url)} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 
 		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
-		<meta property="twitter:title" content={`${title} | Умный Дом с Алисой`} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={Astro.url} />
+		<meta name="twitter:title" content={`${title} | Умный Дом с Алисой`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, Astro.url)} />
 
 		<!-- JSON-LD Structured Data -->
 		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
 	</head>
 	<body>
+		<a href="#main-content" class="skip-link">Перейти к содержанию</a>
 		<Header />
 
-		<main class="container">
+		<main id="main-content" class="container">
 			<slot />
 		</main>
 

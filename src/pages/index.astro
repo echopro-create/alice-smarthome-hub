@@ -1,25 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import { getDifficultyLabel } from '../utils/difficulty';
 
 const allEntries = await getCollection('scenarios');
 
 // Разделяем записи по категориям
 const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
 const troubleshooting = allEntries.filter(entry => entry.data.category === 'troubleshooting');
-
-const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
-  switch (diff) {
-    case 'easy': return 'Легко';
-    case 'medium': return 'Средне';
-    case 'hard': return 'Сложно';
-    default: return '';
-  }
-};
 ---
 
 <Layout 
-  title="Главная" 
+  title="Пошаговые сценарии автоматизации и инструкции по настройке" 
   description="Библиотека пошаговых сценариев и руководств по траблшутингу для вашего Умного Дома с Алисой. Систематизируем опыт закрытых сообществ."
 >
   <!-- Hero Section -->

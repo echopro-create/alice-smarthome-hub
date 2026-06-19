@@ -351,5 +351,37 @@ test("HTML: структура и иерархия заголовков, canonic
         maxLevelSeen = current;
       }
     }
+
+    // 7. Проверка всех картинок на странице на стандарты SEO и CLS 2026
+    const imgRegex = /<img([^>]*)\/?>/g;
+    let imgMatch;
+    while ((imgMatch = imgRegex.exec(content)) !== null) {
+      const fullTag = imgMatch[0];
+      const attributes = imgMatch[1] || "";
+
+      const hasLoading = /loading=["']lazy["']/i.test(attributes);
+      const hasDecoding = /decoding=["']async["']/i.test(attributes);
+      const hasAlt = /alt=/i.test(attributes);
+      // Astro-assets генерирует width/height, но также мы проверяем их
+      const hasWidth = /width=/i.test(attributes);
+      const hasHeight = /height=/i.test(attributes);
+
+      assert.ok(
+        hasLoading,
+        `Файл ${filePath} содержит картинку без loading="lazy": ${fullTag}`
+      );
+      assert.ok(
+        hasDecoding,
+        `Файл ${filePath} содержит картинку без decoding="async": ${fullTag}`
+      );
+      assert.ok(
+        hasAlt,
+        `Файл ${filePath} содержит картинку без alt: ${fullTag}`
+      );
+      assert.ok(
+        hasWidth && hasHeight,
+        `Файл ${filePath} содержит картинку без width или height: ${fullTag}`
+      );
+    }
   });
 });

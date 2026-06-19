@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Страница не найдена (404)" 
+  description="К сожалению, запрашиваемая страница не найдена. Вернитесь на главную страницу хаба умного дома с Алисой."
+>
+  <div class="error-container">
+    <div class="error-card glass">
+      <div class="error-icon font-outfit">404</div>
+      <h1 class="error-title font-outfit">Страница не найдена</h1>
+      <p class="error-text">
+        Возможно, этот сценарий был перенесен, удален или вы ввели неверный URL-адрес. Нажмите кнопку ниже, чтобы вернуться к изучению руководств.
+      </p>
+      <a href="/" class="btn btn-primary font-outfit">На главную</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 2rem;
+  }
+
+  .error-card {
+    max-width: 500px;
+    width: 100%;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .error-icon {
+    font-size: 6rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 12px rgba(124, 58, 237, 0.15));
+  }
+
+  .error-title {
+    font-size: 2rem;
+    color: var(--text-primary);
+  }
+
+  .error-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .btn-primary {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    color: var(--text-white);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--glow-alice);
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-alice-heavy);
+    filter: brightness(1.1);
+  }
+</style>

@@ -2,10 +2,33 @@
 ---
 <footer class="glass">
   <div class="container footer-container">
-    <div class="footer-info">
-      <p class="footer-title">Хаб Сценариев Умного Дома</p>
-      <p class="footer-description">Уникальные пошаговые инструкции, разборы и локальные Zigbee сценарии для интеграции ваших умных устройств с виртуальным ассистентом Алисой.</p>
+    <div class="footer-grid">
+      <div class="footer-info">
+        <p class="footer-title">Хаб Сценариев Умного Дома</p>
+        <p class="footer-description">Уникальные пошаговые инструкции, разборы и локальные Zigbee сценарии для интеграции ваших умных устройств с виртуальным ассистентом Алисой.</p>
+      </div>
+      
+      <div class="footer-nav">
+        <!-- Навигационная таблица по запросу пользователя -->
+        <table class="footer-table" role="presentation">
+          <thead>
+            <tr>
+              <th class="font-outfit">Разделы</th>
+              <th class="font-outfit">Документы</th>
+              <th class="font-outfit">Обратная связь</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="/about" class="footer-link">О проекте</a></td>
+              <td><a href="/privacy" class="footer-link">Политика конфиденциальности</a></td>
+              <td><a href="/contacts" class="footer-link">Контакты</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
     <div class="footer-disclaimer">
       <p>© 2026 Неофициальный гайд-портал по автоматизации. Товарные знаки "Яндекс", "Алиса", "Дом с Алисой" принадлежат ООО «ЯНДЕКС».</p>
     </div>
@@ -16,35 +39,91 @@
   footer {
     margin-top: auto;
     border-top: 1px solid var(--border-footer);
-    padding: 2rem 0;
+    padding: 3rem 0 2rem 0;
+    background: var(--bg-surface);
   }
 
   .footer-container {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2.5rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 
   .footer-title {
     font-family: 'Outfit', sans-serif;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .footer-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    .footer-nav {
+      justify-content: flex-start;
+    }
+  }
+
+  .footer-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .footer-table th {
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-primary);
+    font-weight: 600;
+  }
+
+  .footer-table td {
+    padding-top: 0.75rem;
+  }
+
+  .footer-link {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    max-width: 600px;
-    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--accent-alice);
   }
 
   .footer-disclaimer {
     font-size: 0.75rem;
     color: var(--text-muted);
     border-top: 1px solid var(--border-footer);
-    padding-top: 1rem;
+    padding-top: 1.5rem;
     text-align: center;
+    line-height: 1.5;
   }
 </style>

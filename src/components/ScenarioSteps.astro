@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Step {
   title: string;
   text: string;
-  image?: string;
+  image?: any;
 }
 
 interface Props {
@@ -28,13 +30,13 @@ const { steps } = Astro.props;
         
         {step.image && (
           <div class="step-image-container">
-            <img 
+            <Image 
               src={step.image} 
-              alt={`Инструкция: ${step.title}. Сценарий «Утренний кофе»`} 
+              alt={`Инструкция: ${step.title}`} 
               loading="lazy" 
               decoding="async" 
-              width="800" 
-              height="450" 
+              width={800} 
+              height={450} 
               class="step-image"
             />
             <div class="laser-glow"></div>

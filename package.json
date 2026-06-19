@@ -1,5 +1,8 @@
 {
-  "name": "stale-shepherd",
+  "name": "alice-smarthome-hub",
+  "description": "Контентный хаб Умного Дома с Алисой: сценарии автоматизации и руководства",
+  "author": "illia",
+  "license": "MIT",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -13,6 +16,7 @@
     "test": "node --test tests/*.test.js"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.7"
   }
 }
