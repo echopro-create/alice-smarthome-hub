@@ -1,0 +1,237 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { getDifficultyLabel } from '../../utils/difficulty';
+
+const allEntries = await getCollection('scenarios');
+const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
+---
+
+<Layout 
+  title="Пошаговые сценарии автоматизации" 
+  description="Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями."
+>
+  <section class="page-section">
+    <div class="page-header">
+      <h1 class="page-heading font-outfit"><span aria-hidden="true">🔮</span> Сценарии автоматизации</h1>
+      <div class="section-divider"></div>
+      <p class="page-desc">Готовые алгоритмы для вашего умного дома: каждый сценарий содержит пошаговую инструкцию, список оборудования и скриншоты приложения «Дом с Алисой».</p>
+    </div>
+    
+    <div class="scenarios-grid">
+      {scenarios.map((scenario) => (
+        <a href={`/scenarios/${scenario.id}`} class="scenario-card glass">
+          <div class="card-header">
+            <span class={`difficulty-badge ${scenario.data.difficulty}`}>
+              {getDifficultyLabel(scenario.data.difficulty)}
+            </span>
+            <span class="date-badge">
+              {new Date(scenario.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </span>
+          </div>
+          <h2 class="card-title font-outfit">{scenario.data.title}</h2>
+          <p class="card-desc">{scenario.data.description}</p>
+          
+          {scenario.data.devices && (
+            <div class="card-devices">
+              {scenario.data.devices.slice(0, 3).map((device) => (
+                <span class="device-tag">{device}</span>
+              ))}
+              {scenario.data.devices.length > 3 && (
+                <span class="device-tag-more">+{scenario.data.devices.length - 3}</span>
+              )}
+            </div>
+          )}
+          
+          <span class="card-link font-outfit">
+            Читать гайд <span class="arrow">→</span>
+          </span>
+        </a>
+      ))}
+    </div>
+
+    {scenarios.length === 0 && (
+      <div class="empty-state glass">
+        <p class="empty-text">Сценарии скоро появятся. Мы активно работаем над наполнением библиотеки.</p>
+      </div>
+    )}
+  </section>
+</Layout>
+
+<style>
+  .page-section {
+    padding: 2rem 0 4rem 0;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-heading {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-divider {
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    border-radius: 99px;
+    margin: 0.75rem 0 1rem 0;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .scenario-card {
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .scenario-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: var(--glow-alice);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .difficulty-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .difficulty-badge.easy {
+    background: var(--diff-easy-bg);
+    color: var(--diff-easy-text);
+    border: 1px solid var(--diff-easy-border);
+  }
+
+  .difficulty-badge.medium {
+    background: var(--diff-medium-bg);
+    color: var(--diff-medium-text);
+    border: 1px solid var(--diff-medium-border);
+  }
+
+  .difficulty-badge.hard {
+    background: var(--diff-hard-bg);
+    color: var(--diff-hard-text);
+    border: 1px solid var(--diff-hard-border);
+  }
+
+  .date-badge {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .scenario-card:hover .card-title {
+    color: var(--accent-alice);
+  }
+
+  .card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .card-devices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .device-tag {
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .device-tag-more {
+    font-size: 0.75rem;
+    color: var(--accent-alice);
+    font-weight: 600;
+    align-self: center;
+  }
+
+  .card-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-alice);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+  }
+
+  .card-link .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .scenario-card:hover .card-link .arrow {
+    transform: translateX(4px);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border-primary);
+  }
+
+  .empty-text {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 768px) {
+    .scenarios-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .page-heading {
+      font-size: 2rem;
+    }
+  }
+</style>

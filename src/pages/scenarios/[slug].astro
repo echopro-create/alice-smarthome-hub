@@ -54,8 +54,8 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 2,
-      "name": entry.data.category === 'scenario' ? 'Сценарии' : 'Траблшутинг',
-      "item": `${host}/${entry.data.category === 'scenario' ? '#scenarios' : '#troubleshooting'}`
+      "name": "Сценарии",
+      "item": `${host}/scenarios/`
     },
     {
       "@type": "ListItem",
@@ -76,11 +76,15 @@ if (entry.data.steps) {
     "description": entry.data.description,
     "datePublished": entry.data.publishDate.toISOString(),
     ...(entry.data.updatedDate ? { "dateModified": entry.data.updatedDate.toISOString() } : {}),
+    "image": entry.data.steps[0]?.image 
+      ? new URL(entry.data.steps[0].image.src, host).href 
+      : new URL('/og-image.png', host).href,
     "step": entry.data.steps.map((step, index) => ({
       "@type": "HowToStep",
       "position": index + 1,
       "name": step.title,
       "text": step.text,
+      "url": `${canonicalURL}#step-${index + 1}`,
       ...(step.image ? { "image": new URL(step.image.src, host).href } : {})
     }))
   };
@@ -105,9 +109,7 @@ const jsonLdString = JSON.stringify(schemas);
     <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
       <a href="/">Главная</a>
       <span class="separator">/</span>
-      <a href={entry.data.category === 'scenario' ? '/#scenarios' : '/#troubleshooting'}>
-        {entry.data.category === 'scenario' ? 'Сценарии' : 'Траблшутинг'}
-      </a>
+      <a href="/scenarios/">Сценарии</a>
       <span class="separator">/</span>
       <span class="current" title={entry.data.title}>{entry.data.title}</span>
     </nav>

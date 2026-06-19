@@ -94,7 +94,36 @@ const canonicalURLString = cleanPath === ""
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL(image, Astro.url)} />
 
-		<!-- JSON-LD Structured Data -->
+		<!-- JSON-LD Structured Data: Organization + WebSite (every page) -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Organization",
+				"name": "Умный Дом с Алисой",
+				"url": "https://alice-smarthome.ru",
+				"logo": "https://alice-smarthome.ru/favicon.svg",
+				"email": "hello@alice-smarthome.ru",
+				"description": "Библиотека пошаговых сценариев и руководств по траблшутингу для Умного Дома с Алисой"
+			}
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"name": "Умный Дом с Алисой",
+				"url": "https://alice-smarthome.ru",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": {
+						"@type": "EntryPoint",
+						"urlTemplate": "https://alice-smarthome.ru/search?q={search_term_string}"
+					},
+					"query-input": "required name=search_term_string"
+				}
+			}
+		</script>
+
+		<!-- JSON-LD: Page-specific structured data (BreadcrumbList, HowTo, TechArticle) -->
 		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
 	</head>
 	<body>

@@ -1,0 +1,252 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { getDifficultyLabel } from '../../utils/difficulty';
+
+const allEntries = await getCollection('scenarios');
+const troubleshooting = allEntries.filter(entry => entry.data.category === 'troubleshooting');
+---
+
+<Layout 
+  title="Разборы и траблшутинг умного дома" 
+  description="Технические разборы частых проблем умного дома с Алисой: отвалы датчиков, радиопомехи Zigbee, совместимость устройств. Пошаговые инструкции по решению."
+>
+  <section class="page-section">
+    <div class="page-header">
+      <h1 class="page-heading font-outfit"><span aria-hidden="true">🔧</span> Разборы и траблшутинг</h1>
+      <div class="section-divider"></div>
+      <p class="page-desc">Технические расследования и пошаговые инструкции по устранению неполадок в экосистеме умного дома Яндекса.</p>
+    </div>
+    
+    <div class="trouble-list">
+      {troubleshooting.map((article) => (
+        <a href={`/troubleshooting/${article.id}`} class="trouble-card glass">
+          <div class="trouble-icon" aria-hidden="true">⚠️</div>
+          <div class="trouble-content">
+            <div class="trouble-meta">
+              {article.data.difficulty && (
+                <span class={`difficulty-badge ${article.data.difficulty}`}>
+                  {getDifficultyLabel(article.data.difficulty)}
+                </span>
+              )}
+              <span class="trouble-date">
+                {new Date(article.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </span>
+            </div>
+            <h2 class="trouble-title font-outfit">{article.data.title}</h2>
+            <p class="trouble-desc">{article.data.description}</p>
+            {article.data.devices && (
+              <div class="trouble-devices">
+                {article.data.devices.map((device) => (
+                  <span class="device-tag">{device}</span>
+                ))}
+              </div>
+            )}
+          </div>
+          <span class="trouble-btn font-outfit">Решение →</span>
+        </a>
+      ))}
+    </div>
+
+    {troubleshooting.length === 0 && (
+      <div class="empty-state glass">
+        <p class="empty-text">Разборы скоро появятся. Мы активно работаем над наполнением базы знаний.</p>
+      </div>
+    )}
+  </section>
+</Layout>
+
+<style>
+  .page-section {
+    padding: 2rem 0 4rem 0;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-heading {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-divider {
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-alice) 100%);
+    border-radius: 99px;
+    margin: 0.75rem 0 1rem 0;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .trouble-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .trouble-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.75rem 2rem;
+    border-radius: var(--radius-md);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .trouble-card:hover {
+    border-color: var(--accent-cyan-semi);
+    box-shadow: var(--glow-cyan);
+    transform: translateY(-3px);
+  }
+
+  .trouble-icon {
+    font-size: 2.4rem;
+    filter: drop-shadow(0 0 8px var(--accent-cyan-semi));
+    flex-shrink: 0;
+  }
+
+  .trouble-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .trouble-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .difficulty-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .difficulty-badge.easy {
+    background: var(--diff-easy-bg);
+    color: var(--diff-easy-text);
+    border: 1px solid var(--diff-easy-border);
+  }
+
+  .difficulty-badge.medium {
+    background: var(--diff-medium-bg);
+    color: var(--diff-medium-text);
+    border: 1px solid var(--diff-medium-border);
+  }
+
+  .difficulty-badge.hard {
+    background: var(--diff-hard-bg);
+    color: var(--diff-hard-text);
+    border: 1px solid var(--diff-hard-border);
+  }
+
+  .trouble-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .trouble-title {
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+  }
+
+  .trouble-card:hover .trouble-title {
+    color: var(--accent-cyan);
+  }
+
+  .trouble-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .trouble-devices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .device-tag {
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .trouble-btn {
+    padding: 0.5rem 1.25rem;
+    background: var(--accent-cyan-trans);
+    border: 1px solid var(--accent-cyan-semi);
+    border-radius: 99px;
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .trouble-card:hover .trouble-btn {
+    background: var(--accent-cyan);
+    color: var(--bg-main);
+    box-shadow: var(--glow-cyan-heavy);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border-primary);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .empty-text {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 768px) {
+    .trouble-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .trouble-btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .page-heading {
+      font-size: 2rem;
+    }
+  }
+</style>

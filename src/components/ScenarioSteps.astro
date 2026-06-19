@@ -16,7 +16,7 @@ const { steps } = Astro.props;
 
 <div class="steps-container">
   {steps.map((step, index) => (
-    <div class="step-card glass">
+    <div class="step-card glass" id={`step-${index + 1}`}>
       <div class="step-badge-wrapper">
         <div class="step-line-top" style={index === 0 ? "display: none;" : ""}></div>
         <div class="step-number-badge">

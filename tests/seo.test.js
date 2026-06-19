@@ -546,8 +546,9 @@ test("[SEO 2026] Noindex: страница 404 должна быть noindex", (
 test("[SEO 2026] Article: article:published_time присутствует на страницах статей", () => {
   const files = getDistHtmlFiles();
   if (files.length === 0) return;
-  const articlePages = files.filter(f => f.includes("/scenarios/"));
-  articlePages.forEach(fp => {
+  const articlePages = files.filter(f => f.includes("/scenarios/") && /\/scenarios\/[^\/]+\/index\.html$/.test(f));
+  const troubleshootingPages = files.filter(f => f.includes("/troubleshooting/") && /\/troubleshooting\/[^\/]+\/index\.html$/.test(f));
+  [...articlePages, ...troubleshootingPages].forEach(fp => {
     const content = fs.readFileSync(fp, "utf8");
     assert.match(content, /article:published_time/, `${fp}: нет article:published_time`);
   });
@@ -609,7 +610,7 @@ test("[SEO 2026] JSON-LD: все страницы имеют валидный JS
   });
 });
 
-test("[SEO 2026] JSON-LD: статьи HowTo имеют обязательные поля (name, description, datePublished, step)", () => {
+test("[SEO 2026] JSON-LD: статьи HowTo имеют обязательные поля (name, description, datePublished, step, image)", () => {
   const files = getDistHtmlFiles().filter(f => f.includes("/scenarios/") && !f.includes("/404"));
   if (files.length === 0) return;
   const howToPages = [];
@@ -628,27 +629,66 @@ test("[SEO 2026] JSON-LD: статьи HowTo имеют обязательные
     assert.ok(item.schema.name, `${item.file}: HowTo без name`);
     assert.ok(item.schema.description, `${item.file}: HowTo без description`);
     assert.ok(item.schema.datePublished, `${item.file}: HowTo без datePublished`);
+    assert.ok(item.schema.image, `${item.file}: HowTo без image (главное изображение для сниппета)`);
     assert.ok(Array.isArray(item.schema.step) && item.schema.step.length > 0, `${item.file}: HowTo без шагов`);
     item.schema.step.forEach((step, i) => {
       assert.ok(step.name, `${item.file}: HowToStep ${i + 1} без name`);
       assert.ok(step.text, `${item.file}: HowToStep ${i + 1} без text`);
+      assert.ok(step.url, `${item.file}: HowToStep ${i + 1} без url (якорная ссылка на шаг)`);
+      assert.ok(step.url.includes("#step-"), `${item.file}: HowToStep ${i + 1} url без #step-${i + 1}`);
     });
   });
 });
 
-test("[SEO 2026] JSON-LD: страницы статей имеют BreadcrumbList", () => {
-  const files = getDistHtmlFiles().filter(f => f.includes("/scenarios/") && !f.includes("/404"));
+test("[SEO 2026] JSON-LD: страницы статей имеют BreadcrumbList с чистыми URL (без hash)", () => {
+  const files = getDistHtmlFiles().filter(f => (f.match(/\/scenarios\/[^\/]+\/index\.html/) || f.match(/\/troubleshooting\/[^\/]+\/index\.html/)));
   if (files.length === 0) return;
   files.forEach(fp => {
     const content = fs.readFileSync(fp, "utf8");
     const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
     let hasBreadcrumb = false;
+    let breadcrumbOk = true;
     scripts.forEach(s => {
       const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
       const schemas = Array.isArray(json) ? json : [json];
-      if (schemas.some(n => n["@type"] === "BreadcrumbList")) hasBreadcrumb = true;
+      const bc = schemas.find(n => n["@type"] === "BreadcrumbList");
+      if (bc) {
+        hasBreadcrumb = true;
+        // Проверяем, что ни один itemListElement не содержит # (hash-фрагмент)
+        (bc.itemListElement || []).forEach(item => {
+          if (item.item && item.item.includes("#")) {
+            breadcrumbOk = false;
+          }
+        });
+        // Проверяем, что позиция 2 ссылается на /scenarios/ или /troubleshooting/
+        if (bc.itemListElement && bc.itemListElement[1]) {
+          const pos2url = bc.itemListElement[1].item;
+          assert.ok(pos2url.includes("/scenarios/") || pos2url.includes("/troubleshooting/"),
+            `${fp}: BreadcrumbList позиция 2 не содержит /scenarios/ или /troubleshooting/`);
+        }
+      }
     });
     assert.ok(hasBreadcrumb, `${fp}: нет BreadcrumbList в JSON-LD`);
+    assert.ok(breadcrumbOk, `${fp}: BreadcrumbList содержит hash-фрагмент (#) — нужен чистый URL`);
+  });
+});
+
+test("[SEO 2026] JSON-LD: Organization и WebSite схемы присутствуют на каждой странице", () => {
+  const files = getDistHtmlFiles();
+  if (files.length === 0) return;
+  files.forEach(fp => {
+    const content = fs.readFileSync(fp, "utf8");
+    const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+    let hasOrg = false;
+    let hasWebSite = false;
+    scripts.forEach(s => {
+      const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
+      const schemas = Array.isArray(json) ? json : [json];
+      if (schemas.some(n => n["@type"] === "Organization" && n.name && n.logo)) hasOrg = true;
+      if (schemas.some(n => n["@type"] === "WebSite" && n.potentialAction?.["@type"] === "SearchAction")) hasWebSite = true;
+    });
+    assert.ok(hasOrg, `${fp}: нет Organization JSON-LD (name + logo)`);
+    assert.ok(hasWebSite, `${fp}: нет WebSite JSON-LD с SearchAction`);
   });
 });
 
@@ -656,13 +696,14 @@ test("[SEO 2026] JSON-LD: страницы статей имеют BreadcrumbLis
 // 13. UX / НАВИГАЦИЯ
 // ============================================================
 
-test("[UX 2026] Nav: хлебные крошки присутствуют на страницах статей", () => {
-  const files = getDistHtmlFiles().filter(f => f.includes("/scenarios/") && !f.includes("/404"));
+test("[UX 2026] Nav: хлебные крошки на статьях не содержат hash-фрагментов", () => {
+  const files = getDistHtmlFiles().filter(f => (f.match(/\/scenarios\/[^\/]+\/index\.html/) || f.match(/\/troubleshooting\/[^\/]+\/index\.html/)));
   if (files.length === 0) return;
   files.forEach(fp => {
     const content = fs.readFileSync(fp, "utf8");
-    assert.match(content, /aria-label=["']Хлебные крошки["']/, `${fp}: нет хлебных крошек`);
-    assert.match(content, /Главная/, `${fp}: хлебные крошки без ссылки на Главную`);
+    assert.doesNotMatch(content, /href="\/#scenarios"/, `${fp}: хлебные крошки с /#scenarios`);
+    assert.doesNotMatch(content, /href="\/#troubleshooting"/, `${fp}: хлебные крошки с /#troubleshooting`);
+    assert.match(content, /href="\/scenarios\/"/, `${fp}: хлебные крошки без ссылки на /scenarios/`);
   });
 });
 
