@@ -3,14 +3,31 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { getDifficultyLabel } from '../../utils/difficulty';
 
-const allEntries = await getCollection('scenarios');
-const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
+export async function getStaticPaths({ paginate }) {
+  const allEntries = await getCollection('scenarios');
+  const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
+  
+  // Сортировка по дате публикации (свежие сверху)
+  scenarios.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+  
+  // PAGE_SIZE равен 3 для теста, чтобы показать пагинацию. Легко меняется на 9.
+  return paginate(scenarios, { pageSize: 3 });
+}
+
+const { page } = Astro.props;
+const scenarios = page.data;
+const currentPage = page.currentPage;
+
+// SEO мета-теги с учетом номера страницы
+const title = currentPage > 1 
+  ? `Пошаговые сценарии автоматизации — Страница ${currentPage}`
+  : "Пошаговые сценарии автоматизации";
+const description = currentPage > 1
+  ? `Каталог пошаговых сценариев умного дома с Алисой. Страница ${currentPage} из ${page.lastPage}.`
+  : "Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями.";
 ---
 
-<Layout 
-  title="Пошаговые сценарии автоматизации" 
-  description="Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями."
->
+<Layout title={title} description={description}>
   <section class="page-section">
     <div class="page-header">
       <h1 class="page-heading font-outfit"><span aria-hidden="true">🔮</span> Сценарии автоматизации</h1>
@@ -55,6 +72,47 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
         <p class="empty-text">Сценарии скоро появятся. Мы активно работаем над наполнением библиотеки.</p>
       </div>
     )}
+
+    {page.lastPage > 1 && (
+      <nav class="pagination" aria-label="Навигация по страницам">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="pagination-arrow prev" aria-label="Предыдущая страница">
+            ← <span>Назад</span>
+          </a>
+        ) : (
+          <span class="pagination-arrow prev disabled" aria-label="Предыдущая страница">
+            ← <span>Назад</span>
+          </span>
+        )}
+
+        <div class="pagination-pages">
+          {Array.from({ length: page.lastPage }, (_, i) => {
+            const pageNum = i + 1;
+            const href = pageNum === 1 ? '/scenarios/' : `/scenarios/${pageNum}/`;
+            const isCurrent = page.currentPage === pageNum;
+            return isCurrent ? (
+              <span class="pagination-number active" aria-current="page">
+                {pageNum}
+              </span>
+            ) : (
+              <a href={href} class="pagination-number">
+                {pageNum}
+              </a>
+            );
+          })}
+        </div>
+
+        {page.url.next ? (
+          <a href={page.url.next} class="pagination-arrow next" aria-label="Следующая страница">
+            <span>Вперед</span> →
+          </a>
+        ) : (
+          <span class="pagination-arrow next disabled" aria-label="Следующая страница">
+            <span>Вперед</span> →
+          </span>
+        )}
+      </nav>
+    )}
   </section>
 </Layout>
 
@@ -73,7 +131,7 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
 
   .page-heading {
     font-size: 2.5rem;
-    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-cyan) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -83,7 +141,7 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
   .section-divider {
     width: 50px;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-alice) 100%);
     border-radius: 99px;
     margin: 0.75rem 0 1rem 0;
   }
@@ -110,12 +168,14 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     color: inherit;
+    text-align: left;
   }
 
   .scenario-card:hover {
     transform: translateY(-4px);
-    border-color: var(--border-hover);
-    box-shadow: var(--glow-alice);
+    border-color: var(--accent-cyan-semi);
+    box-shadow: var(--glow-cyan);
+    background: var(--bg-hover);
   }
 
   .card-header {
@@ -162,7 +222,7 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
   }
 
   .scenario-card:hover .card-title {
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
   }
 
   .card-desc {
@@ -190,7 +250,7 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
 
   .device-tag-more {
     font-size: 0.75rem;
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
     font-weight: 600;
     align-self: center;
   }
@@ -198,7 +258,7 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
   .card-link {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -225,6 +285,80 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
     font-size: 1.05rem;
   }
 
+  /* Пагинация (стили 2026) */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 4rem;
+    padding: 0.5rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(8px);
+  }
+
+  .pagination-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pagination-arrow:not(.disabled):hover {
+    background: var(--bg-hover);
+    color: var(--accent-cyan);
+  }
+
+  .pagination-arrow.disabled {
+    color: var(--text-muted);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .pagination-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pagination-number:hover {
+    background: var(--bg-hover);
+    color: var(--accent-cyan);
+  }
+
+  .pagination-number.active {
+    background: var(--accent-cyan);
+    color: var(--bg-main);
+    box-shadow: var(--glow-cyan-heavy);
+  }
+
   @media (max-width: 768px) {
     .scenarios-grid {
       grid-template-columns: 1fr;
@@ -232,6 +366,27 @@ const scenarios = allEntries.filter(entry => entry.data.category === 'scenario')
     
     .page-heading {
       font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .pagination {
+      gap: 0.4rem;
+      padding: 0.4rem;
+    }
+    
+    .pagination-arrow span {
+      display: none;
+    }
+    
+    .pagination-arrow {
+      padding: 0.6rem 0.9rem;
+    }
+    
+    .pagination-number {
+      min-width: 36px;
+      height: 36px;
+      font-size: 0.9rem;
     }
   }
 </style>

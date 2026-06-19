@@ -35,7 +35,7 @@ if (relatedEntries.length < 3) {
 }
 
 // Формирование JSON-LD схем (BreadcrumbList + HowTo)
-const host = 'https://alice-smarthome.ru';
+const host = Astro.site?.href || 'https://alice-smarthome.ru';
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
 const canonicalURL = cleanPath === "" 
   ? `${host}/` 

@@ -3,14 +3,31 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { getDifficultyLabel } from '../../utils/difficulty';
 
-const allEntries = await getCollection('scenarios');
-const troubleshooting = allEntries.filter(entry => entry.data.category === 'troubleshooting');
+export async function getStaticPaths({ paginate }) {
+  const allEntries = await getCollection('scenarios');
+  const troubleshooting = allEntries.filter(entry => entry.data.category === 'troubleshooting');
+  
+  // Сортировка по дате публикации (свежие сверху)
+  troubleshooting.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+  
+  // PAGE_SIZE равен 1 для теста, чтобы показать пагинацию. Легко меняется на 9.
+  return paginate(troubleshooting, { pageSize: 1 });
+}
+
+const { page } = Astro.props;
+const troubleshooting = page.data;
+const currentPage = page.currentPage;
+
+// SEO мета-теги с учетом номера страницы
+const title = currentPage > 1 
+  ? `Разборы и траблшутинг умного дома — Страница ${currentPage}`
+  : "Разборы и траблшутинг умного дома";
+const description = currentPage > 1
+  ? `Технические разборы частых проблем умного дома с Алисой. Страница ${currentPage} из ${page.lastPage}.`
+  : "Технические разборы частых проблем умного дома с Алисой: отвалы датчиков, радиопомехи Zigbee, совместимость устройств. Пошаговые инструкции по решению.";
 ---
 
-<Layout 
-  title="Разборы и траблшутинг умного дома" 
-  description="Технические разборы частых проблем умного дома с Алисой: отвалы датчиков, радиопомехи Zigbee, совместимость устройств. Пошаговые инструкции по решению."
->
+<Layout title={title} description={description}>
   <section class="page-section">
     <div class="page-header">
       <h1 class="page-heading font-outfit"><span aria-hidden="true">🔧</span> Разборы и траблшутинг</h1>
@@ -57,6 +74,47 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
       <div class="empty-state glass">
         <p class="empty-text">Разборы скоро появятся. Мы активно работаем над наполнением базы знаний.</p>
       </div>
+    )}
+
+    {page.lastPage > 1 && (
+      <nav class="pagination" aria-label="Навигация по страницам">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="pagination-arrow prev" aria-label="Предыдущая страница">
+            ← <span>Назад</span>
+          </a>
+        ) : (
+          <span class="pagination-arrow prev disabled" aria-label="Предыдущая страница">
+            ← <span>Назад</span>
+          </span>
+        )}
+
+        <div class="pagination-pages">
+          {Array.from({ length: page.lastPage }, (_, i) => {
+            const pageNum = i + 1;
+            const href = pageNum === 1 ? '/troubleshooting/' : `/troubleshooting/${pageNum}/`;
+            const isCurrent = page.currentPage === pageNum;
+            return isCurrent ? (
+              <span class="pagination-number active" aria-current="page">
+                {pageNum}
+              </span>
+            ) : (
+              <a href={href} class="pagination-number">
+                {pageNum}
+              </a>
+            );
+          })}
+        </div>
+
+        {page.url.next ? (
+          <a href={page.url.next} class="pagination-arrow next" aria-label="Следующая страница">
+            <span>Вперед</span> →
+          </a>
+        ) : (
+          <span class="pagination-arrow next disabled" aria-label="Следующая страница">
+            <span>Вперед</span> →
+          </span>
+        )}
+      </nav>
     )}
   </section>
 </Layout>
@@ -141,7 +199,7 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     font-size: 1.5rem;
     flex-shrink: 0;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 10px rgba(14, 165, 233, 0.05);
+    box-shadow: var(--shadow-sm);
   }
 
   .trouble-card:hover .trouble-icon-wrap {
@@ -275,6 +333,80 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     font-size: 1.05rem;
   }
 
+  /* Пагинация (стили 2026) */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 4rem;
+    padding: 0.5rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(8px);
+  }
+
+  .pagination-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pagination-arrow:not(.disabled):hover {
+    background: var(--bg-hover);
+    color: var(--accent-cyan);
+  }
+
+  .pagination-arrow.disabled {
+    color: var(--text-muted);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .pagination-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pagination-number:hover {
+    background: var(--bg-hover);
+    color: var(--accent-cyan);
+  }
+
+  .pagination-number.active {
+    background: var(--accent-cyan);
+    color: var(--bg-main);
+    box-shadow: var(--glow-cyan-heavy);
+  }
+
   @media (max-width: 768px) {
     .trouble-card {
       flex-direction: column;
@@ -294,6 +426,27 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
 
     .page-heading {
       font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .pagination {
+      gap: 0.4rem;
+      padding: 0.4rem;
+    }
+    
+    .pagination-arrow span {
+      display: none;
+    }
+    
+    .pagination-arrow {
+      padding: 0.6rem 0.9rem;
+    }
+    
+    .pagination-number {
+      min-width: 36px;
+      height: 36px;
+      font-size: 0.9rem;
     }
   }
 </style>

@@ -18,8 +18,7 @@ const {
 	jsonLd 
 } = Astro.props;
 
-// Надежная нормализация canonical URL
-const host = 'https://alice-smarthome.ru';
+const host = (Astro.site?.href || 'https://alice-smarthome.ru').replace(/\/$/, '');
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
 const canonicalURLString = cleanPath === "" 
   ? `${host}/` 

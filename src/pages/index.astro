@@ -206,7 +206,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 58, 23, 0.2);
+    box-shadow: 0 6px 20px var(--accent-alice-glow);
     filter: brightness(1.05);
   }
 
@@ -481,32 +481,32 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .view-all-container {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    padding: 3rem 0 1rem 0;
     width: 100%;
   }
 
   .view-all-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 2.2rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-weight: 600;
+    gap: 0.6rem;
+    padding: 0.9rem 2.5rem;
+    background: var(--bg-card);
+    border: 1px solid rgba(14, 165, 233, 0.25);
+    border-radius: 12px;
+    color: var(--accent-cyan);
+    font-weight: 700;
     font-size: 0.95rem;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05);
   }
 
   .view-all-btn:hover {
     transform: translateY(-2px);
-    background: var(--bg-hover);
-    border-color: var(--accent-cyan-semi);
-    color: var(--accent-cyan);
-    box-shadow: 0 4px 14px var(--accent-cyan-glow);
+    background: var(--accent-cyan);
+    color: var(--bg-main);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
   }
 
   .view-all-arrow {
