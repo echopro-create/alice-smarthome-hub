@@ -32,7 +32,7 @@ if (relatedEntries.length < 3) {
   relatedEntries.push(...fallbackEntries);
 }
 
-// Формирование JSON-LD схем (BreadcrumbList + TechArticle)
+// Формирование JSON-LD схем (BreadcrumbList + TechArticle + опционально HowTo)
 const host = 'https://alice-smarthome.ru';
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
 const canonicalURL = cleanPath === "" 
@@ -66,6 +66,7 @@ const breadcrumbSchema = {
 
 const schemas: any[] = [breadcrumbSchema];
 
+// TechArticle для технических разборов (E-E-A-T сигнал для YMYL)
 const techArticleSchema = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
@@ -85,11 +86,31 @@ const techArticleSchema = {
     "name": "Умный Дом с Алисой",
     "logo": {
       "@type": "ImageObject",
-      "url": `${host}/favicon.png`
+      "url": `${host}/favicon.svg`
     }
   }
 };
 schemas.push(techArticleSchema);
+
+// Если есть шаги — дополнительно включаем HowTo (dual schema = лучшие сниппеты)
+if (entry.data.steps) {
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": entry.data.title,
+    "description": entry.data.description,
+    "datePublished": entry.data.publishDate.toISOString(),
+    ...(entry.data.updatedDate ? { "dateModified": entry.data.updatedDate.toISOString() } : {}),
+    "step": entry.data.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      "position": index + 1,
+      "name": step.title,
+      "text": step.text,
+      ...(step.image ? { "image": new URL(step.image.src, host).href } : {})
+    }))
+  };
+  schemas.push(howToSchema);
+}
 
 const jsonLdString = JSON.stringify(schemas);
 ---
