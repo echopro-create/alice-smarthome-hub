@@ -78,7 +78,7 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     
     <div class="trouble-list">
       {troubleshooting.map((article) => (
-        <a href={`/scenarios/${article.id}`} class="trouble-card glass">
+        <a href={`/troubleshooting/${article.id}`} class="trouble-card glass">
           <div class="trouble-icon" aria-hidden="true">⚠️</div>
           <div class="trouble-content">
             <h3 class="trouble-title font-outfit">{article.data.title}</h3>
