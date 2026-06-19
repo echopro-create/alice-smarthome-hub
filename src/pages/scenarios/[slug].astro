@@ -18,6 +18,20 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const isScenario = entry.data.category === 'scenario';
+
+// Выборка связанных статей из коллекции scenarios (стандарты перелинковки 2026)
+const allEntries = await getCollection('scenarios');
+const relatedEntries = allEntries
+  .filter(e => e.id !== entry.id && e.data.category === entry.data.category)
+  .slice(0, 3);
+
+// Если в текущей категории мало связанных статей, добираем из другой категории (fallback)
+if (relatedEntries.length < 3) {
+  const fallbackEntries = allEntries
+    .filter(e => e.id !== entry.id && e.data.category !== entry.data.category)
+    .slice(0, 3 - relatedEntries.length);
+  relatedEntries.push(...fallbackEntries);
+}
 ---
 
 <Layout 
@@ -34,8 +48,16 @@ const isScenario = entry.data.category === 'scenario';
   )}
 
   <article class="article-container">
-    <!-- Back to home -->
-    <a href="/" class="back-link font-outfit">← Назад на главную</a>
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
+      <a href="/">Главная</a>
+      <span class="separator">/</span>
+      <a href={entry.data.category === 'scenario' ? '/#scenarios' : '/#troubleshooting'}>
+        {entry.data.category === 'scenario' ? 'Сценарии' : 'Траблшутинг'}
+      </a>
+      <span class="separator">/</span>
+      <span class="current" title={entry.data.title}>{entry.data.title}</span>
+    </nav>
 
     <!-- Header info -->
     <header class="article-header">
@@ -90,6 +112,25 @@ const isScenario = entry.data.category === 'scenario';
         )}
       </aside>
     </div>
+
+    <!-- Related articles (Topic Clusters Link Graph) -->
+    {relatedEntries.length > 0 && (
+      <div class="related-section">
+        <h2 class="related-title font-outfit">🔮 Читайте также в этом разделе</h2>
+        <div class="related-grid">
+          {relatedEntries.map(related => (
+            <a href={`/scenarios/${related.id}`} class="related-card glass">
+              <span class="related-card-category">
+                {related.data.category === 'scenario' ? 'Сценарий' : 'Траблшутинг'}
+              </span>
+              <h3 class="related-card-title font-outfit">{related.data.title}</h3>
+              <p class="related-card-desc">{related.data.description}</p>
+              <span class="related-card-link font-outfit">Читать гайд →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
   </article>
 </Layout>
 
@@ -298,5 +339,108 @@ const isScenario = entry.data.category === 'scenario';
     .article-title {
       font-size: 2.2rem;
     }
+  }
+  /* Breadcrumbs */
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--accent-alice);
+  }
+
+  .breadcrumbs .separator {
+    color: var(--text-muted);
+  }
+
+  .breadcrumbs .current {
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+  }
+
+  /* Related Articles Section */
+  .related-section {
+    margin-top: 5rem;
+    border-top: 1px solid var(--border-primary);
+    padding-top: 3rem;
+  }
+
+  .related-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .related-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+    box-shadow: var(--glow-alice);
+  }
+
+  .related-card:hover .related-card-title {
+    color: var(--accent-alice);
+  }
+
+  .related-card-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-alice);
+  }
+
+  .related-card-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+
+  .related-card-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .related-card-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-alice);
+    margin-top: auto;
   }
 </style>
