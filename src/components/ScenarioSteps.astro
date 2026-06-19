@@ -91,14 +91,14 @@ const { steps } = Astro.props;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-alice) 0%, #6366f1 100%);
+    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
-    color: white;
+    color: var(--text-white);
     box-shadow: 0 0 15px var(--accent-alice-glow);
     z-index: 2;
     transition: transform 0.3s ease;
@@ -113,7 +113,7 @@ const { steps } = Astro.props;
     top: -2rem;
     bottom: 50%;
     width: 2px;
-    background: rgba(139, 92, 246, 0.2);
+    background: var(--accent-alice-semi);
     z-index: 1;
   }
 
@@ -122,7 +122,7 @@ const { steps } = Astro.props;
     top: 50%;
     bottom: -2rem;
     width: 2px;
-    background: rgba(139, 92, 246, 0.2);
+    background: var(--accent-alice-semi);
     z-index: 1;
   }
 
@@ -148,8 +148,8 @@ const { steps } = Astro.props;
     margin-top: 1rem;
     height: 180px;
     border-radius: var(--radius-sm);
-    background: linear-gradient(135deg, rgba(22, 22, 45, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
-    border: 1px dashed rgba(139, 92, 246, 0.3);
+    background: var(--step-item-bg);
+    border: 1px dashed var(--accent-alice-semi);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,7 +161,7 @@ const { steps } = Astro.props;
 
   .placeholder-icon {
     font-size: 2rem;
-    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    filter: drop-shadow(var(--text-shadow-alice));
   }
 
   .placeholder-text {
@@ -184,7 +184,7 @@ const { steps } = Astro.props;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(139, 92, 246, 0.05),
+      var(--accent-alice-trans),
       transparent
     );
     transform: skewX(-25deg);

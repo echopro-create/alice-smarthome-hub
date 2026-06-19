@@ -133,25 +133,25 @@ const isScenario = entry.data.category === 'scenario';
   .difficulty-badge.easy {
     background: var(--diff-easy-bg);
     color: var(--diff-easy-text);
-    border: 1px solid rgba(16, 185, 129, 0.15);
+    border: 1px solid var(--diff-easy-border);
   }
 
   .difficulty-badge.medium {
     background: var(--diff-medium-bg);
     color: var(--diff-medium-text);
-    border: 1px solid rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--diff-medium-border);
   }
 
   .difficulty-badge.hard {
     background: var(--diff-hard-bg);
     color: var(--diff-hard-text);
-    border: 1px solid rgba(239, 68, 68, 0.15);
+    border: 1px solid var(--diff-hard-border);
   }
 
   .article-title {
     font-size: 2.8rem;
     line-height: 1.2;
-    background: linear-gradient(135deg, #fff 40%, var(--accent-alice) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -203,13 +203,13 @@ const isScenario = entry.data.category === 'scenario';
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.05);
+    border: 1px solid var(--border-share);
+    box-shadow: var(--shadow-share);
   }
 
   .share-icon {
     font-size: 2rem;
-    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    filter: drop-shadow(var(--text-shadow-alice));
   }
 
   .share-title {
@@ -227,7 +227,7 @@ const isScenario = entry.data.category === 'scenario';
     width: 100%;
     margin-top: 0.5rem;
     padding: 0.75rem;
-    background: linear-gradient(135deg, var(--accent-alice) 0%, #6366f1 100%);
+    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
     color: white;
     font-weight: 600;
     border-radius: var(--radius-sm);
@@ -237,7 +237,7 @@ const isScenario = entry.data.category === 'scenario';
 
   .share-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+    box-shadow: var(--glow-alice-heavy);
     filter: brightness(1.1);
   }
 

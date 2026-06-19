@@ -9,31 +9,68 @@
   
   --accent-alice: #7c3aed; /* Alice purple */
   --accent-alice-glow: rgba(124, 58, 237, 0.12);
+  --accent-alice-semi: rgba(124, 58, 237, 0.2);
+  --accent-alice-trans: rgba(124, 58, 237, 0.05);
+  
   --accent-cyan: #0ea5e9;
   --accent-cyan-glow: rgba(14, 165, 233, 0.12);
+  --accent-cyan-trans: rgba(14, 165, 233, 0.06);
+  --accent-cyan-semi: rgba(14, 165, 233, 0.25);
   --accent-emerald: #059669;
+
+  /* Helper accent colors */
+  --accent-secondary-blue: #4f46e5;
   
   --text-primary: #0f172a;
+  --text-primary-semi: rgba(15, 23, 42, 0.7);
+  --text-primary-trans: rgba(15, 23, 42, 0.04);
   --text-secondary: #475569;
   --text-muted: #94a3b8;
+  --text-white: #ffffff;
+  --text-white-trans: rgba(255, 255, 255, 0.7);
   
   --border-primary: rgba(15, 23, 42, 0.06);
   --border-hover: rgba(124, 58, 237, 0.25);
+  --border-footer: rgba(15, 23, 42, 0.05);
+  --border-item: rgba(15, 23, 42, 0.04);
+  --border-share: rgba(124, 58, 237, 0.2);
 
-  /* Difficulty badges (light mode) */
+  /* Yandex Brand Colors (CPA buttons) */
+  --yandex-red: #fc3f1d;
+  --yandex-red-dark: #d32f0f;
+  --yandex-red-glow: rgba(252, 63, 29, 0.15);
+  --yandex-red-glow-heavy: rgba(252, 63, 29, 0.3);
+
+  /* Difficulty badges */
   --diff-easy-bg: rgba(5, 150, 105, 0.08);
   --diff-easy-text: #059669;
+  --diff-easy-border: rgba(5, 150, 105, 0.15);
+
   --diff-medium-bg: rgba(217, 119, 6, 0.08);
   --diff-medium-text: #b45309;
+  --diff-medium-border: rgba(217, 119, 6, 0.15);
+
   --diff-hard-bg: rgba(220, 38, 38, 0.08);
   --diff-hard-text: #dc2626;
+  --diff-hard-border: rgba(220, 38, 38, 0.15);
   
   /* Shadows & Glows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
   --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
   --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.04), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  
   --glow-alice: 0 10px 30px rgba(124, 58, 237, 0.08);
+  --glow-alice-heavy: 0 0 35px rgba(124, 58, 237, 0.3);
   --glow-cyan: 0 10px 30px rgba(14, 165, 233, 0.08);
+  --glow-cyan-heavy: 0 0 15px rgba(14, 165, 233, 0.3);
+  --shadow-share: 0 4px 20px rgba(124, 58, 237, 0.04);
+
+  /* Graphic Elements */
+  --text-shadow-alice: 0 0 10px rgba(124, 58, 237, 0.25);
+  --text-shadow-white: 0 0 8px rgba(0, 0, 0, 0.15);
+  --header-logo-glow: drop-shadow(0 0 8px rgba(124, 58, 237, 0.4));
+  --step-item-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.9) 100%);
+  --bg-item: rgba(15, 23, 42, 0.02);
   
   --max-width: 1200px;
   --radius-sm: 8px;
@@ -54,30 +91,65 @@
     
     --accent-alice: #8b5cf6; /* Alice purple */
     --accent-alice-glow: rgba(139, 92, 246, 0.3);
+    --accent-alice-semi: rgba(139, 92, 246, 0.2);
+    --accent-alice-trans: rgba(139, 92, 246, 0.05);
+    
     --accent-cyan: #00f0ff;
     --accent-cyan-glow: rgba(0, 240, 255, 0.3);
+    --accent-cyan-trans: rgba(0, 240, 255, 0.05);
+    --accent-cyan-semi: rgba(0, 240, 255, 0.3);
     --accent-emerald: #10b981;
+
+    --accent-secondary-blue: #6366f1;
     
     --text-primary: #f3f4f6;
+    --text-primary-semi: rgba(255, 255, 255, 0.7);
+    --text-primary-trans: rgba(255, 255, 255, 0.04);
     --text-secondary: #a1a1aa;
     --text-muted: #6b7280;
     
     --border-primary: rgba(255, 255, 255, 0.08);
     --border-hover: rgba(139, 92, 246, 0.4);
+    --border-footer: rgba(255, 255, 255, 0.05);
+    --border-item: rgba(255, 255, 255, 0.04);
+    --border-share: rgba(139, 92, 246, 0.2);
 
-    /* Difficulty badges (dark mode) */
+    /* Yandex Brand Colors (CPA buttons) */
+    --yandex-red: #fc3f1d;
+    --yandex-red-dark: #d32f0f;
+    --yandex-red-glow: rgba(252, 63, 29, 0.2);
+    --yandex-red-glow-heavy: rgba(252, 63, 29, 0.4);
+
+    /* Difficulty badges */
     --diff-easy-bg: rgba(16, 185, 129, 0.12);
     --diff-easy-text: #10b981;
+    --diff-easy-border: rgba(16, 185, 129, 0.15);
+
     --diff-medium-bg: rgba(245, 158, 11, 0.12);
     --diff-medium-text: #fbbf24;
+    --diff-medium-border: rgba(245, 158, 11, 0.15);
+
     --diff-hard-bg: rgba(239, 68, 68, 0.12);
     --diff-hard-text: #fca5a5;
+    --diff-hard-border: rgba(239, 68, 68, 0.15);
     
+    /* Shadows & Glows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
     --glow-alice: 0 0 25px rgba(139, 92, 246, 0.25);
+    --glow-alice-heavy: 0 0 35px rgba(139, 92, 246, 0.5);
     --glow-cyan: 0 0 25px rgba(0, 240, 255, 0.2);
+    --glow-cyan-heavy: 0 0 15px rgba(0, 240, 255, 0.4);
+    --shadow-share: 0 4px 20px rgba(139, 92, 246, 0.05);
+
+    /* Graphic Elements */
+    --text-shadow-alice: 0 0 10px rgba(139, 92, 246, 0.4);
+    --text-shadow-white: 0 0 8px rgba(255, 255, 255, 0.5);
+    --header-logo-glow: drop-shadow(0 0 8px var(--accent-alice));
+    --step-item-bg: linear-gradient(135deg, rgba(22, 22, 45, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
+    --bg-item: rgba(255, 255, 255, 0.02);
   }
 }
 

@@ -60,15 +60,15 @@ const getMarketLink = (deviceName: string) => {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
     border-radius: var(--radius-sm);
     transition: all 0.2s ease;
   }
 
   .device-item:hover {
-    background: rgba(139, 92, 246, 0.05);
-    border-color: rgba(139, 92, 246, 0.2);
+    background: var(--accent-alice-trans);
+    border-color: var(--accent-alice-semi);
   }
 
   .device-info {
@@ -94,16 +94,16 @@ const getMarketLink = (deviceName: string) => {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
     font-weight: 600;
-    color: white;
-    background: linear-gradient(135deg, #fc3f1d 0%, #d32f0f 100%); /* Яндекс красный */
+    color: var(--text-white);
+    background: linear-gradient(135deg, var(--yandex-red) 0%, var(--yandex-red-dark) 100%);
     border-radius: 99px;
-    box-shadow: 0 4px 10px rgba(252, 63, 29, 0.2);
+    box-shadow: 0 4px 10px var(--yandex-red-glow);
     transition: all 0.2s ease;
   }
 
   .market-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(252, 63, 29, 0.4);
+    box-shadow: 0 6px 15px var(--yandex-red-glow-heavy);
     filter: brightness(1.1);
   }
 

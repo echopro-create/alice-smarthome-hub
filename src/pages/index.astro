@@ -123,7 +123,7 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
     transform: translate(-50%, 0);
     width: 600px;
     height: 300px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--accent-alice-glow) 0%, transparent 70%);
     z-index: -1;
     filter: blur(40px);
     pointer-events: none;
@@ -132,7 +132,7 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
   .hero-title {
     font-size: 3.5rem;
     line-height: 1.15;
-    background: linear-gradient(185deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
+    background: linear-gradient(185deg, var(--text-primary) 40%, var(--text-primary-semi) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -168,18 +168,18 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(139, 92, 246, 0.5);
+    box-shadow: var(--glow-alice-heavy);
     filter: brightness(1.1);
   }
 
   .btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--bg-surface);
     color: var(--text-primary);
     border: 1px solid var(--border-primary);
   }
 
   .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-hover);
     transform: translateY(-2px);
     border-color: var(--border-hover);
   }
@@ -240,19 +240,19 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
   .difficulty-badge.easy {
     background: var(--diff-easy-bg);
     color: var(--diff-easy-text);
-    border: 1px solid rgba(16, 185, 129, 0.15);
+    border: 1px solid var(--diff-easy-border);
   }
 
   .difficulty-badge.medium {
     background: var(--diff-medium-bg);
     color: var(--diff-medium-text);
-    border: 1px solid rgba(245, 158, 11, 0.15);
+    border: 1px solid var(--diff-medium-border);
   }
 
   .difficulty-badge.hard {
     background: var(--diff-hard-bg);
     color: var(--diff-hard-text);
-    border: 1px solid rgba(239, 68, 68, 0.15);
+    border: 1px solid var(--diff-hard-border);
   }
 
   .date-badge {
@@ -284,8 +284,8 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
   }
 
   .device-tag {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
     color: var(--text-secondary);
     font-size: 0.75rem;
     padding: 0.2rem 0.6rem;
@@ -328,7 +328,7 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
     right: 5%;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(0, 240, 255, 0.05) 0%, transparent 75%);
+    background: radial-gradient(circle, var(--accent-cyan-glow) 0%, transparent 75%);
     z-index: -1;
     filter: blur(50px);
     pointer-events: none;
@@ -350,14 +350,14 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
   }
 
   .trouble-card:hover {
-    border-color: rgba(0, 240, 255, 0.3);
+    border-color: var(--accent-cyan-semi);
     box-shadow: var(--glow-cyan);
     transform: translateX(6px);
   }
 
   .trouble-icon {
     font-size: 2.2rem;
-    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.4));
+    filter: drop-shadow(0 0 6px var(--accent-cyan-semi));
   }
 
   .trouble-content {
@@ -388,8 +388,8 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
 
   .trouble-btn {
     padding: 0.5rem 1.25rem;
-    background: rgba(0, 240, 255, 0.06);
-    border: 1px solid rgba(0, 240, 255, 0.2);
+    background: var(--accent-cyan-trans);
+    border: 1px solid var(--accent-cyan-semi);
     border-radius: 99px;
     color: var(--accent-cyan);
     font-size: 0.9rem;
@@ -400,7 +400,7 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
   .trouble-card:hover .trouble-btn {
     background: var(--accent-cyan);
     color: var(--bg-main);
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    box-shadow: var(--glow-cyan-heavy);
   }
 
   @media (max-width: 768px) {
