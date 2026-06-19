@@ -1,9 +1,9 @@
 :root {
   /* Default: LIGHT theme matching 2026 aesthetics */
-  --bg-main: #f8fafc;
-  --bg-surface: rgba(255, 255, 255, 0.45);
-  --bg-card: rgba(255, 255, 255, 0.65);
-  --bg-hover: rgba(241, 245, 249, 0.8);
+  --bg-main: #faf9ff; /* Слегка сиреневый оттенок */
+  --bg-surface: rgba(255, 255, 255, 0.35);
+  --bg-card: rgba(255, 255, 255, 0.55);
+  --bg-hover: rgba(124, 58, 237, 0.04);
   
   --accent-alice: #7c3aed; /* Alice purple */
   --accent-alice-glow: rgba(124, 58, 237, 0.12);
@@ -53,9 +53,9 @@
   --diff-hard-border: rgba(220, 38, 38, 0.15);
   
   /* Shadows & Glows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.04), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255, 255, 255, 0.5);
   
   --glow-alice: 0 10px 30px rgba(124, 58, 237, 0.08);
   --glow-alice-heavy: 0 0 35px rgba(124, 58, 237, 0.3);
@@ -131,9 +131,9 @@
   --diff-hard-border: rgba(239, 68, 68, 0.15);
   
   /* Shadows & Glows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0px rgba(255, 255, 255, 0.05);
   
   --glow-alice: 0 0 25px rgba(139, 92, 246, 0.25);
   --glow-alice-heavy: 0 0 35px rgba(139, 92, 246, 0.5);
@@ -212,12 +212,71 @@ img {
 
 /* Glassmorphism panel styling */
 .glass {
-  background: var(--bg-surface);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-primary);
   box-shadow: var(--shadow-md);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Background blobs aesthetics 2026 */
+.bg-blobs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+:global(.dark) .bg-blobs {
+  opacity: 0.35;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  mix-blend-mode: multiply;
+  animation: float 25s ease-in-out infinite;
+}
+
+:global(.dark) .blob {
+  mix-blend-mode: screen;
+}
+
+.blob-purple {
+  top: -10%;
+  left: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 80%);
+  animation-delay: 0s;
+}
+
+.blob-cyan {
+  bottom: -15%;
+  right: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 80%);
+  animation-delay: -7s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(3vw, 4vh) scale(1.05);
+  }
+  66% {
+    transform: translate(-2vw, -3vh) scale(0.97);
+  }
 }
 
 /* Accent gradient text */
