@@ -89,7 +89,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   <section id="troubleshooting" class="section-container troubleshooting-section">
     <div class="trouble-glow"></div>
     <h2 class="section-title font-outfit"><span aria-hidden="true">🔧</span> Разборы и Траблшутинг</h2>
-    <div class="section-divider divider-cyan"></div>
+    <div class="section-divider"></div>
     <p class="section-desc">Устранение неполадок, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
     
     <div class="troubleshooting-grid">
@@ -235,7 +235,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .section-title {
     font-size: 2.25rem;
     margin-bottom: 0.25rem;
-    background: linear-gradient(135deg, var(--text-primary) 50%, var(--accent-alice) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 50%, var(--accent-cyan) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -244,13 +244,9 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .section-divider {
     width: 50px;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-cyan-semi) 100%);
     border-radius: 99px;
     margin: 0.5rem 0 0.8rem 0;
-  }
-
-  .section-divider.divider-cyan {
-    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-alice) 100%);
   }
 
   .section-desc {
@@ -282,8 +278,8 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   }
 
   .scenario-card:hover {
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-md), var(--glow-alice);
+    border-color: var(--accent-cyan-semi);
+    box-shadow: var(--shadow-md), var(--glow-cyan);
     transform: translateY(-4px);
     background: var(--bg-hover);
   }
@@ -332,7 +328,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   }
 
   .scenario-card:hover .card-title {
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
   }
 
   .card-desc {
@@ -360,7 +356,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 
   .device-tag-more {
     font-size: 0.75rem;
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
     font-weight: 600;
     align-self: center;
   }
@@ -368,7 +364,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .card-link {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -508,16 +504,6 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .view-all-btn:hover {
     transform: translateY(-2px);
     background: var(--bg-hover);
-    box-shadow: var(--shadow-md);
-  }
-
-  #scenarios .view-all-btn:hover {
-    border-color: var(--accent-alice-semi);
-    color: var(--accent-alice);
-    box-shadow: 0 4px 14px var(--accent-alice-glow);
-  }
-
-  #troubleshooting .view-all-btn:hover {
     border-color: var(--accent-cyan-semi);
     color: var(--accent-cyan);
     box-shadow: 0 4px 14px var(--accent-cyan-glow);
