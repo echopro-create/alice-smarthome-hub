@@ -217,7 +217,7 @@ img {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-primary);
   box-shadow: var(--shadow-md);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 /* Background blobs aesthetics 2026 */

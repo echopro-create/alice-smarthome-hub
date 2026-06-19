@@ -95,6 +95,10 @@ const jsonLdString = JSON.stringify(schemas);
   jsonLd={jsonLdString}
 >
 
+  <!-- article:published_time / article:modified_time for search engines -->
+  {entry.data.publishDate && <meta property="article:published_time" content={entry.data.publishDate.toISOString()} />}
+  {entry.data.updatedDate && <meta property="article:modified_time" content={entry.data.updatedDate.toISOString()} />}
+
   <article class="article-container">
     <!-- Breadcrumbs -->
     <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
