@@ -1,129 +1,227 @@
 ---
 ---
-<footer class="glass">
+<footer class="footer-section glass">
   <div class="container footer-container">
     <div class="footer-grid">
-      <div class="footer-info">
-        <p class="footer-title">Хаб Сценариев Умного Дома</p>
-        <p class="footer-description">Уникальные пошаговые инструкции, разборы и локальные Zigbee сценарии для интеграции ваших умных устройств с виртуальным ассистентом Алисой.</p>
+      <!-- Колонка 1: Описание и соцсети -->
+      <div class="footer-column footer-about">
+        <p class="footer-logo font-outfit">🔮 Алиса <span class="accent-cyan-text">Хаб</span></p>
+        <p class="footer-description">
+          База знаний и каталог сценариев автоматизации для Умного Дома с Алисой. Пошаговые инструкции, разборы радиопомех и лайфхаки из Telegram-сообществ.
+        </p>
+        <div class="footer-socials">
+          <a href="https://t.me/alice_smarthome" target="_blank" rel="noopener noreferrer" class="social-link tg-link font-outfit" aria-label="Наше сообщество в Telegram">
+            <svg class="social-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.97-.74 3.79-1.65 6.32-2.74 7.59-3.27 3.6-1.5 4.35-1.76 4.84-1.77.11 0 .35.03.5.16.13.12.17.28.18.41-.01.06-.01.14-.02.21z"/>
+            </svg>
+            <span>Telegram Сообщество</span>
+          </a>
+        </div>
       </div>
       
-      <div class="footer-nav">
-        <!-- Навигационная таблица по запросу пользователя -->
-        <table class="footer-table" role="presentation">
-          <thead>
-            <tr>
-              <th class="font-outfit">Разделы</th>
-              <th class="font-outfit">Документы</th>
-              <th class="font-outfit">Обратная связь</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><a href="/about" class="footer-link">О проекте</a></td>
-              <td><a href="/privacy" class="footer-link">Политика конфиденциальности</a></td>
-              <td><a href="/contacts" class="footer-link">Контакты</a></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Колонка 2: Навигация -->
+      <div class="footer-column">
+        <p class="footer-col-title font-outfit">Материалы</p>
+        <nav aria-label="Материалы хаба">
+          <ul class="footer-links-list">
+            <li><a href="/scenarios/" class="footer-link">Сценарии автоматизации</a></li>
+            <li><a href="/troubleshooting/" class="footer-link">Разборы и Траблшутинг</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Колонка 3: Информация -->
+      <div class="footer-column">
+        <p class="footer-col-title font-outfit">Информация</p>
+        <nav aria-label="Информация о проекте">
+          <ul class="footer-links-list">
+            <li><a href="/about" class="footer-link">О проекте</a></li>
+            <li><a href="/contacts" class="footer-link">Контакты</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Колонка 4: Документы и Карта сайта -->
+      <div class="footer-column">
+        <p class="footer-col-title font-outfit">Ресурсы</p>
+        <nav aria-label="Ресурсы и документы">
+          <ul class="footer-links-list">
+            <li><a href="/privacy" class="footer-link">Конфиденциальность</a></li>
+            <li><a href="/sitemap-index.xml" class="footer-link" target="_blank" rel="noopener noreferrer">Карта сайта (Sitemap)</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
 
-    <div class="footer-disclaimer">
-      <p>© 2026 Неофициальный гайд-портал по автоматизации. Товарные знаки "Яндекс", "Алиса", "Дом с Алисой" принадлежат ООО «ЯНДЕКС».</p>
+    <!-- Нижняя часть с копирайтом и дисклеймером -->
+    <div class="footer-bottom">
+      <div class="footer-disclaimer">
+        <p>© 2026 Неофициальный гайд-портал по автоматизации умного дома. Товарные знаки "Яндекс", "Алиса", "Дом с Алисой" принадлежат ООО «ЯНДЕКС». Информация на сайте носит исключительно справочный характер и собирается сообществом энтузиастов.</p>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
-  footer {
+  .footer-section {
     margin-top: auto;
-    border-top: 1px solid var(--border-footer);
-    padding: 3rem 0 2rem 0;
+    border-top: 1px solid var(--border-primary);
+    padding: 4.5rem 0 2rem 0;
     background: var(--bg-surface);
+    position: relative;
   }
 
   .footer-container {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 3rem;
   }
 
   .footer-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 3rem;
   }
 
-  @media (max-width: 768px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
+  .footer-logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
   }
 
-  .footer-title {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
+  .accent-cyan-text {
+    color: var(--accent-cyan);
+    text-shadow: var(--glow-cyan);
   }
 
   .footer-description {
     font-size: 0.95rem;
     color: var(--text-secondary);
-    max-width: 500px;
     line-height: 1.6;
+    max-width: 420px;
   }
 
-  .footer-nav {
-    display: flex;
-    justify-content: flex-end;
+  .footer-socials {
+    margin-top: 1.5rem;
   }
 
-  @media (max-width: 768px) {
-    .footer-nav {
-      justify-content: flex-start;
-    }
-  }
-
-  .footer-table {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 450px;
-  }
-
-  .footer-table th {
-    text-align: left;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border-primary);
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--accent-cyan-trans);
+    border: 1px solid var(--accent-cyan-semi);
+    border-radius: 8px;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-size: 0.85rem;
     font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .footer-table td {
-    padding-top: 0.75rem;
+  .social-link:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-main);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .footer-col-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  .footer-col-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 24px;
+    height: 2px;
+    background: var(--accent-cyan);
+    border-radius: 99px;
+  }
+
+  .footer-links-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
   }
 
   .footer-link {
     font-size: 0.9rem;
     color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.25s ease;
+    display: inline-block;
   }
 
   .footer-link:hover {
-    color: var(--accent-alice);
+    color: var(--accent-cyan);
+    transform: translateX(4px);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--border-primary);
+    padding-top: 2rem;
   }
 
   .footer-disclaimer {
     font-size: 0.75rem;
     color: var(--text-muted);
-    border-top: 1px solid var(--border-footer);
-    padding-top: 1.5rem;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Адаптивность */
+  @media (max-width: 992px) {
+    .footer-grid {
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 2.5rem;
+    }
+    
+    .footer-about {
+      grid-column: span 3;
+    }
+    
+    .footer-description {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    .footer-about {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .footer-about {
+      grid-column: span 1;
+    }
   }
 </style>
