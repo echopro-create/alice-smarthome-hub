@@ -79,7 +79,9 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     <div class="trouble-list">
       {troubleshooting.map((article) => (
         <a href={`/troubleshooting/${article.id}`} class="trouble-card glass">
-          <div class="trouble-icon" aria-hidden="true">⚠️</div>
+          <div class="trouble-icon-wrap" aria-hidden="true">
+            <span class="trouble-icon">⚠️</span>
+          </div>
           <div class="trouble-content">
             <h3 class="trouble-title font-outfit">{article.data.title}</h3>
             <p class="trouble-desc">{article.data.description}</p>
@@ -87,7 +89,10 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
               {new Date(article.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
             </span>
           </div>
-          <span class="trouble-btn font-outfit">Решение →</span>
+          <span class="trouble-btn font-outfit">
+            <span>Решение</span>
+            <span class="trouble-btn-arrow">→</span>
+          </span>
         </a>
       ))}
     </div>
@@ -151,15 +156,16 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   }
 
   .btn-primary {
-    background: var(--accent-alice);
+    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
     color: var(--text-white);
-    box-shadow: var(--glow-alice);
+    border: none;
+    box-shadow: 0 4px 14px var(--accent-alice-glow);
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: var(--glow-alice-heavy);
-    filter: brightness(1.1);
+    box-shadow: 0 6px 20px rgba(124, 58, 23, 0.2);
+    filter: brightness(1.05);
   }
 
   .btn-secondary {
@@ -220,20 +226,23 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   }
 
   .scenario-card {
-    padding: 2rem;
-    border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 0.75rem;
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
     text-decoration: none;
     color: inherit;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scenario-card:hover {
-    transform: translateY(-4px);
     border-color: var(--border-hover);
-    box-shadow: var(--glow-alice);
+    box-shadow: var(--shadow-md), var(--glow-alice);
+    transform: translateY(-4px);
+    background: var(--bg-hover);
   }
 
   .card-header {
@@ -357,10 +366,15 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   .trouble-card {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.75rem;
     padding: 1.5rem 2rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
     border-radius: var(--radius-md);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     color: inherit;
   }
@@ -368,12 +382,31 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   .trouble-card:hover {
     border-color: var(--accent-cyan-semi);
     box-shadow: var(--glow-cyan);
+    background: var(--bg-hover);
     transform: translateY(-3px);
   }
 
+  .trouble-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--accent-cyan-trans);
+    border: 1px solid var(--accent-cyan-semi);
+    border-radius: 12px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 10px rgba(14, 165, 233, 0.05);
+  }
+
+  .trouble-card:hover .trouble-icon-wrap {
+    transform: scale(1.08) rotate(-5deg);
+  }
+
   .trouble-icon {
-    font-size: 2.2rem;
-    filter: drop-shadow(0 0 6px var(--accent-cyan-semi));
+    line-height: 1;
   }
 
   .trouble-content {
@@ -381,10 +414,13 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    text-align: left;
   }
 
   .trouble-title {
     font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
     transition: color 0.3s ease;
   }
 
@@ -404,20 +440,34 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   }
 
   .trouble-btn {
-    padding: 0.5rem 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
     background: var(--accent-cyan-trans);
     border: 1px solid var(--accent-cyan-semi);
-    border-radius: 99px;
+    border-radius: var(--radius-sm);
     color: var(--accent-cyan);
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .trouble-card:hover .trouble-btn {
     background: var(--accent-cyan);
     color: var(--bg-main);
+    border-color: var(--accent-cyan);
     box-shadow: var(--glow-cyan-heavy);
+  }
+
+  .trouble-btn-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .trouble-card:hover .trouble-btn-arrow {
+    transform: translateX(4px);
   }
 
   @media (max-width: 768px) {

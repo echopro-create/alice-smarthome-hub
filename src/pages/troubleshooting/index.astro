@@ -21,7 +21,9 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     <div class="trouble-list">
       {troubleshooting.map((article) => (
         <a href={`/troubleshooting/${article.id}`} class="trouble-card glass">
-          <div class="trouble-icon" aria-hidden="true">⚠️</div>
+          <div class="trouble-icon-wrap" aria-hidden="true">
+            <span class="trouble-icon">⚠️</span>
+          </div>
           <div class="trouble-content">
             <div class="trouble-meta">
               {article.data.difficulty && (
@@ -43,7 +45,10 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
               </div>
             )}
           </div>
-          <span class="trouble-btn font-outfit">Решение →</span>
+          <span class="trouble-btn font-outfit">
+            <span>Решение</span>
+            <span class="trouble-btn-arrow">→</span>
+          </span>
         </a>
       ))}
     </div>
@@ -104,10 +109,15 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   .trouble-card {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    padding: 1.75rem 2rem;
+    gap: 1.75rem;
+    padding: 1.5rem 2rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
     border-radius: var(--radius-md);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     color: inherit;
   }
@@ -115,13 +125,31 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   .trouble-card:hover {
     border-color: var(--accent-cyan-semi);
     box-shadow: var(--glow-cyan);
+    background: var(--bg-hover);
     transform: translateY(-3px);
   }
 
-  .trouble-icon {
-    font-size: 2.4rem;
-    filter: drop-shadow(0 0 8px var(--accent-cyan-semi));
+  .trouble-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--accent-cyan-trans);
+    border: 1px solid var(--accent-cyan-semi);
+    border-radius: 12px;
+    font-size: 1.5rem;
     flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 10px rgba(14, 165, 233, 0.05);
+  }
+
+  .trouble-card:hover .trouble-icon-wrap {
+    transform: scale(1.08) rotate(-5deg);
+  }
+
+  .trouble-icon {
+    line-height: 1;
   }
 
   .trouble-content {
@@ -129,6 +157,7 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    text-align: left;
   }
 
   .trouble-meta {
@@ -170,6 +199,8 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
 
   .trouble-title {
     font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
     transition: color 0.3s ease;
   }
 
@@ -200,22 +231,34 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   }
 
   .trouble-btn {
-    padding: 0.5rem 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
     background: var(--accent-cyan-trans);
     border: 1px solid var(--accent-cyan-semi);
-    border-radius: 99px;
+    border-radius: var(--radius-sm);
     color: var(--accent-cyan);
     font-size: 0.9rem;
     font-weight: 600;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .trouble-card:hover .trouble-btn {
     background: var(--accent-cyan);
     color: var(--bg-main);
+    border-color: var(--accent-cyan);
     box-shadow: var(--glow-cyan-heavy);
+  }
+
+  .trouble-btn-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .trouble-card:hover .trouble-btn-arrow {
+    transform: translateX(4px);
   }
 
   .empty-state {
@@ -236,13 +279,17 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     .trouble-card {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 1.25rem;
       padding: 1.5rem;
     }
     
+    .trouble-content {
+      text-align: left;
+    }
+
     .trouble-btn {
       width: 100%;
-      text-align: center;
+      justify-content: center;
     }
 
     .page-heading {
