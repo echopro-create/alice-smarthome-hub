@@ -5,9 +5,16 @@ import { getDifficultyLabel } from '../utils/difficulty';
 
 const allEntries = await getCollection('scenarios');
 
-// Разделяем записи по категориям
-const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
-const troubleshooting = allEntries.filter(entry => entry.data.category === 'troubleshooting');
+// Разделяем записи по категориям и сортируем по дате (самые свежие первые)
+const scenarios = allEntries
+  .filter(entry => entry.data.category === 'scenario')
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+const troubleshooting = allEntries
+  .filter(entry => entry.data.category === 'troubleshooting')
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+
+const scenariosToShow = scenarios.slice(0, 6);
+const troubleshootingToShow = troubleshooting.slice(0, 6);
 ---
 
 <Layout 
@@ -37,7 +44,7 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     <p class="section-desc">Готовые алгоритмы автоматизации: от утренних рутин до комплексных систем безопасности.</p>
     
     <div class="scenarios-grid">
-      {scenarios.map((scenario) => (
+      {scenariosToShow.map((scenario) => (
         <a href={`/scenarios/${scenario.id}`} class="scenario-card glass">
           <div class="card-header">
             <span class={`difficulty-badge ${scenario.data.difficulty}`}>
@@ -67,6 +74,15 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
         </a>
       ))}
     </div>
+
+    {scenarios.length > 6 && (
+      <div class="view-all-container">
+        <a href="/scenarios/" class="view-all-btn font-outfit">
+          <span>Все сценарии</span>
+          <span class="view-all-arrow">→</span>
+        </a>
+      </div>
+    )}
   </section>
 
   <!-- Troubleshooting Grid Section -->
@@ -77,7 +93,7 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
     <p class="section-desc">Устранение неполадок, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
     
     <div class="troubleshooting-grid">
-      {troubleshooting.map((article) => (
+      {troubleshootingToShow.map((article) => (
         <a href={`/troubleshooting/${article.id}`} class="trouble-card glass">
           <div class="card-header">
             {article.data.difficulty && (
@@ -113,6 +129,15 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
         </a>
       ))}
     </div>
+
+    {troubleshooting.length > 6 && (
+      <div class="view-all-container">
+        <a href="/troubleshooting/" class="view-all-btn font-outfit">
+          <span>Все разборы</span>
+          <span class="view-all-arrow">→</span>
+        </a>
+      </div>
+    )}
   </section>
 </Layout>
 
@@ -453,6 +478,56 @@ const troubleshooting = allEntries.filter(entry => entry.data.category === 'trou
   }
 
   .trouble-card:hover .trouble-link .arrow {
+    transform: translateX(4px);
+  }
+
+  /* View All Button */
+  .view-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    width: 100%;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 2.2rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .view-all-btn:hover {
+    transform: translateY(-2px);
+    background: var(--bg-hover);
+    box-shadow: var(--shadow-md);
+  }
+
+  #scenarios .view-all-btn:hover {
+    border-color: var(--accent-alice-semi);
+    color: var(--accent-alice);
+    box-shadow: 0 4px 14px var(--accent-alice-glow);
+  }
+
+  #troubleshooting .view-all-btn:hover {
+    border-color: var(--accent-cyan-semi);
+    color: var(--accent-cyan);
+    box-shadow: 0 4px 14px var(--accent-cyan-glow);
+  }
+
+  .view-all-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .view-all-btn:hover .view-all-arrow {
     transform: translateX(4px);
   }
 
