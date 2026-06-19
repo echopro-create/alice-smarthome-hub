@@ -1,37 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Colors */
-  --bg-main: #06060c;
-  --bg-surface: rgba(15, 15, 30, 0.7);
-  --bg-card: rgba(22, 22, 45, 0.5);
-  --bg-hover: rgba(35, 35, 70, 0.6);
+  /* Default: LIGHT theme matching 2026 aesthetics */
+  --bg-main: #f8fafc;
+  --bg-surface: rgba(255, 255, 255, 0.45);
+  --bg-card: rgba(255, 255, 255, 0.65);
+  --bg-hover: rgba(241, 245, 249, 0.8);
   
-  --accent-alice: #8b5cf6; /* Alice purple */
-  --accent-alice-glow: rgba(139, 92, 246, 0.3);
-  --accent-cyan: #00f0ff;
-  --accent-cyan-glow: rgba(0, 240, 255, 0.3);
-  --accent-emerald: #10b981;
+  --accent-alice: #7c3aed; /* Alice purple */
+  --accent-alice-glow: rgba(124, 58, 237, 0.12);
+  --accent-cyan: #0ea5e9;
+  --accent-cyan-glow: rgba(14, 165, 233, 0.12);
+  --accent-emerald: #059669;
   
-  --text-primary: #f3f4f6;
-  --text-secondary: #a1a1aa;
-  --text-muted: #6b7280;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
   
-  --border-primary: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(139, 92, 246, 0.4);
+  --border-primary: rgba(15, 23, 42, 0.06);
+  --border-hover: rgba(124, 58, 237, 0.25);
+
+  /* Difficulty badges (light mode) */
+  --diff-easy-bg: rgba(5, 150, 105, 0.08);
+  --diff-easy-text: #059669;
+  --diff-medium-bg: rgba(217, 119, 6, 0.08);
+  --diff-medium-text: #b45309;
+  --diff-hard-bg: rgba(220, 38, 38, 0.08);
+  --diff-hard-text: #dc2626;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --glow-alice: 0 0 25px rgba(139, 92, 246, 0.25);
-  --glow-cyan: 0 0 25px rgba(0, 240, 255, 0.2);
+  /* Shadows & Glows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.03), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.04), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --glow-alice: 0 10px 30px rgba(124, 58, 237, 0.08);
+  --glow-cyan: 0 10px 30px rgba(14, 165, 233, 0.08);
   
-  /* Layout */
   --max-width: 1200px;
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
+
+  /* Standard HTML elements auto-theme adaptation */
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* DARK theme matching 2026 aesthetics */
+    --bg-main: #06060c;
+    --bg-surface: rgba(15, 15, 30, 0.7);
+    --bg-card: rgba(22, 22, 45, 0.5);
+    --bg-hover: rgba(35, 35, 70, 0.65);
+    
+    --accent-alice: #8b5cf6; /* Alice purple */
+    --accent-alice-glow: rgba(139, 92, 246, 0.3);
+    --accent-cyan: #00f0ff;
+    --accent-cyan-glow: rgba(0, 240, 255, 0.3);
+    --accent-emerald: #10b981;
+    
+    --text-primary: #f3f4f6;
+    --text-secondary: #a1a1aa;
+    --text-muted: #6b7280;
+    
+    --border-primary: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(139, 92, 246, 0.4);
+
+    /* Difficulty badges (dark mode) */
+    --diff-easy-bg: rgba(16, 185, 129, 0.12);
+    --diff-easy-text: #10b981;
+    --diff-medium-bg: rgba(245, 158, 11, 0.12);
+    --diff-medium-text: #fbbf24;
+    --diff-hard-bg: rgba(239, 68, 68, 0.12);
+    --diff-hard-text: #fca5a5;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --glow-alice: 0 0 25px rgba(139, 92, 246, 0.25);
+    --glow-cyan: 0 0 25px rgba(0, 240, 255, 0.2);
+  }
 }
 
 /* Base Reset */
@@ -47,6 +94,7 @@ html {
   color: var(--text-primary);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -54,10 +102,25 @@ body {
   display: flex;
   flex-direction: column;
   background-image: 
-    radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
-    radial-gradient(at 90% 80%, rgba(0, 240, 255, 0.05) 0px, transparent 50%);
+    radial-gradient(at 10% 20%, var(--accent-alice-glow) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, var(--accent-cyan-glow) 0px, transparent 50%);
   background-attachment: fixed;
   overflow-x: hidden;
+}
+
+/* Modern Grid Texture overlay for hero area */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(var(--border-primary) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.8;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -70,7 +133,7 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: inherit;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 img {
@@ -79,17 +142,19 @@ img {
   display: block;
 }
 
-/* Glassmorphism utility */
+/* Glassmorphism panel styling */
 .glass {
   background: var(--bg-surface);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 /* Accent gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #fff 30%, var(--accent-alice) 100%);
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-alice) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -102,24 +167,24 @@ img {
   background-clip: text;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Custom Scrollbar using custom CSS properties with fallback */
+html {
+  scrollbar-color: var(--text-muted) var(--bg-main);
+  scrollbar-width: thin;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-sm);
-  border: 2px solid var(--bg-main);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-alice);
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-main);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: var(--radius-sm);
+  }
 }
 
 /* Shared Layout Containers */

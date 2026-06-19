@@ -238,21 +238,21 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
   }
 
   .difficulty-badge.easy {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--accent-emerald);
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: var(--diff-easy-bg);
+    color: var(--diff-easy-text);
+    border: 1px solid rgba(16, 185, 129, 0.15);
   }
 
   .difficulty-badge.medium {
-    background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: var(--diff-medium-bg);
+    color: var(--diff-medium-text);
+    border: 1px solid rgba(245, 158, 11, 0.15);
   }
 
   .difficulty-badge.hard {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: var(--diff-hard-bg);
+    color: var(--diff-hard-text);
+    border: 1px solid rgba(239, 68, 68, 0.15);
   }
 
   .date-badge {
