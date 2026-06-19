@@ -54,8 +54,13 @@ function parseArticle(filePath) {
       let value = trimmed.substring(colonIndex + 1).trim();
       if (value.startsWith('"') && value.endsWith('"')) value = value.substring(1, value.length - 1);
       else if (value.startsWith("'") && value.endsWith("'")) value = value.substring(1, value.length - 1);
-      if (inSteps && currentStep) currentStep[key.replace(/^-\s*/, "")] = value;
-      else if (!inSteps && currentKey !== "devices") data[key] = value;
+      if (inSteps && currentStep) {
+        currentStep[key.replace(/^-\s*/, "")] = value;
+      } else {
+        // После списка устройств новая строка ключ-значение — выходим из режима устройств
+        if (currentKey === "devices" && !trimmed.startsWith("-")) currentKey = null;
+        if (!inSteps && currentKey !== "devices") data[key] = value;
+      }
     }
   }
   if (currentStep && inSteps) data.steps.push(currentStep);
@@ -922,5 +927,15 @@ test("[SEO 2026] Dates: publishDate не позже updatedDate", () => {
       const upd = new Date(a.data.updatedDate);
       assert.ok(pub <= upd, `${a.name}: publishDate позже updatedDate`);
     }
+  });
+});
+
+test("[SEO 2026] Viral: все scenario-статьи имеют yandexShareUrl (вирусный импорт в Алису)", () => {
+  scenarioEntries.forEach(a => {
+    assert.ok(a.data.yandexShareUrl, `${a.name}: сценарий без yandexShareUrl`);
+    assert.ok(
+      a.data.yandexShareUrl.startsWith("https://yandex.ru/alice/shared-scenarios/"),
+      `${a.name}: yandexShareUrl не начинается с https://yandex.ru/alice/shared-scenarios/`
+    );
   });
 });
