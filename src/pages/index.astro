@@ -162,7 +162,7 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
 
   .btn-primary {
     background: var(--accent-alice);
-    color: white;
+    color: var(--text-white);
     box-shadow: var(--glow-alice);
   }
 
@@ -214,11 +214,11 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scenario-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     border-color: var(--border-hover);
     box-shadow: var(--glow-alice);
   }
@@ -346,13 +346,13 @@ const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
     gap: 2rem;
     padding: 1.5rem 2rem;
     border-radius: var(--radius-md);
-    transition: all 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .trouble-card:hover {
     border-color: var(--accent-cyan-semi);
     box-shadow: var(--glow-cyan);
-    transform: translateX(6px);
+    transform: translateY(-3px);
   }
 
   .trouble-icon {
