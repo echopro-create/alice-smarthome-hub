@@ -28,25 +28,25 @@ const getMarketLink = (deviceName: string) => {
 };
 ---
 
-<div class="devices-box glass">
-  <h2 class="devices-title font-outfit"><span aria-hidden="true">🔌</span> Необходимое оборудование</h2>
-  <div class="devices-grid">
+<div class="eq-box glass">
+  <h2 class="eq-title font-outfit"><span aria-hidden="true">🔌</span> Необходимое оборудование</h2>
+  <div class="eq-grid">
     {devices.map((device) => (
-      <div class="device-item">
-        <div class="device-info">
-          <div class="device-icon-wrapper" aria-hidden="true">
-            <span class="device-icon">{getDeviceIcon(device)}</span>
+      <div class="eq-card">
+        <div class="eq-info">
+          <div class="eq-icon-wrap" aria-hidden="true">
+            <span class="eq-icon">{getDeviceIcon(device)}</span>
           </div>
-          <span class="device-name">{device}</span>
+          <span class="eq-name">{device}</span>
         </div>
         <a 
           href={getMarketLink(device)} 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="market-btn font-outfit"
+          class="eq-btn font-outfit"
         >
           <span>Купить на Яндекс Маркете</span>
-          <span class="btn-arrow">→</span>
+          <span class="eq-btn-arrow">→</span>
         </a>
       </div>
     ))}
@@ -54,26 +54,29 @@ const getMarketLink = (deviceName: string) => {
 </div>
 
 <style>
-  .devices-box {
+  .eq-box {
     padding: 1.5rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-primary);
     margin: 2rem 0;
+    container-type: inline-size;
+    container-name: eq-container;
   }
 
-  .devices-title {
+  .eq-title {
     font-size: 1.2rem;
     margin-bottom: 1.25rem;
     color: var(--text-primary);
   }
 
-  .devices-grid {
+  .eq-grid {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
   }
 
-  .device-item {
+  /* Default Card layout (for narrow containers like sidebar or mobile screens) */
+  .eq-card {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -81,54 +84,62 @@ const getMarketLink = (deviceName: string) => {
     padding: 1.25rem;
     background: var(--bg-item);
     border: 1px solid var(--border-item);
-    border-radius: var(--radius-sm);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: var(--radius-md);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease,
+                background-color 0.3s ease;
   }
 
-  .device-item:hover {
+  .eq-card:hover {
     transform: translateY(-2px);
     background: var(--bg-hover);
     border-color: var(--border-hover);
     box-shadow: var(--shadow-sm);
   }
 
-  .device-info {
+  .eq-info {
     display: flex;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .device-icon-wrapper {
+  .eq-icon-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: var(--bg-main);
     border: 1px solid var(--border-primary);
-    border-radius: 50%;
-    font-size: 1.3rem;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    font-size: 1.4rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
     flex-shrink: 0;
+    transition: transform 0.2s ease;
   }
 
-  .device-icon {
+  .eq-card:hover .eq-icon-wrap {
+    transform: scale(1.05) rotate(3deg);
+  }
+
+  .eq-icon {
     line-height: 1;
   }
 
-  .device-name {
+  .eq-name {
     font-weight: 600;
     font-size: 0.95rem;
     color: var(--text-primary);
     line-height: 1.4;
   }
 
-  .market-btn {
+  .eq-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.65rem 1rem;
+    padding: 0.75rem 1.25rem;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-white);
@@ -136,19 +147,42 @@ const getMarketLink = (deviceName: string) => {
     border-radius: var(--radius-sm);
     box-shadow: 0 4px 12px var(--yandex-red-glow);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    width: 100%;
   }
 
-  .market-btn:hover {
+  .eq-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 16px var(--yandex-red-glow-heavy);
     filter: brightness(1.05);
   }
 
-  .btn-arrow {
+  .eq-btn-arrow {
     transition: transform 0.2s ease;
   }
 
-  .market-btn:hover .btn-arrow {
+  .eq-btn:hover .eq-btn-arrow {
     transform: translateX(3px);
+  }
+
+  /* Adaptive Horizontal layout for wide containers (>= 480px) */
+  @container eq-container (min-width: 480px) {
+    .eq-card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1rem 1.5rem;
+    }
+
+    .eq-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .eq-btn {
+      width: auto;
+      flex-shrink: 0;
+    }
   }
 </style>
