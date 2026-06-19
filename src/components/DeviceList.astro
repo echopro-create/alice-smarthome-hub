@@ -13,12 +13,12 @@ const getMarketLink = (deviceName: string) => {
 ---
 
 <div class="devices-box glass">
-  <h2 class="devices-title font-outfit">🔌 Необходимое оборудование</h2>
+  <h2 class="devices-title font-outfit"><span aria-hidden="true">🔌</span> Необходимое оборудование</h2>
   <div class="devices-grid">
     {devices.map((device) => (
       <div class="device-item">
         <div class="device-info">
-          <span class="device-icon">⚙️</span>
+          <span class="device-icon" aria-hidden="true">⚙️</span>
           <span class="device-name">{device}</span>
         </div>
         <a 

@@ -137,7 +137,7 @@ const jsonLdString = JSON.stringify(schemas);
         <!-- Render visual steps if present -->
         {entry.data.steps && (
           <div class="steps-section">
-            <h2 class="steps-section-title font-outfit">📋 Инструкция по настройке</h2>
+            <h2 class="steps-section-title font-outfit"><span aria-hidden="true">📋</span> Инструкция по настройке</h2>
             <ScenarioSteps steps={entry.data.steps} />
           </div>
         )}
@@ -151,7 +151,7 @@ const jsonLdString = JSON.stringify(schemas);
         <!-- Yandex Share Scenario CTA -->
         {entry.data.yandexShareUrl && (
           <div class="share-cta-box glass">
-            <div class="share-icon">✨</div>
+            <div class="share-icon" aria-hidden="true">✨</div>
             <h3 class="share-title font-outfit">Добавить в один клик</h3>
             <p class="share-text">Вы можете мгновенно скопировать этот настроенный и протестированный сценарий в свое приложение «Дом с Алисой».</p>
             <a 
@@ -170,7 +170,7 @@ const jsonLdString = JSON.stringify(schemas);
     <!-- Related articles (Topic Clusters Link Graph) -->
     {relatedEntries.length > 0 && (
       <div class="related-section">
-        <h2 class="related-title font-outfit">🔮 Читайте также в этом разделе</h2>
+        <h2 class="related-title font-outfit"><span aria-hidden="true">🔮</span> Читайте также в этом разделе</h2>
         <div class="related-grid">
           {relatedEntries.map(related => (
             <a href={`/scenarios/${related.id}`} class="related-card glass">

@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Политика конфиденциальности" 
+  description="Политика обработки персональных данных сайта Умный Дом с Алисой. Мы не собираем персональные данные без вашего согласия."
+>
+  <article class="page-container">
+    <h1 class="page-title font-outfit">Политика конфиденциальности</h1>
+    
+    <div class="page-content markdown-body">
+      <p>
+        Настоящая Политика конфиденциальности действует в отношении всей информации, которую сайт <strong>Умный Дом с Алисой</strong> может получить о пользователе во время использования сайта.
+      </p>
+
+      <h2>1. Какие данные мы собираем</h2>
+      <p>
+        Мы <strong>не собираем</strong> персональные данные пользователей. Сайт является статическим и не имеет форм обратной связи, регистрации или личных кабинетов.
+      </p>
+      <p>
+        Единственные данные, которые могут обрабатываться автоматически — это стандартные логи веб-сервера (IP-адрес, User-Agent, время запроса), используемые для обеспечения технической работоспособности сайта.
+      </p>
+
+      <h2>2. Использование cookie</h2>
+      <p>
+        Сайт использует единственный cookie: <code>localStorage</code> для сохранения выбранной пользователем темы оформления (светлая/тёмная). Этот файл не содержит персональных данных и не используется для отслеживания.
+      </p>
+
+      <h2>3. Сторонние сервисы</h2>
+      <p>
+        Мы используем следующие сторонние сервисы:
+      </p>
+      <ul>
+        <li><strong>Google Fonts</strong> — для загрузки шрифтов Inter и Outfit. Google может собирать анонимную статистику использования шрифтов согласно своей политике конфиденциальности.</li>
+        <li><strong>Яндекс.Метрика</strong> — для анализа посещаемости сайта (подключается после настройки вебмастера).</li>
+      </ul>
+
+      <h2>4. Партнёрские ссылки</h2>
+      <p>
+        На сайте могут присутствовать ссылки на товары в Яндекс.Маркете. При переходе по таким ссылкам и совершении покупки мы можем получать комиссионное вознаграждение. Это не влияет на цену товара для вас.
+      </p>
+
+      <h2>5. Изменения политики</h2>
+      <p>
+        Мы оставляем за собой право вносить изменения в данную Политику конфиденциальности. Актуальная версия всегда доступна по адресу <code>/privacy</code>.
+      </p>
+
+      <p><em>Последнее обновление: 19 июня 2026 г.</em></p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0 4rem 0;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .markdown-body {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+
+  .markdown-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  .markdown-body h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.5rem;
+  }
+
+  .markdown-body ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .markdown-body li {
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-body strong {
+    color: var(--text-primary);
+  }
+
+  .markdown-body code {
+    font-family: 'Inter', monospace;
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+</style>

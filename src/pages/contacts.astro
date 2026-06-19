@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Контакты" 
+  description="Свяжитесь с командой проекта Умный Дом с Алисой. Мы открыты к сотрудничеству, предложениям и обратной связи по улучшению руководств."
+>
+  <article class="page-container">
+    <h1 class="page-title font-outfit">Контакты</h1>
+    
+    <div class="page-content markdown-body">
+      <p>
+        Мы всегда рады обратной связи, предложениям по улучшению и новым идеям для руководств. Свяжитесь с нами удобным способом.
+      </p>
+
+      <h2>Для читателей</h2>
+      <ul>
+        <li>Нашли ошибку в инструкции? Напишите нам.</li>
+        <li>Есть идея для нового сценария? Присылайте.</li>
+        <li>Хотите поделиться своим опытом? Мы открыты к гостевому контенту.</li>
+      </ul>
+
+      <h2>Для производителей и брендов</h2>
+      <p>
+        Мы открыты к сотрудничеству с производителями умных устройств, совместимых с экосистемой Яндекса: Aqara, Tuya, Yeelight, Rubetek и другие. Возможны форматы нативных обзоров и интеграции устройств в наши пошаговые руководства.
+      </p>
+
+      <h2>Способы связи</h2>
+      <ul>
+        <li><strong>Email:</strong> hello@alice-smarthome.ru</li>
+        <li><strong>Telegram:</strong> <a href="https://t.me/alice_smarthome" target="_blank" rel="noopener noreferrer">@alice_smarthome</a></li>
+      </ul>
+
+      <p>
+        Мы стараемся отвечать в течение 24 часов в рабочие дни.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0 4rem 0;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .markdown-body {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+
+  .markdown-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  .markdown-body h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.5rem;
+  }
+
+  .markdown-body ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .markdown-body li {
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-body strong {
+    color: var(--text-primary);
+  }
+
+  .markdown-body a {
+    color: var(--accent-alice);
+  }
+
+  .markdown-body a:hover {
+    text-decoration: underline;
+  }
+</style>

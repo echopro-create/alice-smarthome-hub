@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="О проекте" 
+  description="Умный Дом с Алисой — независимый контентный хаб, который систематизирует опыт пользователей экосистемы Яндекса в пошаговые руководства и инструкции по автоматизации."
+>
+  <article class="page-container">
+    <h1 class="page-title font-outfit">О проекте</h1>
+    
+    <div class="page-content markdown-body">
+      <p>
+        <strong>Умный Дом с Алисой</strong> — это независимый контентный хаб, который систематизирует разрозненный опыт пользователей из Telegram-чатов, форумов и технических сообществ в структурированные пошаговые руководства.
+      </p>
+
+      <h2>Наша миссия</h2>
+      <p>
+        Мы собираем, проверяем и документируем реальные сценарии автоматизации, чтобы каждый пользователь — от новичка до продвинутого энтузиаста — мог быстро настроить свой умный дом без чтения десятков форумных веток.
+      </p>
+
+      <h2>Что мы делаем</h2>
+      <ul>
+        <li>Пошаговые гайды по настройке сценариев в приложении «Дом с Алисой»</li>
+        <li>Технические разборы проблем и их решений (траблшутинг)</li>
+        <li>Обзоры совместимости устройств Zigbee, Matter и Thread с экосистемой Яндекса</li>
+        <li>Рекомендации по локальной автоматизации без интернета</li>
+      </ul>
+
+      <h2>Кто мы</h2>
+      <p>
+        Проект создан энтузиастами умного дома, которые на собственном опыте прошли путь от первых робких сценариев до комплексных систем автоматизации. Мы не affiliated с Яндексом — мы просто делаем экосистему доступнее.
+      </p>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0 4rem 0;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .markdown-body {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+  }
+
+  .markdown-body p {
+    margin-bottom: 1.5rem;
+  }
+
+  .markdown-body h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.5rem;
+  }
+
+  .markdown-body ul {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .markdown-body li {
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-body strong {
+    color: var(--text-primary);
+  }
+</style>
