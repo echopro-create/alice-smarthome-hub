@@ -159,3 +159,56 @@ test("Оборудование: сценарии автоматизации до
     }
   });
 });
+
+test("Изображения: все теги <img> в .astro файлах должны содержать loading='lazy', decoding='async', alt и размеры width/height для предотвращения CLS", () => {
+  const srcDir = "./src";
+  const files = [];
+
+  function getAstroFiles(dir) {
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+      if (stat.isDirectory()) {
+        getAstroFiles(filePath);
+      } else if (file.endsWith(".astro")) {
+        files.push(filePath);
+      }
+    });
+  }
+
+  getAstroFiles(srcDir);
+
+  const violations = [];
+
+  files.forEach(filePath => {
+    const content = fs.readFileSync(filePath, "utf8");
+    const imgRegex = /<img([^>]*)\/?>/g;
+    let match;
+    while ((match = imgRegex.exec(content)) !== null) {
+      const fullTag = match[0];
+      const attributes = match[1] || "";
+
+      const hasLoading = /loading=["']lazy["']/.test(attributes);
+      const hasDecoding = /decoding=["']async["']/.test(attributes);
+      const hasAlt = /alt=/i.test(attributes);
+      const hasWidth = /width=/i.test(attributes);
+      const hasHeight = /height=/i.test(attributes);
+
+      if (!hasLoading) {
+        violations.push({ file: path.basename(filePath), tag: fullTag, error: "Missing loading='lazy'" });
+      }
+      if (!hasDecoding) {
+        violations.push({ file: path.basename(filePath), tag: fullTag, error: "Missing decoding='async'" });
+      }
+      if (!hasAlt) {
+        violations.push({ file: path.basename(filePath), tag: fullTag, error: "Missing alt attribute" });
+      }
+      if (!hasWidth || !hasHeight) {
+        violations.push({ file: path.basename(filePath), tag: fullTag, error: "Missing width or height attribute to prevent CLS" });
+      }
+    }
+  });
+
+  assert.deepEqual(violations, [], "Некоторые теги <img> не соответствуют стандартам SEO/CLS");
+});
