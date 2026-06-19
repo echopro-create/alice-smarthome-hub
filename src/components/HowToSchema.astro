@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  steps?: Array<{
+    title: string;
+    text: string;
+    image?: string;
+  }>;
+}
+
+const { title, description, steps = [] } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": title,
+  "description": description,
+  "step": steps.map((step, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": step.title,
+    "text": step.text,
+    ...(step.image ? { "image": new URL(step.image, Astro.url.origin).href } : {})
+  }))
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

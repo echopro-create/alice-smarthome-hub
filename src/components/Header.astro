@@ -1,0 +1,73 @@
+---
+---
+<header class="glass">
+  <div class="container header-container">
+    <a href="/" class="logo">
+      <span class="logo-icon">🔮</span>
+      <span class="logo-text font-outfit">Умный Дом <span class="purple-highlight">Алисы</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link">Главная</a>
+      <a href="/#scenarios" class="nav-link">Сценарии</a>
+      <a href="/#troubleshooting" class="nav-link">Траблшутинг</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-primary);
+    padding: 1rem 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .logo-icon {
+    filter: drop-shadow(0 0 8px var(--accent-alice));
+  }
+
+  .purple-highlight {
+    color: var(--accent-alice);
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    .header-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

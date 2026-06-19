@@ -1,0 +1,302 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import HowToSchema from '../../components/HowToSchema.astro';
+import ScenarioSteps from '../../components/ScenarioSteps.astro';
+import DeviceList from '../../components/DeviceList.astro';
+
+// Генерация путей для каждой записи в коллекции scenarios
+export async function getStaticPaths() {
+  const entries = await getCollection('scenarios');
+  return entries.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const isScenario = entry.data.category === 'scenario';
+---
+
+<Layout 
+  title={entry.data.title} 
+  description={entry.data.description}
+>
+  <!-- SEO JSON-LD Microdata -->
+  {entry.data.steps && (
+    <HowToSchema 
+      title={entry.data.title} 
+      description={entry.data.description} 
+      steps={entry.data.steps} 
+    />
+  )}
+
+  <article class="article-container">
+    <!-- Back to home -->
+    <a href="/" class="back-link font-outfit">← Назад на главную</a>
+
+    <!-- Header info -->
+    <header class="article-header">
+      {entry.data.difficulty && (
+        <span class={`difficulty-badge ${entry.data.difficulty}`}>
+          Сложность: {entry.data.difficulty === 'easy' ? 'Легко' : entry.data.difficulty === 'medium' ? 'Средне' : 'Сложно'}
+        </span>
+      )}
+      <h1 class="article-title font-outfit">{entry.data.title}</h1>
+      <p class="article-meta">
+        Опубликовано: {new Date(entry.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+    </header>
+
+    <!-- Main Content Layout -->
+    <div class="article-grid">
+      <div class="article-main">
+        <!-- Rendered MD body (theory, gotchas, advanced notes) -->
+        <div class="markdown-body">
+          <Content />
+        </div>
+
+        <!-- Render visual steps if present -->
+        {entry.data.steps && (
+          <div class="steps-section">
+            <h2 class="steps-section-title font-outfit">📋 Инструкция по настройке</h2>
+            <ScenarioSteps steps={entry.data.steps} />
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar">
+        <!-- Required Devices widget -->
+        {entry.data.devices && <DeviceList devices={entry.data.devices} />}
+
+        <!-- Yandex Share Scenario CTA -->
+        {entry.data.yandexShareUrl && (
+          <div class="share-cta-box glass">
+            <div class="share-icon">✨</div>
+            <h3 class="share-title font-outfit">Добавить в один клик</h3>
+            <p class="share-text">Вы можете мгновенно скопировать этот настроенный и протестированный сценарий в свое приложение «Дом с Алисой».</p>
+            <a 
+              href={entry.data.yandexShareUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="share-btn font-outfit"
+            >
+              Импортировать в Алису
+            </a>
+          </div>
+        )}
+      </aside>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .article-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 1rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    color: var(--accent-alice);
+  }
+
+  .article-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .difficulty-badge {
+    align-self: flex-start;
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .difficulty-badge.easy {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-emerald);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .difficulty-badge.medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  .difficulty-badge.hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  .article-title {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #fff 40%, var(--accent-alice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .article-meta {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* Grid Layout for article and sidebar */
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .article-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .steps-section {
+    border-top: 1px solid var(--border-primary);
+    padding-top: 2rem;
+  }
+
+  .steps-section-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 5rem;
+  }
+
+  /* Yandex Share Box */
+  .share-cta-box {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.05);
+  }
+
+  .share-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+  }
+
+  .share-title {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+  }
+
+  .share-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .share-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--accent-alice) 0%, #6366f1 100%);
+    color: white;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--glow-alice);
+    transition: all 0.2s ease;
+  }
+
+  .share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+    filter: brightness(1.1);
+  }
+
+  /* Markdown body overrides */
+  .markdown-body {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+  }
+
+  .markdown-body :global(h2), .markdown-body :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .markdown-body :global(h2) {
+    font-size: 1.6rem;
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.5rem;
+  }
+
+  .markdown-body :global(h3) {
+    font-size: 1.3rem;
+  }
+
+  .markdown-body :global(p) {
+    margin-bottom: 1.25rem;
+    color: var(--text-secondary);
+  }
+
+  .markdown-body :global(ul), .markdown-body :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  .markdown-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-body :global(strong) {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 900px) {
+    .article-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    
+    .article-sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .article-title {
+      font-size: 2.2rem;
+    }
+  }
+</style>

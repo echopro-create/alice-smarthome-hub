@@ -1,0 +1,130 @@
+---
+interface Props {
+  devices: string[];
+}
+
+const { devices } = Astro.props;
+
+// Генерация демонстрационных партнерских ссылок Яндекс Дистрибуции
+const getMarketLink = (deviceName: string) => {
+  const query = encodeURIComponent(deviceName);
+  return `https://market.yandex.ru/search?text=${query}&clid=999&mclid=demo-cpa`;
+};
+---
+
+<div class="devices-box glass">
+  <h3 class="devices-title font-outfit">🔌 Необходимое оборудование</h3>
+  <div class="devices-grid">
+    {devices.map((device) => (
+      <div class="device-item">
+        <div class="device-info">
+          <span class="device-icon">⚙️</span>
+          <span class="device-name">{device}</span>
+        </div>
+        <a 
+          href={getMarketLink(device)} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="market-btn font-outfit"
+        >
+          <span>Купить на Яндекс Маркете</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .devices-box {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-primary);
+    margin: 2rem 0;
+  }
+
+  .devices-title {
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .devices-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .device-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+
+  .device-item:hover {
+    background: rgba(139, 92, 246, 0.05);
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+
+  .device-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .device-icon {
+    font-size: 1.2rem;
+  }
+
+  .device-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .market-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #fc3f1d 0%, #d32f0f 100%); /* Яндекс красный */
+    border-radius: 99px;
+    box-shadow: 0 4px 10px rgba(252, 63, 29, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .market-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(252, 63, 29, 0.4);
+    filter: brightness(1.1);
+  }
+
+  .btn-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .market-btn:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 640px) {
+    .device-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .market-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

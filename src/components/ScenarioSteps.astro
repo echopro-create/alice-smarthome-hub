@@ -1,0 +1,217 @@
+---
+interface Step {
+  title: string;
+  text: string;
+  image?: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="steps-container">
+  {steps.map((step, index) => (
+    <div class="step-card glass">
+      <div class="step-badge-wrapper">
+        <div class="step-line-top" style={index === 0 ? "display: none;" : ""}></div>
+        <div class="step-number-badge">
+          <span>{index + 1}</span>
+        </div>
+        <div class="step-line-bottom" style={index === steps.length - 1 ? "display: none;" : ""}></div>
+      </div>
+      <div class="step-content">
+        <h3 class="step-title font-outfit">{step.title}</h3>
+        <p class="step-text">{step.text}</p>
+        
+        {step.image && (
+          <div class="step-image-placeholder">
+            <div class="placeholder-icon">📱</div>
+            <div class="placeholder-text font-outfit">Интерфейс «Дом с Алисой»</div>
+            <div class="placeholder-sub">Шаг {index + 1}: {step.title}</div>
+            <div class="laser-glow"></div>
+          </div>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2.5rem 0;
+  }
+
+  .step-card {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent-alice), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .step-card:hover {
+    transform: translateX(8px);
+    border-color: var(--border-hover);
+    box-shadow: var(--glow-alice);
+  }
+
+  .step-card:hover::before {
+    opacity: 1;
+  }
+
+  .step-badge-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 40px;
+  }
+
+  .step-number-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-alice) 0%, #6366f1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    box-shadow: 0 0 15px var(--accent-alice-glow);
+    z-index: 2;
+    transition: transform 0.3s ease;
+  }
+
+  .step-card:hover .step-number-badge {
+    transform: scale(1.1);
+  }
+
+  .step-line-top {
+    position: absolute;
+    top: -2rem;
+    bottom: 50%;
+    width: 2px;
+    background: rgba(139, 92, 246, 0.2);
+    z-index: 1;
+  }
+
+  .step-line-bottom {
+    position: absolute;
+    top: 50%;
+    bottom: -2rem;
+    width: 2px;
+    background: rgba(139, 92, 246, 0.2);
+    z-index: 1;
+  }
+
+  .step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .step-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .step-image-placeholder {
+    margin-top: 1rem;
+    height: 180px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, rgba(22, 22, 45, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
+    border: 1px dashed rgba(139, 92, 246, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .placeholder-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+  }
+
+  .placeholder-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .placeholder-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .laser-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(139, 92, 246, 0.05),
+      transparent
+    );
+    transform: skewX(-25deg);
+    animation: shine 4s infinite;
+  }
+
+  @keyframes shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  @media (max-width: 640px) {
+    .step-card {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .step-badge-wrapper {
+      flex-direction: row;
+      width: 100%;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+
+    .step-line-top, .step-line-bottom {
+      display: none !important;
+    }
+  }
+</style>

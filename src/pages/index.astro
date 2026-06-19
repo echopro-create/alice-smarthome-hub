@@ -1,0 +1,427 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const allEntries = await getCollection('scenarios');
+
+// Разделяем записи по категориям
+const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
+const troubleshooting = allEntries.filter(entry => entry.data.category === 'troubleshooting');
+
+const getDifficultyLabel = (diff?: 'easy' | 'medium' | 'hard') => {
+  switch (diff) {
+    case 'easy': return 'Легко';
+    case 'medium': return 'Средне';
+    case 'hard': return 'Сложно';
+    default: return '';
+  }
+};
+---
+
+<Layout 
+  title="Главная" 
+  description="Библиотека пошаговых сценариев и руководств по траблшутингу для вашего Умного Дома с Алисой. Систематизируем опыт закрытых сообществ."
+>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-glow"></div>
+    <h1 class="hero-title font-outfit">
+      Сделайте ваш дом действительно <br />
+      <span class="gradient-text-cyan">Умным с Алисой</span>
+    </h1>
+    <p class="hero-subtitle">
+      Пошаговые руководства, детальные схемы интеграции и готовые решения проблем. Мы задокументировали и структурировали хаотичный опыт сотен Telegram-чатов и форумов.
+    </p>
+    <div class="hero-actions">
+      <a href="#scenarios" class="btn btn-primary font-outfit">Изучить сценарии</a>
+      <a href="#troubleshooting" class="btn btn-secondary font-outfit">База траблшутинга</a>
+    </div>
+  </section>
+
+  <!-- Scenarios Grid Section -->
+  <section id="scenarios" class="section-container">
+    <h2 class="section-title font-outfit">🔮 Библиотека сценариев</h2>
+    <p class="section-desc">Готовые алгоритмы автоматизации: от утренних рутин до комплексных систем безопасности.</p>
+    
+    <div class="scenarios-grid">
+      {scenarios.map((scenario) => (
+        <article class="scenario-card glass">
+          <div class="card-header">
+            <span class={`difficulty-badge ${scenario.data.difficulty}`}>
+              {getDifficultyLabel(scenario.data.difficulty)}
+            </span>
+            <span class="date-badge">
+              {new Date(scenario.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </span>
+          </div>
+          <h3 class="card-title font-outfit">
+            <a href={`/scenarios/${scenario.id}`}>{scenario.data.title}</a>
+          </h3>
+          <p class="card-desc">{scenario.data.description}</p>
+          
+          {scenario.data.devices && (
+            <div class="card-devices">
+              {scenario.data.devices.slice(0, 3).map((device) => (
+                <span class="device-tag">{device}</span>
+              ))}
+              {scenario.data.devices.length > 3 && (
+                <span class="device-tag-more">+{scenario.data.devices.length - 3}</span>
+              )}
+            </div>
+          )}
+          
+          <a href={`/scenarios/${scenario.id}`} class="card-link font-outfit">
+            Читать гайд <span class="arrow">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Troubleshooting List Section -->
+  <section id="troubleshooting" class="section-container troubleshooting-section">
+    <div class="trouble-glow"></div>
+    <h2 class="section-title font-outfit">🔧 Разборы и Траблшутинг</h2>
+    <p class="section-desc">Устранение неполадок, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
+    
+    <div class="trouble-list">
+      {troubleshooting.map((article) => (
+        <article class="trouble-card glass">
+          <div class="trouble-icon">⚠️</div>
+          <div class="trouble-content">
+            <h3 class="trouble-title font-outfit">
+              <a href={`/scenarios/${article.id}`}>{article.data.title}</a>
+            </h3>
+            <p class="trouble-desc">{article.data.description}</p>
+            <span class="trouble-date">
+              {new Date(article.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </span>
+          </div>
+          <a href={`/scenarios/${article.id}`} class="trouble-btn font-outfit">Решение →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    padding: 6rem 0 4rem 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    line-height: 1.15;
+    background: linear-gradient(185deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .btn {
+    padding: 0.8rem 2rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-primary {
+    background: var(--accent-alice);
+    color: white;
+    box-shadow: var(--glow-alice);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(139, 92, 246, 0.5);
+    filter: brightness(1.1);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+  }
+
+  /* Section Common */
+  .section-container {
+    padding: 5rem 0 2rem 0;
+    position: relative;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Scenarios Grid */
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .scenario-card {
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scenario-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-hover);
+    box-shadow: var(--glow-alice);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .difficulty-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .difficulty-badge.easy {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-emerald);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .difficulty-badge.medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  .difficulty-badge.hard {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  .date-badge {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .card-title a:hover {
+    color: var(--accent-alice);
+  }
+
+  .card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .card-devices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .device-tag {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .device-tag-more {
+    font-size: 0.75rem;
+    color: var(--accent-alice);
+    font-weight: 600;
+    align-self: center;
+  }
+
+  .card-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-alice);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+  }
+
+  .card-link .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .card-link:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Troubleshooting Section */
+  .troubleshooting-section {
+    position: relative;
+  }
+
+  .trouble-glow {
+    position: absolute;
+    bottom: -10%;
+    right: 5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.05) 0%, transparent 75%);
+    z-index: -1;
+    filter: blur(50px);
+    pointer-events: none;
+  }
+
+  .trouble-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .trouble-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+  }
+
+  .trouble-card:hover {
+    border-color: rgba(0, 240, 255, 0.3);
+    box-shadow: var(--glow-cyan);
+    transform: translateX(6px);
+  }
+
+  .trouble-icon {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.4));
+  }
+
+  .trouble-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .trouble-title {
+    font-size: 1.3rem;
+  }
+
+  .trouble-title a:hover {
+    color: var(--accent-cyan);
+  }
+
+  .trouble-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .trouble-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .trouble-btn {
+    padding: 0.5rem 1.25rem;
+    background: rgba(0, 240, 255, 0.06);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 99px;
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .trouble-card:hover .trouble-btn {
+    background: var(--accent-cyan);
+    color: var(--bg-main);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .scenarios-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .trouble-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .trouble-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
