@@ -8,102 +8,199 @@
 /* HERO СЕКЦИЯ */
 .hero {
   position: relative;
-  min-height: 80vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
-  background-image: linear-gradient(135deg, rgba(30, 37, 32, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-  background-size: cover;
-  background-position: center;
+  background-color: var(--background);
   overflow: hidden;
-  padding: 130px 0 80px 0;
+  padding: 140px 0 100px 0;
+  transition: background-color var(--transition-normal);
 }
 
-:global(html[data-theme='light']) .hero {
-  background-image: linear-gradient(135deg, rgba(74, 93, 78, 0.1) 0%, rgba(240, 237, 233, 0.5) 100%);
+/* Декоративные светящиеся сферы */
+.glowSpot1 {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 190, 150, 0.15) 0%, rgba(85, 107, 47, 0.05) 50%, transparent 100%);
+  filter: blur(80px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glowSpot2 {
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(85, 107, 47, 0.1) 0%, rgba(212, 190, 150, 0.03) 60%, transparent 100%);
+  filter: blur(100px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+:global(html[data-theme='light']) .glowSpot1 {
+  background: radial-gradient(circle, rgba(85, 107, 47, 0.08) 0%, transparent 70%);
+}
+
+:global(html[data-theme='light']) .glowSpot2 {
+  background: radial-gradient(circle, rgba(212, 190, 150, 0.06) 0%, transparent 70%);
 }
 
 .heroContainer {
   position: relative;
   z-index: 10;
+  width: 100%;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: center;
 }
 
 .heroContent {
-  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .heroTitle {
   font-family: var(--font-serif);
-  font-size: 64px;
+  font-size: clamp(40px, 4.5vw, 64px);
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 24px;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--foreground);
+  opacity: 0;
 }
 
-:global(html[data-theme='light']) .heroTitle {
-  color: var(--foreground);
+/* Стилизация выделенного курсивом золотого слова */
+.heroTitle em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-serif);
 }
 
 .heroSub {
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.7;
   margin-bottom: 40px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-:global(html[data-theme='light']) .heroSub {
   color: var(--foreground-muted);
+  max-width: 540px;
+  opacity: 0;
 }
 
 .heroCta {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
+  opacity: 0;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 54px;
-  padding: 0 32px;
-  border-radius: 8px;
+  height: 56px;
+  padding: 0 36px;
+  border-radius: 30px;
   font-weight: 600;
   font-size: 15px;
-  letter-spacing: 0.05em;
-  transition: all var(--transition-fast);
+  letter-spacing: 0.03em;
+  transition: all var(--transition-normal);
 }
 
 .primaryBtn {
-  background-color: var(--primary);
-  color: var(--background);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #080908;
+  box-shadow: 0 4px 15px rgba(212, 190, 150, 0.2);
+}
+
+:global(html[data-theme='light']) .primaryBtn {
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(85, 107, 47, 0.15);
 }
 
 .primaryBtn:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(212, 190, 150, 0.35);
+}
+
+:global(html[data-theme='light']) .primaryBtn:hover {
+  box-shadow: 0 10px 25px rgba(85, 107, 47, 0.3);
 }
 
 .secondaryBtn {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-}
-
-:global(html[data-theme='light']) .secondaryBtn {
-  border-color: var(--border);
+  border: 1px solid var(--border);
   color: var(--foreground);
+  background-color: transparent;
 }
 
 .secondaryBtn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #ffffff;
+  background-color: var(--foreground);
+  color: var(--background);
+  border-color: var(--foreground);
+  transform: translateY(-3px);
 }
 
-:global(html[data-theme='light']) .secondaryBtn:hover {
-  background-color: var(--border);
-  border-color: var(--foreground);
+/* Колонка для премиум картинки */
+.heroImageColumn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+.heroImageGlow {
+  position: absolute;
+  width: 105%;
+  height: 105%;
+  border-radius: 200px 200px 40px 40px;
+  background: radial-gradient(circle, rgba(212, 190, 150, 0.15) 0%, transparent 70%);
+  filter: blur(30px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+:global(html[data-theme='light']) .heroImageGlow {
+  background: radial-gradient(circle, rgba(85, 107, 47, 0.08) 0%, transparent 70%);
+}
+
+.heroImageArch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 0.85/1;
+  border-radius: 200px 200px 30px 30px;
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+:global(html[data-theme='light']) .heroImageArch {
+  box-shadow: 0 20px 40px rgba(85, 107, 47, 0.08);
+  border: 1px solid rgba(85, 107, 47, 0.08);
+}
+
+.heroImg {
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heroImageArch:hover .heroImg {
+  transform: scale(1.05);
 }
 
 /* СЕКЦИИ ОБЩИЕ СТИЛИ */
@@ -398,6 +495,10 @@
 
 /* АДАПТИВНОСТЬ */
 @media (max-width: 1024px) {
+  .heroGrid {
+    gap: 40px;
+  }
+
   .servicesGrid,
   .testimonialsGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -410,10 +511,35 @@
 }
 
 @media (max-width: 768px) {
-  .heroTitle {
-    font-size: 40px;
+  .hero {
+    padding: 110px 0 60px 0;
+    min-height: auto;
   }
-  
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .heroContent {
+    align-items: center;
+  }
+
+  .heroCta {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .heroTitle {
+    font-size: 38px;
+  }
+
+  .heroImageColumn {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
   .aboutGrid {
     grid-template-columns: 1fr;
     gap: 40px;

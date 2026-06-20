@@ -2,64 +2,64 @@
 
 /* Переменные CSS по умолчанию (зависят от предпочтений системы) */
 :root {
-  --background: #f9f8f6;
+  --background: #fdfdfc;
   --background-card: #ffffff;
-  --foreground: #1e2520;
-  --foreground-muted: #606a62;
-  --primary: #4a5d4e;
-  --primary-hover: #2f3c32;
-  --border: #e6e3df;
-  --shadow: 0 4px 6px rgba(74, 93, 78, 0.02), 0 20px 40px rgba(74, 93, 78, 0.06);
-  --glass-bg: rgba(249, 248, 246, 0.85);
-  --glass-border: rgba(74, 93, 78, 0.06);
+  --foreground: #1c1f1d;
+  --foreground-muted: #5e6660;
+  --primary: #556b2f;
+  --primary-hover: #3d4d21;
+  --border: #e8e6e3;
+  --shadow: 0 4px 20px rgba(85, 107, 47, 0.03), 0 20px 40px rgba(85, 107, 47, 0.05);
+  --glass-bg: rgba(253, 253, 252, 0.85);
+  --glass-border: rgba(85, 107, 47, 0.06);
   
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Outfit', sans-serif;
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.25s ease;
+  --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   --max-width: 1200px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #111111;
-    --background-card: #1a1a1a;
-    --foreground: #f5f5f5;
-    --foreground-muted: #a0a0a0;
-    --primary: #c5a880;
-    --primary-hover: #e5c494;
-    --border: #2e2e2e;
-    --shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 20px 40px rgba(0, 0, 0, 0.45);
-    --glass-bg: rgba(17, 17, 17, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.05);
+    --background: #080908;
+    --background-card: #121312;
+    --foreground: #f4f5f4;
+    --foreground-muted: #9fa6a0;
+    --primary: #d4be96;
+    --primary-hover: #c4ae86;
+    --border: #232523;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
+    --glass-bg: rgba(8, 9, 8, 0.82);
+    --glass-border: rgba(212, 190, 150, 0.08);
   }
 }
 
 /* Явное переопределение тем через класс/атрибут */
 html[data-theme='light'] {
-  --background: #f9f8f6;
+  --background: #fdfdfc;
   --background-card: #ffffff;
-  --foreground: #1e2520;
-  --foreground-muted: #606a62;
-  --primary: #4a5d4e;
-  --primary-hover: #2f3c32;
-  --border: #e6e3df;
-  --shadow: 0 4px 6px rgba(74, 93, 78, 0.02), 0 20px 40px rgba(74, 93, 78, 0.06);
-  --glass-bg: rgba(249, 248, 246, 0.85);
-  --glass-border: rgba(74, 93, 78, 0.06);
+  --foreground: #1c1f1d;
+  --foreground-muted: #5e6660;
+  --primary: #556b2f;
+  --primary-hover: #3d4d21;
+  --border: #e8e6e3;
+  --shadow: 0 4px 20px rgba(85, 107, 47, 0.03), 0 20px 40px rgba(85, 107, 47, 0.05);
+  --glass-bg: rgba(253, 253, 252, 0.85);
+  --glass-border: rgba(85, 107, 47, 0.06);
 }
 
 html[data-theme='dark'] {
-  --background: #111111;
-  --background-card: #1a1a1a;
-  --foreground: #f5f5f5;
-  --foreground-muted: #a0a0a0;
-  --primary: #c5a880;
-  --primary-hover: #e5c494;
-  --border: #2e2e2e;
-  --shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 20px 40px rgba(0, 0, 0, 0.45);
-  --glass-bg: rgba(17, 17, 17, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.05);
+  --background: #080908;
+  --background-card: #121312;
+  --foreground: #f4f5f4;
+  --foreground-muted: #9fa6a0;
+  --primary: #d4be96;
+  --primary-hover: #c4ae86;
+  --border: #232523;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
+  --glass-bg: rgba(8, 9, 8, 0.82);
+  --glass-border: rgba(212, 190, 150, 0.08);
 }
 
 /* Базовый сброс */
@@ -149,8 +149,44 @@ button, .button {
 
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 var(--shadow);
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+/* Анимации появления и свечения */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.12;
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    opacity: 0.18;
+    transform: scale(1.08) translate(3%, 2%);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pulseGlow {
+  animation: pulseGlow 10s ease-in-out infinite;
+}
+
+.premium-text-glow {
+  text-shadow: 0 0 40px rgba(212, 190, 150, 0.15);
 }

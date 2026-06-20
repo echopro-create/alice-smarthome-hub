@@ -12,6 +12,7 @@
   letter-spacing: 0.05em;
   padding: 4px 6px;
   border-radius: 4px;
+  position: relative;
   transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
@@ -21,6 +22,16 @@
 
 .active {
   color: var(--primary);
-  background: var(--shadow);
   font-weight: 600;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background-color: var(--primary);
+  border-radius: 1px;
 }

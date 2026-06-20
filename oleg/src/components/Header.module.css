@@ -163,6 +163,69 @@
   align-items: center;
 }
 
+/* Кнопка записи на десктопе */
+.bookBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 22px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #080908;
+  box-shadow: 0 4px 12px rgba(212, 190, 150, 0.15);
+  transition: all var(--transition-normal);
+  margin-left: 8px;
+}
+
+:global(html[data-theme='light']) .bookBtn {
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(85, 107, 47, 0.12);
+}
+
+.bookBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 190, 150, 0.3);
+}
+
+:global(html[data-theme='light']) .bookBtn:hover {
+  box-shadow: 0 8px 20px rgba(85, 107, 47, 0.25);
+}
+
+/* Кнопка записи в мобильном меню */
+.mobileBookBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 100%;
+  max-width: 280px;
+  border-radius: 24px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #080908;
+  box-shadow: 0 4px 12px rgba(212, 190, 150, 0.15);
+  margin-top: 32px;
+  transition: all var(--transition-normal);
+}
+
+:global(html[data-theme='light']) .mobileBookBtn {
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(85, 107, 47, 0.12);
+}
+
+.mobileBookBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 190, 150, 0.3);
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   .nav,

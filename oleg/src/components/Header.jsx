@@ -50,10 +50,13 @@ export default function Header({ lng, dict }) {
           })}
         </nav>
 
-        {/* Действия (Переключатель темы, языка) */}
+        {/* Действия (Переключатель темы, языка, запись) */}
         <div className={styles.actions}>
           <ThemeToggle />
           <LanguageSwitcher />
+          <Link href={`/${lng}/contacts`} className={styles.bookBtn}>
+            {dict.common.bookNow}
+          </Link>
         </div>
 
         {/* Кнопка мобильного меню */}
@@ -91,6 +94,9 @@ export default function Header({ lng, dict }) {
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
+          <Link href={`/${lng}/contacts`} className={styles.mobileBookBtn} onClick={closeMenu}>
+            {dict.common.bookNow}
+          </Link>
         </nav>
       </div>
     </header>

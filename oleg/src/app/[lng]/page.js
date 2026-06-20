@@ -77,17 +77,54 @@ export default async function HomePage({ params }) {
       <div className={styles.wrapper}>
         {/* HERO СЕКЦИЯ */}
         <section className={styles.hero}>
+          {/* Декоративные светящиеся шары для глубины */}
+          <div className={`${styles.glowSpot1} pulseGlow`}></div>
+          <div className={`${styles.glowSpot2} pulseGlow`}></div>
+          
           <div className={`${styles.heroContainer} container`}>
-            <div className={styles.heroContent}>
-              <h1 className={styles.heroTitle}>{dict.home.heroTitle}</h1>
-              <p className={styles.heroSub}>{dict.home.heroSub}</p>
-              <div className={styles.heroCta}>
-                <Link href={`/${lng}/contacts`} className={`${styles.btn} ${styles.primaryBtn}`}>
-                  {dict.common.bookNow}
-                </Link>
-                <a href="#services" className={`${styles.btn} ${styles.secondaryBtn}`}>
-                  {dict.nav.services}
-                </a>
+            <div className={styles.heroGrid}>
+              {/* Левая колонка: Текст и CTA */}
+              <div className={styles.heroContent}>
+                <h1 
+                  className={`${styles.heroTitle} fadeInUp`}
+                  style={{ animationDelay: '0.1s' }}
+                  dangerouslySetInnerHTML={{ __html: dict.home.heroTitle }}
+                />
+                <p 
+                  className={`${styles.heroSub} fadeInUp`}
+                  style={{ animationDelay: '0.3s' }}
+                >
+                  {dict.home.heroSub}
+                </p>
+                <div 
+                  className={`${styles.heroCta} fadeInUp`}
+                  style={{ animationDelay: '0.5s' }}
+                >
+                  <Link href={`/${lng}/contacts`} className={`${styles.btn} ${styles.primaryBtn}`}>
+                    {dict.common.bookNow}
+                  </Link>
+                  <a href="#services" className={`${styles.btn} ${styles.secondaryBtn}`}>
+                    {dict.nav.services}
+                  </a>
+                </div>
+              </div>
+
+              {/* Правая колонка: Эстетичное изображение в форме арки с собственным свечением */}
+              <div 
+                className={`${styles.heroImageColumn} fadeInUp`}
+                style={{ animationDelay: '0.4s' }}
+              >
+                <div className={styles.heroImageGlow}></div>
+                <div className={styles.heroImageArch}>
+                  <Image
+                    src="/images/hero.png"
+                    alt="Oleg Massage - Premium Spa Atmosphere"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className={styles.heroImg}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -223,7 +260,7 @@ export default async function HomePage({ params }) {
                       </svg>
                     ))}
                   </div>
-                  <p className={styles.testimonialText}>"{item.text}"</p>
+                  <p className={styles.testimonialText}>&ldquo;{item.text}&rdquo;</p>
                   <div className={styles.testimonialUser}>
                     <h4 className={styles.userName}>{item.name}</h4>
                     <span className={styles.userRole}>{item.role}</span>
