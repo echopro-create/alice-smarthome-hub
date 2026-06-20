@@ -157,11 +157,11 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
           <!-- Connection lines (SVG) -->
           <svg class="visual-lines" width="100%" height="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <!-- Line Trigger to Hub -->
-            <path class="line line-trigger active" id="line-trigger" d="M110,150 L160,150" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-trigger active" id="line-trigger" d="M80,150 L200,150" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
             <!-- Line Hub to Action 1 -->
-            <path class="line line-action-1" id="line-action-1" d="M240,150 L290,100" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-action-1" id="line-action-1" d="M200,150 L320,75" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
             <!-- Line Hub to Action 2 -->
-            <path class="line line-action-2" id="line-action-2" d="M240,150 L290,200" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-action-2" id="line-action-2" d="M200,150 L320,225" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
           </svg>
         </div>
       </div>
@@ -771,6 +771,8 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     justify-content: center;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: var(--shadow-sm);
+    margin-left: -38px;
+    margin-top: -38px;
   }
 
   .visual-node .node-icon {
@@ -786,6 +788,8 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     text-align: center;
     position: absolute;
     bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 110px;
     white-space: nowrap;
     transition: color 0.3s ease;
@@ -795,7 +799,6 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .node-hub {
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
   }
 
   .node-hub.active {
@@ -810,16 +813,15 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 
   /* Trigger Node (Motion) */
   .node-trigger {
-    left: 15%;
+    left: 20%;
     top: 50%;
-    transform: translate(-50%, -50%);
   }
 
   .node-trigger.active {
     background: var(--bg-hover);
     border-color: var(--accent-cyan);
     box-shadow: var(--shadow-md), var(--glow-cyan-heavy);
-    transform: translate(-50%, -50%) scale(1.06);
+    transform: scale(1.06);
   }
 
   .node-trigger.active .node-label {
@@ -828,15 +830,13 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 
   /* Action Nodes */
   .node-action-1 {
-    left: 85%;
+    left: 80%;
     top: 25%;
-    transform: translate(-50%, -50%);
   }
 
   .node-action-2 {
-    left: 85%;
+    left: 80%;
     top: 75%;
-    transform: translate(-50%, -50%);
   }
 
   .visual-node:not(.active) {
@@ -847,7 +847,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     background: var(--bg-hover);
     border-color: var(--accent-alice);
     box-shadow: var(--shadow-md), var(--glow-alice-heavy);
-    transform: translate(-50%, -50%) scale(1.06);
+    transform: scale(1.06);
   }
 
   .visual-node.active:not(.node-hub):not(.node-trigger) .node-label {
