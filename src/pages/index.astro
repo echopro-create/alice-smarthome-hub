@@ -85,42 +85,52 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     <div class="hero-glow"></div>
   </section>
 
-  <!-- Scenarios Grid Section -->
-  <section id="scenarios" class="section-container">
+  <!-- Scenarios Slider Section -->
+  <section id="scenarios" class="section-container scenarios-slider-section">
     <h2 class="section-title font-outfit"><span aria-hidden="true">🔮</span> Библиотека сценариев</h2>
     <div class="section-divider"></div>
     <p class="section-desc">Готовые алгоритмы автоматизации: от утренних рутин до комплексных систем безопасности.</p>
     
-    <div class="scenarios-grid">
-      {scenariosToShow.map((scenario) => (
-        <a href={`/scenarios/${scenario.id}`} class="scenario-card glass">
-          <div class="card-header">
-            <span class={`difficulty-badge ${scenario.data.difficulty}`}>
-              {getDifficultyLabel(scenario.data.difficulty)}
-            </span>
-            <span class="date-badge">
-              {new Date(scenario.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </span>
-          </div>
-          <h3 class="card-title font-outfit">{scenario.data.title}</h3>
-          <p class="card-desc">{scenario.data.description}</p>
-          
-          {scenario.data.devices && (
-            <div class="card-devices">
-              {scenario.data.devices.slice(0, 3).map((device) => (
-                <span class="device-tag">{device}</span>
-              ))}
-              {scenario.data.devices.length > 3 && (
-                <span class="device-tag-more">+{scenario.data.devices.length - 3}</span>
-              )}
+    <div class="slider-wrapper">
+      <button class="slider-nav prev" aria-label="Предыдущие сценарии">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      
+      <div class="slider-container" id="scenarios-slider">
+        {scenariosToShow.map((scenario) => (
+          <a href={`/scenarios/${scenario.id}`} class="scenario-card glass slider-card">
+            <div class="card-header">
+              <span class={`difficulty-badge ${scenario.data.difficulty}`}>
+                {getDifficultyLabel(scenario.data.difficulty)}
+              </span>
+              <span class="date-badge">
+                {new Date(scenario.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </span>
             </div>
-          )}
-          
-          <span class="card-link font-outfit">
-            Читать гайд <span class="arrow">→</span>
-          </span>
-        </a>
-      ))}
+            <h3 class="card-title font-outfit">{scenario.data.title}</h3>
+            <p class="card-desc">{scenario.data.description}</p>
+            
+            {scenario.data.devices && (
+              <div class="card-devices">
+                {scenario.data.devices.slice(0, 3).map((device) => (
+                  <span class="device-tag">{device}</span>
+                ))}
+                {scenario.data.devices.length > 3 && (
+                  <span class="device-tag-more">+{scenario.data.devices.length - 3}</span>
+                )}
+              </div>
+            )}
+            
+            <span class="card-link font-outfit">
+              Читать гайд <span class="arrow">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+      
+      <button class="slider-nav next" aria-label="Следующие сценарии">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
     </div>
 
     {scenarios.length > 6 && (
@@ -133,59 +143,61 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     )}
   </section>
 
-  <!-- Troubleshooting Grid Section -->
-  <section id="troubleshooting" class="section-container troubleshooting-section">
+  <!-- Troubleshooting Accordion Section -->
+  <section id="troubleshooting" class="section-container troubleshooting-split-section">
     <div class="trouble-glow"></div>
-    <h2 class="section-title font-outfit"><span aria-hidden="true">🔧</span> Разборы и Траблшутинг</h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Устранение неполадок, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
     
-    <div class="troubleshooting-grid">
-      {troubleshootingToShow.map((article) => (
-        <a href={`/troubleshooting/${article.id}`} class="trouble-card glass">
-          <div class="card-header">
-            {article.data.difficulty && (
-              <span class={`difficulty-badge ${article.data.difficulty}`}>
-                {getDifficultyLabel(article.data.difficulty)}
-              </span>
-            )}
-            <span class="date-badge">
-              {new Date(article.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </span>
-          </div>
-          
-          <h3 class="trouble-title font-outfit">
-            <span class="trouble-title-icon" aria-hidden="true">⚠️</span>
-            {article.data.title}
-          </h3>
-          <p class="trouble-desc">{article.data.description}</p>
-          
-          {article.data.devices && (
-            <div class="card-devices">
-              {article.data.devices.slice(0, 3).map((device) => (
-                <span class="device-tag">{device}</span>
-              ))}
-              {article.data.devices.length > 3 && (
-                <span class="device-tag-more">+{article.data.devices.length - 3}</span>
-              )}
-            </div>
-          )}
-          
-          <span class="trouble-link font-outfit">
-            Решение <span class="arrow">→</span>
-          </span>
-        </a>
-      ))}
-    </div>
-
-    {troubleshooting.length > 6 && (
-      <div class="view-all-container">
-        <a href="/troubleshooting/" class="view-all-btn font-outfit">
+    <div class="troubleshooting-split-grid">
+      <!-- Left side: Text info & main CTA -->
+      <div class="troubleshooting-info">
+        <h2 class="section-title font-outfit text-left"><span aria-hidden="true">🔧</span> Разборы и Траблшутинг</h2>
+        <div class="section-divider align-left"></div>
+        <p class="section-desc text-left">Устранение неполадок, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
+        <a href="/troubleshooting/" class="view-all-btn font-outfit align-left-btn">
           <span>Все разборы</span>
           <span class="view-all-arrow">→</span>
         </a>
       </div>
-    )}
+
+      <!-- Right side: Accordion list of issues -->
+      <div class="troubleshooting-accordion-list">
+        {troubleshootingToShow.map((article, index) => (
+          <div class="trouble-accordion-item glass" data-index={index}>
+            <button class="accordion-header font-outfit" aria-expanded="false" aria-controls={`trouble-content-${index}`}>
+              <div class="accordion-header-left">
+                <span class="trouble-title-icon" aria-hidden="true">⚠️</span>
+                <span class="trouble-header-title">{article.data.title}</span>
+              </div>
+              <div class="accordion-header-right">
+                {article.data.difficulty && (
+                  <span class={`difficulty-badge ${article.data.difficulty}`}>
+                    {getDifficultyLabel(article.data.difficulty)}
+                  </span>
+                )}
+                <svg class="accordion-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </button>
+            <div id={`trouble-content-${index}`} class="accordion-content" aria-hidden="true">
+              <div class="accordion-content-inner">
+                <p class="trouble-desc">{article.data.description}</p>
+                
+                {article.data.devices && (
+                  <div class="card-devices">
+                    {article.data.devices.map((device) => (
+                      <span class="device-tag">{device}</span>
+                    ))}
+                  </div>
+                )}
+                
+                <a href={`/troubleshooting/${article.id}`} class="trouble-link font-outfit">
+                  Решение проблемы <span class="arrow">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 </Layout>
 
@@ -502,14 +514,40 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     max-width: 600px;
   }
 
-  /* Scenarios Grid */
-  .scenarios-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
+  /* Scenarios Slider Section */
+  .scenarios-slider-section {
+    padding: 5rem 0 3rem 0;
+    width: 100%;
   }
 
-  .scenario-card {
+  .slider-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .slider-container {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    padding: 1.5rem 0.5rem;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+
+  .slider-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+  }
+
+  .slider-card {
+    flex: 0 0 360px;
+    max-width: 360px;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -523,43 +561,55 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     text-align: left;
   }
 
-  .scenario-card:hover {
-    border-color: var(--accent-cyan-semi);
-    box-shadow: var(--shadow-md), var(--glow-cyan);
+  .slider-card:hover {
+    border-color: var(--accent-alice-semi);
+    box-shadow: var(--shadow-md), var(--glow-alice);
     transform: translateY(-4px);
     background: var(--bg-hover);
+  }
+
+  .slider-card:hover .card-title {
+    color: var(--accent-alice);
+  }
+
+  .slider-nav {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    flex-shrink: 0;
+  }
+
+  .slider-nav svg {
+    transition: transform 0.3s ease;
+  }
+
+  .slider-nav:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-hover);
+    color: var(--accent-alice);
+    transform: scale(1.08);
+  }
+
+  .slider-nav:active {
+    transform: scale(0.95);
   }
 
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .difficulty-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 99px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .difficulty-badge.easy {
-    background: var(--diff-easy-bg);
-    color: var(--diff-easy-text);
-    border: 1px solid var(--diff-easy-border);
-  }
-
-  .difficulty-badge.medium {
-    background: var(--diff-medium-bg);
-    color: var(--diff-medium-text);
-    border: 1px solid var(--diff-medium-border);
-  }
-
-  .difficulty-badge.hard {
-    background: var(--diff-hard-bg);
-    color: var(--diff-hard-text);
-    border: 1px solid var(--diff-hard-border);
   }
 
   .date-badge {
@@ -571,10 +621,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     font-size: 1.4rem;
     line-height: 1.3;
     transition: color 0.3s ease;
-  }
-
-  .scenario-card:hover .card-title {
-    color: var(--accent-cyan);
+    font-weight: 700;
   }
 
   .card-desc {
@@ -602,7 +649,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 
   .device-tag-more {
     font-size: 0.75rem;
-    color: var(--accent-cyan);
+    color: var(--accent-alice);
     font-weight: 600;
     align-self: center;
   }
@@ -610,7 +657,7 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   .card-link {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--accent-cyan);
+    color: var(--accent-alice);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -621,13 +668,15 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     transition: transform 0.2s ease;
   }
 
-  .scenario-card:hover .card-link .arrow {
+  .slider-card:hover .card-link .arrow {
     transform: translateX(4px);
   }
 
-  /* Troubleshooting Section */
-  .troubleshooting-section {
+  /* Troubleshooting Accordion Section */
+  .troubleshooting-split-section {
+    padding: 5rem 0 3rem 0;
     position: relative;
+    width: 100%;
   }
 
   .trouble-glow {
@@ -642,67 +691,150 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     pointer-events: none;
   }
 
-  .troubleshooting-grid {
+  .troubleshooting-split-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 4.5rem;
+    align-items: start;
     width: 100%;
   }
 
-  .trouble-card {
+  .troubleshooting-info {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    padding: 2rem;
-    border-radius: var(--radius-md);
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    align-items: flex-start;
     text-align: left;
+    position: sticky;
+    top: 100px;
   }
 
-  .trouble-card:hover {
+  .section-title.text-left {
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-divider.align-left {
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  .section-desc.text-left {
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .view-all-btn.align-left-btn {
+    margin: 0;
+  }
+
+  /* Accordion list */
+  .troubleshooting-accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .trouble-accordion-item {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-primary);
+    background: var(--bg-surface);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .trouble-accordion-item:hover {
     border-color: var(--accent-cyan-semi);
     box-shadow: var(--shadow-md), var(--glow-cyan);
-    transform: translateY(-4px);
     background: var(--bg-hover);
   }
 
-  .trouble-title {
-    font-size: 1.4rem;
-    line-height: 1.3;
+  .accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    gap: 1.5rem;
+  }
+
+  .accordion-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .trouble-header-title {
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);
     transition: color 0.3s ease;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
+    line-height: 1.35;
   }
 
-  .trouble-title-icon {
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .trouble-card:hover .trouble-title-icon {
-    transform: scale(1.15) rotate(-5deg);
-  }
-
-  .trouble-card:hover .trouble-title {
+  .trouble-accordion-item:hover .trouble-header-title {
     color: var(--accent-cyan);
   }
 
-  .trouble-desc {
+  .trouble-title-icon {
+    font-size: 1.25rem;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .trouble-accordion-item:hover .trouble-title-icon {
+    transform: scale(1.15) rotate(-5deg);
+  }
+
+  .accordion-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .accordion-arrow {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .trouble-accordion-item.active .accordion-arrow {
+    transform: rotate(180deg);
+    color: var(--accent-cyan);
+  }
+
+  /* Accordion Content */
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+
+  .trouble-accordion-item.active .accordion-content {
+    opacity: 1;
+  }
+
+  .accordion-content-inner {
+    padding: 0 2rem 2rem 3.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .accordion-content-inner .trouble-desc {
+    margin: 0;
     color: var(--text-secondary);
     font-size: 0.95rem;
-    line-height: 1.5;
-    flex: 1;
+    line-height: 1.55;
+  }
+
+  .accordion-content-inner .card-devices {
+    margin: 0.25rem 0;
   }
 
   .trouble-link {
@@ -713,21 +845,23 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     align-items: center;
     gap: 0.5rem;
     align-self: flex-start;
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
 
   .trouble-link .arrow {
     transition: transform 0.2s ease;
   }
 
-  .trouble-card:hover .trouble-link .arrow {
+  .trouble-link:hover .arrow {
     transform: translateX(4px);
   }
 
-  /* View All Button */
+  /* View All Button Base */
   .view-all-container {
     display: flex;
     justify-content: center;
-    padding: 3rem 0 1rem 0;
+    padding: 2.5rem 0 1rem 0;
     width: 100%;
   }
 
@@ -747,12 +881,25 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05);
   }
 
+  .scenarios-slider-section .view-all-btn {
+    color: var(--accent-alice);
+    border-color: rgba(79, 70, 229, 0.25);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.05);
+  }
+
   .view-all-btn:hover {
     transform: translateY(-2px);
     background: var(--accent-cyan);
     color: var(--bg-main);
     border-color: var(--accent-cyan);
     box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+  }
+
+  .scenarios-slider-section .view-all-btn:hover {
+    background: var(--accent-alice);
+    color: #ffffff;
+    border-color: var(--accent-alice);
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
   }
 
   .view-all-arrow {
@@ -835,3 +982,85 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     }
   }
 </style>
+
+<script>
+  function initHomepageInteractive() {
+    // 1. Инициализация слайдера сценариев
+    const slider = document.getElementById('scenarios-slider');
+    const prevBtn = document.querySelector('.slider-wrapper .slider-nav.prev');
+    const nextBtn = document.querySelector('.slider-wrapper .slider-nav.next');
+    
+    if (slider && prevBtn && nextBtn) {
+      // Снимаем старые слушатели (клонированием)
+      const newPrevBtn = prevBtn.cloneNode(true);
+      const newNextBtn = nextBtn.cloneNode(true);
+      prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+      nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+      
+      const cardWidth = 360;
+      const gap = 24; // 1.5rem
+      const scrollAmount = cardWidth + gap;
+      
+      newPrevBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+      
+      newNextBtn.addEventListener('click', () => {
+        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+
+    // 2. Инициализация аккордеона траблшутинга
+    const accordionItems = document.querySelectorAll('.trouble-accordion-item');
+    
+    accordionItems.forEach(item => {
+      const header = item.querySelector('.accordion-header');
+      const content = item.querySelector('.accordion-content');
+      
+      if (!header || !content) return;
+      
+      // Снимаем старые слушатели (клонированием)
+      const newHeader = header.cloneNode(true);
+      header.parentNode.replaceChild(newHeader, header);
+      
+      newHeader.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+        
+        // Закрываем остальные
+        accordionItems.forEach(otherItem => {
+          if (otherItem !== item && otherItem.classList.contains('active')) {
+            otherItem.classList.remove('active');
+            const otherContent = otherItem.querySelector('.accordion-content');
+            const otherHeader = otherItem.querySelector('.accordion-header');
+            if (otherContent) {
+              otherContent.style.maxHeight = null;
+              otherContent.setAttribute('aria-hidden', 'true');
+            }
+            if (otherHeader) {
+              otherHeader.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+        
+        // Переключаем текущий
+        if (isOpen) {
+          item.classList.remove('active');
+          content.style.maxHeight = null;
+          newHeader.setAttribute('aria-expanded', 'false');
+          content.setAttribute('aria-hidden', 'true');
+        } else {
+          item.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+          newHeader.setAttribute('aria-expanded', 'true');
+          content.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+  }
+
+  // Запуск при первой загрузке
+  initHomepageInteractive();
+  // Запуск при переходах View Transitions
+  document.addEventListener('astro:page-load', initHomepageInteractive);
+</script>
+
