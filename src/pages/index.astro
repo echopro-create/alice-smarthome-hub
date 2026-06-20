@@ -936,6 +936,42 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     .hero-title {
       font-size: 2.75rem;
     }
+
+    /* Адаптивность для сплит-аккордеона траблшутинга */
+    .troubleshooting-split-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .troubleshooting-info {
+      position: static;
+      align-items: center;
+      text-align: center;
+    }
+
+    .section-title.text-left {
+      text-align: center;
+    }
+
+    .section-divider.align-left {
+      margin: 0.5rem auto 1rem auto;
+    }
+
+    .section-desc.text-left {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .view-all-btn.align-left-btn {
+      margin: 0 auto;
+    }
+
+    /* Адаптивность для карусели сценариев */
+    .slider-card {
+      flex: 0 0 300px;
+      max-width: 300px;
+      padding: 1.5rem;
+    }
   }
 
   @media (max-width: 768px) {
@@ -973,12 +1009,18 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
       border-radius: 1rem;
     }
 
-    .scenarios-grid, .troubleshooting-grid {
-      grid-template-columns: 1fr;
+    .slider-card {
+      flex: 0 0 270px;
+      max-width: 270px;
+      padding: 1.25rem;
     }
-    
-    .scenario-card, .trouble-card {
-      padding: 1.5rem;
+
+    .accordion-header {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .accordion-content-inner {
+      padding: 0 1.5rem 1.5rem 1.5rem;
     }
   }
 </style>
@@ -991,23 +1033,23 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     const nextBtn = document.querySelector('.slider-wrapper .slider-nav.next');
     
     if (slider && prevBtn && nextBtn) {
-      // Снимаем старые слушатели (клонированием)
-      const newPrevBtn = prevBtn.cloneNode(true);
-      const newNextBtn = nextBtn.cloneNode(true);
-      prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
-      nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
-      
-      const cardWidth = 360;
-      const gap = 24; // 1.5rem
-      const scrollAmount = cardWidth + gap;
-      
-      newPrevBtn.addEventListener('click', () => {
-        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-      
-      newNextBtn.addEventListener('click', () => {
-        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
+      // Предотвращаем повторное навешивание слушателей
+      if (!prevBtn.dataset.initialized) {
+        prevBtn.dataset.initialized = 'true';
+        nextBtn.dataset.initialized = 'true';
+        
+        const cardWidth = 360;
+        const gap = 24; // 1.5rem
+        const scrollAmount = cardWidth + gap;
+        
+        prevBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+        
+        nextBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+      }
     }
 
     // 2. Инициализация аккордеона траблшутинга
@@ -1019,42 +1061,43 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
       
       if (!header || !content) return;
       
-      // Снимаем старые слушатели (клонированием)
-      const newHeader = header.cloneNode(true);
-      header.parentNode.replaceChild(newHeader, header);
-      
-      newHeader.addEventListener('click', () => {
-        const isOpen = item.classList.contains('active');
+      // Предотвращаем повторное навешивание слушателей
+      if (!header.dataset.initialized) {
+        header.dataset.initialized = 'true';
         
-        // Закрываем остальные
-        accordionItems.forEach(otherItem => {
-          if (otherItem !== item && otherItem.classList.contains('active')) {
-            otherItem.classList.remove('active');
-            const otherContent = otherItem.querySelector('.accordion-content');
-            const otherHeader = otherItem.querySelector('.accordion-header');
-            if (otherContent) {
-              otherContent.style.maxHeight = null;
-              otherContent.setAttribute('aria-hidden', 'true');
+        header.addEventListener('click', () => {
+          const isOpen = item.classList.contains('active');
+          
+          // Закрываем остальные
+          accordionItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+              const otherContent = otherItem.querySelector('.accordion-content');
+              const otherHeader = otherItem.querySelector('.accordion-header');
+              if (otherContent) {
+                otherContent.style.maxHeight = null;
+                otherContent.setAttribute('aria-hidden', 'true');
+              }
+              if (otherHeader) {
+                otherHeader.setAttribute('aria-expanded', 'false');
+              }
             }
-            if (otherHeader) {
-              otherHeader.setAttribute('aria-expanded', 'false');
-            }
+          });
+          
+          // Переключаем текущий
+          if (isOpen) {
+            item.classList.remove('active');
+            content.style.maxHeight = null;
+            header.setAttribute('aria-expanded', 'false');
+            content.setAttribute('aria-hidden', 'true');
+          } else {
+            item.classList.add('active');
+            content.style.maxHeight = content.scrollHeight + 'px';
+            header.setAttribute('aria-expanded', 'true');
+            content.setAttribute('aria-hidden', 'false');
           }
         });
-        
-        // Переключаем текущий
-        if (isOpen) {
-          item.classList.remove('active');
-          content.style.maxHeight = null;
-          newHeader.setAttribute('aria-expanded', 'false');
-          content.setAttribute('aria-hidden', 'true');
-        } else {
-          item.classList.add('active');
-          content.style.maxHeight = content.scrollHeight + 'px';
-          newHeader.setAttribute('aria-expanded', 'true');
-          content.setAttribute('aria-hidden', 'false');
-        }
-      });
+      }
     });
   }
 
