@@ -35,7 +35,6 @@ export default function LanguageSwitcher() {
             key={locale.code}
             href={getRedirectPath(locale.code)}
             className={`${styles.langLink} ${isActive ? styles.active : ''}`}
-            locale={false}
           >
             {locale.label}
           </Link>
