@@ -19,6 +19,10 @@ const troubleshooting = allEntries
 
 const scenariosToShow = scenarios.slice(0, 6);
 const troubleshootingToShow = troubleshooting.slice(0, 6);
+
+const latestEntries = allEntries
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+  .slice(0, 3);
 ---
 
 <Layout 
@@ -287,6 +291,53 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
         <span>Все разборы</span>
         <span class="view-all-arrow">→</span>
       </a>
+    </div>
+  </section>
+
+  <!-- Latest Publications Section (SEO Boost) -->
+  <section id="latest-publications" class="section-container latest-publications-section">
+    <h2 class="section-title font-outfit"><span aria-hidden="true">⏱️</span> Свежие публикации</h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Новые материалы в нашей базе знаний. Раздел обновляется автоматически.</p>
+    
+    <div class="latest-cards-grid">
+      {latestEntries.map(entry => {
+        const isScenario = entry.data.category === 'scenario';
+        const detailUrl = isScenario ? `/scenarios/${entry.id}/` : `/troubleshooting/${entry.id}/`;
+        const categoryLabel = isScenario ? 'Сценарий' : 'Траблшутинг';
+        const categoryClass = isScenario ? 'category-scenario' : 'category-troubleshooting';
+        
+        const dateStr = new Date(entry.data.publishDate).toLocaleDateString('ru-RU', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        });
+        
+        return (
+          <div class="latest-card glass">
+            <div class="card-meta">
+              <span class={`category-badge ${categoryClass}`}>{categoryLabel}</span>
+              <span class="publish-date">{dateStr}</span>
+            </div>
+            <h3 class="card-title font-outfit">
+              {entry.data.title}
+            </h3>
+            <p class="card-desc">{entry.data.description}</p>
+            {entry.data.devices && entry.data.devices.length > 0 && (
+              <div class="card-devices-list">
+                {entry.data.devices.slice(0, 3).map(dev => (
+                  <span class="device-tag-mini">{dev}</span>
+                ))}
+              </div>
+            )}
+            <div class="card-action-wrap">
+              <a href={detailUrl} class="read-more-link font-outfit">
+                Читать далее <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        );
+      })}
     </div>
   </section>
 </Layout>
@@ -1221,6 +1272,167 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 
     .strip-desc {
       font-size: 0.95rem;
+    }
+  }
+
+  /* ==========================================================================
+     Latest Publications Section (SEO Boost)
+     ========================================================================== */
+  .latest-publications-section {
+    padding: 5rem 0 4rem 0;
+    width: 100%;
+  }
+
+  .latest-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .latest-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2.25rem 2rem;
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-md);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: left;
+    height: 100%;
+  }
+
+  .latest-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-lg), 0 0 25px var(--accent-alice-trans);
+    background: var(--bg-hover);
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    font-size: 0.8rem;
+  }
+
+  .category-badge {
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .category-scenario {
+    background: var(--accent-cyan-semi);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+  }
+
+  .category-troubleshooting {
+    background: var(--accent-alice-trans);
+    color: var(--accent-alice);
+    border: 1px solid rgba(79, 70, 229, 0.2);
+  }
+
+  .publish-date {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .latest-card .card-title {
+    font-size: 1.35rem;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.85rem 0;
+  }
+
+  .latest-card .card-title {
+    transition: color 0.3s ease;
+  }
+
+  .latest-card:hover .card-title {
+    color: var(--accent-alice);
+  }
+
+  .latest-card:hover:has(.category-scenario) .card-title {
+    color: var(--accent-cyan);
+  }
+
+  .latest-card .card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 1.5rem 0;
+    flex-grow: 1;
+  }
+
+  .card-devices-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .device-tag-mini {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .card-action-wrap {
+    margin-top: auto;
+  }
+
+  .read-more-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent-alice);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .latest-card:has(.category-scenario) .read-more-link {
+    color: var(--accent-cyan);
+  }
+
+  .read-more-link .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .latest-card:hover .read-more-link .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Адаптивность */
+  @media (max-width: 992px) {
+    .latest-cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .latest-cards-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    
+    .latest-card {
+      padding: 1.75rem 1.5rem;
     }
   }
 </style>
