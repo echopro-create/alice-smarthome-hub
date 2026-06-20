@@ -124,8 +124,19 @@ const latestEntries = allEntries
           </div>
         </button>
 
-        <!-- Dynamic Logic Scheme (ЕСЛИ ... ТО ...) -->
-        <div class="logic-scheme glass">
+        <div class="anatomy-link-wrapper">
+          <a href="/scenarios/" class="card-link font-outfit">
+            Все сценарии автоматизации <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right: Minimalist Dashboard -->
+      <div class="anatomy-dashboard glass" id="anatomy-dashboard">
+        <h3 class="dashboard-title font-outfit" id="dash-title">Утреннее пробуждение</h3>
+        
+        <!-- Logic Builder Panel -->
+        <div class="logic-scheme">
           <div class="logic-block logic-if">
             <span class="logic-label font-outfit">ЕСЛИ</span>
             <span class="logic-value" id="logic-val-if">Датчик движения зафиксировал активность</span>
@@ -139,134 +150,38 @@ const latestEntries = allEntries
             <span class="logic-value" id="logic-val-then">Сварить кофе, включить лампу, запустить утренний плейлист</span>
           </div>
         </div>
-        
-        <div class="anatomy-link-wrapper">
-          <a href="/scenarios/" class="card-link font-outfit">
-            Все сценарии автоматизации <span class="arrow">→</span>
-          </a>
+
+        <!-- Devices Section -->
+        <div class="dashboard-devices-section">
+          <h4 class="devices-section-title font-outfit">Необходимое оборудование</h4>
+          <div class="dashboard-devices-list" id="dash-devices">
+            <div class="device-item-row">
+              <span class="device-item-icon">🚶‍♂️</span>
+              <span class="device-item-name">Датчик движения Aqara</span>
+              <span class="device-item-protocol">Zigbee 3.0</span>
+            </div>
+            <div class="device-item-row">
+              <span class="device-item-icon">🔊</span>
+              <span class="device-item-name">Яндекс Станция</span>
+              <span class="device-item-protocol">Wi-Fi</span>
+            </div>
+            <div class="device-item-row">
+              <span class="device-item-icon">☕</span>
+              <span class="device-item-name">Умная розетка Tuya</span>
+              <span class="device-item-protocol">Zigbee</span>
+            </div>
+            <div class="device-item-row">
+              <span class="device-item-icon">💡</span>
+              <span class="device-item-name">Умная лампа Яндекс</span>
+              <span class="device-item-protocol">Wi-Fi / Matter</span>
+            </div>
+          </div>
         </div>
-      </div>
-      
-      <!-- Right: Interactive Visual Scheme (Blueprint) -->
-      <div class="anatomy-visual">
-        <div class="visual-container" data-active-scene="morning">
-          <!-- Central Hub: Alice (🔊) - Active in morning and cinema -->
-          <div class="blueprint-device node-blueprint-hub device-hub-always" id="node-blueprint-hub">
-            <div class="device-icon" aria-hidden="true">🔊</div>
-            <span class="device-label">Яндекс Станция</span>
-          </div>
-          
-          <!-- Morning Devices -->
-          <!-- Motion Sensor (🚶‍♂️) -->
-          <div class="blueprint-device node-blueprint-motion device-morning" id="node-blueprint-motion">
-            <div class="device-icon" aria-hidden="true">🚶‍♂️</div>
-            <span class="device-label">Датчик движения</span>
-          </div>
-          <!-- Smart Plug (☕) -->
-          <div class="blueprint-device node-blueprint-plug device-morning" id="node-blueprint-plug">
-            <div class="device-icon" aria-hidden="true">☕</div>
-            <span class="device-label">Умная розетка</span>
-          </div>
-          <!-- Smart Bulb (💡) -->
-          <div class="blueprint-device node-blueprint-bulb device-morning device-cinema" id="node-blueprint-bulb">
-            <div class="device-icon" aria-hidden="true">💡</div>
-            <span class="device-label">Умная лампа</span>
-          </div>
-          
-          <!-- Away Devices -->
-          <!-- Smart Lock / Door Sensor (🚪) -->
-          <div class="blueprint-device node-blueprint-lock device-away" id="node-blueprint-lock">
-            <div class="device-icon" aria-hidden="true">🚪</div>
-            <span class="device-label">Датчик двери</span>
-          </div>
-          <!-- Vacuum Cleaner (🧹) -->
-          <div class="blueprint-device node-blueprint-vacuum device-away" id="node-blueprint-vacuum">
-            <div class="device-icon" aria-hidden="true">🧹</div>
-            <span class="device-label">Пылесос</span>
-          </div>
-          <!-- Smart Camera (📹) -->
-          <div class="blueprint-device node-blueprint-camera device-away" id="node-blueprint-camera">
-            <div class="device-icon" aria-hidden="true">📹</div>
-            <span class="device-label">Видеокамера</span>
-          </div>
 
-          <!-- Cinema Devices -->
-          <!-- LED Strip (🌈) -->
-          <div class="blueprint-device node-blueprint-strip device-cinema" id="node-blueprint-strip">
-            <div class="device-icon" aria-hidden="true">🌈</div>
-            <span class="device-label">Светодиодная лента</span>
-          </div>
-          <!-- Curtains (⛺) -->
-          <div class="blueprint-device node-blueprint-curtains device-cinema" id="node-blueprint-curtains">
-            <div class="device-icon" aria-hidden="true">⛺</div>
-            <span class="device-label">Умные шторы</span>
-          </div>
-          
-          <!-- Isometric Room Blueprint (SVG) -->
-          <svg class="blueprint-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Стены и пол (основа комнаты) -->
-            <path class="blueprint-wall-base" d="M100,260 L250,180 L400,260" stroke="var(--blueprint-line)" stroke-width="1.5" />
-            <path class="blueprint-wall-corner" d="M250,180 L250,60" stroke="var(--blueprint-line)" stroke-width="1.5" />
-            <path class="blueprint-wall-top" d="M100,140 L250,60 L400,140" stroke="var(--blueprint-line)" stroke-width="1.5" />
-            
-            <!-- Дверной проем слева -->
-            <path class="blueprint-furniture" d="M120,249 L120,170 L150,155 L150,233 Z" stroke="var(--blueprint-line)" stroke-width="1.2" stroke-dasharray="3,3" />
-            
-            <!-- Окно справа -->
-            <path class="blueprint-furniture" d="M300,185 L300,135 L360,105 L360,155 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            <line class="blueprint-furniture" x1="330" y1="170" x2="330" y2="120" stroke="var(--blueprint-line)" stroke-width="1" />
-            
-            <!-- Изометрическая кровать -->
-            <path class="blueprint-furniture" d="M170,210 L220,235 L280,205 L230,180 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            <path class="blueprint-furniture" d="M170,225 L220,250 L280,220 L280,205 L220,235 L170,210 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            <path class="blueprint-furniture" d="M170,225 L170,210 M220,250 L220,235 M280,220 L280,205" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            
-            <path class="blueprint-furniture" d="M185,200 L205,210 L215,205 L195,195 Z" stroke="var(--blueprint-line)" stroke-width="1" />
-            <path class="blueprint-furniture" d="M205,190 L225,200 L235,195 L215,185 Z" stroke="var(--blueprint-line)" stroke-width="1" />
-
-            <!-- Кухонный стол справа -->
-            <path class="blueprint-furniture" d="M310,215 L350,235 L380,220 L340,200 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            <line class="blueprint-furniture" x1="310" y1="215" x2="310" y2="245" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            <line class="blueprint-furniture" x1="350" y1="235" x2="350" y2="265" stroke="var(--blueprint-line)" stroke-width="1.2" />
-            <line class="blueprint-furniture" x1="380" y1="220" x2="380" y2="250" stroke="var(--blueprint-line)" stroke-width="1.2" />
-
-            <!-- Робот-пылесос (схематично на полу) -->
-            <ellipse class="blueprint-furniture" cx="260" cy="245" rx="14" ry="7" stroke="var(--blueprint-line)" stroke-width="1" />
-
-            <!-- Подсветка комнат -->
-            <polygon class="room-highlight morning" points="90,260 250,180 410,260 250,340" fill="url(#morning-grad)" opacity="0" />
-            <polygon class="room-highlight away" points="90,260 250,180 410,260 250,340" fill="url(#away-grad)" opacity="0" />
-            <polygon class="room-highlight cinema" points="90,260 250,180 410,260 250,340" fill="url(#cinema-grad)" opacity="0" />
-
-            <defs>
-              <radialGradient id="morning-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25" />
-                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
-              </radialGradient>
-              <radialGradient id="away-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.2" />
-                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
-              </radialGradient>
-              <radialGradient id="cinema-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3" />
-                <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0" />
-              </radialGradient>
-            </defs>
-
-            <!-- Пути связей устройств -->
-            <!-- Сценарий: Утро (morning) -->
-            <path class="line line-morning" id="path-morning-1" d="M125,200 L225,185" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-            <path class="line line-morning" id="path-morning-2" d="M225,185 L360,225" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-            <path class="line line-morning" id="path-morning-3" d="M225,185 L340,95" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-
-            <!-- Сценарий: Вне дома (away) -->
-            <path class="line line-away" id="path-away-1" d="M85,195 L250,75" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-            <path class="line line-away" id="path-away-2" d="M85,195 L260,245" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-
-            <!-- Сценарий: Кинотеатр (cinema) -->
-            <path class="line line-cinema" id="path-cinema-1" d="M225,185 L180,210" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-            <path class="line line-cinema" id="path-cinema-2" d="M225,185 L410,130" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
-          </svg>
+        <div class="dashboard-action-wrap">
+          <a href="/scenarios/morning-coffee/" class="btn btn-secondary font-outfit" id="dash-link">
+            Читать гайд по настройке <span class="arrow">→</span>
+          </a>
         </div>
       </div>
     </div>
@@ -765,7 +680,7 @@ const latestEntries = allEntries
 
   .anatomy-grid {
     display: grid;
-    grid-template-columns: 1fr 1.25fr;
+    grid-template-columns: 1fr 1.15fr;
     gap: 4rem;
     align-items: center;
     padding: 3rem;
@@ -882,58 +797,6 @@ const latestEntries = allEntries
     margin: 0;
   }
 
-  .logic-scheme {
-    margin-top: 1.5rem;
-    padding: 1.25rem 1.5rem;
-    border-radius: var(--radius-md);
-    background: var(--bg-hover);
-    border: 1px solid var(--border-primary);
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    text-align: left;
-    transition: all 0.5s ease;
-  }
-
-  .logic-block {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.85rem;
-    font-size: 0.85rem;
-    line-height: 1.4;
-  }
-
-  .logic-label {
-    font-size: 0.7rem;
-    font-weight: 800;
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-    min-width: 42px;
-    text-align: center;
-    letter-spacing: 0.05em;
-    color: #ffffff;
-  }
-
-  .logic-if .logic-label {
-    background: var(--accent-cyan, #0ea5e9);
-    box-shadow: 0 0 8px rgba(14, 165, 233, 0.25);
-  }
-
-  .logic-and .logic-label {
-    background: var(--text-muted, #94a3b8);
-  }
-
-  .logic-then .logic-label {
-    background: var(--accent-alice, #8b5cf6);
-    box-shadow: 0 0 8px rgba(139, 92, 246, 0.25);
-  }
-
-  .logic-value {
-    color: var(--text-secondary);
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-
   .anatomy-link-wrapper {
     margin-top: 0.5rem;
     padding-left: 1.25rem;
@@ -957,257 +820,154 @@ const latestEntries = allEntries
     transform: translateX(4px);
   }
 
-  /* Interactive Visual Scheme (Right Column) */
-  .anatomy-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 350px;
-    width: 100%;
-  }
-
-  .visual-container {
-    --blueprint-line: rgba(148, 163, 184, 0.18);
-    --blueprint-furniture: rgba(148, 163, 184, 0.08);
-    --line-color: rgba(148, 163, 184, 0.2);
-    position: relative;
-    width: 100%;
-    max-width: 440px;
-    height: 320px;
-    transition: all 0.6s ease;
-  }
-
-  .visual-container[data-active-scene="morning"] {
-    --blueprint-line: rgba(245, 158, 11, 0.28);
-    --blueprint-furniture: rgba(245, 158, 11, 0.12);
-    --line-color: var(--accent-orange, #f59e0b);
-  }
-
-  .visual-container[data-active-scene="morning"] .room-highlight.morning {
-    opacity: 1;
-  }
-
-  .visual-container[data-active-scene="away"] {
-    --blueprint-line: rgba(14, 165, 233, 0.28);
-    --blueprint-furniture: rgba(14, 165, 233, 0.12);
-    --line-color: var(--accent-cyan, #0ea5e9);
-  }
-
-  .visual-container[data-active-scene="away"] .room-highlight.away {
-    opacity: 1;
-  }
-
-  .visual-container[data-active-scene="cinema"] {
-    --blueprint-line: rgba(139, 92, 246, 0.35);
-    --blueprint-furniture: rgba(139, 92, 246, 0.15);
-    --line-color: var(--accent-alice, #8b5cf6);
-  }
-
-  .visual-container[data-active-scene="cinema"] .room-highlight.cinema {
-    opacity: 1;
-  }
-
-  /* Blueprint SVG element */
-  .blueprint-svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-
-  .blueprint-wall-base,
-  .blueprint-wall-corner,
-  .blueprint-wall-top {
-    stroke: var(--blueprint-line);
-    stroke-width: 1.5;
-    fill: none;
-    transition: stroke 0.6s ease;
-  }
-
-  .blueprint-furniture {
-    stroke: var(--blueprint-furniture);
-    stroke-width: 1.2;
-    fill: none;
-    transition: stroke 0.6s ease;
-  }
-
-  .room-highlight {
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-  }
-
-  /* SVG lines animation */
-  .blueprint-svg .line {
-    fill: none;
-    stroke: var(--line-color);
-    stroke-width: 2;
-    opacity: 0.05;
-    transition: opacity 0.5s ease, stroke 0.5s ease, stroke-width 0.5s ease;
-  }
-
-  .visual-container[data-active-scene="morning"] .line-morning {
-    opacity: 1;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.6));
-    animation: dash 1s linear infinite;
-  }
-
-  .visual-container[data-active-scene="away"] .line-away {
-    opacity: 1;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 0 4px rgba(14, 165, 233, 0.6));
-    animation: dash 1s linear infinite;
-  }
-
-  .visual-container[data-active-scene="cinema"] .line-cinema {
-    opacity: 1;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.6));
-    animation: dash 1s linear infinite;
-  }
-
-  @keyframes dash {
-    to {
-      stroke-dashoffset: -20;
-    }
-  }
-
-  /* Blueprint Device Nodes */
-  .blueprint-device {
-    position: absolute;
-    z-index: 3;
-    width: 44px;
-    height: 44px;
+  /* Minimalist Dashboard (Right Column) */
+  .anatomy-dashboard {
+    padding: 2.25rem 2rem;
+    border-radius: var(--radius-lg);
     background: var(--bg-card);
     border: 1px solid var(--border-primary);
-    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.6s ease;
+    height: 100%;
+    min-height: 380px;
+  }
+
+  .dashboard-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+    transition: color 0.4s ease;
+  }
+
+  /* Logic Builder Panel */
+  .logic-scheme {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-item);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+  }
+
+  .logic-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .logic-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    min-width: 42px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .logic-if .logic-label {
+    background: var(--accent-cyan, #0ea5e9);
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.2);
+  }
+
+  .logic-and .logic-label {
+    background: var(--text-muted, #94a3b8);
+  }
+
+  .logic-then .logic-label {
+    background: var(--accent-alice, #8b5cf6);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.2);
+  }
+
+  .logic-value {
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* Devices list inside dashboard */
+  .dashboard-devices-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .devices-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .dashboard-devices-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .device-item-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--shadow-sm);
-    margin-left: -22px;
-    margin-top: -22px;
-    opacity: 0.15;
-    transform: scale(0.9);
-    pointer-events: none;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
   }
 
-  .blueprint-device .device-icon {
-    font-size: 1.25rem;
+  .device-item-row:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-surface);
+  }
+
+  .device-item-icon {
+    font-size: 1.1rem;
     line-height: 1;
+    flex-shrink: 0;
   }
 
-  .blueprint-device .device-label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-align: center;
-    position: absolute;
-    bottom: -18px;
-    left: 50%;
-    transform: translateX(-50%);
+  .device-item-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    flex-grow: 1;
     white-space: nowrap;
-    opacity: 0.7;
-    transition: all 0.5s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  /* Device Active States per Scene */
-  .visual-container[data-active-scene="morning"] .device-morning {
-    opacity: 1;
-    transform: scale(1);
-    border-color: var(--line-color);
-    box-shadow: var(--shadow-md), 0 0 15px rgba(245, 158, 11, 0.25);
-  }
-  .visual-container[data-active-scene="morning"] .device-morning .device-label {
-    color: var(--text-primary);
-    opacity: 1;
-  }
-
-  .visual-container[data-active-scene="away"] .device-away {
-    opacity: 1;
-    transform: scale(1);
-    border-color: var(--line-color);
-    box-shadow: var(--shadow-md), 0 0 15px rgba(14, 165, 233, 0.25);
-  }
-  .visual-container[data-active-scene="away"] .device-away .device-label {
-    color: var(--text-primary);
-    opacity: 1;
+  .device-item-protocol {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: var(--bg-item);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-item);
+    flex-shrink: 0;
   }
 
-  .visual-container[data-active-scene="cinema"] .device-cinema {
-    opacity: 1;
-    transform: scale(1);
-    border-color: var(--line-color);
-    box-shadow: var(--shadow-md), 0 0 15px rgba(139, 92, 246, 0.3);
-  }
-  .visual-container[data-active-scene="cinema"] .device-cinema .device-label {
-    color: var(--text-primary);
-    opacity: 1;
+  .dashboard-action-wrap {
+    margin-top: auto;
   }
 
-  /* Hub Node active always but glows on active scenes */
-  .visual-container .device-hub-always {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-
-  .visual-container[data-active-scene="morning"] .device-hub-always {
-    opacity: 1;
-    border-color: var(--line-color);
-    box-shadow: var(--shadow-md), 0 0 15px rgba(245, 158, 11, 0.25);
-  }
-
-  .visual-container[data-active-scene="cinema"] .device-hub-always {
-    opacity: 1;
-    border-color: var(--line-color);
-    box-shadow: var(--shadow-md), 0 0 15px rgba(139, 92, 246, 0.3);
-  }
-
-  /* Coordinates for devices on the blueprint canvas */
-  .node-blueprint-hub {
-    left: 45%;
-    top: 53%;
-  }
-
-  .node-blueprint-motion {
-    left: 25%;
-    top: 57%;
-  }
-
-  .node-blueprint-plug {
-    left: 72%;
-    top: 64%;
-  }
-
-  .node-blueprint-bulb {
-    left: 68%;
-    top: 27%;
-  }
-
-  .node-blueprint-lock {
-    left: 17%;
-    top: 56%;
-  }
-
-  .node-blueprint-vacuum {
-    left: 52%;
-    top: 70%;
-  }
-
-  .node-blueprint-camera {
-    left: 50%;
-    top: 21%;
-  }
-
-  .node-blueprint-strip {
-    left: 36%;
-    top: 60%;
-  }
-
-  .node-blueprint-curtains {
-    left: 82%;
-    top: 37%;
+  .dashboard-action-wrap .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 
 
@@ -1704,13 +1464,15 @@ const latestEntries = allEntries
 <script>
   function initHomepageInteractive() {
     const steps = document.querySelectorAll('.anatomy-step-btn');
-    const container = document.querySelector('.visual-container');
+    const dashTitle = document.getElementById('dash-title');
     const valIf = document.getElementById('logic-val-if');
     const valAnd = document.getElementById('logic-val-and');
     const valThen = document.getElementById('logic-val-then');
     const blockAnd = document.getElementById('logic-block-and');
+    const devicesContainer = document.getElementById('dash-devices');
+    const dashLink = document.getElementById('dash-link');
     
-    if (steps.length === 0 || !container) return;
+    if (steps.length === 0) return;
     
     // Проверка инициализации для предотвращения повторной навески слушателей
     const firstStep = steps[0];
@@ -1719,19 +1481,42 @@ const latestEntries = allEntries
 
     const sceneData = {
       morning: {
+        title: 'Утреннее пробуждение',
         if: 'Датчик движения зафиксировал активность',
         and: 'Время суток с 07:00 до 09:00',
-        then: 'Сварить кофе, включить лампу, запустить утренний плейлист'
+        then: 'Сварить кофе, включить лампу, запустить утренний плейлист',
+        devices: [
+          { name: 'Датчик движения Aqara', protocol: 'Zigbee 3.0', icon: '🚶‍♂️' },
+          { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
+          { name: 'Умная розетка Tuya', protocol: 'Zigbee', icon: '☕' },
+          { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi / Matter', icon: '💡' }
+        ],
+        link: '/scenarios/morning-coffee/'
       },
       away: {
+        title: 'Все ушли (Режим охраны)',
         if: 'Датчик двери закрылся и замок заблокирован',
         and: null,
-        then: 'Активировать камеру, запустить пылесос, выключить все приборы'
+        then: 'Активировать камеру, запустить пылесос, выключить все приборы',
+        devices: [
+          { name: 'Датчик открытия Aqara', protocol: 'Zigbee 3.0', icon: '🚪' },
+          { name: 'Умная камера Яндекс', protocol: 'Wi-Fi', icon: '📹' },
+          { name: 'Робот-пылесос Roborock', protocol: 'Wi-Fi', icon: '🧹' }
+        ],
+        link: '/scenarios/leaving-home-scenario/'
       },
       cinema: {
+        title: 'Вечерний уют (Кинотеатр)',
         if: 'Сказано Алисе: "Время кино"',
         and: null,
-        then: 'Закрыть шторы, включить подсветку, запустить телевизор'
+        then: 'Закрыть шторы, включить подсветку, запустить телевизор',
+        devices: [
+          { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
+          { name: 'Умные шторы Aqara', protocol: 'Zigbee 3.0 / Matter', icon: '⛺' },
+          { name: 'Светодиодная лента Tuya', protocol: 'Zigbee', icon: '🌈' },
+          { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi', icon: '💡' }
+        ],
+        link: '/scenarios/light-alarm-clock/'
       }
     };
     
@@ -1748,12 +1533,10 @@ const latestEntries = allEntries
         step.classList.add('active');
         step.setAttribute('aria-selected', 'true');
         
-        // Переключаем активную сцену на контейнере
-        container.setAttribute('data-active-scene', scene);
-        
-        // Обновляем логическую схему
+        // Обновляем дашборд
         const data = sceneData[scene];
         if (data) {
+          if (dashTitle) dashTitle.textContent = data.title;
           if (valIf) valIf.textContent = data.if;
           if (valThen) valThen.textContent = data.then;
           
@@ -1762,6 +1545,22 @@ const latestEntries = allEntries
             if (blockAnd) blockAnd.style.display = 'flex';
           } else {
             if (blockAnd) blockAnd.style.display = 'none';
+          }
+          
+          // Обновляем список устройств
+          if (devicesContainer) {
+            devicesContainer.innerHTML = data.devices.map(dev => `
+              <div class="device-item-row">
+                <span class="device-item-icon">${dev.icon}</span>
+                <span class="device-item-name">${dev.name}</span>
+                <span class="device-item-protocol">${dev.protocol}</span>
+              </div>
+            `).join('');
+          }
+          
+          // Обновляем ссылку
+          if (dashLink) {
+            dashLink.setAttribute('href', data.link);
           }
         }
       });
