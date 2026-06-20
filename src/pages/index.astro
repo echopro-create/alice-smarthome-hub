@@ -23,8 +23,9 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   description="Библиотека пошаговых сценариев и руководств по траблшутингу для вашего Умного Дома с Алисой. Систематизируем опыт закрытых сообществ."
 >
   <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
+  <section class="hero-section bento-grid">
+    <!-- Main Card (Text & Actions) -->
+    <div class="bento-card bento-card-main glass">
       <div class="hero-badge font-outfit">База знаний Умного Дома</div>
       <h1 class="hero-title font-outfit">
         Сделайте ваш дом действительно <span class="accent-title-word">Умным</span> с Алисой
@@ -41,17 +42,46 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
       </div>
     </div>
 
-    <div class="hero-image-container">
+    <!-- Image Card -->
+    <div class="bento-card bento-card-image">
       <img 
         src={heroImage.src} 
         alt="Премиальный умный дом с Яндекс Станцией и датчиками" 
         class="hero-image"
         loading="lazy"
         decoding="async"
-        width="900"
-        height="506"
+        width="600"
+        height="450"
       />
     </div>
+
+    <!-- Feature Card 1: Local Automation -->
+    <div class="bento-card bento-card-feature glass">
+      <div class="feature-icon" aria-hidden="true">⚡</div>
+      <div class="feature-content">
+        <div class="feature-title font-outfit">Локальность</div>
+        <p class="feature-desc">Настройка сценариев автоматизации, работающих локально без интернета.</p>
+      </div>
+    </div>
+
+    <!-- Feature Card 2: Compatibility -->
+    <div class="bento-card bento-card-feature glass">
+      <div class="feature-icon" aria-hidden="true">🔌</div>
+      <div class="feature-content">
+        <div class="feature-title font-outfit">Совместимость</div>
+        <p class="feature-desc">Интеграция Zigbee, Matter и Wi-Fi устройств от разных брендов в единую сеть.</p>
+      </div>
+    </div>
+
+    <!-- Feature Card 3: Troubleshooting -->
+    <div class="bento-card bento-card-feature glass">
+      <div class="feature-icon" aria-hidden="true">🔧</div>
+      <div class="feature-content">
+        <div class="feature-title font-outfit">Решение проблем</div>
+        <p class="feature-desc">Устранение задержек, отвалов беспроводных датчиков и радиопомех.</p>
+      </div>
+    </div>
+
     <div class="hero-glow"></div>
   </section>
 
@@ -160,26 +190,98 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
 </Layout>
 
 <style>
-  /* Hero Section */
-  .hero-section {
+  /* Hero Section (Bento Grid) */
+  .hero-section.bento-grid {
     position: relative;
-    padding: 6.5rem 0 5.5rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 3.5rem;
+    padding: 5rem 0 3rem 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 1.5rem;
   }
 
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.75rem;
-    max-width: 800px;
+  .bento-card {
+    border-radius: 2.25rem;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 2;
   }
 
+  .bento-card.glass {
+    background: var(--bg-card);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  .bento-card-main {
+    grid-column: span 7;
+    padding: 4rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.75rem;
+    text-align: left;
+  }
+
+  .bento-card-image {
+    grid-column: span 5;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    aspect-ratio: auto;
+  }
+
+  .bento-card-image .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bento-card-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.2) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .bento-card-feature {
+    grid-column: span 4;
+    padding: 2.25rem 2rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Bento Hover Effects */
+  .bento-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .bento-card.glass:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-lg), 0 0 25px var(--accent-alice-trans);
+    background: var(--bg-hover);
+  }
+
+  .bento-card-image:hover {
+    box-shadow: var(--shadow-lg), 0 0 35px var(--accent-cyan-glow);
+  }
+
+  .bento-card-image:hover .hero-image {
+    transform: scale(1.03);
+  }
+
+  /* Text & Elements Inside Bento */
   .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -193,8 +295,6 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     border-radius: 99px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     box-shadow: var(--shadow-sm);
   }
 
@@ -224,26 +324,11 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     }
   }
 
-  .hero-glow {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 1000px;
-    height: 70%;
-    background: radial-gradient(circle, var(--accent-alice-glow) 0%, var(--accent-cyan-trans) 50%, transparent 70%);
-    z-index: -1;
-    filter: blur(80px);
-    pointer-events: none;
-    opacity: 0.9;
-  }
-
   .hero-title {
-    font-size: 4.5rem;
-    line-height: 1.08;
+    font-size: 3.25rem;
+    line-height: 1.1;
     font-weight: 800;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
     color: var(--text-primary);
   }
 
@@ -256,22 +341,20 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   }
 
   .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
-    max-width: 650px;
-    line-height: 1.65;
+    line-height: 1.6;
   }
 
   .hero-actions {
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
     align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
   }
 
   .btn {
-    padding: 0.95rem 2.25rem;
+    padding: 0.9rem 2rem;
     border-radius: 99px;
     font-weight: 600;
     font-size: 0.95rem;
@@ -328,53 +411,53 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
     border-color: var(--border-hover);
   }
 
-  .hero-image-container {
-    position: relative;
-    border-radius: 2.25rem;
-    overflow: hidden;
-    width: 100%;
-    max-width: 850px;
-    aspect-ratio: 16 / 9;
-    border: 1px solid var(--border-primary);
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
-    z-index: 2;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Feature Card Inner Styles */
+  .feature-icon {
+    font-size: 1.85rem;
+    padding: 0.75rem;
+    background: var(--bg-hover);
+    border-radius: 1.25rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-item);
+    transition: transform 0.3s ease;
   }
 
-  :global(.dark) .hero-image-container {
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  .bento-card-feature:hover .feature-icon {
+    transform: scale(1.15) rotate(5deg);
   }
 
-  .hero-image-container::before {
-    content: '';
+  .feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .feature-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .feature-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .hero-glow {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.25) 100%);
-    z-index: 1;
+    top: -15%;
+    left: -10%;
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, var(--accent-alice-glow) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(50px);
     pointer-events: none;
-  }
-
-  .hero-image-container:hover {
-    transform: translateY(-4px) scale(1.005);
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12), 0 0 50px var(--accent-alice-glow);
-  }
-
-  :global(.dark) .hero-image-container:hover {
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 60px var(--accent-alice-glow);
-  }
-
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .hero-image-container:hover .hero-image {
-    transform: scale(1.03);
+    opacity: 0.8;
   }
 
 
@@ -674,41 +757,66 @@ const troubleshootingToShow = troubleshooting.slice(0, 6);
   }
 
   @media (max-width: 992px) {
-    .hero-section {
-      padding: 4rem 0 3.5rem 0;
-      gap: 2.5rem;
+    .hero-section.bento-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 1.25rem;
+      padding: 3.5rem 0 2rem 0;
+    }
+
+    .bento-card-main {
+      grid-column: span 1;
+      padding: 3rem 2rem;
+    }
+
+    .bento-card-image {
+      grid-column: span 1;
+      height: 350px;
+    }
+
+    .bento-card-feature {
+      grid-column: span 1;
+      padding: 1.75rem 1.5rem;
     }
 
     .hero-title {
-      font-size: 3.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-    }
-
-    .hero-image-container {
-      max-width: 100%;
+      font-size: 2.75rem;
     }
   }
 
   @media (max-width: 768px) {
-    .hero-section {
-      padding: 3rem 0 2.5rem 0;
-      gap: 2rem;
+    .hero-section.bento-grid {
+      padding: 2.5rem 0 1.5rem 0;
+      gap: 1rem;
+    }
+
+    .bento-card-main {
+      padding: 2rem 1.5rem;
+      gap: 1.25rem;
+    }
+
+    .bento-card-image {
+      height: 260px;
     }
 
     .hero-title {
-      font-size: 2.35rem;
-      letter-spacing: -0.03em;
+      font-size: 2.15rem;
+      letter-spacing: -0.02em;
     }
 
     .hero-subtitle {
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
-    .hero-image-container {
-      border-radius: 1.5rem;
+    .bento-card-feature {
+      padding: 1.5rem 1.25rem;
+      gap: 1rem;
+    }
+
+    .feature-icon {
+      font-size: 1.6rem;
+      padding: 0.6rem;
+      border-radius: 1rem;
     }
 
     .scenarios-grid, .troubleshooting-grid {
