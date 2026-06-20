@@ -121,24 +121,6 @@ button, .button {
   outline: none;
 }
 
-/* Кастомный премиальный скроллбар */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-}
-
 /* Сетки и контейнеры */
 .container {
   width: 100%;
