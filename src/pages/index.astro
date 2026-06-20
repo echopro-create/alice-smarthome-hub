@@ -95,77 +95,177 @@ const latestEntries = allEntries
   <!-- Scenarios Slider Section -->
   <!-- Scenarios Section: Anatomy of Automation -->
   <section id="scenarios" class="section-container automation-anatomy-section">
-    <h2 class="section-title font-outfit"><span aria-hidden="true">🔮</span> Анатомия автоматизации</h2>
+    <h2 class="section-title font-outfit"><span aria-hidden="true">🔮</span> Один день с Алисой</h2>
     <div class="section-divider"></div>
-    <p class="section-desc">Посмотрите по шагам, как взаимодействуют устройства в сценарии «Умное пробуждение» при вашей утренней активности.</p>
+    <p class="section-desc">Выберите сценарий, чтобы увидеть работу датчиков и устройств умного дома в реальном времени.</p>
     
     <div class="anatomy-grid glass">
       <!-- Left: Interactive steps (tabs) -->
-      <div class="anatomy-steps" role="tablist" aria-label="Шаги автоматизации">
-        <button class="anatomy-step-btn active" data-step="1" aria-selected="true" role="tab" id="step-tab-1" aria-controls="step-panel-1">
-          <span class="step-num font-outfit">1</span>
+      <div class="anatomy-steps" role="tablist" aria-label="Сценарии автоматизации">
+        <button class="anatomy-step-btn active" data-scene="morning" aria-selected="true" role="tab" id="scene-tab-morning" aria-controls="scene-panel-morning">
+          <span class="step-num font-outfit">🌅</span>
           <div class="step-text">
-            <h3 class="step-title font-outfit">Триггер: Датчик движения</h3>
-            <p class="step-desc">Сенсор движения в спальне фиксирует ваше первое перемещение (с 7:00 до 9:00).</p>
+            <h3 class="step-title font-outfit">07:30 — Утреннее пробуждение</h3>
+            <p class="step-desc">Мягкий старт дня: плавное включение света, свежий кофе и утреннее шоу Алисы.</p>
           </div>
         </button>
-        <button class="anatomy-step-btn" data-step="2" aria-selected="false" role="tab" id="step-tab-2" aria-controls="step-panel-2">
-          <span class="step-num font-outfit">2</span>
+        <button class="anatomy-step-btn" data-scene="away" aria-selected="false" role="tab" id="scene-tab-away" aria-controls="scene-panel-away">
+          <span class="step-num font-outfit">🚶‍♂️</span>
           <div class="step-text">
-            <h3 class="step-title font-outfit">Хаб: Яндекс Станция</h3>
-            <p class="step-desc">Колонка принимает сигнал, запускает розетку кофеварки и начинает готовить напиток.</p>
+            <h3 class="step-title font-outfit">09:00 — Все ушли (Охрана)</h3>
+            <p class="step-desc">Автоматическое сбережение энергии, активация видеокамер и запуск уборки.</p>
           </div>
         </button>
-        <button class="anatomy-step-btn" data-step="3" aria-selected="false" role="tab" id="step-tab-3" aria-controls="step-panel-3">
-          <span class="step-num font-outfit">3</span>
+        <button class="anatomy-step-btn" data-scene="cinema" aria-selected="false" role="tab" id="scene-tab-cinema" aria-controls="scene-panel-cinema">
+          <span class="step-num font-outfit">🍿</span>
           <div class="step-text">
-            <h3 class="step-title font-outfit">Действие: Свет и Музыка</h3>
-            <p class="step-desc">Включается мягкий свет на кухне, а колонка Алисы начинает играть утренний плейлист.</p>
+            <h3 class="step-title font-outfit">20:00 — Вечерний уют</h3>
+            <p class="step-desc">Создание идеальной атмосферы: закрытие штор, приглушенный неон и включение кино.</p>
           </div>
         </button>
+
+        <!-- Dynamic Logic Scheme (ЕСЛИ ... ТО ...) -->
+        <div class="logic-scheme glass">
+          <div class="logic-block logic-if">
+            <span class="logic-label font-outfit">ЕСЛИ</span>
+            <span class="logic-value" id="logic-val-if">Датчик движения зафиксировал активность</span>
+          </div>
+          <div class="logic-block logic-and" id="logic-block-and">
+            <span class="logic-label font-outfit">И</span>
+            <span class="logic-value" id="logic-val-and">Время суток с 07:00 до 09:00</span>
+          </div>
+          <div class="logic-block logic-then">
+            <span class="logic-label font-outfit">ТО</span>
+            <span class="logic-value" id="logic-val-then">Сварить кофе, включить лампу, запустить утренний плейлист</span>
+          </div>
+        </div>
         
         <div class="anatomy-link-wrapper">
-          <a href="/scenarios/morning-coffee/" class="card-link font-outfit">
-            Читать полный гайд сценария <span class="arrow">→</span>
+          <a href="/scenarios/" class="card-link font-outfit">
+            Все сценарии автоматизации <span class="arrow">→</span>
           </a>
         </div>
       </div>
       
-      <!-- Right: Interactive Visual Scheme -->
+      <!-- Right: Interactive Visual Scheme (Blueprint) -->
       <div class="anatomy-visual">
-        <div class="visual-container">
-          <!-- Central Hub: Alice -->
-          <div class="visual-node node-hub active" id="node-hub">
-            <div class="node-icon" aria-hidden="true">🔊</div>
-            <span class="node-label">Яндекс Станция</span>
+        <div class="visual-container" data-active-scene="morning">
+          <!-- Central Hub: Alice (🔊) - Active in morning and cinema -->
+          <div class="blueprint-device node-blueprint-hub device-hub-always" id="node-blueprint-hub">
+            <div class="device-icon" aria-hidden="true">🔊</div>
+            <span class="device-label">Яндекс Станция</span>
           </div>
           
-          <!-- Trigger Node: Motion Sensor -->
-          <div class="visual-node node-trigger active" id="node-trigger">
-            <div class="node-icon" aria-hidden="true">🚶‍♂️</div>
-            <span class="node-label">Датчик движения</span>
+          <!-- Morning Devices -->
+          <!-- Motion Sensor (🚶‍♂️) -->
+          <div class="blueprint-device node-blueprint-motion device-morning" id="node-blueprint-motion">
+            <div class="device-icon" aria-hidden="true">🚶‍♂️</div>
+            <span class="device-label">Датчик движения</span>
+          </div>
+          <!-- Smart Plug (☕) -->
+          <div class="blueprint-device node-blueprint-plug device-morning" id="node-blueprint-plug">
+            <div class="device-icon" aria-hidden="true">☕</div>
+            <span class="device-label">Умная розетка</span>
+          </div>
+          <!-- Smart Bulb (💡) -->
+          <div class="blueprint-device node-blueprint-bulb device-morning device-cinema" id="node-blueprint-bulb">
+            <div class="device-icon" aria-hidden="true">💡</div>
+            <span class="device-label">Умная лампа</span>
           </div>
           
-          <!-- Action Node 1: Coffee Maker -->
-          <div class="visual-node node-action-1" id="node-action-1">
-            <div class="node-icon" aria-hidden="true">☕</div>
-            <span class="node-label">Умная розетка (Кофе)</span>
+          <!-- Away Devices -->
+          <!-- Smart Lock / Door Sensor (🚪) -->
+          <div class="blueprint-device node-blueprint-lock device-away" id="node-blueprint-lock">
+            <div class="device-icon" aria-hidden="true">🚪</div>
+            <span class="device-label">Датчик двери</span>
+          </div>
+          <!-- Vacuum Cleaner (🧹) -->
+          <div class="blueprint-device node-blueprint-vacuum device-away" id="node-blueprint-vacuum">
+            <div class="device-icon" aria-hidden="true">🧹</div>
+            <span class="device-label">Пылесос</span>
+          </div>
+          <!-- Smart Camera (📹) -->
+          <div class="blueprint-device node-blueprint-camera device-away" id="node-blueprint-camera">
+            <div class="device-icon" aria-hidden="true">📹</div>
+            <span class="device-label">Видеокамера</span>
+          </div>
+
+          <!-- Cinema Devices -->
+          <!-- LED Strip (🌈) -->
+          <div class="blueprint-device node-blueprint-strip device-cinema" id="node-blueprint-strip">
+            <div class="device-icon" aria-hidden="true">🌈</div>
+            <span class="device-label">Светодиодная лента</span>
+          </div>
+          <!-- Curtains (⛺) -->
+          <div class="blueprint-device node-blueprint-curtains device-cinema" id="node-blueprint-curtains">
+            <div class="device-icon" aria-hidden="true">⛺</div>
+            <span class="device-label">Умные шторы</span>
           </div>
           
-          <!-- Action Node 2: Light -->
-          <div class="visual-node node-action-2" id="node-action-2">
-            <div class="node-icon" aria-hidden="true">💡</div>
-            <span class="node-label">Умная лампа</span>
-          </div>
-          
-          <!-- Connection lines (SVG) -->
-          <svg class="visual-lines" width="100%" height="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Line Trigger to Hub -->
-            <path class="line line-trigger active" id="line-trigger" d="M80,150 L200,150" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
-            <!-- Line Hub to Action 1 -->
-            <path class="line line-action-1" id="line-action-1" d="M200,150 L320,75" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
-            <!-- Line Hub to Action 2 -->
-            <path class="line line-action-2" id="line-action-2" d="M200,150 L320,225" stroke="var(--text-muted)" stroke-width="2.5" stroke-dasharray="5,5" />
+          <!-- Isometric Room Blueprint (SVG) -->
+          <svg class="blueprint-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Стены и пол (основа комнаты) -->
+            <path class="blueprint-wall-base" d="M100,260 L250,180 L400,260" stroke="var(--blueprint-line)" stroke-width="1.5" />
+            <path class="blueprint-wall-corner" d="M250,180 L250,60" stroke="var(--blueprint-line)" stroke-width="1.5" />
+            <path class="blueprint-wall-top" d="M100,140 L250,60 L400,140" stroke="var(--blueprint-line)" stroke-width="1.5" />
+            
+            <!-- Дверной проем слева -->
+            <path class="blueprint-furniture" d="M120,249 L120,170 L150,155 L150,233 Z" stroke="var(--blueprint-line)" stroke-width="1.2" stroke-dasharray="3,3" />
+            
+            <!-- Окно справа -->
+            <path class="blueprint-furniture" d="M300,185 L300,135 L360,105 L360,155 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            <line class="blueprint-furniture" x1="330" y1="170" x2="330" y2="120" stroke="var(--blueprint-line)" stroke-width="1" />
+            
+            <!-- Изометрическая кровать -->
+            <path class="blueprint-furniture" d="M170,210 L220,235 L280,205 L230,180 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            <path class="blueprint-furniture" d="M170,225 L220,250 L280,220 L280,205 L220,235 L170,210 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            <path class="blueprint-furniture" d="M170,225 L170,210 M220,250 L220,235 M280,220 L280,205" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            
+            <path class="blueprint-furniture" d="M185,200 L205,210 L215,205 L195,195 Z" stroke="var(--blueprint-line)" stroke-width="1" />
+            <path class="blueprint-furniture" d="M205,190 L225,200 L235,195 L215,185 Z" stroke="var(--blueprint-line)" stroke-width="1" />
+
+            <!-- Кухонный стол справа -->
+            <path class="blueprint-furniture" d="M310,215 L350,235 L380,220 L340,200 Z" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            <line class="blueprint-furniture" x1="310" y1="215" x2="310" y2="245" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            <line class="blueprint-furniture" x1="350" y1="235" x2="350" y2="265" stroke="var(--blueprint-line)" stroke-width="1.2" />
+            <line class="blueprint-furniture" x1="380" y1="220" x2="380" y2="250" stroke="var(--blueprint-line)" stroke-width="1.2" />
+
+            <!-- Робот-пылесос (схематично на полу) -->
+            <ellipse class="blueprint-furniture" cx="260" cy="245" rx="14" ry="7" stroke="var(--blueprint-line)" stroke-width="1" />
+
+            <!-- Подсветка комнат -->
+            <polygon class="room-highlight morning" points="90,260 250,180 410,260 250,340" fill="url(#morning-grad)" opacity="0" />
+            <polygon class="room-highlight away" points="90,260 250,180 410,260 250,340" fill="url(#away-grad)" opacity="0" />
+            <polygon class="room-highlight cinema" points="90,260 250,180 410,260 250,340" fill="url(#cinema-grad)" opacity="0" />
+
+            <defs>
+              <radialGradient id="morning-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25" />
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="away-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.2" />
+                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="cinema-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3" />
+                <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+
+            <!-- Пути связей устройств -->
+            <!-- Сценарий: Утро (morning) -->
+            <path class="line line-morning" id="path-morning-1" d="M125,200 L225,185" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-morning" id="path-morning-2" d="M225,185 L360,225" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-morning" id="path-morning-3" d="M225,185 L340,95" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
+
+            <!-- Сценарий: Вне дома (away) -->
+            <path class="line line-away" id="path-away-1" d="M85,195 L250,75" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-away" id="path-away-2" d="M85,195 L260,245" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
+
+            <!-- Сценарий: Кинотеатр (cinema) -->
+            <path class="line line-cinema" id="path-cinema-1" d="M225,185 L180,210" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
+            <path class="line line-cinema" id="path-cinema-2" d="M225,185 L410,130" stroke="var(--line-color)" stroke-width="2.5" stroke-dasharray="5,5" />
           </svg>
         </div>
       </div>
@@ -665,8 +765,8 @@ const latestEntries = allEntries
 
   .anatomy-grid {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4.5rem;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 4rem;
     align-items: center;
     padding: 3rem;
     border-radius: var(--radius-lg);
@@ -720,23 +820,33 @@ const latestEntries = allEntries
     background: var(--bg-item);
     border: 1px solid var(--border-item);
     color: var(--text-secondary);
-    font-weight: 800;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     transition: all 0.4s ease;
     flex-shrink: 0;
   }
 
   .anatomy-step-btn.active .step-num {
     background: var(--accent-alice);
-    color: #ffffff;
     border-color: var(--accent-alice);
     box-shadow: 0 0 10px var(--accent-alice-glow);
   }
 
-  .anatomy-step-btn:nth-child(1).active .step-num {
-    background: var(--accent-cyan);
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 10px var(--accent-cyan-glow);
+  .anatomy-step-btn[data-scene="morning"].active .step-num {
+    background: var(--accent-orange, #f59e0b);
+    border-color: var(--accent-orange, #f59e0b);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+  }
+
+  .anatomy-step-btn[data-scene="away"].active .step-num {
+    background: var(--accent-cyan, #0ea5e9);
+    border-color: var(--accent-cyan, #0ea5e9);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);
+  }
+
+  .anatomy-step-btn[data-scene="cinema"].active .step-num {
+    background: var(--accent-alice, #8b5cf6);
+    border-color: var(--accent-alice, #8b5cf6);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
   }
 
   .step-text {
@@ -746,31 +856,87 @@ const latestEntries = allEntries
   }
 
   .step-title {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
     transition: color 0.3s ease;
   }
 
-  .anatomy-step-btn.active .step-title {
-    color: var(--accent-alice);
+  .anatomy-step-btn[data-scene="morning"].active .step-title {
+    color: var(--accent-orange, #f59e0b);
   }
 
-  .anatomy-step-btn:nth-child(1).active .step-title {
-    color: var(--accent-cyan);
+  .anatomy-step-btn[data-scene="away"].active .step-title {
+    color: var(--accent-cyan, #0ea5e9);
+  }
+
+  .anatomy-step-btn[data-scene="cinema"].active .step-title {
+    color: var(--accent-alice, #8b5cf6);
   }
 
   .step-desc {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.45;
     margin: 0;
+  }
+
+  .logic-scheme {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: left;
+    transition: all 0.5s ease;
+  }
+
+  .logic-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .logic-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    min-width: 42px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+  }
+
+  .logic-if .logic-label {
+    background: var(--accent-cyan, #0ea5e9);
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.25);
+  }
+
+  .logic-and .logic-label {
+    background: var(--text-muted, #94a3b8);
+  }
+
+  .logic-then .logic-label {
+    background: var(--accent-alice, #8b5cf6);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.25);
+  }
+
+  .logic-value {
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
 
   .anatomy-link-wrapper {
     margin-top: 0.5rem;
-    padding-left: 1.5rem;
+    padding-left: 1.25rem;
   }
 
   .card-link {
@@ -797,153 +963,251 @@ const latestEntries = allEntries
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 320px;
+    height: 350px;
     width: 100%;
   }
 
   .visual-container {
+    --blueprint-line: rgba(148, 163, 184, 0.18);
+    --blueprint-furniture: rgba(148, 163, 184, 0.08);
+    --line-color: rgba(148, 163, 184, 0.2);
     position: relative;
     width: 100%;
-    max-width: 400px;
-    height: 300px;
+    max-width: 440px;
+    height: 320px;
+    transition: all 0.6s ease;
   }
 
-  .visual-node {
-    position: absolute;
-    z-index: 2;
-    width: 76px;
-    height: 76px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-primary);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--shadow-sm);
-    margin-left: -38px;
-    margin-top: -38px;
+  .visual-container[data-active-scene="morning"] {
+    --blueprint-line: rgba(245, 158, 11, 0.28);
+    --blueprint-furniture: rgba(245, 158, 11, 0.12);
+    --line-color: var(--accent-orange, #f59e0b);
   }
 
-  .visual-node .node-icon {
-    font-size: 1.75rem;
-    margin-bottom: 0.15rem;
-    transition: transform 0.3s ease;
+  .visual-container[data-active-scene="morning"] .room-highlight.morning {
+    opacity: 1;
   }
 
-  .visual-node .node-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-align: center;
-    position: absolute;
-    bottom: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 110px;
-    white-space: nowrap;
-    transition: color 0.3s ease;
+  .visual-container[data-active-scene="away"] {
+    --blueprint-line: rgba(14, 165, 233, 0.28);
+    --blueprint-furniture: rgba(14, 165, 233, 0.12);
+    --line-color: var(--accent-cyan, #0ea5e9);
   }
 
-  /* Hub Node (Alice) always active but glows purple-indigo */
-  .node-hub {
-    left: 50%;
-    top: 50%;
+  .visual-container[data-active-scene="away"] .room-highlight.away {
+    opacity: 1;
   }
 
-  .node-hub.active {
-    background: var(--bg-hover);
-    border-color: var(--accent-alice);
-    box-shadow: var(--shadow-md), var(--glow-alice-heavy);
+  .visual-container[data-active-scene="cinema"] {
+    --blueprint-line: rgba(139, 92, 246, 0.35);
+    --blueprint-furniture: rgba(139, 92, 246, 0.15);
+    --line-color: var(--accent-alice, #8b5cf6);
   }
 
-  .node-hub.active .node-label {
-    color: var(--accent-alice);
+  .visual-container[data-active-scene="cinema"] .room-highlight.cinema {
+    opacity: 1;
   }
 
-  /* Trigger Node (Motion) */
-  .node-trigger {
-    left: 20%;
-    top: 50%;
-  }
-
-  .node-trigger.active {
-    background: var(--bg-hover);
-    border-color: var(--accent-cyan);
-    box-shadow: var(--shadow-md), var(--glow-cyan-heavy);
-    transform: scale(1.06);
-  }
-
-  .node-trigger.active .node-label {
-    color: var(--accent-cyan);
-  }
-
-  /* Action Nodes */
-  .node-action-1 {
-    left: 80%;
-    top: 25%;
-  }
-
-  .node-action-2 {
-    left: 80%;
-    top: 75%;
-  }
-
-  .visual-node:not(.active) {
-    opacity: 0.55;
-  }
-
-  .visual-node.active:not(.node-hub):not(.node-trigger) {
-    background: var(--bg-hover);
-    border-color: var(--accent-alice);
-    box-shadow: var(--shadow-md), var(--glow-alice-heavy);
-    transform: scale(1.06);
-  }
-
-  .visual-node.active:not(.node-hub):not(.node-trigger) .node-label {
-    color: var(--accent-alice);
-  }
-
-  /* SVG Lines connecting nodes */
-  .visual-lines {
-    position: absolute;
-    top: 0;
-    left: 0;
+  /* Blueprint SVG element */
+  .blueprint-svg {
     width: 100%;
     height: 100%;
-    z-index: 1;
+    overflow: visible;
+  }
+
+  .blueprint-wall-base,
+  .blueprint-wall-corner,
+  .blueprint-wall-top {
+    stroke: var(--blueprint-line);
+    stroke-width: 1.5;
+    fill: none;
+    transition: stroke 0.6s ease;
+  }
+
+  .blueprint-furniture {
+    stroke: var(--blueprint-furniture);
+    stroke-width: 1.2;
+    fill: none;
+    transition: stroke 0.6s ease;
+  }
+
+  .room-highlight {
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }
 
-  .line {
-    stroke: var(--text-muted);
+  /* SVG lines animation */
+  .blueprint-svg .line {
+    fill: none;
+    stroke: var(--line-color);
     stroke-width: 2;
-    transition: stroke 0.4s ease, stroke-width 0.4s ease, opacity 0.4s ease;
-    opacity: 0.25;
+    opacity: 0.05;
+    transition: opacity 0.5s ease, stroke 0.5s ease, stroke-width 0.5s ease;
   }
 
-  .line.active {
-    stroke-width: 3;
+  .visual-container[data-active-scene="morning"] .line-morning {
     opacity: 1;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.6));
     animation: dash 1s linear infinite;
   }
 
-  .line-trigger.active {
-    stroke: var(--accent-cyan);
-    filter: drop-shadow(0 0 3px var(--accent-cyan));
+  .visual-container[data-active-scene="away"] .line-away {
+    opacity: 1;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 4px rgba(14, 165, 233, 0.6));
+    animation: dash 1s linear infinite;
   }
 
-  .line-action-1.active,
-  .line-action-2.active {
-    stroke: var(--accent-alice);
-    filter: drop-shadow(0 0 3px var(--accent-alice));
+  .visual-container[data-active-scene="cinema"] .line-cinema {
+    opacity: 1;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.6));
+    animation: dash 1s linear infinite;
   }
 
   @keyframes dash {
     to {
       stroke-dashoffset: -20;
     }
+  }
+
+  /* Blueprint Device Nodes */
+  .blueprint-device {
+    position: absolute;
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-sm);
+    margin-left: -22px;
+    margin-top: -22px;
+    opacity: 0.15;
+    transform: scale(0.9);
+    pointer-events: none;
+  }
+
+  .blueprint-device .device-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .blueprint-device .device-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-align: center;
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0.7;
+    transition: all 0.5s ease;
+  }
+
+  /* Device Active States per Scene */
+  .visual-container[data-active-scene="morning"] .device-morning {
+    opacity: 1;
+    transform: scale(1);
+    border-color: var(--line-color);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(245, 158, 11, 0.25);
+  }
+  .visual-container[data-active-scene="morning"] .device-morning .device-label {
+    color: var(--text-primary);
+    opacity: 1;
+  }
+
+  .visual-container[data-active-scene="away"] .device-away {
+    opacity: 1;
+    transform: scale(1);
+    border-color: var(--line-color);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(14, 165, 233, 0.25);
+  }
+  .visual-container[data-active-scene="away"] .device-away .device-label {
+    color: var(--text-primary);
+    opacity: 1;
+  }
+
+  .visual-container[data-active-scene="cinema"] .device-cinema {
+    opacity: 1;
+    transform: scale(1);
+    border-color: var(--line-color);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(139, 92, 246, 0.3);
+  }
+  .visual-container[data-active-scene="cinema"] .device-cinema .device-label {
+    color: var(--text-primary);
+    opacity: 1;
+  }
+
+  /* Hub Node active always but glows on active scenes */
+  .visual-container .device-hub-always {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  .visual-container[data-active-scene="morning"] .device-hub-always {
+    opacity: 1;
+    border-color: var(--line-color);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(245, 158, 11, 0.25);
+  }
+
+  .visual-container[data-active-scene="cinema"] .device-hub-always {
+    opacity: 1;
+    border-color: var(--line-color);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(139, 92, 246, 0.3);
+  }
+
+  /* Coordinates for devices on the blueprint canvas */
+  .node-blueprint-hub {
+    left: 45%;
+    top: 53%;
+  }
+
+  .node-blueprint-motion {
+    left: 25%;
+    top: 57%;
+  }
+
+  .node-blueprint-plug {
+    left: 72%;
+    top: 64%;
+  }
+
+  .node-blueprint-bulb {
+    left: 68%;
+    top: 27%;
+  }
+
+  .node-blueprint-lock {
+    left: 17%;
+    top: 56%;
+  }
+
+  .node-blueprint-vacuum {
+    left: 52%;
+    top: 70%;
+  }
+
+  .node-blueprint-camera {
+    left: 50%;
+    top: 21%;
+  }
+
+  .node-blueprint-strip {
+    left: 36%;
+    top: 60%;
+  }
+
+  .node-blueprint-curtains {
+    left: 82%;
+    top: 37%;
   }
 
 
@@ -1440,24 +1704,43 @@ const latestEntries = allEntries
 <script>
   function initHomepageInteractive() {
     const steps = document.querySelectorAll('.anatomy-step-btn');
-    const nodes = document.querySelectorAll('.visual-node');
-    const lines = document.querySelectorAll('.visual-lines .line');
+    const container = document.querySelector('.visual-container');
+    const valIf = document.getElementById('logic-val-if');
+    const valAnd = document.getElementById('logic-val-and');
+    const valThen = document.getElementById('logic-val-then');
+    const blockAnd = document.getElementById('logic-block-and');
     
-    if (steps.length === 0) return;
+    if (steps.length === 0 || !container) return;
     
     // Проверка инициализации для предотвращения повторной навески слушателей
     const firstStep = steps[0];
     if (firstStep.dataset.initialized) return;
     firstStep.dataset.initialized = 'true';
+
+    const sceneData = {
+      morning: {
+        if: 'Датчик движения зафиксировал активность',
+        and: 'Время суток с 07:00 до 09:00',
+        then: 'Сварить кофе, включить лампу, запустить утренний плейлист'
+      },
+      away: {
+        if: 'Датчик двери закрылся и замок заблокирован',
+        and: null,
+        then: 'Активировать камеру, запустить пылесос, выключить все приборы'
+      },
+      cinema: {
+        if: 'Сказано Алисе: "Время кино"',
+        and: null,
+        then: 'Закрыть шторы, включить подсветку, запустить телевизор'
+      }
+    };
     
     steps.forEach(step => {
-      // Инициализируем флаг для всех шагов
       step.dataset.initialized = 'true';
       
       step.addEventListener('click', () => {
-        const stepNum = step.getAttribute('data-step');
+        const scene = step.getAttribute('data-scene');
         
-        // 1. Активируем кнопку шага, сбрасываем остальные
         steps.forEach(s => {
           s.classList.remove('active');
           s.setAttribute('aria-selected', 'false');
@@ -1465,33 +1748,21 @@ const latestEntries = allEntries
         step.classList.add('active');
         step.setAttribute('aria-selected', 'true');
         
-        // 2. Сбрасываем активность со всех узлов и линий схемы
-        nodes.forEach(node => node.classList.remove('active'));
-        lines.forEach(line => line.classList.remove('active'));
+        // Переключаем активную сцену на контейнере
+        container.setAttribute('data-active-scene', scene);
         
-        // Всегда подсвечиваем центральный хаб (Алису)
-        const hubNode = document.getElementById('node-hub');
-        if (hubNode) hubNode.classList.add('active');
-        
-        // 3. Подсвечиваем узлы и линии в зависимости от шага
-        if (stepNum === '1') {
-          // Шаг 1: Датчик движения -> Алиса
-          const triggerNode = document.getElementById('node-trigger');
-          const triggerLine = document.getElementById('line-trigger');
-          if (triggerNode) triggerNode.classList.add('active');
-          if (triggerLine) triggerLine.classList.add('active');
-        } else if (stepNum === '2') {
-          // Шаг 2: Алиса -> Кофемашина
-          const action1Node = document.getElementById('node-action-1');
-          const action1Line = document.getElementById('line-action-1');
-          if (action1Node) action1Node.classList.add('active');
-          if (action1Line) action1Line.classList.add('active');
-        } else if (stepNum === '3') {
-          // Шаг 3: Алиса -> Свет
-          const action2Node = document.getElementById('node-action-2');
-          const action2Line = document.getElementById('line-action-2');
-          if (action2Node) action2Node.classList.add('active');
-          if (action2Line) action2Line.classList.add('active');
+        // Обновляем логическую схему
+        const data = sceneData[scene];
+        if (data) {
+          if (valIf) valIf.textContent = data.if;
+          if (valThen) valThen.textContent = data.then;
+          
+          if (data.and) {
+            if (valAnd) valAnd.textContent = data.and;
+            if (blockAnd) blockAnd.style.display = 'flex';
+          } else {
+            if (blockAnd) blockAnd.style.display = 'none';
+          }
         }
       });
     });
