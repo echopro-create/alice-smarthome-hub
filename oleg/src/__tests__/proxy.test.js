@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { NextRequest, NextResponse } from 'next/server';
-import { middleware } from '../middleware';
+import { proxy } from '../proxy';
 
 // Мокаем NextResponse.redirect
 vi.mock('next/server', async (importOriginal) => {
@@ -21,7 +21,7 @@ vi.mock('next/server', async (importOriginal) => {
 describe('Middleware i18n Routing', () => {
   it('should ignore paths that already have a valid locale prefix', () => {
     const req = new NextRequest(new URL('http://localhost:3000/en/contacts'));
-    const res = middleware(req);
+    const res = proxy(req);
     // middleware не должен возвращать редирект (res === undefined)
     expect(res).toBeUndefined();
   });
@@ -31,7 +31,7 @@ describe('Middleware i18n Routing', () => {
     // Убираем Accept-Language заголовок
     req.headers.delete('accept-language');
 
-    middleware(req);
+    proxy(req);
 
     expect(NextResponse.redirect).toHaveBeenCalled();
     const redirectedUrl = NextResponse.redirect.mock.calls[0][0].toString();
@@ -42,7 +42,7 @@ describe('Middleware i18n Routing', () => {
     const req = new NextRequest(new URL('http://localhost:3000/about'));
     req.headers.set('accept-language', 'ru-RU,ru;q=0.9,en-US;q=0.8');
 
-    middleware(req);
+    proxy(req);
 
     expect(NextResponse.redirect).toHaveBeenCalled();
     const redirectedUrl = NextResponse.redirect.mock.calls[NextResponse.redirect.mock.calls.length - 1][0].toString();
@@ -53,7 +53,7 @@ describe('Middleware i18n Routing', () => {
     const req = new NextRequest(new URL('http://localhost:3000/services'));
     req.headers.set('accept-language', 'fr-FR,fr;q=0.9,de;q=0.8');
 
-    middleware(req);
+    proxy(req);
 
     expect(NextResponse.redirect).toHaveBeenCalled();
     const redirectedUrl = NextResponse.redirect.mock.calls[NextResponse.redirect.mock.calls.length - 1][0].toString();

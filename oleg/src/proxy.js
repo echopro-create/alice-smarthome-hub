@@ -7,7 +7,6 @@ function getLocale(request) {
   const acceptLanguage = request.headers.get('accept-language');
   if (!acceptLanguage) return defaultLocale;
 
-  // Парсим заголовок Accept-Language (например: "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7")
   const parsedLanguages = acceptLanguage
     .split(',')
     .map((lang) => {
@@ -26,27 +25,23 @@ function getLocale(request) {
   return defaultLocale;
 }
 
-export function middleware(request) {
+export function proxy(request) {
   const { pathname } = request.nextUrl;
 
-  // Проверяем, есть ли уже локаль в пути
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
   if (pathnameHasLocale) return;
 
-  // Получаем подходящую локаль
   const locale = getLocale(request);
-  
-  // Перенаправляем на путь с локалью (например, /about -> /sv/about)
+
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
 }
 
 export const config = {
   matcher: [
-    // Пропускаем внутренние запросы Next.js, API и статические файлы (включая папку images)
     '/((?!api|_next/static|_next/image|images|favicon.ico|robots.txt|sitemap.xml).*)',
   ],
 };

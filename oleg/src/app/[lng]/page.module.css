@@ -8,48 +8,23 @@
 /* HERO СЕКЦИЯ */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
+  /* Множественные фоновые радиальные градиенты вместо абсолютных элементов (никогда не вызовут скролл) */
   background-color: var(--background);
+  background-image: 
+    radial-gradient(circle at 85% 15%, rgba(212, 190, 150, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(85, 107, 47, 0.08) 0%, transparent 50%);
   overflow: hidden;
-  padding: 140px 0 100px 0;
-  transition: background-color var(--transition-normal);
+  padding: 120px 0 80px 0;
+  transition: background-color var(--transition-normal), background-image var(--transition-normal);
 }
 
-/* Декоративные светящиеся сферы */
-.glowSpot1 {
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 190, 150, 0.15) 0%, rgba(85, 107, 47, 0.05) 50%, transparent 100%);
-  filter: blur(80px);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.glowSpot2 {
-  position: absolute;
-  bottom: -10%;
-  left: -5%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(85, 107, 47, 0.1) 0%, rgba(212, 190, 150, 0.03) 60%, transparent 100%);
-  filter: blur(100px);
-  z-index: 1;
-  pointer-events: none;
-}
-
-:global(html[data-theme='light']) .glowSpot1 {
-  background: radial-gradient(circle, rgba(85, 107, 47, 0.08) 0%, transparent 70%);
-}
-
-:global(html[data-theme='light']) .glowSpot2 {
-  background: radial-gradient(circle, rgba(212, 190, 150, 0.06) 0%, transparent 70%);
+:global(html[data-theme='light']) .hero {
+  background-image: 
+    radial-gradient(circle at 85% 15%, rgba(85, 107, 47, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(212, 190, 150, 0.04) 0%, transparent 50%);
 }
 
 .heroContainer {
@@ -60,8 +35,8 @@
 
 .heroGrid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 80px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
   align-items: center;
 }
 
@@ -73,7 +48,7 @@
 
 .heroTitle {
   font-family: var(--font-serif);
-  font-size: clamp(40px, 4.5vw, 64px);
+  font-size: clamp(38px, 4.2vw, 60px);
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 24px;
@@ -93,11 +68,11 @@
 }
 
 .heroSub {
-  font-size: clamp(16px, 1.2vw, 19px);
+  font-size: clamp(15px, 1.1vw, 18px);
   line-height: 1.7;
   margin-bottom: 40px;
   color: var(--foreground-muted);
-  max-width: 540px;
+  max-width: 520px;
   opacity: 0;
 }
 
@@ -158,40 +133,43 @@
 .heroImageColumn {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  width: 100%;
   opacity: 0;
 }
 
 .heroImageGlow {
   position: absolute;
-  width: 105%;
-  height: 105%;
+  width: 95%;
+  height: 95%;
   border-radius: 200px 200px 40px 40px;
-  background: radial-gradient(circle, rgba(212, 190, 150, 0.15) 0%, transparent 70%);
-  filter: blur(30px);
+  background: radial-gradient(circle, rgba(212, 190, 150, 0.18) 0%, transparent 70%);
+  filter: blur(40px);
   z-index: 1;
   pointer-events: none;
 }
 
 :global(html[data-theme='light']) .heroImageGlow {
-  background: radial-gradient(circle, rgba(85, 107, 47, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(85, 107, 47, 0.1) 0%, transparent 70%);
 }
 
 .heroImageArch {
   position: relative;
   width: 100%;
-  aspect-ratio: 0.85/1;
+  max-width: 380px;
+  max-height: 480px;
+  aspect-ratio: 0.82/1;
   border-radius: 200px 200px 30px 30px;
   overflow: hidden;
   z-index: 2;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 :global(html[data-theme='light']) .heroImageArch {
-  box-shadow: 0 20px 40px rgba(85, 107, 47, 0.08);
-  border: 1px solid rgba(85, 107, 47, 0.08);
+  box-shadow: 0 20px 45px rgba(85, 107, 47, 0.08);
+  border: 1px solid rgba(85, 107, 47, 0.06);
 }
 
 .heroImg {

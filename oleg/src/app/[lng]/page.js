@@ -77,10 +77,6 @@ export default async function HomePage({ params }) {
       <div className={styles.wrapper}>
         {/* HERO СЕКЦИЯ */}
         <section className={styles.hero}>
-          {/* Декоративные светящиеся шары для глубины */}
-          <div className={`${styles.glowSpot1} pulseGlow`}></div>
-          <div className={`${styles.glowSpot2} pulseGlow`}></div>
-          
           <div className={`${styles.heroContainer} container`}>
             <div className={styles.heroGrid}>
               {/* Левая колонка: Текст и CTA */}
