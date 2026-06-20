@@ -15,7 +15,7 @@
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  padding: 80px 0;
+  padding: 130px 0 80px 0;
 }
 
 :global(html[data-theme='light']) .hero {
@@ -144,17 +144,44 @@
 /* О МАСТЕРЕ */
 .aboutGrid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 0.8fr 1.2fr;
   gap: 80px;
   align-items: center;
 }
 
+.aboutImageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.aboutImageWrapper::before {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  width: 100%;
+  height: 100%;
+  max-width: 380px;
+  aspect-ratio: 1/1;
+  background-color: var(--primary);
+  opacity: 0.08;
+  border-radius: 24px;
+  z-index: 1;
+  transition: all var(--transition-normal);
+}
+
 .aboutImageContainer {
   position: relative;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1;
   width: 100%;
-  border-radius: 16px;
+  max-width: 380px;
+  border-radius: 24px;
   overflow: hidden;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .aboutImage {

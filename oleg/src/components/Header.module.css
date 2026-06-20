@@ -1,14 +1,20 @@
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: var(--max-width);
   z-index: 100;
-  height: 80px;
+  height: 72px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--glass-border);
-  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+  border-radius: 40px;
+  transition: all var(--transition-normal);
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.04), 0 1px 1px 0 rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 0 16px 0 28px;
 }
 
 .container {
@@ -16,13 +22,14 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding: 0;
 }
 
 .logo {
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   color: var(--foreground);
   display: flex;
   gap: 6px;
@@ -41,12 +48,12 @@
 
 .navLink {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--foreground-muted);
   letter-spacing: 0.05em;
   position: relative;
-  padding: 8px 0;
+  padding: 6px 0;
 }
 
 .navLink:hover {
@@ -57,16 +64,18 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 0;
+  left: 50%;
+  width: 100%;
   height: 2px;
   background-color: var(--primary);
-  transition: width var(--transition-fast);
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-normal);
 }
 
 .navLink:hover::after,
 .activeLink::after {
-  width: 100%;
+  transform: translateX(-50%) scaleX(1);
 }
 
 .activeLink {

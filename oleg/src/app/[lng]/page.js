@@ -42,7 +42,7 @@ export default async function HomePage({ params }) {
     '@context': 'https://schema.org',
     '@type': 'MassageBusiness',
     'name': dict.common.logo,
-    'image': '/images/oleg-about.jpg',
+    'image': '/images/oleg-about.webp',
     'description': dict.home.heroSub,
     'address': {
       '@type': 'PostalAddress',
@@ -101,7 +101,7 @@ export default async function HomePage({ params }) {
             <div className={styles.aboutImageWrapper}>
               <div className={`${styles.aboutImageContainer} glass`}>
                 <Image
-                  src="/images/oleg-about.jpg"
+                  src="/images/oleg-about.webp"
                   alt="Oleg - Massage Therapist"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
