@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "contacts": "Contacts"
+  },
+  "common": {
+    "bookNow": "Book a Session",
+    "details": "Learn More",
+    "close": "Close",
+    "back": "Back",
+    "theme": "Toggle Theme",
+    "currency": "SEK",
+    "min": "min",
+    "logo": "Oleg Massage"
+  },
+  "home": {
+    "heroTitle": "The Art of Touch for Your Well-being",
+    "heroSub": "Professional therapeutic and restorative massage in Stockholm. Recover energy, relieve pain, and find deep relaxation.",
+    "aboutTitle": "About the Therapist",
+    "aboutText": "Welcome! My name is Oleg. I am a certified massage therapist with years of professional experience. My goal is to help you release muscle tension, recover from physical activity, and restore inner balance. In my practice, I combine classical techniques with modern rehabilitation methods, tailoring the approach to each individual client's needs.",
+    "benefitsTitle": "Why Clients Choose Me",
+    "benefits": {
+      "exp": {
+        "title": "Professionalism",
+        "desc": "Deep anatomical knowledge and certified massage techniques."
+      },
+      "ind": {
+        "title": "Individual Approach",
+        "desc": "Selecting the optimal technique tailored to your specific needs and goals."
+      },
+      "atm": {
+        "title": "Premium Atmosphere",
+        "desc": "A cozy treatment room, relaxing music, aromatherapy, and absolute comfort."
+      }
+    }
+  },
+  "services": {
+    "title": "Services & Prices",
+    "sub": "Choose the perfect treatment to restore your body and mind",
+    "classic": {
+      "name": "Classic Massage",
+      "shortDesc": "Traditional muscle relief to ease tension and improve overall physical tone.",
+      "longDesc": "Classic massage is the foundation of a healthy body. This treatment focuses on improving circulation, easing muscle stiffness, and reducing fatigue. Ideal for those with sedentary jobs or general physical exhaustion.",
+      "duration": "60 / 90",
+      "price": "700 / 950",
+      "benefits": ["Relieves fatigue", "Improves circulation", "Enhances muscle tone"]
+    },
+    "anti-cellulite": {
+      "name": "Anti-Cellulite Massage",
+      "shortDesc": "Effective body contouring, lymphatic stimulation, and skin firming.",
+      "longDesc": "An intensive manual technique focusing on target areas. This massage stimulates metabolism, promotes toxin elimination, and significantly enhances skin elasticity and smoothness.",
+      "duration": "50 / 80",
+      "price": "800 / 1100",
+      "benefits": ["Contours the body", "Reduces puffiness", "Improves skin firmness"]
+    },
+    "sports": {
+      "name": "Sports Massage",
+      "shortDesc": "Deep muscle work for athletes and active individuals. Recovery and preparation.",
+      "longDesc": "A specialized technique for active individuals and athletes. It prepares muscles for heavy workouts, accelerates lactic acid removal, and helps prevent sports-related injuries.",
+      "duration": "60 / 90",
+      "price": "850 / 1200",
+      "benefits": ["Accelerates recovery", "Increases flexibility", "Prevents muscle soreness"]
+    },
+    "lymphatic-drainage": {
+      "name": "Lymphatic Drainage Massage",
+      "shortDesc": "Gentle detoxification, fluid release, and immune system support.",
+      "longDesc": "A light, rhythmic technique aimed at accelerating lymphatic flow. This massage helps eliminate water retention, reduces swelling, and strengthens the body's natural defenses.",
+      "duration": "60 / 90",
+      "price": "750 / 1050",
+      "benefits": ["Flushes toxins", "Eliminates swelling", "Strengthens immunity"]
+    },
+    "cupping": {
+      "name": "Cupping Therapy",
+      "shortDesc": "Vacuum massage for deep fascia release and improved tissue nutrition.",
+      "longDesc": "Vacuum cupping therapy stimulates blood flow to specific tissues, speeds up recovery, and targets deep trigger zones that are difficult to reach with hands alone.",
+      "duration": "45 / 60",
+      "price": "600 / 800",
+      "benefits": ["Deep muscle relaxation", "Improves lymph flow", "Stimulates tissue regeneration"]
+    },
+    "hot-stone": {
+      "name": "Hot Stone Massage",
+      "shortDesc": "Stone therapy for deep muscle warming and mental stress relief.",
+      "longDesc": "Utilizes smooth basalt stones heated to a comforting temperature. The heat penetrates deep into muscle layers to melt away tension, while smooth gliding strokes guide you into a state of deep tranquility.",
+      "duration": "75 / 90",
+      "price": "950 / 1200",
+      "benefits": ["Deep muscle heating", "Stress-relief effect", "Improves sleep quality"]
+    },
+    "turkish-foam": {
+      "name": "Turkish Foam Massage",
+      "shortDesc": "A luxurious cleansing ritual in a cloud of warm, soft soap foam.",
+      "longDesc": "A traditional soap massage ritual. A special linen bag is used to create a vast cloud of warm foam covering the body. This is followed by a gentle massage and a Kese mitt scrub that exfoliates and renews the skin.",
+      "duration": "60",
+      "price": "900",
+      "benefits": ["Deep skin cleansing", "Ultimate relaxation", "Velvety skin finish"]
+    },
+    "natural-massage": {
+      "name": "Natural Herbal Massage",
+      "shortDesc": "Massage using natural organic oils and warm herbal compress bags.",
+      "longDesc": "A signature technique rooted in natural healing. Includes aromatherapy with pure essential oils and body warming using gentle herbal compresses filled with organic therapeutic herbs.",
+      "duration": "75 / 90",
+      "price": "900 / 1150",
+      "benefits": ["Relieves muscle spasms", "Aromatherapy benefits", "Nourishes skin with minerals"]
+    }
+  },
+  "gallery": {
+    "title": "Gallery of Work",
+    "sub": "Take a look at Oleg's studio and see our work in action",
+    "filterAll": "All Photos",
+    "filterProcess": "Process",
+    "filterCabinet": "Cabinet",
+    "filterResults": "Results"
+  },
+  "contacts": {
+    "title": "Contact & Booking",
+    "sub": "Get in touch via any convenient method to book your session",
+    "addressTitle": "Studio Address",
+    "address": "Stockholm, Sweden (exact address upon request)",
+    "phone": "Phone",
+    "hoursTitle": "Opening Hours",
+    "hours": "Mon - Sun: 09:00 - 21:00",
+    "formTitle": "Send a Request",
+    "formName": "Your Name",
+    "formPhone": "Your Phone / Telegram",
+    "formMessage": "Which treatment are you interested in?",
+    "submit": "Submit Request",
+    "successMsg": "Thank you! Your request has been sent. Oleg will contact you shortly.",
+    "waPreset": "Hello, Oleg! I would like to book a massage: ",
+    "tgPreset": "Hello, Oleg! Writing from your website, I want to book a massage: "
+  },
+  "testimonials": {
+    "title": "Client Reviews",
+    "sub": "What clients say about their experience with Oleg",
+    "items": [
+      {
+        "name": "Johan Andersson",
+        "role": "Athlete",
+        "text": "Excellent sports massage! Oleg has a deep understanding of anatomy and helped me recover quickly after my marathon. Highly recommended!"
+      },
+      {
+        "name": "Maria Nilsson",
+        "role": "Office Worker",
+        "text": "Classic massage by Oleg is the best remedy for neck and back pain after a long week of desk work. Extremely professional and gentle."
+      },
+      {
+        "name": "Elena Petrova",
+        "role": "Entrepreneur",
+        "text": "Hot stone massage was pure bliss. Total relaxation and reset. The treatment room is clean, cozy, and very comfortable."
+      }
+    ]
+  }
+}

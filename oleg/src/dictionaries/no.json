@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "home": "Hjem",
+    "services": "Tjenester",
+    "gallery": "Galleri",
+    "contacts": "Kontakt"
+  },
+  "common": {
+    "bookNow": "Bestill time",
+    "details": "Les mer",
+    "close": "Lukk",
+    "back": "Tilbake",
+    "theme": "Bytt tema",
+    "currency": "SEK",
+    "min": "min",
+    "logo": "Oleg Massasje"
+  },
+  "home": {
+    "heroTitle": "Kunsten å berøre for ditt velvære",
+    "heroSub": "Profesjonell terapeutisk og gjenoppbyggende massasje i Stockholm. Gjenopprett energi, lindr smerte og finn dyp avspenning.",
+    "aboutTitle": "Om massøren",
+    "aboutText": "Velkommen! Mitt navn er Oleg. Jeg er en sertifisert massør med mange års yrkeserfaring. Mitt mål er å hjelpe deg med å slippe muskelspenninger, restituere etter fysisk aktivitet og gjenopprette indre balanse. I min praksis kombinerer jeg klassiske teknikker med moderne rehabiliteringsmetoder, og tilpasser hver behandling etter mine klienters individuelle behov.",
+    "benefitsTitle": "Hvorfor velge meg",
+    "benefits": {
+      "exp": {
+        "title": "Profesjonalitet",
+        "desc": "Dyp anatomisk kunnskap og sertifiserte massasjemetoder."
+      },
+      "ind": {
+        "title": "Individuell tilpasning",
+        "desc": "Valg av optimal teknikk tilpasset dine spesifikke behov og mål."
+      },
+      "atm": {
+        "title": "Premiummiljø",
+        "desc": "Et koselig behandlingsrom, avslappende musikk, aromaterapi og total komfort."
+      }
+    }
+  },
+  "services": {
+    "title": "Tjenester & Priser",
+    "sub": "Velg den perfekte behandlingen for å gjenopprette kropp og sjel",
+    "classic": {
+      "name": "Klassisk massasje",
+      "shortDesc": "Tradisjonell muskelbehandling for å lindre spenninger og forbedre kroppens generelle tonus.",
+      "longDesc": "Klassisk massasje er grunnlaget for en sunn kropp. Denne behandlingen fokuserer på å forbedre sirkulasjonen, lindre muskelknuter og redusere tretthet. Perfekt for de med stillesittende arbeid eller generell utmattelse.",
+      "duration": "60 / 90",
+      "price": "700 / 950",
+      "benefits": ["Lindrer tretthet", "Forbedrer sirkulasjonen", "Øker muskeltonus"]
+    },
+    "anti-cellulite": {
+      "name": "Anticellulittmassasje",
+      "shortDesc": "Effektiv kroppsforming, stimulering av lymfestrømmen og oppstramming av huden.",
+      "longDesc": "En intensiv manuell teknikk som fokuserer på problemområder. Massasjen stimulerer stoffskiftet, fremmer utskillelse av avfallsstoffer og forbedrer hudens elastisitet og glatthet betydelig.",
+      "duration": "50 / 80",
+      "price": "800 / 1100",
+      "benefits": ["Former kroppens konturer", "Reduserer hevelse", "Forbedrer hudens fasthet"]
+    },
+    "sports": {
+      "name": "Idrettsmassasje",
+      "shortDesc": "Dypgående muskelbehandling for idrettsutøvere og aktive. Restitusjon og forberedelse.",
+      "longDesc": "En spesialisert metode for aktive personer og idrettsutøvere. Den forbereder musklene for tunge treningsøkter, fremskynder borttransport av melkesyre og hjelper til med å forebygge skader.",
+      "duration": "60 / 90",
+      "price": "850 / 1200",
+      "benefits": ["Fremskynder restitusjon", "Øker fleksibiliteten", "Forebygger stølhet"]
+    },
+    "lymphatic-drainage": {
+      "name": "Lymfemassasje",
+      "shortDesc": "Mild avgifting, væskeutdrivelse og støtte for immunforsvaret.",
+      "longDesc": "En lett og rytmisk teknikk som tar sikte på å stimulere lymfestrømmen. Massasjen hjelper til med å eliminere væskeansamlinger, reduserer hevelse og styrker kroppens naturlige forsvar.",
+      "duration": "60 / 90",
+      "price": "750 / 1050",
+      "benefits": ["Renser ut giftstoffer", "Demper hevelser", "Styrker immunforsvaret"]
+    },
+    "cupping": {
+      "name": "Koppingmassasje",
+      "shortDesc": "Vakuummassasje for dyp bindevevsavspenning og forbedret cellenæring.",
+      "longDesc": "Koppingterapi bruker vakuum til å stimulere blodstrømmen til vevene, fremskynde tilheling og behandle dype triggerpunkter som er vanskelige å nå med bare hender.",
+      "duration": "45 / 60",
+      "price": "600 / 800",
+      "benefits": ["Dyp muskelavspenning", "Forbedrer lymfestrømmen", "Stimulerer vevsregenerering"]
+    },
+    "hot-stone": {
+      "name": "Hot Stone Massasje",
+      "shortDesc": "Steinterapi for dyp muskeloppvarming og mental stresslindring.",
+      "longDesc": "Bruker glatte basaltsteiner oppvarmet til en behagelig temperatur. Varmen trenger dypt ned i musklene for å smelte bort spänningar, mens myke sveipende bevegelser roer deg inn i en dyp fred.",
+      "duration": "75 / 90",
+      "price": "950 / 1200",
+      "benefits": ["Dyp muskeloppvarming", "Stresslindrende effekt", "Forbedrer søvnkvaliteten"]
+    },
+    "turkish-foam": {
+      "name": "Tyrkisk skumbehandling",
+      "shortDesc": "En luksuriøs rengjøringsritual i en sky av varmt, mykt såpeskum.",
+      "longDesc": "En tradisjonell såpemassasjeritual. En spesiell linselomme brukes til å skape en stor sky av varmt skum som dekker kroppen. Dette etterfølges av en mild massasje og en Kese-skrubb som eksfolierer og fornyer huden.",
+      "duration": "60",
+      "price": "900",
+      "benefits": ["Dyp hudrensing", "Total avslapning", "Silkemyk hudfølelse"]
+    },
+    "natural-massage": {
+      "name": "Naturlig urtassasje",
+      "shortDesc": "Massasje med naturlige økologiske oljer og varme urtekompresser.",
+      "longDesc": "En signaturbehandling med røtter i naturlig helbredelse. Inkluderer aromaterapi med rene eteriske oljer og oppvarming av kroppen med urteposer fylt med økologiske, helsebringende urter.",
+      "duration": "75 / 90",
+      "price": "900 / 1150",
+      "benefits": ["Lindrer muskelkramper", "Aromaterapeutisk effekt", "Pleier huden med mineraler"]
+    }
+  },
+  "gallery": {
+    "title": "Galleri",
+    "sub": "Ta en titt på Olegs studio og se vår virksomhet i praksis",
+    "filterAll": "Alle bilder",
+    "filterProcess": "Prosess",
+    "filterCabinet": "Kabinett",
+    "filterResults": "Resultater"
+  },
+  "contacts": {
+    "title": "Kontakt & Booking",
+    "sub": "Kontakt meg på hvilken som helst måte for å bestille time",
+    "addressTitle": "Studioadresse",
+    "address": "Stockholm, Sverige (nøyaktig adresse oppgis på forespørsel)",
+    "phone": "Telefon",
+    "hoursTitle": "Åpningstider",
+    "hours": "Man - Søn: 09:00 - 21:00",
+    "formTitle": "Send en forespørsel",
+    "formName": "Ditt navn",
+    "formPhone": "Ditt telefonnummer / Telegram",
+    "formMessage": "Hvilken behandling er du interessert i?",
+    "submit": "Send forespørsel",
+    "successMsg": "Takk! Din forespørsel har blitt sendt. Oleg kontakter deg om kort tid.",
+    "waPreset": "Hei Oleg! Jeg vil gjerne bestille en massasje: ",
+    "tgPreset": "Hei Oleg! Jeg skriver fra nettsiden din og ønsker å bestille en massasje: "
+  },
+  "testimonials": {
+    "title": "Kundeanmeldelser",
+    "sub": "Hva våre kunder sier om sin opplevelse hos Oleg",
+    "items": [
+      {
+        "name": "Johan Andersson",
+        "role": "Idrettsutøver",
+        "text": "Utmerket idrettsmassasje! Oleg har en dyp forståelse av anatomi og hjalp meg å restituere raskt etter maratonløpet. Anbefales på det sterkeste!"
+      },
+      {
+        "name": "Maria Nilsson",
+        "role": "Kontorarbeider",
+        "text": "Klassisk massasje hos Oleg er det beste middelet mot nakke- og ryggsmerter etter en lang arbeidsuke ved skrivebordet. Veldig profesjonelt og skånsomt."
+      },
+      {
+        "name": "Elena Petrova",
+        "role": "Entreprenør",
+        "text": "Hot stone massasje var ren magi. Total avslapning og restitusjon. Behandlingsrommet er rent, koselig og veldig komfortabelt."
+      }
+    ]
+  }
+}

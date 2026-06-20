@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* Переменные CSS по умолчанию (зависят от предпочтений системы) */
+:root {
+  --background: #f9f8f6;
+  --background-card: #ffffff;
+  --foreground: #1e2520;
+  --foreground-muted: #606a62;
+  --primary: #4a5d4e;
+  --primary-hover: #2f3c32;
+  --border: #e6e3df;
+  --shadow: rgba(74, 93, 78, 0.08);
+  --glass-bg: rgba(249, 248, 246, 0.85);
+  --glass-border: rgba(74, 93, 78, 0.08);
+  
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-width: 1200px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111111;
+    --background-card: #1a1a1a;
+    --foreground: #f5f5f5;
+    --foreground-muted: #a0a0a0;
+    --primary: #c5a880;
+    --primary-hover: #e5c494;
+    --border: #2e2e2e;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(17, 17, 17, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Явное переопределение тем через класс/атрибут */
+html[data-theme='light'] {
+  --background: #f9f8f6;
+  --background-card: #ffffff;
+  --foreground: #1e2520;
+  --foreground-muted: #606a62;
+  --primary: #4a5d4e;
+  --primary-hover: #2f3c32;
+  --border: #e6e3df;
+  --shadow: rgba(74, 93, 78, 0.08);
+  --glass-bg: rgba(249, 248, 246, 0.85);
+  --glass-border: rgba(74, 93, 78, 0.08);
+}
+
+html[data-theme='dark'] {
+  --background: #111111;
+  --background-card: #1a1a1a;
+  --foreground: #f5f5f5;
+  --foreground-muted: #a0a0a0;
+  --primary: #c5a880;
+  --primary-hover: #e5c494;
+  --border: #2e2e2e;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(17, 17, 17, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.05);
+}
+
+/* Базовый сброс */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.6;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+/* Кнопки */
+button, .button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Кастомный премиальный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Сетки и контейнеры */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--shadow);
+}
