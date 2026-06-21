@@ -5,10 +5,10 @@
       "has": [
         {
           "type": "host",
-          "value": "www.alice-smarthome.ru"
+          "value": "www.smart-hub.info"
         }
       ],
-      "destination": "https://alice-smarthome.ru/:path*",
+      "destination": "https://smart-hub.info/:path*",
       "permanent": true
     }
   ],

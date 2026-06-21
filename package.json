@@ -1,5 +1,5 @@
 {
-  "name": "alice-smarthome-hub",
+  "name": "smart-hub",
   "description": "Контентный хаб Умного Дома с Алисой: сценарии автоматизации и руководства",
   "author": "illia",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "pretest": "npm run build",
@@ -23,5 +23,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.7"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
   }
 }

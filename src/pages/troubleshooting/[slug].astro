@@ -33,7 +33,7 @@ if (relatedEntries.length < 3) {
 }
 
 // Формирование JSON-LD схем (BreadcrumbList + TechArticle + опционально HowTo)
-const host = Astro.site?.href || 'https://alice-smarthome.ru';
+const host = Astro.site?.href || 'https://smart-hub.info';
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
 const canonicalURL = cleanPath === "" 
   ? `${host}/` 
@@ -126,7 +126,7 @@ const jsonLdString = JSON.stringify(schemas);
   {entry.data.publishDate && <meta property="article:published_time" content={entry.data.publishDate.toISOString()} />}
   {entry.data.updatedDate && <meta property="article:modified_time" content={entry.data.updatedDate.toISOString()} />}
 
-  <article class="article-container">
+  <article class="article-container" data-pagefind-body>
     <!-- Breadcrumbs -->
     <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
       <a href="/">Главная</a>

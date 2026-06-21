@@ -1,0 +1,422 @@
+---
+---
+<!-- Search Trigger Button -->
+<button id="search-trigger" class="search-btn font-outfit" aria-label="Открыть поиск по сайту" aria-keyshortcuts="Control+K Meta+K">
+  <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <span class="search-btn-text">Поиск</span>
+  <kbd class="search-shortcut">⌘K</kbd>
+</button>
+
+<!-- Native Dialog Search Modal -->
+<dialog id="search-dialog" class="search-modal glass">
+  <div class="search-modal-container">
+    <header class="search-modal-header">
+      <h2 class="search-modal-title font-outfit">Поиск по базе знаний</h2>
+      <button id="search-close" class="close-btn" aria-label="Закрыть поиск">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+    <div class="search-modal-body">
+      <div id="search-container"></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  let pagefindLoaded = false;
+
+  async function loadPagefind() {
+    if (pagefindLoaded) return;
+
+    // Динамически подгружаем стили
+    if (!document.getElementById('pagefind-ui-styles')) {
+      const link = document.createElement('link');
+      link.id = 'pagefind-ui-styles';
+      link.rel = 'stylesheet';
+      link.href = '/pagefind/pagefind-ui.css';
+      document.head.appendChild(link);
+    }
+
+    // Динамически импортируем скрипт Pagefind
+    try {
+      // @ts-ignore
+      const { PagefindUI } = await new Function('return import("/pagefind/pagefind-ui.js")')();
+      new PagefindUI({
+        element: '#search-container',
+        showSubResults: true,
+        showImages: false, // Отключаем картинки, так как у нас в статьях они декоративные
+        translations: {
+          placeholder: 'Например: Aqara, отвал датчика, сценарий...',
+          clear_search: 'Очистить',
+          load_more: 'Показать еще',
+          search_label: 'Поиск',
+          filters_label: 'Фильтры',
+          zero_results: 'Ничего не найдено по запросу «[QUERY]»',
+          many_results: 'Найдено [COUNT] результатов',
+          one_result: 'Найден 1 результат',
+          alt_search: 'Ничего не найдено по запросу «[QUERY]». Показаны результаты по похожим словам.'
+        }
+      });
+      pagefindLoaded = true;
+
+      // Фокусируемся на созданном инпуте ввода
+      setTimeout(() => {
+        const searchInput = document.querySelector('.pagefind-ui__search-input') as HTMLInputElement;
+        if (searchInput) searchInput.focus();
+      }, 50);
+
+    } catch (error) {
+      console.warn('Pagefind не запущен (это нормально в режиме разработки).', error);
+      const container = document.getElementById('search-container');
+      if (container) {
+        container.innerHTML = `
+          <div class="dev-search-warning">
+            <div class="warning-icon">🔍</div>
+            <p class="warning-title font-outfit">Режим разработки</p>
+            <p class="warning-desc">Поиск Pagefind будет полностью доступен на опубликованном сайте после сборки.</p>
+            <div class="warning-cmd">
+              <span>Для тестирования поиска локально запустите:</span>
+              <code>npm run build && npm run preview</code>
+            </div>
+          </div>
+        `;
+      }
+    }
+  }
+
+  function initSearch() {
+    const trigger = document.getElementById('search-trigger');
+    const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+    const closeBtn = document.getElementById('search-close');
+
+    if (!trigger || !dialog) return;
+
+    // Сбрасываем флаг при переинициализации
+    pagefindLoaded = false;
+    const container = document.getElementById('search-container');
+    if (container) container.innerHTML = '';
+
+    // Открытие диалога
+    const openSearch = () => {
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+      loadPagefind();
+    };
+
+    // Закрытие диалога
+    const closeSearch = () => {
+      dialog.close();
+      document.body.style.overflow = '';
+    };
+
+    trigger.addEventListener('click', openSearch);
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeSearch);
+    }
+
+    // Закрытие по клику на фон диалога (backdrop)
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog = (
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width
+      );
+      if (!isInDialog) {
+        closeSearch();
+      }
+    });
+
+    // Хоткеи Cmd+K / Ctrl+K
+    const handleKeydown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+    };
+    window.addEventListener('keydown', handleKeydown);
+
+    // Очистка при смене страниц (Astro View Transitions)
+    document.addEventListener('astro:before-swap', () => {
+      window.removeEventListener('keydown', handleKeydown);
+      document.body.style.overflow = '';
+    }, { once: true });
+  }
+
+  // Инициализируем при загрузке и при переходе на новые страницы
+  initSearch();
+  document.addEventListener('astro:page-load', initSearch);
+</script>
+
+<style is:global>
+  /* Кастомизация встроенных стилей Pagefind под дизайн-систему */
+  #search-container {
+    --pagefind-ui-primary: var(--accent-alice, #8a2be2);
+    --pagefind-ui-text: var(--text-primary, #ffffff);
+    --pagefind-ui-background: var(--bg-card, rgba(30, 30, 40, 0.6));
+    --pagefind-ui-border: var(--border-primary, rgba(255, 255, 255, 0.1));
+    --pagefind-ui-tag: var(--bg-hover, rgba(138, 43, 226, 0.15));
+    --pagefind-ui-border-radius: var(--radius-md, 12px);
+    --pagefind-ui-font: inherit;
+  }
+
+  #search-container .pagefind-ui__search-input {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-primary) !important;
+    color: var(--text-primary) !important;
+    font-size: 1.1rem !important;
+    padding: 0.8rem 1rem 0.8rem 2.8rem !important;
+    transition: all 0.2s ease !important;
+  }
+
+  #search-container .pagefind-ui__search-input:focus {
+    outline: none !important;
+    border-color: var(--accent-alice) !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.25) !important;
+  }
+
+  #search-container .pagefind-ui__search-clear {
+    background-color: var(--border-primary) !important;
+    color: var(--text-secondary) !important;
+    border-radius: var(--radius-sm) !important;
+    transition: background-color 0.2s ease !important;
+  }
+
+  #search-container .pagefind-ui__search-clear:hover {
+    background-color: var(--border-hover) !important;
+    color: var(--text-primary) !important;
+  }
+
+  #search-container .pagefind-ui__result {
+    border-top: 1px solid var(--border-primary) !important;
+    padding: 1.25rem 0 !important;
+  }
+
+  #search-container .pagefind-ui__result-link {
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', 'Inter', sans-serif !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+  }
+
+  #search-container .pagefind-ui__result-link:hover {
+    color: var(--accent-alice) !important;
+  }
+
+  #search-container .pagefind-ui__result-excerpt {
+    color: var(--text-secondary) !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin-top: 0.5rem !important;
+  }
+
+  #search-container .pagefind-ui__result-excerpt mark {
+    background: rgba(138, 43, 226, 0.3) !important;
+    color: var(--text-primary) !important;
+    border-radius: 2px !important;
+    padding: 0 2px !important;
+  }
+
+  #search-container .pagefind-ui__message {
+    color: var(--text-secondary) !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+  }
+
+  #search-container .pagefind-ui__button {
+    background: var(--bg-hover) !important;
+    border: 1px solid var(--border-primary) !important;
+    color: var(--text-primary) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  #search-container .pagefind-ui__button:hover {
+    background: var(--accent-alice) !important;
+    color: white !important;
+    border-color: var(--accent-alice) !important;
+  }
+</style>
+
+<style>
+  /* Стилизация кнопки вызова */
+  .search-btn {
+    background: var(--bg-card, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.08));
+    color: var(--text-secondary, #a0a0b0);
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-sm, 8px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.2s ease;
+  }
+
+  .search-btn:hover {
+    color: var(--text-primary, #ffffff);
+    border-color: var(--border-hover, rgba(255, 255, 255, 0.2));
+    background: var(--bg-hover, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .search-icon {
+    flex-shrink: 0;
+  }
+
+  .search-btn-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .search-shortcut {
+    background: var(--border-primary, rgba(255, 255, 255, 0.1));
+    border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.08));
+    color: var(--text-muted, #707080);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: inherit;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .search-btn-text, .search-shortcut {
+      display: none;
+    }
+    .search-btn {
+      padding: 0.5rem;
+    }
+  }
+
+  /* Стилизация модального диалога */
+  .search-modal {
+    border: none;
+    border-radius: var(--radius-lg, 16px);
+    padding: 0;
+    max-width: 680px;
+    width: 90%;
+    max-height: 80vh;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    position: fixed;
+    top: 10%;
+    margin: 0 auto;
+    background: var(--bg-dialog, rgba(20, 20, 28, 0.85));
+    border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.08));
+  }
+
+  .search-modal::backdrop {
+    background: rgba(8, 8, 12, 0.7);
+    backdrop-filter: blur(10px) saturate(140%);
+    transition: all 0.3s ease;
+  }
+
+  .search-modal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 80vh;
+  }
+
+  .search-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-primary, rgba(255, 255, 255, 0.08));
+  }
+
+  .search-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary, #ffffff);
+    margin: 0;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary, #a0a0b0);
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .close-btn:hover {
+    background: var(--bg-hover, rgba(255, 255, 255, 0.08));
+    color: var(--text-primary, #ffffff);
+  }
+
+  .search-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Стилизация предупреждения в режиме разработки */
+  .dev-search-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    background: rgba(138, 43, 226, 0.03);
+    border: 1px dashed rgba(138, 43, 226, 0.2);
+    border-radius: var(--radius-md, 12px);
+  }
+
+  .warning-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .warning-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-alice, #8a2be2);
+    margin-bottom: 0.5rem;
+  }
+
+  .warning-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #a0a0b0);
+    max-width: 400px;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .warning-cmd {
+    background: var(--bg-card, rgba(0, 0, 0, 0.2));
+    border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.05));
+    padding: 1rem;
+    border-radius: var(--radius-sm, 8px);
+    width: 100%;
+    max-width: 440px;
+    font-size: 0.85rem;
+  }
+
+  .warning-cmd span {
+    display: block;
+    color: var(--text-secondary, #a0a0b0);
+    margin-bottom: 0.5rem;
+  }
+
+  .warning-cmd code {
+    color: var(--accent-alice, #d8b4fe);
+    font-family: monospace;
+    font-weight: 600;
+  }
+</style>

@@ -11,7 +11,7 @@ import { execSync } from "node:child_process";
 
 import { fileURLToPath } from "node:url";
 
-const SITE_URL = "https://alice-smarthome.ru";
+const SITE_URL = "https://smart-hub.info";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SCENARIOS_DIR = path.join(__dirname, "../src/content/scenarios");
 const DIST_DIR = path.join(__dirname, "../dist");
@@ -418,7 +418,7 @@ test("[SEO 2026] Artifacts: robots.txt существует со ссылкой 
   const fp = `${PUBLIC_DIR}/robots.txt`;
   assert.ok(fs.existsSync(fp), "robots.txt не найден");
   const content = fs.readFileSync(fp, "utf8");
-  assert.match(content, /Sitemap:\s*https:\/\/alice-smarthome\.ru\/sitemap-index\.xml/i, "robots.txt: нет ссылки на sitemap");
+  assert.match(content, /Sitemap:\s*https:\/\/smart-hub\.info\/sitemap-index\.xml/i, "robots.txt: нет ссылки на sitemap");
 });
 
 test("[SEO 2026] Artifacts: site.webmanifest существует и корректен", () => {
@@ -672,7 +672,7 @@ test("[Security 2026] External: внешние ссылки имеют rel='noop
   const violations = [];
   allAstro.forEach(fp => {
     const content = fs.readFileSync(fp, "utf8");
-    const aRegex = /<a\s[^>]*href="https?:\/\/(?!alice-smarthome)[^"]*"[^>]*>/g;
+    const aRegex = /<a\s[^>]*href="https?:\/\/(?!smart-hub)[^"]*"[^>]*>/g;
     let m;
     while ((m = aRegex.exec(content)) !== null) {
       const tag = m[0];

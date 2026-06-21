@@ -21,7 +21,7 @@ const {
 	noindex = false
 } = Astro.props;
 
-const host = (Astro.site?.href || 'https://alice-smarthome.ru').replace(/\/$/, '');
+const host = (Astro.site?.href || 'https://smart-hub.info').replace(/\/$/, '');
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
 const canonicalURLString = cleanPath === "" 
   ? `${host}/` 
@@ -105,9 +105,9 @@ const canonicalURLString = cleanPath === ""
 				"@context": "https://schema.org",
 				"@type": "Organization",
 				"name": "Умный Дом с Алисой",
-				"url": "https://alice-smarthome.ru",
-				"logo": "https://alice-smarthome.ru/favicon.svg",
-				"email": "hello@alice-smarthome.ru",
+				"url": "https://smart-hub.info",
+				"logo": "https://smart-hub.info/favicon.svg",
+				"email": "hello@smart-hub.info",
 				"description": "Библиотека пошаговых сценариев и руководств по траблшутингу для Умного Дома с Алисой"
 			}
 		</script>
@@ -116,7 +116,7 @@ const canonicalURLString = cleanPath === ""
 				"@context": "https://schema.org",
 				"@type": "WebSite",
 				"name": "Умный Дом с Алисой",
-				"url": "https://alice-smarthome.ru"
+				"url": "https://smart-hub.info"
 			}
 		</script>
 

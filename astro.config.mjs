@@ -3,6 +3,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://alice-smarthome.ru',
+  site: 'https://smart-hub.info',
   integrations: [sitemap()],
 });
