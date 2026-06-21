@@ -581,6 +581,7 @@ test("[PERF 2026] HTML: LCP-изображение имеет fetchpriority=high
 	while ((mi = imgRegex.exec(content)) !== null) {
 		const attrs = mi[1] || "";
 		if (/class=["'][^"']*hero-image[^"']*["']/i.test(attrs)) {
+			console.log("DEBUG LCP test attrs:", attrs);
 			foundLCP = true;
 			assert.ok(/fetchpriority=["']high["']/i.test(attrs), "Hero image без fetchpriority=high");
 			assert.ok(!/loading=["']lazy["']/i.test(attrs), "Hero image не должна иметь loading=lazy");
