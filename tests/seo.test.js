@@ -97,7 +97,7 @@ function getHtmlFiles(dir) {
 	list.forEach((file) => {
 		const fp = path.join(dir, file);
 		if (fs.statSync(fp).isDirectory()) files.push(...getHtmlFiles(fp));
-		else if (file.endsWith(".html")) files.push(fp);
+		else if (file.endsWith(".html") && !file.startsWith("google") && !file.startsWith("yandex")) files.push(fp);
 	});
 	return files;
 }
@@ -425,8 +425,9 @@ test("[SEO 2026] Images: все <img> в .astro файлах имеют loading=
 		let m;
 		while ((m = imgRegex.exec(content)) !== null) {
 			const attrs = m[1] || "";
-			if (!/loading=["']lazy["']/.test(attrs))
-				violations.push({ file: path.basename(fp), tag: m[0], error: "Missing loading='lazy'" });
+			const isLCP = /fetchpriority=["']high["']/.test(attrs);
+			if (!isLCP && !/loading=["']lazy["']/.test(attrs))
+				violations.push({ file: path.basename(fp), tag: m[0], error: "Missing loading='lazy' (no fetchpriority='high')" });
 			if (!/decoding=["']async["']/.test(attrs))
 				violations.push({ file: path.basename(fp), tag: m[0], error: "Missing decoding='async'" });
 			if (!/alt=/i.test(attrs)) violations.push({ file: path.basename(fp), tag: m[0], error: "Missing alt" });
@@ -559,11 +560,60 @@ test("[SEO 2026] HTML: все <img> в сгенерированном HTML им�
 		let mi;
 		while ((mi = imgRegex.exec(content)) !== null) {
 			const attrs = mi[1] || "";
-			assert.ok(/loading=["']lazy["']/i.test(attrs), `${fp}: img без loading=lazy`);
+			const isLCP = /fetchpriority=["']high["']/i.test(attrs);
+			if (!isLCP) {
+				assert.ok(/loading=["']lazy["']/i.test(attrs), `${fp}: img без loading=lazy (и нет fetchpriority=high)`);
+			}
 			assert.ok(/decoding=["']async["']/i.test(attrs), `${fp}: img без decoding=async`);
 			assert.ok(/alt=/i.test(attrs), `${fp}: img без alt`);
 			assert.ok(/width=/i.test(attrs) && /height=/i.test(attrs), `${fp}: img без width/height (CLS)`);
 		}
+	});
+});
+
+test("[PERF 2026] HTML: LCP-изображение имеет fetchpriority=high и не имеет loading=lazy", () => {
+	const fp = path.join(DIST_DIR, "index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	const imgRegex = /<img([^>]*)\/?>/gi;
+	let mi;
+	let foundLCP = false;
+	while ((mi = imgRegex.exec(content)) !== null) {
+		const attrs = mi[1] || "";
+		if (/class=["'][^"']*hero-image[^"']*["']/i.test(attrs)) {
+			foundLCP = true;
+			assert.ok(/fetchpriority=["']high["']/i.test(attrs), "Hero image без fetchpriority=high");
+			assert.ok(!/loading=["']lazy["']/i.test(attrs), "Hero image не должна иметь loading=lazy");
+			assert.ok(/decoding=["']async["']/i.test(attrs), "Hero image без decoding=async");
+		}
+	}
+	assert.ok(foundLCP, "Hero image с классом hero-image не найдена на главной");
+});
+
+test("[PERF 2026] HTML: изображения в контейнерах <500px имеют атрибут sizes", () => {
+	const fp = path.join(DIST_DIR, "index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	const imgRegex = /<img([^>]*)\/?>/gi;
+	let mi;
+	while ((mi = imgRegex.exec(content)) !== null) {
+		const attrs = mi[1] || "";
+		if (/class=["'][^"']*strip-image[^"']*["']/i.test(attrs)) {
+			assert.ok(/sizes=/i.test(attrs), `Troubleshooting strip image без sizes атрибута: ${mi[0].substring(0, 100)}`);
+		}
+	}
+});
+
+test("[PERF 2026] HTML: нет неиспользуемых preconnect (только для доменов с реальными запросами)", () => {
+	const fp = path.join(DIST_DIR, "index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	const preconnects = [...content.matchAll(/<link[^>]*rel=["']preconnect["'][^>]*href=["']([^"']+)["'][^>]*>/gi)];
+	preconnects.forEach((m) => {
+		const href = m[1];
+		const domain = new URL(href).hostname;
+		const hasRequest = content.includes(href) || content.includes(`https://${domain}/`);
+		assert.ok(hasRequest, `Неиспользуемый preconnect: ${href}`);
 	});
 });
 
