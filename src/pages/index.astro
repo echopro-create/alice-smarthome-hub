@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import heroImage from "../assets/images/hero-main.png";
 import batteryDrainImg from "../assets/images/steps/battery-drain-1.png";
@@ -51,14 +52,14 @@ const latestEntries = allEntries
 
     <!-- Image Card -->
     <div class="bento-card bento-card-image">
-      <img 
-        src={heroImage.src} 
+      <Image 
+        src={heroImage} 
         alt="Премиальный умный дом с Яндекс Станцией и датчиками" 
         class="hero-image"
         loading="lazy"
         decoding="async"
-        width="600"
-        height="450"
+        width={600}
+        height={450}
       />
     </div>
 
@@ -231,14 +232,13 @@ const latestEntries = allEntries
           </a>
         </div>
         <div class="strip-image-wrap">
-          <img 
-            src={deviceNotRespondingImg.src} 
+          <Image 
+            src={deviceNotRespondingImg} 
             alt="Схема решения ошибки Устройство не отвечает в приложении Умный Дом с Алисой" 
             class="strip-image"
             loading="lazy"
-            decoding="async"
-            width="500"
-            height="330"
+            width={500}
+            height={330}
           />
         </div>
       </div>
@@ -263,14 +263,13 @@ const latestEntries = allEntries
           </a>
         </div>
         <div class="strip-image-wrap">
-          <img 
-            src={wifiDropImg.src} 
+          <Image 
+            src={wifiDropImg} 
             alt="Инструкция по настройке Wi-Fi роутера для Яндекс Станции" 
             class="strip-image"
             loading="lazy"
-            decoding="async"
-            width="500"
-            height="330"
+            width={500}
+            height={330}
           />
         </div>
       </div>
@@ -296,14 +295,13 @@ const latestEntries = allEntries
           </a>
         </div>
         <div class="strip-image-wrap">
-          <img 
-            src={batteryDrainImg.src} 
+          <Image 
+            src={batteryDrainImg} 
             alt="Инструкция по экономии батареек в датчиках умного дома" 
             class="strip-image"
             loading="lazy"
-            decoding="async"
-            width="500"
-            height="330"
+            width={500}
+            height={330}
           />
         </div>
       </div>
