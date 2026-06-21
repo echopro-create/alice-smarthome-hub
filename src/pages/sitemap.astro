@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
 
-const allEntries = await getCollection('scenarios');
-const scenarios = allEntries.filter(e => e.data.category === 'scenario');
-const troubleshooting = allEntries.filter(e => e.data.category === 'troubleshooting');
+const allEntries = await getCollection("scenarios");
+const scenarios = allEntries.filter((e) => e.data.category === "scenario");
+const troubleshooting = allEntries.filter((e) => e.data.category === "troubleshooting");
 ---
 
 <Layout

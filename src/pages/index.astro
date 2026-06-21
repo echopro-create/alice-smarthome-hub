@@ -1,28 +1,28 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import { getDifficultyLabel } from '../utils/difficulty';
-import heroImage from '../assets/images/hero-main.png';
-import deviceNotRespondingImg from '../assets/images/steps/device-not-responding-1.png';
-import wifiDropImg from '../assets/images/steps/wifi-drop-1.png';
-import batteryDrainImg from '../assets/images/steps/battery-drain-1.png';
+import { getCollection } from "astro:content";
+import heroImage from "../assets/images/hero-main.png";
+import batteryDrainImg from "../assets/images/steps/battery-drain-1.png";
+import deviceNotRespondingImg from "../assets/images/steps/device-not-responding-1.png";
+import wifiDropImg from "../assets/images/steps/wifi-drop-1.png";
+import Layout from "../layouts/Layout.astro";
+import { getDifficultyLabel } from "../utils/difficulty";
 
-const allEntries = await getCollection('scenarios');
+const allEntries = await getCollection("scenarios");
 
 // Разделяем записи по категориям и сортируем по дате (самые свежие первые)
 const scenarios = allEntries
-  .filter(entry => entry.data.category === 'scenario')
-  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+	.filter((entry) => entry.data.category === "scenario")
+	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 const troubleshooting = allEntries
-  .filter(entry => entry.data.category === 'troubleshooting')
-  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+	.filter((entry) => entry.data.category === "troubleshooting")
+	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
 const scenariosToShow = scenarios.slice(0, 6);
 const troubleshootingToShow = troubleshooting.slice(0, 6);
 
 const latestEntries = allEntries
-  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
-  .slice(0, 3);
+	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
+	.slice(0, 3);
 ---
 
 <Layout 
@@ -385,8 +385,8 @@ const latestEntries = allEntries
 
   .bento-card.glass {
     background: var(--bg-card);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border-primary);
     box-shadow: var(--shadow-md);
   }
@@ -698,6 +698,8 @@ const latestEntries = allEntries
     box-shadow: var(--shadow-md);
     text-align: left;
     width: 100%;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
   }
 
   .anatomy-steps {
@@ -1023,6 +1025,8 @@ const latestEntries = allEntries
     gap: 2.5rem;
     width: 100%;
     margin-top: 1rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
   }
 
   .trouble-strip {
@@ -1337,6 +1341,8 @@ const latestEntries = allEntries
     gap: 2rem;
     width: 100%;
     margin-top: 1rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 380px;
   }
 
   .latest-card {

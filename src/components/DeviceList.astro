@@ -1,30 +1,30 @@
 ---
 interface Props {
-  devices: string[];
+	devices: string[];
 }
 
 const { devices } = Astro.props;
 
 // Функция для выбора иконки устройства на основе названия
 const getDeviceIcon = (deviceName: string) => {
-  const name = deviceName.toLowerCase();
-  if (name.includes('станция') || name.includes('колонка') || name.includes('алиса')) return '🔊';
-  if (name.includes('температур') || name.includes('влажност') || name.includes('климат')) return '🌡️';
-  if (name.includes('открыт') || name.includes('двер') || name.includes('окн')) return '🚪';
-  if (name.includes('движен')) return '👁️';
-  if (name.includes('розетк') || name.includes('реле') || name.includes('выключател')) return '🔌';
-  if (name.includes('ламп') || name.includes('свет') || name.includes('лент')) return '💡';
-  if (name.includes('пульт')) return '📟';
-  if (name.includes('хаб') || name.includes('шлюз')) return '🎛️';
-  if (name.includes('увлажнител')) return '💧';
-  if (name.includes('кондиционер') || name.includes('сплит')) return '❄️';
-  return '⚙️';
+	const name = deviceName.toLowerCase();
+	if (name.includes("станция") || name.includes("колонка") || name.includes("алиса")) return "🔊";
+	if (name.includes("температур") || name.includes("влажност") || name.includes("климат")) return "🌡️";
+	if (name.includes("открыт") || name.includes("двер") || name.includes("окн")) return "🚪";
+	if (name.includes("движен")) return "👁️";
+	if (name.includes("розетк") || name.includes("реле") || name.includes("выключател")) return "🔌";
+	if (name.includes("ламп") || name.includes("свет") || name.includes("лент")) return "💡";
+	if (name.includes("пульт")) return "📟";
+	if (name.includes("хаб") || name.includes("шлюз")) return "🎛️";
+	if (name.includes("увлажнител")) return "💧";
+	if (name.includes("кондиционер") || name.includes("сплит")) return "❄️";
+	return "⚙️";
 };
 
 // Генерация демонстрационных партнерских ссылок Яндекс Дистрибуции
 const getMarketLink = (deviceName: string) => {
-  const query = encodeURIComponent(deviceName);
-  return `https://market.yandex.ru/search?text=${query}&clid=999&mclid=demo-cpa`;
+	const query = encodeURIComponent(deviceName);
+	return `https://market.yandex.ru/search?text=${query}&clid=999&mclid=demo-cpa`;
 };
 ---
 

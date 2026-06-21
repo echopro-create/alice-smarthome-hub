@@ -1,116 +1,115 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import ScenarioSteps from '../../components/ScenarioSteps.astro';
-import DeviceList from '../../components/DeviceList.astro';
-import { getDifficultyLabel } from '../../utils/difficulty';
+import { getCollection, render } from "astro:content";
+import DeviceList from "../../components/DeviceList.astro";
+import ScenarioSteps from "../../components/ScenarioSteps.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getDifficultyLabel } from "../../utils/difficulty";
 
 // Генерация путей для каждой записи в коллекции scenarios с категорией troubleshooting
 export async function getStaticPaths() {
-  const entries = await getCollection('scenarios');
-  const troubleshooting = entries.filter(entry => entry.data.category === 'troubleshooting');
-  return troubleshooting.map(entry => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+	const entries = await getCollection("scenarios");
+	const troubleshooting = entries.filter((entry) => entry.data.category === "troubleshooting");
+	return troubleshooting.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
 }
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 // Выборка связанных статей из коллекции scenarios (стандарты перелинковки 2026)
-const allEntries = await getCollection('scenarios');
+const allEntries = await getCollection("scenarios");
 const relatedEntries = allEntries
-  .filter(e => e.id !== entry.id && e.data.category === entry.data.category)
-  .slice(0, 3);
+	.filter((e) => e.id !== entry.id && e.data.category === entry.data.category)
+	.slice(0, 3);
 
 // Если в текущей категории мало связанных статей, добираем из другой категории (fallback)
 if (relatedEntries.length < 3) {
-  const fallbackEntries = allEntries
-    .filter(e => e.id !== entry.id && e.data.category !== entry.data.category)
-    .slice(0, 3 - relatedEntries.length);
-  relatedEntries.push(...fallbackEntries);
+	const fallbackEntries = allEntries
+		.filter((e) => e.id !== entry.id && e.data.category !== entry.data.category)
+		.slice(0, 3 - relatedEntries.length);
+	relatedEntries.push(...fallbackEntries);
 }
 
 // Формирование JSON-LD схем (BreadcrumbList + TechArticle + опционально HowTo)
-const host = Astro.site?.href || 'https://smart-hub.info';
+const host = Astro.site?.href || "https://smart-hub.info";
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
-const canonicalURL = cleanPath === "" 
-  ? `${host}/` 
-  : `${host}${cleanPath.toLowerCase()}`;
+const canonicalURL = cleanPath === "" ? `${host}/` : `${host}${cleanPath.toLowerCase()}`;
 
 const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Главная",
-      "item": host
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Траблшутинг",
-      "item": `${host}/troubleshooting/`
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": entry.data.title,
-      "item": canonicalURL
-    }
-  ]
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Главная",
+			item: host,
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Траблшутинг",
+			item: `${host}/troubleshooting/`,
+		},
+		{
+			"@type": "ListItem",
+			position: 3,
+			name: entry.data.title,
+			item: canonicalURL,
+		},
+	],
 };
 
 const schemas: any[] = [breadcrumbSchema];
 
 // TechArticle для технических разборов (E-E-A-T сигнал для YMYL)
 const techArticleSchema = {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": entry.data.title,
-  "description": entry.data.description,
-  "datePublished": entry.data.publishDate.toISOString(),
-  ...(entry.data.updatedDate ? { "dateModified": entry.data.updatedDate.toISOString() } : {}),
-  "image": entry.data.steps && entry.data.steps[0]?.image 
-    ? new URL(entry.data.steps[0].image.src, host).href 
-    : new URL('/og-image.png', host).href,
-  "author": {
-    "@type": "Person",
-    "name": "Илья Кузнецов"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Умный Дом с Алисой",
-    "logo": {
-      "@type": "ImageObject",
-      "url": `${host}/favicon.svg`
-    }
-  }
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: entry.data.title,
+	description: entry.data.description,
+	datePublished: entry.data.publishDate.toISOString(),
+	...(entry.data.updatedDate ? { dateModified: entry.data.updatedDate.toISOString() } : {}),
+	image:
+		entry.data.steps && entry.data.steps[0]?.image
+			? new URL(entry.data.steps[0].image.src, host).href
+			: new URL("/og-image.png", host).href,
+	author: {
+		"@type": "Person",
+		name: "Илья Кузнецов",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "Умный Дом с Алисой",
+		logo: {
+			"@type": "ImageObject",
+			url: `${host}/favicon.svg`,
+		},
+	},
 };
 schemas.push(techArticleSchema);
 
 // Если есть шаги — дополнительно включаем HowTo (dual schema = лучшие сниппеты)
 if (entry.data.steps) {
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": entry.data.title,
-    "description": entry.data.description,
-    "datePublished": entry.data.publishDate.toISOString(),
-    ...(entry.data.updatedDate ? { "dateModified": entry.data.updatedDate.toISOString() } : {}),
-    "step": entry.data.steps.map((step, index) => ({
-      "@type": "HowToStep",
-      "position": index + 1,
-      "name": step.title,
-      "text": step.text,
-      "url": `${canonicalURL}#step-${index + 1}`,
-      ...(step.image ? { "image": new URL(step.image.src, host).href } : {})
-    }))
-  };
-  schemas.push(howToSchema);
+	const howToSchema = {
+		"@context": "https://schema.org",
+		"@type": "HowTo",
+		name: entry.data.title,
+		description: entry.data.description,
+		datePublished: entry.data.publishDate.toISOString(),
+		...(entry.data.updatedDate ? { dateModified: entry.data.updatedDate.toISOString() } : {}),
+		step: entry.data.steps.map((step, index) => ({
+			"@type": "HowToStep",
+			position: index + 1,
+			name: step.title,
+			text: step.text,
+			url: `${canonicalURL}#step-${index + 1}`,
+			...(step.image ? { image: new URL(step.image.src, host).href } : {}),
+		})),
+	};
+	schemas.push(howToSchema);
 }
 
 const jsonLdString = JSON.stringify(schemas);

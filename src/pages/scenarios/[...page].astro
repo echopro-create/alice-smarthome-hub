@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import { getDifficultyLabel } from '../../utils/difficulty';
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { getDifficultyLabel } from "../../utils/difficulty";
 
 export async function getStaticPaths({ paginate }) {
-  const allEntries = await getCollection('scenarios');
-  const scenarios = allEntries.filter(entry => entry.data.category === 'scenario');
-  
-  // Сортировка по дате публикации (свежие сверху)
-  scenarios.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
-  
-  // PAGE_SIZE равен 9 по стандартам.
-  return paginate(scenarios, { pageSize: 9 });
+	const allEntries = await getCollection("scenarios");
+	const scenarios = allEntries.filter((entry) => entry.data.category === "scenario");
+
+	// Сортировка по дате публикации (свежие сверху)
+	scenarios.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+
+	// PAGE_SIZE равен 9 по стандартам.
+	return paginate(scenarios, { pageSize: 9 });
 }
 
 const { page } = Astro.props;
@@ -19,12 +19,12 @@ const scenarios = page.data;
 const currentPage = page.currentPage;
 
 // SEO мета-теги с учетом номера страницы
-const title = currentPage > 1 
-  ? `Пошаговые сценарии автоматизации — Страница ${currentPage}`
-  : "Пошаговые сценарии автоматизации";
-const description = currentPage > 1
-  ? `Каталог пошаговых сценариев умного дома с Алисой. Страница ${currentPage} из ${page.lastPage}.`
-  : "Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями.";
+const title =
+	currentPage > 1 ? `Пошаговые сценарии автоматизации — Страница ${currentPage}` : "Пошаговые сценарии автоматизации";
+const description =
+	currentPage > 1
+		? `Каталог пошаговых сценариев умного дома с Алисой. Страница ${currentPage} из ${page.lastPage}.`
+		: "Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями.";
 ---
 
 <Layout title={title} description={description}>

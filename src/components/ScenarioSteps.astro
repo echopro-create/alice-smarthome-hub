@@ -1,14 +1,14 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 interface Step {
-  title: string;
-  text: string;
-  image?: any;
+	title: string;
+	text: string;
+	image?: any;
 }
 
 interface Props {
-  steps: Step[];
+	steps: Step[];
 }
 
 const { steps } = Astro.props;
