@@ -763,6 +763,34 @@ test("[SEO 2026] Sitemap: sitemap-0.xml не содержит битых/пус�
 	});
 });
 
+// ============================================================
+// 11. INDEXNOW — ключ и скрипт отправки
+// ============================================================
+
+test("[SEO 2026] IndexNow: файл ключа существует в public/", () => {
+	const keyFile = `${PUBLIC_DIR}/6ed4729b32d062cb2538a42dca7bd6fa.txt`;
+	assert.ok(fs.existsSync(keyFile), "IndexNow key file not found");
+});
+
+test("[SEO 2026] IndexNow: ключ скопирован в dist/ после сборки", () => {
+	const distKeyFile = `${DIST_DIR}/6ed4729b32d062cb2538a42dca7bd6fa.txt`;
+	assert.ok(fs.existsSync(distKeyFile), "IndexNow key not in dist/ — проверь, что файл в public/");
+	const content = fs.readFileSync(distKeyFile, "utf8").trim();
+	assert.equal(content, "6ed4729b32d062cb2538a42dca7bd6fa", `IndexNow key mismatch: ${content}`);
+});
+
+test("[SEO 2026] IndexNow: скрипт отправки существует", () => {
+	const scriptPath = path.join(__dirname, "../scripts/indexnow.js");
+	assert.ok(fs.existsSync(scriptPath), "scripts/indexnow.js not found");
+});
+
+test("[SEO 2026] IndexNow: ключ не попал в sitemap (не индексируется)", () => {
+	const sitemapFile = `${DIST_DIR}/sitemap-0.xml`;
+	if (!fs.existsSync(sitemapFile)) return;
+	const content = fs.readFileSync(sitemapFile, "utf8");
+	assert.ok(!content.includes("6ed4729b32d062cb2538a42dca7bd6fa"), "IndexNow key leaked into sitemap");
+});
+
 test("[SEO 2026] Hreflang: ru и x-default присутствуют на каждой странице", () => {
 	const files = getDistHtmlFiles();
 	if (files.length === 0) return;
@@ -825,7 +853,7 @@ test("[SEO 2026] Article: article:published_time присутствует на �
 });
 
 // ============================================================
-// 11. БЕЗОПАСНОСТЬ (security / CSP / rel-атрибуты)
+// 12. БЕЗОПАСНОСТЬ (security / CSP / rel-атрибуты)
 // ============================================================
 
 test("[Security 2026] External: внешние ссылки имеют rel='noopener noreferrer'", () => {
@@ -866,7 +894,7 @@ test("[Security 2026] External: кнопки Яндекс.Маркета сод�
 });
 
 // ============================================================
-// 12. JSON-LD СТРУКТУРНЫЕ ДАННЫЕ (built output)
+// 13. JSON-LD СТРУКТУРНЫЕ ДАННЫЕ (built output)
 // ============================================================
 
 test("[SEO 2026] JSON-LD: все страницы имеют валидный JSON-LD без ошибок парсинга", () => {
@@ -974,7 +1002,7 @@ test("[SEO 2026] JSON-LD: Organization и WebSite схемы присутств�
 });
 
 // ============================================================
-// 13. UX / НАВИГАЦИЯ
+// 14. UX / НАВИГАЦИЯ
 // ============================================================
 
 test("[UX 2026] Nav: хлебные крошки на статьях не содержат hash-фрагментов", () => {
@@ -1096,7 +1124,7 @@ test("[SEO 2026] Header: навигация использует чистые UR
 });
 
 // ============================================================
-// 14. КОНТЕНТ-ПЛАН (coverage)
+// 15. КОНТЕНТ-ПЛАН (coverage)
 // ============================================================
 
 test("[SEO 2026] Coverage: есть минимум 1 troubleshooting и 1 scenario", () => {
