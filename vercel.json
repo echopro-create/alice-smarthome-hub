@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.alice-smarthome.ru"
+        }
+      ],
+      "destination": "https://alice-smarthome.ru/:path*",
+      "permanent": true
+    }
+  ]
+}
