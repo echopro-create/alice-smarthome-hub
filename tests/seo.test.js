@@ -709,6 +709,60 @@ test("[SEO 2026] Sitemap: sitemap-0.xml содержит все страницы
 	});
 });
 
+test("[SEO 2026] Sitemap: sitemap-index.xml — валидный XML", () => {
+	const fp = `${DIST_DIR}/sitemap-index.xml`;
+	assert.ok(fs.existsSync(fp), "sitemap-index.xml не найден");
+	const content = fs.readFileSync(fp, "utf8");
+	assert.match(content, /^<\?xml/, "sitemap-index.xml не начинается с <?xml");
+	assert.match(content, /<sitemapindex/, "нет <sitemapindex>");
+	assert.match(content, /<sitemap>/, "нет <sitemap>");
+	assert.match(content, /<loc>/, "нет <loc> в sitemapindex");
+});
+
+test("[SEO 2026] Sitemap: sitemap-0.xml — валидный XML", () => {
+	const fp = `${DIST_DIR}/sitemap-0.xml`;
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	assert.match(content, /^<\?xml/, "sitemap-0.xml не начинается с <?xml");
+	assert.match(content, /<urlset/, "нет <urlset>");
+	assert.match(content, /<url>/, "нет <url>");
+	assert.match(content, /<loc>/, "нет <loc>");
+});
+
+test("[SEO 2026] Sitemap: vercel.json содержит редирект /sitemap.xml → /sitemap-index.xml", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	assert.ok(fs.existsSync(fp), "vercel.json не найден");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	assert.ok(Array.isArray(vercel.redirects), "vercel.json: нет redirects");
+	const hasSitemapRedirect = vercel.redirects.some(
+		(r) =>
+			r.source === "/sitemap.xml" &&
+			r.destination === "/sitemap-index.xml" &&
+			r.permanent === true,
+	);
+	assert.ok(hasSitemapRedirect, "vercel.json: нет редиректа /sitemap.xml → /sitemap-index.xml");
+});
+
+test("[SEO 2026] Sitemap: _headers содержит Content-Type для *.xml", () => {
+	const fp = `${PUBLIC_DIR}/_headers`;
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	assert.match(content, /\*\.xml\b/, "_headers: нет секции *.xml");
+	assert.match(content, /Content-Type:\s*application\/xml/, "_headers: нет Content-Type application/xml для *.xml");
+});
+
+test("[SEO 2026] Sitemap: sitemap-0.xml не содержит битых/пустых URL", () => {
+	const fp = path.join(DIST_DIR, "sitemap-0.xml");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	const locs = [...content.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+	locs.forEach((url) => {
+		assert.ok(url.startsWith("https://smart-hub.info"), `sitemap URL не абсолютный: ${url}`);
+		assert.ok(new URL(url).pathname.length >= 1, `sitemap URL пустой или битый: ${url}`);
+		assert.ok(!url.includes("404"), `sitemap содержит 404: ${url}`);
+	});
+});
+
 test("[SEO 2026] Hreflang: ru и x-default присутствуют на каждой странице", () => {
 	const files = getDistHtmlFiles();
 	if (files.length === 0) return;
