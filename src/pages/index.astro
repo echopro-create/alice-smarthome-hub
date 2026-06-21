@@ -56,7 +56,7 @@ const latestEntries = allEntries
         src={heroImage} 
         alt="Премиальный умный дом с Яндекс Станцией и датчиками" 
         class="hero-image"
-        loading="lazy"
+        fetchpriority="high"
         decoding="async"
         width={600}
         height={450}
@@ -103,21 +103,21 @@ const latestEntries = allEntries
     <div class="anatomy-grid glass">
       <!-- Left: Interactive steps (tabs) -->
       <div class="anatomy-steps" role="tablist" aria-label="Сценарии автоматизации">
-        <button class="anatomy-step-btn active" data-scene="morning" aria-selected="true" role="tab" id="scene-tab-morning" aria-controls="scene-panel-morning">
+        <button class="anatomy-step-btn active" data-scene="morning" aria-selected="true" role="tab" id="scene-tab-morning" aria-controls="anatomy-dashboard">
           <span class="step-num font-outfit">🌅</span>
           <div class="step-text">
             <h3 class="step-title font-outfit">07:30 — Утреннее пробуждение</h3>
             <p class="step-desc">Мягкий старт дня: плавное включение света, свежий кофе и утреннее шоу Алисы.</p>
           </div>
         </button>
-        <button class="anatomy-step-btn" data-scene="away" aria-selected="false" role="tab" id="scene-tab-away" aria-controls="scene-panel-away">
+        <button class="anatomy-step-btn" data-scene="away" aria-selected="false" role="tab" id="scene-tab-away" aria-controls="anatomy-dashboard">
           <span class="step-num font-outfit">🚶‍♂️</span>
           <div class="step-text">
             <h3 class="step-title font-outfit">09:00 — Все ушли (Охрана)</h3>
             <p class="step-desc">Автоматическое сбережение энергии, активация видеокамер и запуск уборки.</p>
           </div>
         </button>
-        <button class="anatomy-step-btn" data-scene="cinema" aria-selected="false" role="tab" id="scene-tab-cinema" aria-controls="scene-panel-cinema">
+        <button class="anatomy-step-btn" data-scene="cinema" aria-selected="false" role="tab" id="scene-tab-cinema" aria-controls="anatomy-dashboard">
           <span class="step-num font-outfit">🍿</span>
           <div class="step-text">
             <h3 class="step-title font-outfit">20:00 — Вечерний уют</h3>
@@ -133,7 +133,7 @@ const latestEntries = allEntries
       </div>
       
       <!-- Right: Minimalist Dashboard -->
-      <div class="anatomy-dashboard glass" id="anatomy-dashboard">
+      <div class="anatomy-dashboard glass" id="anatomy-dashboard" role="tabpanel" aria-label="Описание сценария">
         <h3 class="dashboard-title font-outfit" id="dash-title">Утреннее пробуждение</h3>
         
         <!-- Logic Builder Panel -->
