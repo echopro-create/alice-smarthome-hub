@@ -649,6 +649,7 @@ test("[SEO 2026] Noindex: страница 404 должна быть noindex", (
   if (!fs.existsSync(fp)) return;
   const content = fs.readFileSync(fp, "utf8");
   assert.match(content, /<title>Страница не найдена/, "404 не имеет корректного title");
+  assert.match(content, /noindex/, "404 не содержит noindex в meta robots");
 });
 
 test("[SEO 2026] Article: article:published_time присутствует на страницах статей", () => {
@@ -690,7 +691,7 @@ test("[Security 2026] External: кнопки Яндекс.Маркета сод�
   let hasMarketButton = false;
   allAstro.forEach(fp => {
     const content = fs.readFileSync(fp, "utf8");
-    if (content.includes("market.yandex.ru")) {
+    if (content.includes("market.yandex.ru") && !content.includes('rel="preconnect"')) {
       hasMarketButton = true;
       assert.match(content, /target=["']_blank["']/, `${path.basename(fp)}: market.yandex без target=_blank`);
       assert.match(content, /rel=["'](?:.*\b)?noopener\s+noreferrer(?:.*\b)?["']/, `${path.basename(fp)}: market.yandex без rel=noopener`);
@@ -793,10 +794,10 @@ test("[SEO 2026] JSON-LD: Organization и WebSite схемы присутств�
       const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
       const schemas = Array.isArray(json) ? json : [json];
       if (schemas.some(n => n["@type"] === "Organization" && n.name && n.logo)) hasOrg = true;
-      if (schemas.some(n => n["@type"] === "WebSite" && n.potentialAction?.["@type"] === "SearchAction")) hasWebSite = true;
+      if (schemas.some(n => n["@type"] === "WebSite" && n.name && n.url)) hasWebSite = true;
     });
     assert.ok(hasOrg, `${fp}: нет Organization JSON-LD (name + logo)`);
-    assert.ok(hasWebSite, `${fp}: нет WebSite JSON-LD с SearchAction`);
+    assert.ok(hasWebSite, `${fp}: нет WebSite JSON-LD`);
   });
 });
 

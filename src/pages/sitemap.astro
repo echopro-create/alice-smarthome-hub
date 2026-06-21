@@ -1,0 +1,95 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const allEntries = await getCollection('scenarios');
+const scenarios = allEntries.filter(e => e.data.category === 'scenario');
+const troubleshooting = allEntries.filter(e => e.data.category === 'troubleshooting');
+---
+
+<Layout
+  title="Карта сайта"
+  description="Полный список всех сценариев автоматизации и руководств по траблшутингу на сайте Умный Дом с Алисой."
+>
+  <div class="sitemap-container">
+    <h1 class="sitemap-title font-outfit">Карта сайта</h1>
+
+    <section class="sitemap-section">
+      <h2 class="sitemap-section-title font-outfit">Основные страницы</h2>
+      <ul class="sitemap-list">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/scenarios/">Сценарии автоматизации</a></li>
+        <li><a href="/troubleshooting/">Траблшутинг</a></li>
+        <li><a href="/about">О проекте</a></li>
+        <li><a href="/contacts">Контакты</a></li>
+        <li><a href="/privacy">Политика конфиденциальности</a></li>
+        <li><a href="/sitemap-index.xml">Sitemap XML</a></li>
+      </ul>
+    </section>
+
+    <section class="sitemap-section">
+      <h2 class="sitemap-section-title font-outfit">Сценарии автоматизации ({scenarios.length})</h2>
+      <ul class="sitemap-list">
+        {scenarios.map(s => (
+          <li><a href={`/scenarios/${s.id}/`}>{s.data.title}</a></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="sitemap-section">
+      <h2 class="sitemap-section-title font-outfit">Траблшутинг ({troubleshooting.length})</h2>
+      <ul class="sitemap-list">
+        {troubleshooting.map(t => (
+          <li><a href={`/troubleshooting/${t.id}/`}>{t.data.title}</a></li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .sitemap-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0 4rem;
+  }
+
+  .sitemap-title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .sitemap-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .sitemap-section-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.5rem;
+  }
+
+  .sitemap-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .sitemap-list a {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .sitemap-list a:hover {
+    color: var(--accent-alice);
+  }
+</style>

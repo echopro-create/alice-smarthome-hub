@@ -1,0 +1,83 @@
+---
+const cookieConsentId = 'cookie-consent';
+---
+<div id={cookieConsentId} class="cookie-banner glass">
+  <p class="cookie-text">
+    Мы используем Яндекс.Метрику и localStorage для аналитики и сохранения темы. 
+    Продолжая использовать сайт, вы соглашаетесь с 
+    <a href="/privacy">политикой конфиденциальности</a>.
+  </p>
+  <button id="cookie-accept" class="cookie-btn font-outfit">Принять</button>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-consent');
+  const btn = document.getElementById('cookie-accept');
+  if (banner && btn) {
+    if (localStorage.getItem('cookie-consent') === 'accepted') {
+      banner.style.display = 'none';
+    }
+    btn.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+      banner.style.display = 'none';
+    });
+  }
+</script>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 600px;
+    width: calc(100% - 2rem);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10000;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cookie-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .cookie-text a {
+    color: var(--accent-alice);
+    text-decoration: underline;
+  }
+
+  .cookie-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    color: var(--text-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: var(--glow-alice);
+    transition: all 0.2s ease;
+  }
+
+  .cookie-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--glow-alice-heavy);
+    filter: brightness(1.1);
+  }
+
+  @media (max-width: 480px) {
+    .cookie-banner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

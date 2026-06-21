@@ -1,0 +1,17 @@
+/* Inter — self-hosted (all weights share same subset file) */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIq15j8eUY.woff2') format('woff2');
+}
+
+/* Outfit — self-hosted (all weights share same subset file) */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/QGYvz_MVcBeNP4N5tkFtc4A.woff2') format('woff2');
+}
