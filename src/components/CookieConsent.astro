@@ -11,17 +11,32 @@ const cookieConsentId = "cookie-consent";
 </div>
 
 <script>
-  const banner = document.getElementById('cookie-consent');
-  const btn = document.getElementById('cookie-accept');
-  if (banner && btn) {
-    if (localStorage.getItem('cookie-consent') === 'accepted') {
-      banner.style.display = 'none';
+  function initCookieConsent() {
+    const banner = document.getElementById('cookie-consent');
+    const btn = document.getElementById('cookie-accept');
+    if (banner && btn) {
+      if (localStorage.getItem('cookie-consent') === 'accepted') {
+        banner.style.display = 'none';
+      } else {
+        banner.style.display = 'flex';
+      }
+      
+      // Заменяем кнопку клоном для сброса старых обработчиков событий
+      btn.replaceWith(btn.cloneNode(true));
+      const activeBtn = document.getElementById('cookie-accept');
+      if (activeBtn) {
+        activeBtn.addEventListener('click', () => {
+          localStorage.setItem('cookie-consent', 'accepted');
+          banner.style.display = 'none';
+        });
+      }
     }
-    btn.addEventListener('click', () => {
-      localStorage.setItem('cookie-consent', 'accepted');
-      banner.style.display = 'none';
-    });
   }
+
+  // Инициализация при первой загрузке
+  initCookieConsent();
+  // Инициализация при переходах с Astro View Transitions
+  document.addEventListener('astro:page-load', initCookieConsent);
 </script>
 
 <style>
@@ -34,7 +49,7 @@ const cookieConsentId = "cookie-consent";
     width: calc(100% - 2rem);
     padding: 1rem 1.5rem;
     border-radius: var(--radius-md);
-    display: flex;
+    display: none;
     align-items: center;
     gap: 1rem;
     z-index: 10000;
