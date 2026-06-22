@@ -18,10 +18,11 @@
 	--accent-emerald: #059669;
 
 	/* 2026 Warm Lamp signature accent */
-	--accent-signature: #f97316;
-	--accent-signature-glow: rgba(249, 115, 22, 0.08);
-	--accent-signature-semi: rgba(249, 115, 22, 0.15);
-	--accent-signature-trans: rgba(249, 115, 22, 0.04);
+	--accent-signature: #d97706; /* Глубокий янтарный */
+	--accent-signature-glow: rgba(217, 119, 6, 0.08);
+	--accent-signature-semi: rgba(217, 119, 6, 0.2);
+	--accent-signature-trans: rgba(217, 119, 6, 0.04);
+	--accent-signature-gradient: linear-gradient(135deg, #d97706 0%, #ff5e00 100%);
 
 	/* Helper accent colors */
 	--accent-secondary-blue: #4f46e5;
@@ -107,10 +108,11 @@
 	--accent-emerald: #10b981;
 
 	/* 2026 Warm Lamp signature accent */
-	--accent-signature: #ff8c3a;
-	--accent-signature-glow: rgba(255, 140, 58, 0.15);
-	--accent-signature-semi: rgba(255, 140, 58, 0.25);
-	--accent-signature-trans: rgba(255, 140, 58, 0.05);
+	--accent-signature: #fbbf24; /* Золотисто-янтарный */
+	--accent-signature-glow: rgba(251, 191, 36, 0.15);
+	--accent-signature-semi: rgba(251, 191, 36, 0.25);
+	--accent-signature-trans: rgba(251, 191, 36, 0.05);
+	--accent-signature-gradient: linear-gradient(135deg, #fbbf24 0%, #ff782b 100%);
 
 	--accent-secondary-blue: #6366f1;
 
@@ -217,14 +219,24 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Outfit", "Inter", sans-serif;
-	font-weight: 700;
-	letter-spacing: -0.02em;
+	font-family: "Bricolage Grotesque", "Outfit", "Inter", sans-serif;
+	font-weight: 800;
+	letter-spacing: -0.03em;
 	color: var(--text-primary);
 }
 
+h1 {
+	font-size: clamp(2.25rem, 5vw, 4.25rem);
+	line-height: 1.05;
+}
+
+h2.section-title {
+	font-size: clamp(1.75rem, 4vw, 2.75rem);
+	line-height: 1.1;
+}
+
 .font-outfit {
-	font-family: "Outfit", "Inter", sans-serif;
+	font-family: "Bricolage Grotesque", "Outfit", "Inter", sans-serif;
 }
 
 a {
@@ -805,3 +817,208 @@ input:focus-visible,
 		align-items: flex-start;
 	}
 }
+
+/* ==========================================================================
+   Premium 2026 Interactive Effects & Animations (P0)
+   ========================================================================== */
+
+/* 1. Cursor Follower */
+.cursor-glow {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 320px;
+	height: 320px;
+	border-radius: 50%;
+	background: radial-gradient(circle, var(--accent-signature-trans) 0%, transparent 70%);
+	pointer-events: none;
+	z-index: 0; /* Behind page content but above background noise */
+	transform: translate3d(-50%, -50%, 0);
+	will-change: transform;
+	opacity: 0;
+	transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+body:hover .cursor-glow {
+	opacity: 0.65;
+}
+
+/* 2. Scroll-triggered reveal animations */
+.reveal-on-scroll {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: transform, opacity;
+}
+.reveal-on-scroll.revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Staggered reveal list items */
+.reveal-stagger-item {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: transform, opacity;
+}
+.reveal-stagger-item.revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* 3. Gradient Mesh Background */
+.mesh-gradient-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	pointer-events: none;
+	z-index: 1;
+	filter: blur(100px);
+	opacity: 0.7;
+}
+.mesh-circle {
+	position: absolute;
+	border-radius: 50%;
+	will-change: transform;
+	animation: mesh-float 25s infinite alternate ease-in-out;
+}
+.mesh-circle-1 {
+	width: 500px;
+	height: 500px;
+	background: var(--accent-alice-glow);
+	top: -15%;
+	left: 10%;
+}
+.mesh-circle-2 {
+	width: 600px;
+	height: 600px;
+	background: var(--accent-signature-glow);
+	top: 10%;
+	right: -15%;
+	animation-delay: -5s;
+	animation-duration: 30s;
+}
+.mesh-circle-3 {
+	width: 400px;
+	height: 400px;
+	background: var(--accent-cyan-glow);
+	bottom: -10%;
+	left: 20%;
+	animation-delay: -10s;
+	animation-duration: 20s;
+}
+@keyframes mesh-float {
+	0% { transform: translate(0, 0) scale(1); }
+	33% { transform: translate(60px, -40px) scale(1.15); }
+	66% { transform: translate(-40px, 50px) scale(0.9); }
+	100% { transform: translate(20px, -20px) scale(1.05); }
+}
+
+/* 4. Marquee Ticker */
+.marquee-container {
+	position: relative;
+	width: 100vw;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	overflow: hidden;
+	background: var(--bg-surface);
+	border-top: 1px solid var(--border-primary);
+	border-bottom: 1px solid var(--border-primary);
+	padding: 1.25rem 0;
+	margin-top: 4rem;
+	margin-bottom: 4rem;
+	display: flex;
+	pointer-events: none;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+.marquee-content {
+	display: flex;
+	white-space: nowrap;
+	animation: marquee-scroll 30s linear infinite;
+	gap: 4rem;
+	padding-right: 4rem;
+}
+.marquee-item {
+	font-family: "Bricolage Grotesque", sans-serif;
+	font-weight: 800;
+	font-size: 1.65rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--text-primary);
+	opacity: 0.85;
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+}
+.marquee-dot {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	background-color: var(--accent-signature);
+	border-radius: 50%;
+	box-shadow: 0 0 12px var(--accent-signature-glow);
+}
+@keyframes marquee-scroll {
+	0% { transform: translate3d(0, 0, 0); }
+	100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* 5. Editorial Ghost Numbers */
+.section-container {
+	position: relative;
+	overflow: visible;
+}
+.ghost-number {
+	position: absolute;
+	font-family: "Bricolage Grotesque", sans-serif;
+	font-weight: 900;
+	font-size: clamp(8rem, 22vw, 16rem);
+	line-height: 1;
+	color: var(--text-primary-trans);
+	top: -5rem;
+	right: 1.5rem;
+	z-index: 0;
+	pointer-events: none;
+	user-select: none;
+	transition: color 0.3s ease;
+}
+
+/* 6. Card Hover Morphing with soft glow */
+.card-elevated:hover {
+	border-color: var(--accent-signature-semi);
+	box-shadow: 0 20px 40px var(--accent-signature-glow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+:root.dark .card-elevated:hover {
+	box-shadow: 0 20px 45px var(--accent-signature-trans), inset 0 1px 0px rgba(255, 255, 255, 0.08);
+}
+.card-outlined:hover {
+	border-color: var(--accent-signature-semi);
+	background: var(--bg-hover);
+}
+.card-flat:hover {
+	border-color: var(--accent-signature-semi);
+	background: var(--bg-surface);
+}
+
+/* Make sure inner items are above ghost number */
+.section-title, .section-desc, .stats-grid, .anatomy-grid, .troubleshooting-strips-list, .latest-cards-grid {
+	position: relative;
+	z-index: 1;
+}
+
+/* Pull quotes styling for editorial view */
+.markdown-body blockquote {
+	font-family: "Bricolage Grotesque", sans-serif;
+	font-size: 1.25rem;
+	font-style: italic;
+	font-weight: 600;
+	border-left: 5px solid var(--accent-signature);
+	color: var(--text-primary);
+}
+

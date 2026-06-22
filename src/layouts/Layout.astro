@@ -145,9 +145,16 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 		<!-- JSON-LD: Page-specific structured data (BreadcrumbList, HowTo, TechArticle) -->
 		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
 
+		<!-- Google Fonts for premium typography -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
 		{noindex && <meta name="robots" content="noindex, follow" />}
 	</head>
 	<body>
+		<!-- Cursor follower element -->
+		<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
 		<a href="#main-content" class="skip-link">Перейти к содержанию</a>
 		
 		<!-- Noise overlay for premium 2026 textured aesthetics -->
@@ -167,6 +174,114 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 
 		<Footer />
 		<CookieConsent />
+
+		<!-- Animations & Interactive Scripts -->
+		<script>
+			function initAnimations() {
+				// 1. Scroll-triggered animations via IntersectionObserver
+				const scrollElements = document.querySelectorAll('.reveal-on-scroll');
+				
+				const elementObserver = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('revealed');
+							
+							// Staggered reveal for children if container
+							if (entry.target.classList.contains('reveal-stagger-container')) {
+								const items = entry.target.querySelectorAll('.reveal-stagger-item');
+								items.forEach((item, index) => {
+									setTimeout(() => {
+										item.classList.add('revealed');
+									}, index * 80);
+								});
+							}
+						}
+					});
+				}, {
+					threshold: 0.05,
+					rootMargin: '0px 0px -50px 0px'
+				});
+				
+				scrollElements.forEach((el) => elementObserver.observe(el));
+
+				// 2. Counter-up animation for stats
+				const stats = document.querySelectorAll('.stat-number');
+				if (stats.length > 0) {
+					const statsObserver = new IntersectionObserver((entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								const target = entry.target as HTMLElement;
+								const targetValue = parseInt(target.getAttribute('data-target') || '0', 10);
+								let start = 0;
+								const duration = 1500;
+								const startTime = performance.now();
+								
+								function updateCount(timestamp: number) {
+									const elapsed = timestamp - startTime;
+									const progress = Math.min(elapsed / duration, 1);
+									const ease = progress * (2 - progress);
+									const current = Math.floor(ease * targetValue);
+									target.textContent = String(current);
+									
+									if (progress < 1) {
+										requestAnimationFrame(updateCount);
+									} else {
+										target.textContent = String(targetValue);
+									}
+								}
+								requestAnimationFrame(updateCount);
+								statsObserver.unobserve(target);
+							}
+						});
+					}, { threshold: 0.1 });
+					stats.forEach(s => statsObserver.observe(s));
+				}
+
+				// 3. Cursor Follower (desktop only)
+				const glow = document.getElementById('cursor-glow');
+				if (glow && window.matchMedia('(min-width: 1024px)').matches) {
+					let mouseX = 0;
+					let mouseY = 0;
+					let glowX = 0;
+					let glowY = 0;
+					
+					const onMouseMove = (e: MouseEvent) => {
+						mouseX = e.clientX;
+						mouseY = e.clientY;
+					};
+					
+					window.addEventListener('mousemove', onMouseMove);
+					
+					const updateGlow = () => {
+						glowX += (mouseX - glowX) * 0.08;
+						glowY += (mouseY - glowY) * 0.08;
+						
+						glow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
+						requestAnimationFrame(updateGlow);
+					};
+					updateGlow();
+					
+					document.addEventListener('astro:before-swap', () => {
+						window.removeEventListener('mousemove', onMouseMove);
+					}, { once: true });
+				}
+
+				// 4. Haptic Feedback (Navigator.vibrate)
+				if ('vibrate' in navigator) {
+					const interactiveElements = document.querySelectorAll('button, a.btn, .anatomy-step-btn, .tab-btn');
+					interactiveElements.forEach(el => {
+						el.addEventListener('click', () => {
+							navigator.vibrate(10);
+						});
+					});
+				}
+			}
+
+			// Run on startup
+			initAnimations();
+			// Run on View Transitions page swap
+			document.addEventListener('astro:page-load', initAnimations);
+		</script>
 	</body>
 </html>
 
