@@ -159,10 +159,15 @@ test("[SEO 2026] Title: минимальная длина 20 символов", 
 // 2. КОНТЕНТ (объем, keyword stuffing)
 // ============================================================
 
-test("[SEO 2026] Content: объём статьи не менее 150 слов (защита от МПК/Proxima)", () => {
+test("[SEO 2026] Content: объём статьи не менее 150 слов (для будущих статей — от 700 до 900 слов)", () => {
 	articleFiles.forEach((a) => {
 		const wc = words(a.body).length;
-		assert.ok(wc >= 150, `${a.name}: ${wc} слов (минимум 150)`);
+		const isFuture = a.data.publishDate && new Date(a.data.publishDate) > new Date("2026-06-22");
+		if (isFuture) {
+			assert.ok(wc >= 700 && wc <= 900, `${a.name}: ${wc} слов в будущей статье (требуется от 700 до 900 слов)`);
+		} else {
+			assert.ok(wc >= 150, `${a.name}: ${wc} слов (минимум 150)`);
+		}
 	});
 });
 
