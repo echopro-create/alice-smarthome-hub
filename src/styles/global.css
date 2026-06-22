@@ -23,7 +23,7 @@
 	--text-primary-semi: rgba(15, 23, 42, 0.7);
 	--text-primary-trans: rgba(15, 23, 42, 0.04);
 	--text-secondary: #475569;
-	--text-muted: #94a3b8;
+	--text-muted: #64748b;
 	--text-white: #ffffff;
 	--text-white-trans: rgba(255, 255, 255, 0.7);
 
@@ -104,7 +104,7 @@
 	--text-primary-semi: rgba(255, 255, 255, 0.7);
 	--text-primary-trans: rgba(255, 255, 255, 0.04);
 	--text-secondary: #a1a1aa;
-	--text-muted: #6b7280;
+	--text-muted: #94a3b8;
 
 	--border-primary: rgba(255, 255, 255, 0.06);
 	--border-hover: rgba(129, 140, 248, 0.3);
@@ -203,6 +203,10 @@ h6 {
 	font-weight: 700;
 	letter-spacing: -0.02em;
 	color: var(--text-primary);
+}
+
+.font-outfit {
+	font-family: "Outfit", "Inter", sans-serif;
 }
 
 a {
