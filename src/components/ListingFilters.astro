@@ -259,6 +259,7 @@ const { gridId, cardClass, difficultyPillsId } = Astro.props;
   .filter-pills {
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
   .pill-btn {
@@ -271,6 +272,7 @@ const { gridId, cardClass, difficultyPillsId } = Astro.props;
     border-radius: 99px;
     cursor: pointer;
     transition: all 0.25s ease;
+    min-height: 44px;
   }
 
   .pill-btn:hover {
@@ -353,6 +355,7 @@ const { gridId, cardClass, difficultyPillsId } = Astro.props;
     border: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 44px;
   }
 
   .pagination-arrow:not(.disabled):hover {
@@ -433,8 +436,8 @@ const { gridId, cardClass, difficultyPillsId } = Astro.props;
     }
 
     :global(.pagination-number) {
-      min-width: 36px;
-      height: 36px;
+      min-width: 44px;
+      height: 44px;
       font-size: 0.9rem;
     }
   }

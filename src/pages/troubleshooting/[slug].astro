@@ -46,7 +46,7 @@ const wordCount = entry.body ? entry.body.split(/\s+/).filter(Boolean).length : 
 const readingTime = Math.ceil(wordCount / 220) || 1;
 
 // Формирование JSON-LD схем (BreadcrumbList + TechArticle + HowTo)
-const host = Astro.site?.href || "https://smart-hub.info";
+const host = (Astro.site?.href || "https://smart-hub.info").replace(/\/$/, "");
 const cleanPath = Astro.url.pathname.replace(/\/$/, "");
 const canonicalURL = cleanPath === "" ? `${host}/` : `${host}${cleanPath.toLowerCase()}`;
 

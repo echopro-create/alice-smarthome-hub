@@ -66,6 +66,7 @@ const getReadingTime = (item: (typeof allEntries)[number]) => {
         loading="eager"
         fetchpriority="high"
         decoding="async"
+        sizes="100vw"
       />
     </div>
   </section>
@@ -253,6 +254,7 @@ const getReadingTime = (item: (typeof allEntries)[number]) => {
     border-radius: var(--radius-sm);
     text-decoration: none;
     transition: all 0.2s ease;
+    min-height: 44px;
   }
   .primary-btn {
     background: var(--accent-signature);

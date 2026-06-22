@@ -17,7 +17,7 @@ const { title, description, image = "/og-image.png", jsonLd, noindex = false } =
 
 const host = (Astro.site?.href || "https://smart-hub.info").replace(/\/$/, "");
 const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, "");
-const canonicalURLString = pathname === "" ? `${host}/` : `${host}${pathname}`;
+const canonicalURLString = pathname === "" ? `${host}/` : `${host}${pathname}/`;
 
 const yandexVerification = import.meta.env.PUBLIC_YANDEX_VERIFICATION || "";
 const yandexMetrikaId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID || "";
@@ -335,8 +335,8 @@ const yandexMetrikaId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID || "";
 		.back-to-top-btn {
 			bottom: 1.5rem;
 			right: 1.5rem;
-			width: 40px;
-			height: 40px;
+			width: 44px;
+			height: 44px;
 		}
 	}
 </style>
