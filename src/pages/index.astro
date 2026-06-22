@@ -60,8 +60,9 @@ const latestEntries = allEntries
         fetchpriority="high"
         decoding="async"
         format="webp"
-        width={800}
-        height={600}
+        width={634}
+        height={476}
+        sizes="(max-width: 768px) 100vw, 634px"
       />
     </div>
 
@@ -126,12 +127,11 @@ const latestEntries = allEntries
             <p class="step-desc">Создание идеальной атмосферы: закрытие штор, приглушенный неон и включение кино.</p>
           </div>
         </button>
-
-        <div class="anatomy-link-wrapper">
-          <a href="/scenarios/" class="card-link font-outfit">
-            Все сценарии автоматизации <span class="arrow">→</span>
-          </a>
-        </div>
+      </div>
+      <div class="anatomy-link-wrapper">
+        <a href="/scenarios/" class="card-link font-outfit">
+          Все сценарии автоматизации <span class="arrow">→</span>
+        </a>
       </div>
       
       <!-- Right: Minimalist Dashboard -->
@@ -890,7 +890,7 @@ const latestEntries = allEntries
 
   .logic-and .logic-label {
     background: var(--text-primary-trans);
-    color: var(--text-secondary);
+    color: var(--text-primary);
     border: 1px solid var(--border-primary);
   }
 
@@ -977,7 +977,7 @@ const latestEntries = allEntries
   .device-item-protocol {
     font-size: 0.7rem;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--text-secondary);
   }
 
   .dashboard-action-wrap {
