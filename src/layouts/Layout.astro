@@ -56,10 +56,84 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 
 		<link rel="dns-prefetch" href="https://yastatic.net" />
 
-		<!-- Self-hosted Fonts -->
-		<link rel="preload" href="/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIq15j8eUY.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="preload" href="/fonts/QGYvz_MVcBeNP4N5tkFtc4A.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="stylesheet" href="/fonts/fonts.css" />
+		<!-- Self-hosted Fonts Preload -->
+		<link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/outfit-700.woff2" as="font" type="font/woff2" crossorigin />
+		<style is:inline>
+			/* Inter — Cyrillic + Latin subsets */
+			@font-face {
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 300;
+				font-display: swap;
+				src: url('/fonts/inter-300.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url('/fonts/inter-400.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url('/fonts/inter-500.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: url('/fonts/inter-600.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Inter';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: url('/fonts/inter-700.woff2') format('woff2');
+			}
+
+			/* Outfit — Latin subset */
+			@font-face {
+				font-family: 'Outfit';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url('/fonts/outfit-400.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Outfit';
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url('/fonts/outfit-500.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Outfit';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: url('/fonts/outfit-600.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Outfit';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: url('/fonts/outfit-700.woff2') format('woff2');
+			}
+			@font-face {
+				font-family: 'Outfit';
+				font-style: normal;
+				font-weight: 800;
+				font-display: swap;
+				src: url('/fonts/outfit-800.woff2') format('woff2');
+			}
+		</style>
 
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURLString} />
