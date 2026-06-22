@@ -16,8 +16,11 @@ interface Props {
 const { title, description, image = "/og-image.png", jsonLd, noindex = false } = Astro.props;
 
 const host = (Astro.site?.href || "https://smart-hub.info").replace(/\/$/, "");
-const cleanPath = Astro.url.pathname.replace(/\/$/, "");
-const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.toLowerCase()}`;
+const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, "");
+const canonicalURLString = pathname === "" ? `${host}/` : `${host}${pathname}`;
+
+const yandexVerification = import.meta.env.PUBLIC_YANDEX_VERIFICATION || "";
+const yandexMetrikaId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID || "";
 ---
 
 <!doctype html>
@@ -107,7 +110,7 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={canonicalURLString} />
 		<meta property="og:title" content={`${title} | Умный Дом с Алисой`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL(image, Astro.url)} />
@@ -116,7 +119,7 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:url" content={Astro.url} />
+		<meta name="twitter:url" content={canonicalURLString} />
 		<meta name="twitter:title" content={`${title} | Умный Дом с Алисой`} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL(image, Astro.url)} />
@@ -145,26 +148,42 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 		<!-- JSON-LD: Page-specific structured data (BreadcrumbList, HowTo, TechArticle) -->
 		{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}
 
-		<!-- Google Fonts for premium typography -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+
 		{noindex && <meta name="robots" content="noindex, follow" />}
+		{yandexVerification && <meta name="yandex-verification" content={yandexVerification} />}
+
+		<!-- KaTeX Math Formulas Rendering -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+		<script is:inline>
+			function renderMath() {
+				if (typeof renderMathInElement === 'function') {
+					renderMathInElement(document.body, {
+						delimiters: [
+							{left: '$$', right: '$$', display: true},
+							{left: '$', right: '$', display: false},
+							{left: '\\(', right: '\\)', display: false},
+							{left: '\\[', right: '\\]', display: true}
+						],
+						throwOnError: false
+					});
+				}
+			}
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', renderMath);
+			} else {
+				renderMath();
+			}
+			document.addEventListener('astro:page-load', renderMath);
+		</script>
 	</head>
 	<body>
-		<!-- Cursor follower element -->
-		<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
 
 		<a href="#main-content" class="skip-link">Перейти к содержанию</a>
 		
-		<!-- Noise overlay for premium 2026 textured aesthetics -->
-		<div class="noise-overlay" aria-hidden="true"></div>
-		<svg style="display: none;" aria-hidden="true">
-			<filter id="noise">
-				<feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-				<feColorMatrix type="saturate" values="0"/>
-			</filter>
-		</svg>
+
 
 		<Header />
 
@@ -178,95 +197,7 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 		<!-- Animations & Interactive Scripts -->
 		<script>
 			function initAnimations() {
-				// 1. Scroll-triggered animations via IntersectionObserver
-				const scrollElements = document.querySelectorAll('.reveal-on-scroll');
-				
-				const elementObserver = new IntersectionObserver((entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('revealed');
-							
-							// Staggered reveal for children if container
-							if (entry.target.classList.contains('reveal-stagger-container')) {
-								const items = entry.target.querySelectorAll('.reveal-stagger-item');
-								items.forEach((item, index) => {
-									setTimeout(() => {
-										item.classList.add('revealed');
-									}, index * 80);
-								});
-							}
-						}
-					});
-				}, {
-					threshold: 0.05,
-					rootMargin: '0px 0px -50px 0px'
-				});
-				
-				scrollElements.forEach((el) => elementObserver.observe(el));
-
-				// 2. Counter-up animation for stats
-				const stats = document.querySelectorAll('.stat-number');
-				if (stats.length > 0) {
-					const statsObserver = new IntersectionObserver((entries) => {
-						entries.forEach((entry) => {
-							if (entry.isIntersecting) {
-								const target = entry.target as HTMLElement;
-								const targetValue = parseInt(target.getAttribute('data-target') || '0', 10);
-								let start = 0;
-								const duration = 1500;
-								const startTime = performance.now();
-								
-								function updateCount(timestamp: number) {
-									const elapsed = timestamp - startTime;
-									const progress = Math.min(elapsed / duration, 1);
-									const ease = progress * (2 - progress);
-									const current = Math.floor(ease * targetValue);
-									target.textContent = String(current);
-									
-									if (progress < 1) {
-										requestAnimationFrame(updateCount);
-									} else {
-										target.textContent = String(targetValue);
-									}
-								}
-								requestAnimationFrame(updateCount);
-								statsObserver.unobserve(target);
-							}
-						});
-					}, { threshold: 0.1 });
-					stats.forEach(s => statsObserver.observe(s));
-				}
-
-				// 3. Cursor Follower (desktop only)
-				const glow = document.getElementById('cursor-glow');
-				if (glow && window.matchMedia('(min-width: 1024px)').matches) {
-					let mouseX = 0;
-					let mouseY = 0;
-					let glowX = 0;
-					let glowY = 0;
-					
-					const onMouseMove = (e: MouseEvent) => {
-						mouseX = e.clientX;
-						mouseY = e.clientY;
-					};
-					
-					window.addEventListener('mousemove', onMouseMove);
-					
-					const updateGlow = () => {
-						glowX += (mouseX - glowX) * 0.08;
-						glowY += (mouseY - glowY) * 0.08;
-						
-						glow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
-						requestAnimationFrame(updateGlow);
-					};
-					updateGlow();
-					
-					document.addEventListener('astro:before-swap', () => {
-						window.removeEventListener('mousemove', onMouseMove);
-					}, { once: true });
-				}
-
-				// 4. Haptic Feedback (Navigator.vibrate)
+				// Haptic Feedback (Navigator.vibrate)
 				if ('vibrate' in navigator) {
 					const interactiveElements = document.querySelectorAll('button, a.btn, .anatomy-step-btn, .tab-btn');
 					interactiveElements.forEach(el => {
@@ -282,6 +213,64 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 			// Run on View Transitions page swap
 			document.addEventListener('astro:page-load', initAnimations);
 		</script>
+
+		<!-- Back to Top Button -->
+		<button id="back-to-top" class="back-to-top-btn glass" aria-label="Вернуться к началу страницы" title="Наверх">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="arrow-up-icon"><path d="m18 15-6-6-6 6"/></svg>
+		</button>
+
+		<script>
+			function initBackToTop() {
+				const btn = document.getElementById('back-to-top');
+				if (!btn) return;
+
+				const handleScroll = () => {
+					const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+					if (winScroll > 300) {
+						btn.classList.add('visible');
+					} else {
+						btn.classList.remove('visible');
+					}
+				};
+
+				btn.addEventListener('click', () => {
+					window.scrollTo({
+						top: 0,
+						behavior: 'smooth'
+					});
+				});
+
+				window.removeEventListener('scroll', handleScroll);
+				window.addEventListener('scroll', handleScroll);
+				handleScroll();
+			}
+
+			initBackToTop();
+			document.addEventListener('astro:page-load', initBackToTop);
+		</script>
+
+		<!-- Yandex.Metrika counter -->
+		{yandexMetrikaId && (
+			<script type="text/javascript" is:inline set:html={`
+				(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+				m[i].l=1*new Date();
+				for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+				k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+				(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+				ym(${yandexMetrikaId}, "init", {
+					clickmap:true,
+					trackLinks:true,
+					accurateTrackBounce:true,
+					webvisor:true
+				});
+			`} />
+			<noscript>
+				<div>
+					<img src={`https://mc.yandex.ru/watch/${yandexMetrikaId}`} style="position:absolute; left:-9999px;" alt="" loading="lazy" decoding="async" width="1" height="1" />
+				</div>
+			</noscript>
+		)}
 	</body>
 </html>
 
@@ -289,5 +278,65 @@ const canonicalURLString = cleanPath === "" ? `${host}/` : `${host}${cleanPath.t
 	main {
 		flex: 1;
 		margin-bottom: 4rem;
+	}
+
+	/* Back to Top button */
+	.back-to-top-btn {
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		width: 46px;
+		height: 46px;
+		border-radius: 50%;
+		background: var(--bg-surface);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		border: 1px solid var(--border-primary);
+		color: var(--text-secondary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 90;
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(10px);
+		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+	}
+
+	.back-to-top-btn.visible {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateY(0);
+	}
+
+	.back-to-top-btn:hover, .back-to-top-btn:focus-visible {
+		color: var(--accent-signature);
+		border-color: var(--accent-signature-semi);
+		background: var(--bg-hover);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px var(--accent-signature-glow);
+	}
+
+	.back-to-top-btn:active {
+		transform: translateY(0);
+	}
+
+	.arrow-up-icon {
+		transition: transform 0.25s ease;
+	}
+
+	.back-to-top-btn:hover .arrow-up-icon {
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 640px) {
+		.back-to-top-btn {
+			bottom: 1.5rem;
+			right: 1.5rem;
+			width: 40px;
+			height: 40px;
+		}
 	}
 </style>

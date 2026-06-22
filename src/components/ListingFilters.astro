@@ -1,0 +1,441 @@
+---
+interface Props {
+	gridId: string;
+	cardClass: string;
+	difficultyPillsId: string;
+}
+
+const { gridId, cardClass, difficultyPillsId } = Astro.props;
+---
+<script define:vars={{ gridId, cardClass, difficultyPillsId }}>
+  let filteredCards = [];
+  let currentPage = 1;
+  const cardsPerPage = 9;
+
+  function initFilters() {
+    const grid = document.getElementById(gridId);
+    const emptyState = document.getElementById('empty-state');
+    const cards = Array.from(document.querySelectorAll(`.${cardClass}`));
+    if (cards.length === 0 || !grid) return;
+
+    const diffPills = document.querySelectorAll(`#${difficultyPillsId} .pill-btn`);
+    const protocolSelect = document.getElementById('protocol-select');
+    const deviceSelect = document.getElementById('device-select');
+    const sortSelect = document.getElementById('sort-select');
+
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const numbersContainer = document.getElementById('pagination-numbers');
+
+    let currentDifficulty = 'all';
+
+    const parseUrlParams = () => {
+      const params = new URLSearchParams(window.location.search);
+      const difficulty = params.get('difficulty');
+      const protocol = params.get('protocol');
+      const device = params.get('device');
+      const sort = params.get('sort');
+
+      if (difficulty) {
+        currentDifficulty = difficulty;
+        diffPills.forEach(pill => {
+          const pillDiff = pill.getAttribute('data-difficulty');
+          if (pillDiff === difficulty) {
+            pill.classList.add('active');
+          } else {
+            pill.classList.remove('active');
+          }
+        });
+      }
+      if (protocol && protocolSelect) protocolSelect.value = protocol;
+      if (device && deviceSelect) deviceSelect.value = device;
+      if (sort && sortSelect) sortSelect.value = sort;
+    };
+
+    const updateUrlParams = () => {
+      const params = new URLSearchParams();
+      if (currentDifficulty !== 'all') params.set('difficulty', currentDifficulty);
+      if (protocolSelect && protocolSelect.value !== 'all') params.set('protocol', protocolSelect.value);
+      if (deviceSelect && deviceSelect.value !== 'all') params.set('device', deviceSelect.value);
+      if (sortSelect && sortSelect.value !== 'newest') params.set('sort', sortSelect.value);
+
+      const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      window.history.pushState(null, '', newRelativePathQuery);
+    };
+
+    const filterAndSort = () => {
+      const activeProtocol = protocolSelect ? protocolSelect.value : 'all';
+      const activeDevice = deviceSelect ? deviceSelect.value : 'all';
+      const activeSort = sortSelect ? sortSelect.value : 'newest';
+
+      filteredCards = cards.filter(card => {
+        const diff = card.getAttribute('data-difficulty');
+        const protocols = (card.getAttribute('data-protocols') || '').split(',');
+        const devices = JSON.parse(card.getAttribute('data-devices') || '[]');
+
+        const matchDiff = currentDifficulty === 'all' || diff === currentDifficulty;
+        const matchProtocol = activeProtocol === 'all' || protocols.includes(activeProtocol);
+        const matchDevice = activeDevice === 'all' || devices.includes(activeDevice);
+
+        return matchDiff && matchProtocol && matchDevice;
+      });
+
+      filteredCards.sort((a, b) => {
+        const dateA = parseInt(a.getAttribute('data-date') || '0');
+        const dateB = parseInt(b.getAttribute('data-date') || '0');
+        return activeSort === 'newest' ? dateB - dateA : dateA - dateB;
+      });
+
+      if (emptyState && grid) {
+        if (filteredCards.length === 0) {
+          emptyState.style.display = 'flex';
+          grid.style.display = 'none';
+        } else {
+          emptyState.style.display = 'none';
+          grid.style.display = 'grid';
+        }
+      }
+
+      currentPage = 1;
+      updatePagination();
+      updateUrlParams();
+    };
+
+    const updatePagination = () => {
+      const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+
+      const pagNav = document.getElementById('pagination-nav');
+      if (pagNav) {
+        pagNav.style.display = totalPages <= 1 ? 'none' : 'flex';
+      }
+
+      cards.forEach(card => card.style.display = 'none');
+
+      const startIdx = (currentPage - 1) * cardsPerPage;
+      const endIdx = startIdx + cardsPerPage;
+      const cardsToDisplay = filteredCards.slice(startIdx, endIdx);
+      cardsToDisplay.forEach(card => {
+        card.style.display = 'flex';
+      });
+
+      if (btnPrev) {
+        if (currentPage === 1) {
+          btnPrev.classList.add('disabled');
+          btnPrev.disabled = true;
+        } else {
+          btnPrev.classList.remove('disabled');
+          btnPrev.disabled = false;
+        }
+      }
+
+      if (btnNext) {
+        if (currentPage === totalPages || totalPages === 0) {
+          btnNext.classList.add('disabled');
+          btnNext.disabled = true;
+        } else {
+          btnNext.classList.remove('disabled');
+          btnNext.disabled = false;
+        }
+      }
+
+      if (numbersContainer) {
+        numbersContainer.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.className = `pagination-number ${currentPage === i ? 'active' : ''}`;
+          btn.textContent = String(i);
+          btn.addEventListener('click', () => {
+            currentPage = i;
+            updatePagination();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+          });
+          numbersContainer.appendChild(btn);
+        }
+      }
+    };
+
+    diffPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        diffPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentDifficulty = pill.getAttribute('data-difficulty') || 'all';
+        filterAndSort();
+      });
+    });
+
+    if (protocolSelect) protocolSelect.addEventListener('change', filterAndSort);
+    if (deviceSelect) deviceSelect.addEventListener('change', filterAndSort);
+    if (sortSelect) sortSelect.addEventListener('change', filterAndSort);
+
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+      });
+    }
+
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+      });
+    }
+
+    parseUrlParams();
+    filterAndSort();
+  }
+
+  initFilters();
+  document.addEventListener('astro:page-load', initFilters);
+</script>
+
+<style>
+  .page-section {
+    padding: 2rem 0 4rem 0;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-heading {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-divider {
+    width: 50px;
+    height: 4px;
+    background: var(--accent-signature, #f97316);
+    border-radius: 99px;
+    margin: 0.75rem 0 1rem 0;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .filter-panel {
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .filter-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .filter-pills {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .pill-btn {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .pill-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--border-hover);
+  }
+
+  .pill-btn.active {
+    background: var(--accent-signature, #f97316);
+    color: var(--text-white);
+    border-color: var(--accent-signature);
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
+  }
+
+  .filter-select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card-opaque);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.85em;
+  }
+
+  .filter-select:focus-visible {
+    border-color: var(--accent-signature);
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .empty-text {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 4rem;
+    padding: 0.5rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(8px);
+  }
+
+  .pagination-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pagination-arrow:not(.disabled):hover {
+    background: var(--bg-hover);
+    color: var(--accent-signature);
+  }
+
+  .pagination-arrow.disabled {
+    color: var(--text-muted);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  :global(.pagination-number) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.5rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  :global(.pagination-number:hover) {
+    background: var(--bg-hover);
+    color: var(--accent-signature);
+  }
+
+  :global(.pagination-number.active) {
+    background: var(--accent-signature, #f97316);
+    color: var(--text-white);
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
+  }
+
+  @media (max-width: 992px) {
+    .filter-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+
+    .filter-group {
+      justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-heading {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .pagination {
+      gap: 0.4rem;
+      padding: 0.4rem;
+    }
+
+    .pagination-arrow span {
+      display: none;
+    }
+
+    .pagination-arrow {
+      padding: 0.6rem 0.9rem;
+    }
+
+    :global(.pagination-number) {
+      min-width: 36px;
+      height: 36px;
+      font-size: 0.9rem;
+    }
+  }
+</style>

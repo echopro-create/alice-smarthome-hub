@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import ListingFilters from "../../components/ListingFilters.astro";
 import { getDifficultyLabel } from "../../utils/difficulty";
 
 // Получаем все разборы неисправностей на одну страницу,
@@ -34,9 +35,19 @@ const getProtocols = (devices: string[]) => {
 	if (p.length === 0) p.push("wifi"); // fallback
 	return p.join(",");
 };
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{ "@type": "ListItem", position: 1, name: "Главная", item: "https://smart-hub.info/" },
+		{ "@type": "ListItem", position: 2, name: "Траблшутинг", item: "https://smart-hub.info/troubleshooting/" },
+	],
+};
+const jsonLdString = JSON.stringify([breadcrumbSchema]);
 ---
 
-<Layout title="Разборы и траблшутинг умного дома" description="Технические разборы частых проблем умного дома с Алисой: отвалы датчиков, радиопомехи Zigbee, совместимость устройств. Пошаговые инструкции по решению.">
+<Layout title="Разборы и траблшутинг умного дома" description="Технические разборы частых проблем умного дома с Алисой: отвалы датчиков, радиопомехи Zigbee, совместимость устройств. Пошаговые инструкции по решению." jsonLd={jsonLdString}>
   <section class="page-section">
     <div class="page-header">
       <h1 class="page-heading font-outfit">Разборы и траблшутинг</h1>
@@ -157,389 +168,40 @@ const getProtocols = (devices: string[]) => {
       </button>
     </nav>
   </section>
+  <ListingFilters gridId="trouble-list" cardClass="trouble-card" difficultyPillsId="difficulty-pills" />
 </Layout>
 
-<script>
-  let filteredCards: HTMLElement[] = [];
-  let currentPage = 1;
-  const cardsPerPage = 9;
-
-  function initFilters() {
-    const list = document.getElementById('trouble-list');
-    const emptyState = document.getElementById('empty-state');
-    const cards = Array.from(document.querySelectorAll('.trouble-card')) as HTMLElement[];
-    if (cards.length === 0 || !list) return;
-
-    // Элементы управления
-    const diffPills = document.querySelectorAll('#difficulty-pills .pill-btn');
-    const protocolSelect = document.getElementById('protocol-select') as HTMLSelectElement;
-    const deviceSelect = document.getElementById('device-select') as HTMLSelectElement;
-    const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
-    
-    const btnPrev = document.getElementById('btn-prev') as HTMLButtonElement;
-    const btnNext = document.getElementById('btn-next') as HTMLButtonElement;
-    const numbersContainer = document.getElementById('pagination-numbers');
-
-    let currentDifficulty = 'all';
-
-    // Считываем параметры из URL
-    const parseUrlParams = () => {
-      const params = new URLSearchParams(window.location.search);
-      const difficulty = params.get('difficulty');
-      const protocol = params.get('protocol');
-      const device = params.get('device');
-      const sort = params.get('sort');
-
-      if (difficulty) {
-        currentDifficulty = difficulty;
-        diffPills.forEach(pill => {
-          const pillDiff = pill.getAttribute('data-difficulty');
-          if (pillDiff === difficulty) {
-            pill.classList.add('active');
-          } else {
-            pill.classList.remove('active');
-          }
-        });
-      }
-      if (protocol && protocolSelect) protocolSelect.value = protocol;
-      if (device && deviceSelect) deviceSelect.value = device;
-      if (sort && sortSelect) sortSelect.value = sort;
-    };
-
-    // Обновляем параметры в URL
-    const updateUrlParams = () => {
-      const params = new URLSearchParams();
-      if (currentDifficulty !== 'all') params.set('difficulty', currentDifficulty);
-      if (protocolSelect && protocolSelect.value !== 'all') params.set('protocol', protocolSelect.value);
-      if (deviceSelect && deviceSelect.value !== 'all') params.set('device', deviceSelect.value);
-      if (sortSelect && sortSelect.value !== 'newest') params.set('sort', sortSelect.value);
-
-      const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
-      window.history.pushState(null, '', newRelativePathQuery);
-    };
-
-    const filterAndSort = () => {
-      const activeProtocol = protocolSelect ? protocolSelect.value : 'all';
-      const activeDevice = deviceSelect ? deviceSelect.value : 'all';
-      const activeSort = sortSelect ? sortSelect.value : 'newest';
-
-      // 1. Фильтрация
-      filteredCards = cards.filter(card => {
-        const diff = card.getAttribute('data-difficulty');
-        const protocols = (card.getAttribute('data-protocols') || '').split(',');
-        const devices = JSON.parse(card.getAttribute('data-devices') || '[]');
-
-        const matchDiff = currentDifficulty === 'all' || diff === currentDifficulty;
-        const matchProtocol = activeProtocol === 'all' || protocols.includes(activeProtocol);
-        const matchDevice = activeDevice === 'all' || devices.includes(activeDevice);
-
-        return matchDiff && matchProtocol && matchDevice;
-      });
-
-      // 2. Сортировка
-      filteredCards.sort((a, b) => {
-        const dateA = parseInt(a.getAttribute('data-date') || '0');
-        const dateB = parseInt(b.getAttribute('data-date') || '0');
-        return activeSort === 'newest' ? dateB - dateA : dateA - dateB;
-      });
-
-      // 3. Отображение пустого состояния
-      if (emptyState && list) {
-        if (filteredCards.length === 0) {
-          emptyState.style.display = 'flex';
-          list.style.display = 'none';
-        } else {
-          emptyState.style.display = 'none';
-          list.style.display = 'flex';
-        }
-      }
-
-      currentPage = 1;
-      updatePagination();
-      updateUrlParams();
-    };
-
-    const updatePagination = () => {
-      const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
-      const pagNav = document.getElementById('pagination-nav');
-      if (pagNav) {
-        pagNav.style.display = totalPages <= 1 ? 'none' : 'flex';
-      }
-
-      // Скрываем все карточки
-      cards.forEach(card => card.style.display = 'none');
-
-      // Показываем карточки текущей страницы
-      const startIdx = (currentPage - 1) * cardsPerPage;
-      const endIdx = startIdx + cardsPerPage;
-      const cardsToDisplay = filteredCards.slice(startIdx, endIdx);
-      cardsToDisplay.forEach(card => {
-        card.style.display = 'flex';
-      });
-
-      // Обновляем кнопки вперед/назад
-      if (btnPrev) {
-        if (currentPage === 1) {
-          btnPrev.classList.add('disabled');
-          btnPrev.disabled = true;
-        } else {
-          btnPrev.classList.remove('disabled');
-          btnPrev.disabled = false;
-        }
-      }
-
-      if (btnNext) {
-        if (currentPage === totalPages || totalPages === 0) {
-          btnNext.classList.add('disabled');
-          btnNext.disabled = true;
-        } else {
-          btnNext.classList.remove('disabled');
-          btnNext.disabled = false;
-        }
-      }
-
-      // Генерируем номера страниц
-      if (numbersContainer) {
-        numbersContainer.innerHTML = '';
-        for (let i = 1; i <= totalPages; i++) {
-          const btn = document.createElement('button');
-          btn.className = `pagination-number ${currentPage === i ? 'active' : ''}`;
-          btn.textContent = String(i);
-          btn.addEventListener('click', () => {
-            currentPage = i;
-            updatePagination();
-            window.scrollTo({ top: 300, behavior: 'smooth' });
-          });
-          numbersContainer.appendChild(btn);
-        }
-      }
-    };
-
-    // Слушатели событий сложности
-    diffPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        diffPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        currentDifficulty = pill.getAttribute('data-difficulty') || 'all';
-        filterAndSort();
-      });
-    });
-
-    // Слушатели остальных селектов
-    if (protocolSelect) protocolSelect.addEventListener('change', filterAndSort);
-    if (deviceSelect) deviceSelect.addEventListener('change', filterAndSort);
-    if (sortSelect) sortSelect.addEventListener('change', filterAndSort);
-
-    // Слушатели кнопок пагинации
-    if (btnPrev) {
-      btnPrev.addEventListener('click', () => {
-        if (currentPage > 1) {
-          currentPage--;
-          updatePagination();
-          window.scrollTo({ top: 300, behavior: 'smooth' });
-        }
-      });
-    }
-
-    if (btnNext) {
-      btnNext.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
-        if (currentPage < totalPages) {
-          currentPage++;
-          updatePagination();
-          window.scrollTo({ top: 300, behavior: 'smooth' });
-        }
-      });
-    }
-
-    // Инициализация
-    parseUrlParams();
-    filterAndSort();
-  }
-
-  // Запуск при первой загрузке и при переходе на новые страницы
-  initFilters();
-  document.addEventListener('astro:page-load', initFilters);
-</script>
 
 <style>
-  .page-section {
-    padding: 2rem 0 4rem 0;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .page-heading {
-    font-size: 2.5rem;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-  }
-
-  .section-divider {
-    width: 50px;
-    height: 4px;
-    background: var(--accent-signature, #f97316);
-    border-radius: 99px;
-    margin: 0.75rem 0 1rem 0;
-  }
-
-  .page-desc {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    max-width: 600px;
-    line-height: 1.6;
-  }
-
-  /* Filter Panel styling */
-  .filter-panel {
-    padding: 1.5rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .filter-label {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    white-space: nowrap;
-  }
-
-  .filter-pills {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .pill-btn {
-    background: var(--bg-hover);
-    border: 1px solid var(--border-primary);
-    color: var(--text-secondary);
-    padding: 0.4rem 1rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-radius: 99px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-
-  .pill-btn:hover {
-    color: var(--text-primary);
-    border-color: var(--border-hover);
-  }
-
-  .pill-btn.active {
-    background: var(--accent-signature, #f97316);
-    color: var(--text-white);
-    border-color: var(--accent-signature);
-    box-shadow: 0 4px 10px var(--accent-signature-glow);
-  }
-
-  .filter-select {
-    padding: 0.5rem 2rem 0.5rem 1rem;
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-sm);
-    background: var(--bg-card-opaque);
-    color: var(--text-primary);
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.2s ease;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 0.85em;
-  }
-
-  .filter-select:focus-visible {
-    border-color: var(--accent-signature);
-  }
-
-  /* Troubleshooting List */
+  /* Troubleshooting Cards List */
   .trouble-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
   }
 
   .trouble-card {
+    padding: 2rem;
     display: flex;
-    align-items: center;
-    gap: 1.75rem;
-    padding: 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1.25rem;
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
+    height: 100%;
   }
 
   .trouble-card:hover {
+    transform: translateY(-4px);
     border-color: var(--accent-signature-semi);
     box-shadow: 0 10px 30px var(--accent-signature-glow);
     background: var(--bg-hover);
-    transform: translateY(-3px);
   }
 
-  .trouble-icon-wrap {
+  .card-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: var(--accent-signature-trans);
-    border: 1px solid var(--accent-signature-semi);
-    border-radius: 12px;
-    flex-shrink: 0;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: var(--shadow-sm);
-    color: var(--accent-signature);
-  }
-
-  .trouble-card:hover .trouble-icon-wrap {
-    transform: scale(1.08) rotate(-5deg);
-  }
-
-  .trouble-icon-svg {
-    stroke: var(--accent-signature);
-    filter: drop-shadow(0 0 4px var(--accent-signature-semi));
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .trouble-card:hover .trouble-icon-svg {
-    transform: rotate(15deg);
-  }
-
-  .trouble-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: left;
-  }
-
-  .trouble-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
   }
 
   .difficulty-badge {
@@ -568,33 +230,63 @@ const getProtocols = (devices: string[]) => {
     border: 1px solid var(--diff-hard-border);
   }
 
-  .trouble-date {
+  .trouble-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--bg-item);
+    border: 1px solid var(--border-item);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .trouble-card:hover .trouble-icon-wrap {
+    background: var(--accent-signature-trans);
+    border-color: var(--accent-signature-semi);
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  .trouble-icon-svg {
+    transition: all 0.3s ease;
+  }
+
+  .trouble-card:hover .trouble-icon-svg {
+    color: var(--accent-signature);
+    transform: rotate(-3deg);
+  }
+
+  .date-badge {
     font-size: 0.8rem;
     color: var(--text-muted);
   }
 
   .trouble-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    font-size: 1.35rem;
+    line-height: 1.3;
     transition: color 0.3s ease;
+    color: var(--text-primary);
   }
 
   .trouble-card:hover .trouble-title {
-    color: var(--accent-signature);
+    color: var(--accent-signature, #f97316);
   }
 
   .trouble-desc {
     color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
+    flex: 1;
   }
 
   .trouble-devices {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0;
   }
 
   .device-tag {
@@ -606,184 +298,34 @@ const getProtocols = (devices: string[]) => {
     border-radius: var(--radius-sm);
   }
 
-  .trouble-btn {
+  .device-tag-more {
+    font-size: 0.75rem;
+    color: var(--accent-signature);
+    font-weight: 600;
+    align-self: center;
+  }
+
+  .trouble-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-signature);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
-    background: var(--accent-signature-trans);
-    border: 1px solid var(--accent-signature-semi);
-    border-radius: var(--radius-sm);
-    color: var(--accent-signature);
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
-    flex-shrink: 0;
+    align-self: flex-start;
   }
 
-  .trouble-card:hover .trouble-btn {
-    background: var(--accent-signature);
-    color: var(--bg-main);
-    border-color: var(--accent-signature);
-    box-shadow: 0 4px 10px var(--accent-signature-glow);
-  }
-
-  .trouble-btn-arrow {
+  .trouble-link .arrow {
     transition: transform 0.2s ease;
   }
 
-  .trouble-card:hover .trouble-btn-arrow {
+  .trouble-card:hover .trouble-link .arrow {
     transform: translateX(4px);
   }
 
-  /* Empty state */
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-
-  .empty-text {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  /* Pagination */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 4rem;
-    padding: 0.5rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(8px);
-  }
-
-  .pagination-arrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.6rem 1.25rem;
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .pagination-arrow:not(.disabled):hover {
-    background: var(--bg-hover);
-    color: var(--accent-signature);
-  }
-
-  .pagination-arrow.disabled {
-    color: var(--text-muted);
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .pagination-pages {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  :global(.pagination-number) {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    height: 40px;
-    padding: 0 0.5rem;
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  :global(.pagination-number:hover) {
-    background: var(--bg-hover);
-    color: var(--accent-signature);
-  }
-
-  :global(.pagination-number.active) {
-    background: var(--accent-signature, #f97316);
-    color: var(--text-white);
-    box-shadow: 0 4px 10px var(--accent-signature-glow);
-  }
-
-  @media (max-width: 992px) {
-    .filter-row {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1.25rem;
-    }
-    
-    .filter-group {
-      justify-content: space-between;
-    }
-  }
-
   @media (max-width: 768px) {
-    .trouble-card {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.25rem;
-      padding: 1.5rem;
-    }
-    
-    .trouble-content {
-      text-align: left;
-    }
-
-    .trouble-btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .page-heading {
-      font-size: 2rem;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .pagination {
-      gap: 0.4rem;
-      padding: 0.4rem;
-    }
-    
-    .pagination-arrow span {
-      display: none;
-    }
-    
-    .pagination-arrow {
-      padding: 0.6rem 0.9rem;
-    }
-    
-    :global(.pagination-number) {
-      min-width: 36px;
-      height: 36px;
-      font-size: 0.9rem;
+    .trouble-list {
+      grid-template-columns: 1fr;
     }
   }
 </style>

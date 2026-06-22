@@ -26,6 +26,8 @@
     "astro": "^6.4.7"
   },
   "devDependencies": {
-    "pagefind": "^1.5.2"
+    "@astrojs/check": "^0.9.9",
+    "pagefind": "^1.5.2",
+    "typescript": "^6.0.3"
   }
 }

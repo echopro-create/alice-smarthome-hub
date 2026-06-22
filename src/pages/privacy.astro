@@ -1,12 +1,39 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Главная",
+			item: "https://smart-hub.info/",
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Конфиденциальность",
+			item: "https://smart-hub.info/privacy/",
+		},
+	],
+};
+
+const jsonLdString = JSON.stringify([breadcrumbSchema]);
 ---
 
 <Layout 
   title="Политика конфиденциальности" 
   description="Политика обработки персональных данных сайта Умный Дом с Алисой. Мы не собираем персональные данные без вашего согласия."
+  jsonLd={jsonLdString}
 >
   <article class="page-container">
+    <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
+      <a href="/">Главная</a>
+      <span class="separator">/</span>
+      <span class="current">Конфиденциальность</span>
+    </nav>
     <h1 class="page-title font-outfit">Политика конфиденциальности</h1>
     
     <div class="page-content markdown-body">
@@ -24,7 +51,7 @@ import Layout from "../layouts/Layout.astro";
 
       <h2>2. Использование cookie</h2>
       <p>
-        Сайт использует единственный cookie: <code>localStorage</code> для сохранения выбранной пользователем темы оформления (светлая/тёмная). Этот файл не содержит персональных данных и не используется для отслеживания.
+        Сайт использует <code>localStorage</code> браузера для сохранения выбранной темы оформления (светлая/тёмная) и состояния баннера согласия. Данные хранятся локально на устройстве и не передаются на сервер.
       </p>
 
       <h2>3. Сторонние сервисы</h2>
@@ -32,7 +59,7 @@ import Layout from "../layouts/Layout.astro";
         Мы используем следующие сторонние сервисы:
       </p>
       <ul>
-        <li><strong>Google Fonts</strong> — для загрузки шрифтов Inter и Outfit. Google может собирать анонимную статистику использования шрифтов согласно своей политике конфиденциальности.</li>
+        <li><strong>Шрифты Inter и Outfit</strong> — используются локально, не загружаются со сторонних серверов.</li>
         <li><strong>Яндекс.Метрика</strong> — для анализа посещаемости сайта (подключается после настройки вебмастера).</li>
       </ul>
 

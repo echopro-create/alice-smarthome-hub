@@ -1,45 +1,46 @@
 :root {
 	/* Default: LIGHT theme matching 2026 aesthetics */
-	--bg-main: #f8fafc; /* Чистый холодный сланец */
-	--bg-surface: rgba(255, 255, 255, 0.6);
-	--bg-card: rgba(255, 255, 255, 0.8);
-	--bg-card-opaque: #ffffff;
-	--bg-hover: rgba(79, 70, 229, 0.04);
+	--bg-main: #ffffff;
+	--bg-surface: rgba(245, 245, 245, 0.8);
+	--bg-surface-scrolled: rgba(245, 245, 245, 0.9);
+	--bg-card: rgba(245, 245, 245, 0.9);
+	--bg-card-opaque: #f5f5f5;
+	--bg-hover: rgba(0, 0, 0, 0.04);
 
-	--accent-alice: #4f46e5; /* Благородный индиго */
-	--accent-alice-glow: rgba(79, 70, 229, 0.08);
-	--accent-alice-semi: rgba(79, 70, 229, 0.15);
-	--accent-alice-trans: rgba(79, 70, 229, 0.04);
+	--accent-alice: #1d7370; /* Приглушенный бирюзовый */
+	--accent-alice-glow: rgba(29, 115, 112, 0.08);
+	--accent-alice-semi: rgba(29, 115, 112, 0.15);
+	--accent-alice-trans: rgba(29, 115, 112, 0.04);
 
-	--accent-cyan: #0369a1; /* Холодный лазурно-синий */
+	--accent-cyan: #0369a1;
 	--accent-cyan-glow: rgba(3, 105, 161, 0.08);
 	--accent-cyan-trans: rgba(3, 105, 161, 0.04);
 	--accent-cyan-semi: rgba(3, 105, 161, 0.15);
 	--accent-emerald: #059669;
 
-	/* 2026 Warm Lamp signature accent */
-	--accent-signature: #d97706; /* Глубокий янтарный */
-	--accent-signature-glow: rgba(217, 119, 6, 0.08);
-	--accent-signature-semi: rgba(217, 119, 6, 0.2);
-	--accent-signature-trans: rgba(217, 119, 6, 0.04);
-	--accent-signature-gradient: linear-gradient(135deg, #d97706 0%, #ff5e00 100%);
+	/* 2026 Alice signature accent */
+	--accent-signature: #1d7370;
+	--accent-signature-glow: rgba(29, 115, 112, 0.08);
+	--accent-signature-semi: rgba(29, 115, 112, 0.15);
+	--accent-signature-trans: rgba(29, 115, 112, 0.04);
+	--accent-signature-gradient: #1d7370;
 
 	/* Helper accent colors */
-	--accent-secondary-blue: #4f46e5;
+	--accent-secondary-blue: #3b5e8c;
 
-	--text-primary: #0f172a;
-	--text-primary-semi: rgba(15, 23, 42, 0.7);
-	--text-primary-trans: rgba(15, 23, 42, 0.04);
-	--text-secondary: #334155;
-	--text-muted: #475569;
+	--text-primary: #222222;
+	--text-primary-semi: rgba(34, 34, 34, 0.7);
+	--text-primary-trans: rgba(34, 34, 34, 0.04);
+	--text-secondary: #555555;
+	--text-muted: #888888;
 	--text-white: #ffffff;
 	--text-white-trans: rgba(255, 255, 255, 0.7);
 
-	--border-primary: rgba(15, 23, 42, 0.05);
-	--border-hover: rgba(79, 70, 229, 0.2);
-	--border-footer: rgba(15, 23, 42, 0.05);
-	--border-item: rgba(15, 23, 42, 0.04);
-	--border-share: rgba(79, 70, 229, 0.15);
+	--border-primary: rgba(0, 0, 0, 0.08);
+	--border-hover: rgba(29, 115, 112, 0.2);
+	--border-footer: rgba(0, 0, 0, 0.08);
+	--border-item: rgba(0, 0, 0, 0.05);
+	--border-share: rgba(29, 115, 112, 0.15);
 
 	/* Yandex Brand Colors (CPA buttons) */
 	--yandex-red: #fc3f1d;
@@ -52,37 +53,37 @@
 	--diff-easy-text: #059669;
 	--diff-easy-border: rgba(5, 150, 105, 0.15);
 
-	--diff-medium-bg: rgba(217, 119, 6, 0.08);
-	--diff-medium-text: #b45309;
-	--diff-medium-border: rgba(217, 119, 6, 0.15);
+	--diff-medium-bg: rgba(29, 115, 112, 0.08);
+	--diff-medium-text: #1d7370;
+	--diff-medium-border: rgba(29, 115, 112, 0.15);
 
 	--diff-hard-bg: rgba(220, 38, 38, 0.08);
 	--diff-hard-text: #dc2626;
 	--diff-hard-border: rgba(220, 38, 38, 0.15);
 
 	/* Shadows & Glows */
-	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.02);
-	--shadow-md: 0 8px 30px rgba(0, 0, 0, 0.02), inset 0 1px 1px rgba(255, 255, 255, 0.8);
-	--shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.03), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+	--shadow-sm: none;
+	--shadow-md: none;
+	--shadow-lg: none;
 
-	--glow-alice: 0 8px 24px rgba(79, 70, 229, 0.06);
-	--glow-alice-heavy: 0 0 24px rgba(79, 70, 229, 0.2);
-	--glow-cyan: 0 8px 24px rgba(2, 132, 199, 0.06);
-	--glow-cyan-heavy: 0 0 12px rgba(2, 132, 199, 0.2);
-	--shadow-share: 0 4px 16px rgba(79, 70, 229, 0.03);
-	--shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+	--glow-alice: none;
+	--glow-alice-heavy: none;
+	--glow-cyan: none;
+	--glow-cyan-heavy: none;
+	--shadow-share: none;
+	--shadow-inset: none;
 
 	/* Graphic Elements */
 	--text-shadow-alice: none;
 	--text-shadow-white: none;
-	--header-logo-glow: drop-shadow(0 0 4px rgba(79, 70, 229, 0.2));
-	--step-item-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%);
-	--bg-item: rgba(15, 23, 42, 0.01);
+	--header-logo-glow: none;
+	--step-item-bg: #f9f9f9;
+	--bg-item: rgba(0, 0, 0, 0.01);
 
 	--max-width: 1200px;
-	--radius-sm: 8px;
-	--radius-md: 16px;
-	--radius-lg: 24px;
+	--radius-sm: 4px;
+	--radius-md: 6px;
+	--radius-lg: 8px;
 
 	/* Standard HTML elements auto-theme adaptation */
 	color-scheme: light dark;
@@ -90,43 +91,44 @@
 
 :root.dark {
 	/* DARK theme matching 2026 aesthetics */
-	--bg-main: #0b0f19; /* Строгий обсидианово-угольный */
-	--bg-surface: rgba(15, 23, 42, 0.8);
-	--bg-card: rgba(30, 41, 59, 0.55);
-	--bg-card-opaque: #1e293b;
-	--bg-hover: rgba(51, 65, 85, 0.65);
+	--bg-main: #050505; /* Чистый матовый черный */
+	--bg-surface: rgba(18, 18, 18, 0.8);
+	--bg-surface-scrolled: rgba(18, 18, 18, 0.9);
+	--bg-card: rgba(18, 18, 18, 0.9);
+	--bg-card-opaque: #121212;
+	--bg-hover: rgba(255, 255, 255, 0.05);
 
-	--accent-alice: #818cf8; /* Благородный индиго в темной теме */
-	--accent-alice-glow: rgba(129, 140, 248, 0.15);
-	--accent-alice-semi: rgba(129, 140, 248, 0.25);
-	--accent-alice-trans: rgba(129, 140, 248, 0.05);
+	--accent-alice: #4fb3af; /* Мягкий приглушенный бирюзовый (Teal) */
+	--accent-alice-glow: rgba(79, 179, 175, 0.15);
+	--accent-alice-semi: rgba(79, 179, 175, 0.25);
+	--accent-alice-trans: rgba(79, 179, 175, 0.05);
 
-	--accent-cyan: #38bdf8; /* Приглушенный лазурный */
+	--accent-cyan: #38bdf8;
 	--accent-cyan-glow: rgba(56, 189, 248, 0.15);
 	--accent-cyan-trans: rgba(56, 189, 248, 0.05);
 	--accent-cyan-semi: rgba(56, 189, 248, 0.25);
 	--accent-emerald: #10b981;
 
-	/* 2026 Warm Lamp signature accent */
-	--accent-signature: #fbbf24; /* Золотисто-янтарный */
-	--accent-signature-glow: rgba(251, 191, 36, 0.15);
-	--accent-signature-semi: rgba(251, 191, 36, 0.25);
-	--accent-signature-trans: rgba(251, 191, 36, 0.05);
-	--accent-signature-gradient: linear-gradient(135deg, #fbbf24 0%, #ff782b 100%);
+	/* 2026 Alice signature accent */
+	--accent-signature: #4fb3af;
+	--accent-signature-glow: rgba(79, 179, 175, 0.15);
+	--accent-signature-semi: rgba(79, 179, 175, 0.25);
+	--accent-signature-trans: rgba(79, 179, 175, 0.05);
+	--accent-signature-gradient: #4fb3af;
 
-	--accent-secondary-blue: #6366f1;
+	--accent-secondary-blue: #5e81ac;
 
-	--text-primary: #f3f4f6;
-	--text-primary-semi: rgba(255, 255, 255, 0.7);
-	--text-primary-trans: rgba(255, 255, 255, 0.04);
-	--text-secondary: #a1a1aa;
-	--text-muted: #94a3b8;
+	--text-primary: #dbdbdb;
+	--text-primary-semi: rgba(219, 219, 219, 0.7);
+	--text-primary-trans: rgba(219, 219, 219, 0.05);
+	--text-secondary: #999999;
+	--text-muted: #555555;
 
-	--border-primary: rgba(255, 255, 255, 0.06);
-	--border-hover: rgba(129, 140, 248, 0.3);
-	--border-footer: rgba(255, 255, 255, 0.05);
-	--border-item: rgba(255, 255, 255, 0.04);
-	--border-share: rgba(129, 140, 248, 0.2);
+	--border-primary: rgba(255, 255, 255, 0.08);
+	--border-hover: rgba(79, 179, 175, 0.3);
+	--border-footer: rgba(255, 255, 255, 0.08);
+	--border-item: rgba(255, 255, 255, 0.05);
+	--border-share: rgba(79, 179, 175, 0.2);
 
 	/* Yandex Brand Colors (CPA buttons) */
 	--yandex-red: #fc3f1d;
@@ -139,32 +141,32 @@
 	--diff-easy-text: #10b981;
 	--diff-easy-border: rgba(16, 185, 129, 0.15);
 
-	--diff-medium-bg: rgba(245, 158, 11, 0.12);
-	--diff-medium-text: #fbbf24;
-	--diff-medium-border: rgba(245, 158, 11, 0.15);
+	--diff-medium-bg: rgba(79, 179, 175, 0.12);
+	--diff-medium-text: #4fb3af;
+	--diff-medium-border: rgba(79, 179, 175, 0.15);
 
 	--diff-hard-bg: rgba(239, 68, 68, 0.12);
 	--diff-hard-text: #fca5a5;
 	--diff-hard-border: rgba(239, 68, 68, 0.15);
 
 	/* Shadows & Glows */
-	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-	--shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0px rgba(255, 255, 255, 0.05);
-	--shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+	--shadow-sm: none;
+	--shadow-md: none;
+	--shadow-lg: none;
 
-	--glow-alice: 0 8px 24px rgba(129, 140, 248, 0.12);
-	--glow-alice-heavy: 0 0 30px rgba(129, 140, 248, 0.3);
-	--glow-cyan: 0 8px 24px rgba(56, 189, 248, 0.1);
-	--glow-cyan-heavy: 0 0 15px rgba(56, 189, 248, 0.25);
-	--shadow-share: 0 4px 20px rgba(129, 140, 248, 0.03);
-	--shadow-inset: inset 0 2px 4px rgba(255, 255, 255, 0.02);
+	--glow-alice: none;
+	--glow-alice-heavy: none;
+	--glow-cyan: none;
+	--glow-cyan-heavy: none;
+	--shadow-share: none;
+	--shadow-inset: none;
 
 	/* Graphic Elements */
 	--text-shadow-alice: none;
 	--text-shadow-white: none;
-	--header-logo-glow: drop-shadow(0 0 6px var(--accent-alice));
-	--step-item-bg: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
-	--bg-item: rgba(255, 255, 255, 0.01);
+	--header-logo-glow: none;
+	--step-item-bg: #121212;
+	--bg-item: rgba(255, 255, 255, 0.02);
 }
 
 /* Base Reset */
@@ -239,6 +241,12 @@ h2.section-title {
 	font-family: "Bricolage Grotesque", "Outfit", "Inter", sans-serif;
 }
 
+.font-mono {
+	font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Menlo", "Courier New", monospace;
+	font-feature-settings: "ss01", "ss02", "cv01";
+	letter-spacing: -0.01em;
+}
+
 a {
 	color: inherit;
 	text-decoration: none;
@@ -281,35 +289,24 @@ img {
 
 /* Premium Card Architecture */
 .card-elevated {
-	background: var(--bg-card-opaque);
+	background: transparent;
 	border: 1px solid var(--border-primary);
-	box-shadow: var(--shadow-lg);
-	border-radius: var(--radius-lg);
-	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+	border-radius: var(--radius-sm);
+	transition: border-color 0.2s ease, opacity 0.2s ease;
 }
 
 .card-outlined {
 	background: transparent;
 	border: 1px solid var(--border-primary);
-	border-radius: var(--radius-md);
-	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+	border-radius: var(--radius-sm);
+	transition: border-color 0.2s ease, opacity 0.2s ease;
 }
 
 .card-flat {
-	background: var(--bg-item);
-	border: 1px solid var(--border-item);
-	border-radius: var(--radius-sm);
-	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-/* Glassmorphism limited to Header and Modals */
-.glass {
-	background: var(--bg-card);
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
-	border: 1px solid var(--border-primary);
-	box-shadow: var(--shadow-md);
-	transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	transition: opacity 0.2s ease;
 }
 
 /* Accent gradient text */
@@ -557,18 +554,6 @@ input:focus-visible,
    Premium 2026 Typography, Article and Interactive Custom Classes
    ========================================================================== */
 
-/* Reading progress bar styles */
-.glass-header-nav + .reading-progress-bar {
-	position: absolute;
-	bottom: -1px;
-	left: 0;
-	width: 0%;
-	height: 2px;
-	background: var(--accent-signature, #f97316);
-	box-shadow: 0 0 8px var(--accent-signature-glow);
-	z-index: 101;
-}
-
 /* Table of Contents (ToC) styles */
 .toc-box {
 	padding: 1.5rem;
@@ -613,10 +598,13 @@ input:focus-visible,
 .markdown-body blockquote {
 	margin: 1.5rem 0;
 	padding: 1rem 1.5rem;
-	border-left: 4px solid var(--accent-signature, #f97316);
+	border-left: 5px solid var(--accent-signature);
 	background: var(--bg-hover);
 	border-radius: 0 var(--radius-md) var(--radius-md) 0;
-	color: var(--text-secondary);
+	color: var(--text-primary);
+	font-family: "Outfit", "Inter", sans-serif;
+	font-size: 1.1rem;
+	font-weight: 500;
 }
 
 .markdown-body .callout {
@@ -822,99 +810,26 @@ input:focus-visible,
    Premium 2026 Interactive Effects & Animations (P0)
    ========================================================================== */
 
-/* 1. Cursor Follower */
-.cursor-glow {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 320px;
-	height: 320px;
-	border-radius: 50%;
-	background: radial-gradient(circle, var(--accent-signature-trans) 0%, transparent 70%);
-	pointer-events: none;
-	z-index: 0; /* Behind page content but above background noise */
-	transform: translate3d(-50%, -50%, 0);
-	will-change: transform;
-	opacity: 0;
-	transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-body:hover .cursor-glow {
-	opacity: 0.65;
-}
-
-/* 2. Scroll-triggered reveal animations */
+/* 1. Scroll-triggered reveal animations (simplified for instant display) */
 .reveal-on-scroll {
-	opacity: 0;
-	transform: translateY(30px);
-	transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-	will-change: transform, opacity;
+	opacity: 1;
+	transform: none;
+	transition: none;
 }
 .reveal-on-scroll.revealed {
 	opacity: 1;
-	transform: translateY(0);
+	transform: none;
 }
 
 /* Staggered reveal list items */
 .reveal-stagger-item {
-	opacity: 0;
-	transform: translateY(20px);
-	transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-	will-change: transform, opacity;
+	opacity: 1;
+	transform: none;
+	transition: none;
 }
 .reveal-stagger-item.revealed {
 	opacity: 1;
-	transform: translateY(0);
-}
-
-/* 3. Gradient Mesh Background */
-.mesh-gradient-bg {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	overflow: hidden;
-	pointer-events: none;
-	z-index: 1;
-	filter: blur(100px);
-	opacity: 0.7;
-}
-.mesh-circle {
-	position: absolute;
-	border-radius: 50%;
-	will-change: transform;
-	animation: mesh-float 25s infinite alternate ease-in-out;
-}
-.mesh-circle-1 {
-	width: 500px;
-	height: 500px;
-	background: var(--accent-alice-glow);
-	top: -15%;
-	left: 10%;
-}
-.mesh-circle-2 {
-	width: 600px;
-	height: 600px;
-	background: var(--accent-signature-glow);
-	top: 10%;
-	right: -15%;
-	animation-delay: -5s;
-	animation-duration: 30s;
-}
-.mesh-circle-3 {
-	width: 400px;
-	height: 400px;
-	background: var(--accent-cyan-glow);
-	bottom: -10%;
-	left: 20%;
-	animation-delay: -10s;
-	animation-duration: 20s;
-}
-@keyframes mesh-float {
-	0% { transform: translate(0, 0) scale(1); }
-	33% { transform: translate(60px, -40px) scale(1.15); }
-	66% { transform: translate(-40px, 50px) scale(0.9); }
-	100% { transform: translate(20px, -20px) scale(1.05); }
+	transform: none;
 }
 
 /* 4. Marquee Ticker */
@@ -989,21 +904,20 @@ body:hover .cursor-glow {
 	transition: color 0.3s ease;
 }
 
-/* 6. Card Hover Morphing with soft glow */
-.card-elevated:hover {
-	border-color: var(--accent-signature-semi);
-	box-shadow: 0 20px 40px var(--accent-signature-glow), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-}
-:root.dark .card-elevated:hover {
-	box-shadow: 0 20px 45px var(--accent-signature-trans), inset 0 1px 0px rgba(255, 255, 255, 0.08);
-}
-.card-outlined:hover {
-	border-color: var(--accent-signature-semi);
-	background: var(--bg-hover);
+/* 6. Card Hover (Flat styling) */
+.card-elevated:hover, .card-outlined:hover {
+	border-color: var(--accent-signature);
 }
 .card-flat:hover {
-	border-color: var(--accent-signature-semi);
-	background: var(--bg-surface);
+	opacity: 0.8;
+}
+
+/* Spotlight highlight for interactive results panels */
+.spotlight-card {
+	background: var(--bg-hover);
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-sm);
+	padding: 1rem 1.5rem;
 }
 
 /* Make sure inner items are above ghost number */
@@ -1012,13 +926,4 @@ body:hover .cursor-glow {
 	z-index: 1;
 }
 
-/* Pull quotes styling for editorial view */
-.markdown-body blockquote {
-	font-family: "Bricolage Grotesque", sans-serif;
-	font-size: 1.25rem;
-	font-style: italic;
-	font-weight: 600;
-	border-left: 5px solid var(--accent-signature);
-	color: var(--text-primary);
-}
 

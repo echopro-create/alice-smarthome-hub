@@ -2,1519 +2,729 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import heroImage from "../assets/images/hero-main.png";
-import batteryDrainImg from "../assets/images/steps/battery-drain-1.png";
-import deviceNotRespondingImg from "../assets/images/steps/device-not-responding-1.png";
-import wifiDropImg from "../assets/images/steps/wifi-drop-1.png";
 import Layout from "../layouts/Layout.astro";
-import { getDifficultyLabel } from "../utils/difficulty";
 
 const allEntries = await getCollection("scenarios");
 
-// Разделяем записи по категориям и сортируем по дате (самые свежие первые)
-const scenarios = allEntries
-	.filter((entry) => entry.data.category === "scenario")
-	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
-const troubleshooting = allEntries
-	.filter((entry) => entry.data.category === "troubleshooting")
-	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+// Сортируем все записи по дате (самые свежие первые)
+const sortedEntries = allEntries.sort(
+	(a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
 
-const scenariosToShow = scenarios.slice(0, 6);
-const troubleshootingToShow = troubleshooting.slice(0, 6);
+// Разделяем на сценарии и траблшутинг
+const scenarios = sortedEntries.filter((e) => e.data.category === "scenario").slice(0, 5);
+const troubleshooting = sortedEntries.filter((e) => e.data.category === "troubleshooting").slice(0, 3);
 
-const latestEntries = allEntries
-	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime())
-	.slice(0, 3);
+// Функция расчета времени чтения
+const getReadingTime = (item: (typeof allEntries)[number]) => {
+	const descWords = item.data.description ? item.data.description.split(/\s+/).length : 0;
+	const stepsWords = item.data.steps
+		? item.data.steps.reduce((sum: number, s) => sum + (s.text ? s.text.split(/\s+/).length : 0), 0)
+		: 0;
+	const wordsPerMinute = 180;
+	return Math.ceil((descWords + stepsWords) / wordsPerMinute) || 2;
+};
 ---
 
 <Layout 
   title="Пошаговые сценарии автоматизации и инструкции по настройке" 
   description="Библиотека пошаговых сценариев и руководств по траблшутингу для вашего Умного Дома с Алисой. Систематизируем опыт закрытых сообществ."
 >
-  <!-- Hero Section -->
-  <section class="hero-section bento-grid reveal-on-scroll reveal-stagger-container">
-    <!-- Main Card (Text & Actions) -->
-    <div class="bento-card bento-card-main card-elevated reveal-stagger-item">
-      <div class="hero-badge font-outfit">База знаний Умного Дома</div>
-      <h1 class="hero-title font-outfit">
-        Сделайте ваш дом действительно <span class="accent-title-word">Умным</span> с Алисой
-      </h1>
-      <p class="hero-subtitle">
-        Пошаговые руководства, детальные схемы интеграции и готовые решения проблем. Мы задокументировали и структурировали хаотичный опыт сотен технических сообществ и форумов.
+  <section class="hero-section">
+    <div class="hero-text">
+      <div class="hero-badge font-mono">
+        <span class="badge-dot"></span>
+        <span>Интерактивный хаб</span>
+      </div>
+      <h1 class="hero-title font-outfit">База знаний <span class="hero-brand-gradient">«Умный Дом с Алисой»</span></h1>
+      <p class="hero-desc">
+        Пошаговые руководства, схемы интеграции и готовые решения. Опыт сотен технических сообществ — в структурированных инструкциях.
       </p>
       <div class="hero-actions">
-        <a href="/scenarios/" class="btn btn-primary font-outfit">
-          Изучить сценарии
-          <span class="btn-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="/troubleshooting/" class="btn btn-secondary font-outfit">База траблшутинга</a>
+        <a href="/scenarios/" class="hero-btn primary-btn font-outfit">Каталог сценариев</a>
+        <a href="/troubleshooting/" class="hero-btn secondary-btn font-outfit">Решение неполадок</a>
       </div>
     </div>
+    
+    <div class="hero-search">
+      <button id="hero-search-trigger" class="hero-search-box" aria-label="Поиск по базе знаний">
+        <svg class="search-icon-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span class="hero-search-placeholder">Название устройства, бренд или неисправность...</span>
+        <kbd class="hero-search-shortcut">⌘K</kbd>
+      </button>
+      <p class="hero-brands"><span class="brands-label">Искать по брендам:</span> <a href="/compatibility/?search=aqara" class="brand-link">Aqara</a>, <a href="/compatibility/?search=tuya" class="brand-link">Tuya</a>, <a href="/compatibility/?search=яндекс" class="brand-link">Яндекс</a>, <a href="/compatibility/?search=yeelight" class="brand-link">Yeelight</a>, <a href="/compatibility/?search=sonoff" class="brand-link">Sonoff</a>, <a href="/compatibility/?search=xiaomi" class="brand-link">Xiaomi</a></p>
+    </div>
 
-    <!-- Image Card -->
-    <div class="bento-card bento-card-image reveal-stagger-item">
+    <div style="display: none;">
       <Image 
         src={heroImage} 
-        alt="Премиальный умный дом с Яндекс Станцией и датчиками" 
+        alt="Схема Умного Дома с Алисой" 
         class="hero-image"
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        format="webp"
-        width={634}
-        height={476}
-        sizes="(max-width: 768px) 100vw, 634px"
       />
     </div>
-
-    <!-- Feature Card 1: Local Automation -->
-    <div class="bento-card bento-card-feature card-outlined reveal-stagger-item">
-      <div class="feature-icon" aria-hidden="true">
-        <svg class="feature-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-      </div>
-      <div class="feature-content">
-        <div class="feature-title font-outfit">Локальность</div>
-        <p class="feature-desc">Настройка сценариев автоматизации, работающих локально без интернета.</p>
-      </div>
-    </div>
-
-    <!-- Feature Card 2: Compatibility -->
-    <div class="bento-card bento-card-feature card-outlined reveal-stagger-item">
-      <div class="feature-icon" aria-hidden="true">
-        <svg class="feature-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
-      </div>
-      <div class="feature-content">
-        <div class="feature-title font-outfit">Совместимость</div>
-        <p class="feature-desc">Интеграция Zigbee, Matter и Wi-Fi устройств от разных брендов в единую сеть.</p>
-      </div>
-    </div>
-
-    <!-- Feature Card 3: Troubleshooting -->
-    <div class="bento-card bento-card-feature card-outlined reveal-stagger-item">
-      <div class="feature-icon" aria-hidden="true">
-        <svg class="feature-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-      </div>
-      <div class="feature-content">
-        <div class="feature-title font-outfit">Решение проблем</div>
-        <p class="feature-desc">Устранение задержек, отвалов беспроводных датчиков и радиопомех.</p>
-      </div>
-    </div>
-
-    <!-- Gradient Mesh Background Overlay (Premium 2026) -->
-    <div class="mesh-gradient-bg" aria-hidden="true">
-      <div class="mesh-circle mesh-circle-1"></div>
-      <div class="mesh-circle mesh-circle-2"></div>
-      <div class="mesh-circle mesh-circle-3"></div>
-    </div>
   </section>
 
-  <!-- Marquee Ticker (Premium Editorial) -->
-  <div class="marquee-container" aria-hidden="true">
-    <div class="marquee-content">
-      <div class="marquee-item"><span class="marquee-dot"></span>Zigbee 3.0</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Matter</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Яндекс Станция</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Локальные сценарии</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Умный Дом с Алисой</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Траблшутинг</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Автоматизация климата</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Безопасность</div>
-      
-      <!-- Duplicate for seamless scrolling -->
-      <div class="marquee-item"><span class="marquee-dot"></span>Zigbee 3.0</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Matter</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Яндекс Станция</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Локальные сценарии</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Умный Дом с Алисой</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Траблшутинг</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Автоматизация климата</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Безопасность</div>
-    </div>
-  </div>
-
-  <!-- Stats Counters Section -->
-  <section class="section-container stats-container reveal-on-scroll reveal-stagger-container">
-    <!-- Ghost Number as Editorial Design -->
-    <div class="ghost-number" aria-hidden="true">01</div>
-    <div class="stats-grid">
-      <div class="stat-card card-outlined reveal-stagger-item">
+  <!-- Stats Section (Minimalist) -->
+  <section class="stats-section-minimal">
+    <div class="stats-grid-minimal">
+      <div class="stat-item-minimal">
         <span class="stat-number font-outfit" data-target="69">0</span>
-        <span class="stat-label font-outfit">Инструкций и гайдов</span>
-        <p class="stat-desc">Пошаговые руководства по автоматизации и решению проблем с Алисой.</p>
+        <span class="stat-label-minimal font-outfit">Инструкций и гайдов</span>
       </div>
-      <div class="stat-card card-outlined reveal-stagger-item">
+      <div class="stat-item-minimal">
         <span class="stat-number font-outfit" data-target="150">0</span>
-        <span class="stat-label font-outfit">Устройств в базе</span>
-        <p class="stat-desc">Проверенные на совместимость датчики, реле, лампы и приводы.</p>
+        <span class="stat-label-minimal font-outfit">Устройств в базе</span>
       </div>
-      <div class="stat-card card-outlined reveal-stagger-item">
+      <div class="stat-item-minimal">
         <span class="stat-number font-outfit" data-target="12">0</span>
-        <span class="stat-label font-outfit">Кластеров автоматизации</span>
-        <p class="stat-desc">Тематические направления от климата до комплексной безопасности.</p>
+        <span class="stat-label-minimal font-outfit">Направлений автоматизации</span>
       </div>
     </div>
   </section>
 
-  <!-- Scenarios Section: Anatomy of Automation -->
-  <section id="scenarios" class="section-container automation-anatomy-section reveal-on-scroll">
-    <!-- Ghost Number as Editorial Design -->
-    <div class="ghost-number" aria-hidden="true">02</div>
-    <h2 class="section-title font-outfit">
-      <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-      Один день с Алисой
-    </h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Выберите сценарий, чтобы увидеть работу датчиков и устройств умного дома в реальном времени.</p>
+  <!-- Troubleshooting strips section (instead of terminal) -->
+  <section id="troubleshooting-strips" class="troubleshooting-strips-section">
+    <header class="section-header">
+      <span class="section-label font-mono">01 / Траблшутинг</span>
+      <h2 class="section-title font-outfit">Решения неисправностей</h2>
+      <p class="section-desc">Пошаговое устранение сбоев, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
+    </header>
     
-    <div class="anatomy-grid card-elevated">
-      <!-- Left: Interactive steps (tabs) -->
-      <div class="anatomy-steps" role="tablist" aria-label="Сценарии автоматизации">
-        <button class="anatomy-step-btn active" data-scene="morning" aria-selected="true" role="tab" id="scene-tab-morning" aria-controls="anatomy-dashboard">
-          <span class="step-num font-outfit">
-            <svg class="step-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M6.34 17.66l-1.41 1.41"></path><path d="M19.07 4.93l-1.41 1.41"></path></svg>
-          </span>
-          <div class="step-text">
-            <h3 class="step-title font-outfit">07:30 — Утреннее пробуждение</h3>
-            <p class="step-desc">Мягкий старт дня: плавное включение света, свежий кофе и утреннее шоу Алисы.</p>
-          </div>
-        </button>
-        <button class="anatomy-step-btn" data-scene="away" aria-selected="false" role="tab" id="scene-tab-away" aria-controls="anatomy-dashboard">
-          <span class="step-num font-outfit">
-            <svg class="step-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          </span>
-          <div class="step-text">
-            <h3 class="step-title font-outfit">09:00 — Все ушли (Охрана)</h3>
-            <p class="step-desc">Автоматическое сбережение энергии, активация видеокамер и запуск уборки.</p>
-          </div>
-        </button>
-        <button class="anatomy-step-btn" data-scene="cinema" aria-selected="false" role="tab" id="scene-tab-cinema" aria-controls="anatomy-dashboard">
-          <span class="step-num font-outfit">
-            <svg class="step-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="3" rx="2"></rect><path d="M12 18v4"></path><path d="M8 22h8"></path></svg>
-          </span>
-          <div class="step-text">
-            <h3 class="step-title font-outfit">20:00 — Вечерний уют</h3>
-            <p class="step-desc">Создание идеальной атмосферы: закрытие штор, приглушенный неон и включение кино.</p>
-          </div>
-        </button>
-      </div>
-      <div class="anatomy-link-wrapper">
-        <a href="/scenarios/" class="card-link font-outfit">
-          Все сценарии автоматизации <span class="arrow">→</span>
-        </a>
-      </div>
-      
-      <!-- Right: Minimalist Dashboard -->
-      <div class="anatomy-dashboard card-flat" id="anatomy-dashboard" role="tabpanel" aria-label="Описание сценария">
-        <h3 class="dashboard-title font-outfit" id="dash-title">Утреннее пробуждение</h3>
-        
-        <!-- Logic Builder Panel -->
-        <div class="logic-scheme">
-          <div class="logic-block logic-if">
-            <span class="logic-label font-outfit">ЕСЛИ</span>
-            <span class="logic-value" id="logic-val-if">Датчик движения зафиксировал активность</span>
-          </div>
-          <div class="logic-block logic-and" id="logic-block-and">
-            <span class="logic-label font-outfit">И</span>
-            <span class="logic-value" id="logic-val-and">Время суток с 07:00 до 09:00</span>
-          </div>
-          <div class="logic-block logic-then">
-            <span class="logic-label font-outfit">ТО</span>
-            <span class="logic-value" id="logic-val-then">Сварить кофе, включить лампу, запустить утренний плейлист</span>
-          </div>
-        </div>
-
-        <!-- Devices Section -->
-        <div class="dashboard-devices-section">
-          <h4 class="devices-section-title font-outfit">Необходимое оборудование</h4>
-          <div class="dashboard-devices-list" id="dash-devices">
-            <div class="device-item-row">
-              <span class="device-item-icon">🚶‍♂️</span>
-              <div class="device-item-info">
-                <span class="device-item-name">Датчик движения Aqara</span>
-                <span class="device-item-protocol">Zigbee 3.0</span>
-              </div>
-            </div>
-            <div class="device-item-row">
-              <span class="device-item-icon">🔊</span>
-              <div class="device-item-info">
-                <span class="device-item-name">Яндекс Станция</span>
-                <span class="device-item-protocol">Wi-Fi</span>
-              </div>
-            </div>
-            <div class="device-item-row">
-              <span class="device-item-icon">☕</span>
-              <div class="device-item-info">
-                <span class="device-item-name">Умная розетка Tuya</span>
-                <span class="device-item-protocol">Zigbee</span>
-              </div>
-            </div>
-            <div class="device-item-row">
-              <span class="device-item-icon">💡</span>
-              <div class="device-item-info">
-                <span class="device-item-name">Умная лампа Яндекс</span>
-                <span class="device-item-protocol">Wi-Fi / Matter</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="dashboard-action-wrap">
-          <a href="/scenarios/morning-coffee/" class="btn btn-secondary font-outfit" id="dash-link">
-            Читать гайд по настройке <span class="arrow">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="view-all-container">
-      <a href="/scenarios/" class="view-all-btn font-outfit">
-        <span>Все сценарии</span>
-        <span class="view-all-arrow">→</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Troubleshooting Section: Feature Strips (Z-pattern) -->
-  <section id="troubleshooting" class="section-container troubleshooting-strips-section reveal-on-scroll">
-    <!-- Ghost Number as Editorial Design -->
-    <div class="ghost-number" aria-hidden="true">03</div>
-    <div class="trouble-glow" aria-hidden="true"></div>
-    <h2 class="section-title font-outfit">
-      <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-      База траблшутинга
-    </h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Пошаговое решение критических сбоев, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
-    
-    <div class="troubleshooting-strips-list">
-      <!-- Strip 1: Device not responding (Text left, Image right) -->
-      <div class="trouble-strip card-elevated reveal-on-scroll">
-        <div class="strip-content">
-          <div class="card-header">
-            <span class="difficulty-badge easy">ЛЕГКО</span>
-            <span class="date-badge">20 июня 2026</span>
-          </div>
-          <h3 class="strip-title font-outfit">Устройство не отвечает в Доме с Алисой: причины решения</h3>
-          <p class="strip-desc">Подробный разбор причин отвала розеток, ламп и датчиков. Диагностика проблем питания, забитого радиоэфира и сбоев интеграции в облачных или локальных сценариях.</p>
-          
-          <div class="card-devices">
-            <span class="device-tag">Яндекс Станция</span>
-            <span class="device-tag">Умная розетка</span>
-            <span class="device-tag">Датчик температуры</span>
-          </div>
-          
-          <a href="/troubleshooting/device-not-responding/" class="trouble-link font-outfit">
-            Решение проблемы <span class="arrow">→</span>
-          </a>
-        </div>
-        <div class="strip-image-wrap">
-          <Image 
-            src={deviceNotRespondingImg} 
-            alt="Схема решения ошибки Устройство не отвечает в приложении Умный Дом с Алисой" 
-            class="strip-image"
-            loading="lazy"
-            format="webp"
-            sizes="(max-width: 992px) 100vw, 420px"
-            width={500}
-            height={330}
-          />
-        </div>
-      </div>
-
-      <!-- Strip 2: Wifi drop (Image left, Text right) -->
-      <div class="trouble-strip card-elevated reverse reveal-on-scroll">
-        <div class="strip-content">
-          <div class="card-header">
-            <span class="difficulty-badge easy">ЛЕГКО</span>
-            <span class="date-badge">18 июня 2026</span>
-          </div>
-          <h3 class="strip-title font-outfit">Яндекс Станция теряет Wi-Fi и отключается от сети</h3>
-          <p class="strip-desc">Устранение постоянных обрывов Wi-Fi соединения на колонках Алиса. Оптимальная настройка домашнего роутера, выбор частоты 5 ГГц и свободных каналов для стабильной локальной автоматизации.</p>
-          
-          <div class="card-devices">
-            <span class="device-tag">Яндекс Станция (все модели)</span>
-            <span class="device-tag">Домашний роутер Wi-Fi</span>
-          </div>
-          
-          <a href="/troubleshooting/yandex-station-wifi-drop/" class="trouble-link font-outfit">
-            Решение проблемы <span class="arrow">→</span>
-          </a>
-        </div>
-        <div class="strip-image-wrap">
-          <Image 
-            src={wifiDropImg} 
-            alt="Инструкция по настройке Wi-Fi роутера для Яндекс Станции" 
-            class="strip-image"
-            loading="lazy"
-            format="webp"
-            sizes="(max-width: 992px) 100vw, 420px"
-            width={500}
-            height={330}
-          />
-        </div>
-      </div>
-
-      <!-- Strip 3: Battery drain (Text left, Image right) -->
-      <div class="trouble-strip card-elevated reveal-on-scroll">
-        <div class="strip-content">
-          <div class="card-header">
-            <span class="difficulty-badge medium">СРЕДНЕ</span>
-            <span class="date-badge">15 июня 2026</span>
-          </div>
-          <h3 class="strip-title font-outfit">Быстрый разряд батареек в беспроводных датчиках</h3>
-          <p class="strip-desc">Почему Zigbee датчики Aqara/Tuya разряжают элементы CR2032 за пару недель. Разбор причин: плохой линк с хабом, радиопомехи, неправильные настройки интервала опроса и как это исправить.</p>
-          
-          <div class="card-devices">
-            <span class="device-tag">Датчики движения / открытия</span>
-            <span class="device-tag">Zigbee репитеры</span>
-            <span class="device-tag">Батарейки CR2032</span>
-          </div>
-          
-          <a href="/troubleshooting/battery-drain-troubleshooting/" class="trouble-link font-outfit">
-            Решение проблемы <span class="arrow">→</span>
-          </a>
-        </div>
-        <div class="strip-image-wrap">
-          <Image 
-            src={batteryDrainImg} 
-            alt="Инструкция по экономии батареек в датчиках умного дома" 
-            class="strip-image"
-            loading="lazy"
-            format="webp"
-            sizes="(max-width: 992px) 100vw, 420px"
-            width={500}
-            height={330}
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="view-all-container">
-      <a href="/troubleshooting/" class="view-all-btn font-outfit">
-        <span>Все разборы</span>
-        <span class="view-all-arrow">→</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Latest Publications Section (SEO Boost) -->
-  <section id="latest-publications" class="section-container latest-publications-section reveal-on-scroll reveal-stagger-container">
-    <!-- Ghost Number as Editorial Design -->
-    <div class="ghost-number" aria-hidden="true">04</div>
-    <h2 class="section-title font-outfit">
-      <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Свежие публикации
-    </h2>
-    <div class="section-divider"></div>
-    <p class="section-desc">Новые материалы в нашей базе знаний. Раздел обновляется автоматически.</p>
-    
-    <div class="latest-cards-grid">
-      {latestEntries.map(entry => {
-        const isScenario = entry.data.category === 'scenario';
-        const detailUrl = isScenario ? `/scenarios/${entry.id}/` : `/troubleshooting/${entry.id}/`;
-        const categoryLabel = isScenario ? 'Сценарий' : 'Траблшутинг';
-        const categoryClass = isScenario ? 'category-scenario' : 'category-troubleshooting';
-        
-        const dateStr = new Date(entry.data.publishDate).toLocaleDateString('ru-RU', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-        
+    <div class="trouble-strips-container">
+      {troubleshooting.map((item) => {
+        const url = `/troubleshooting/${item.id}/`;
         return (
-          <div class="latest-card card-outlined reveal-stagger-item">
-            <div class="card-meta">
-              <span class={`category-badge ${categoryClass}`}>{categoryLabel}</span>
-              <span class="publish-date">{dateStr}</span>
-            </div>
-            <h3 class="card-title font-outfit">
-              {entry.data.title}
-            </h3>
-            <p class="card-desc">{entry.data.description}</p>
-            {entry.data.devices && entry.data.devices.length > 0 && (
-              <div class="card-devices-list">
-                {entry.data.devices.slice(0, 3).map(dev => (
-                  <span class="device-tag-mini">{dev}</span>
-                ))}
+          <div class="trouble-strip card-elevated">
+            <div class="strip-content">
+              <div class="strip-meta">
+                <span class={`difficulty-badge font-mono ${item.data.difficulty || 'easy'}`}>{item.data.difficulty || 'easy'}</span>
+                <span class="strip-date font-mono">{new Date(item.data.publishDate).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
               </div>
-            )}
-            <div class="card-action-wrap">
-              <a href={detailUrl} class="read-more-link font-outfit">
-                Читать далее <span class="arrow" aria-hidden="true">→</span>
+              <a href={url} class="strip-title-link">
+                <h3 class="strip-title">{item.data.title}</h3>
               </a>
+              <p class="strip-desc">{item.data.description}</p>
+              {item.data.devices && item.data.devices.length > 0 && (
+                <div class="strip-devices font-mono">
+                  {item.data.devices.slice(0, 3).map(dev => (
+                    <a href={`/compatibility/?search=${encodeURIComponent(dev.toLowerCase())}`} class="device-tag">{dev}</a>
+                  ))}
+                </div>
+              )}
             </div>
+            <a href={url} class="strip-action-link font-mono">Решение проблемы →</a>
           </div>
         );
       })}
     </div>
   </section>
+
+  <!-- Chronological Articles List (Scenarios Only) -->
+  <section id="latest-publications" class="articles-list-section">
+    <header class="section-header">
+      <span class="section-label font-mono">02 / Автоматизация</span>
+      <h2 class="articles-section-title font-outfit">Последние сценарии автоматизации</h2>
+      <p class="articles-section-desc">Новые пошаговые сценарии для настройки вашего Умного Дома.</p>
+    </header>
+    
+    <div class="scenarios-container">
+      <ul class="scenario-flat-list">
+        {scenarios.map(item => {
+          const url = `/scenarios/${item.id}/`;
+          const dateStr = new Date(item.data.publishDate)
+            .toLocaleDateString('ru-RU', { month: 'short', day: 'numeric' })
+            .replace('.', '');
+          const readingTime = getReadingTime(item);
+          
+          return (
+            <li class="scenario-flat-item">
+              <div class="scenario-item-meta font-mono">
+                <span class="scenario-item-date">{dateStr}</span>
+                <span class="scenario-item-category">сценарий</span>
+                <span class="scenario-item-time">⚡ {readingTime} мин</span>
+              </div>
+              <div class="scenario-item-content">
+                <a href={url} class="scenario-item-link">
+                  <h3 class="scenario-item-title">{item.data.title}</h3>
+                </a>
+                <p class="scenario-item-desc">{item.data.description}</p>
+                {item.data.devices && item.data.devices.length > 0 && (
+                  <div class="scenario-item-devices font-mono">
+                    <span class="devices-label">Оборудование:</span>
+                    {item.data.devices.slice(0, 4).map(dev => (
+                      <a href={`/compatibility/?search=${encodeURIComponent(dev.toLowerCase())}`} class="device-tag">{dev}</a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+
+    <div class="archive-links font-mono">
+      <a href="/scenarios/" class="archive-link">Все сценарии автоматизации →</a>
+      <a href="/troubleshooting/" class="archive-link">Все решения неисправностей →</a>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  /* Hero Section (Bento Grid) */
-  .hero-section.bento-grid {
-    position: relative;
-    padding: 2.5rem 0 2.5rem 0;
+  /* Hero Section */
+  .hero-section {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: auto;
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 3rem 0 2.5rem 0;
+    border-bottom: 1px solid var(--border-primary);
+    margin-bottom: 0;
   }
-
-  .bento-card {
-    border-radius: 2.25rem;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 2;
-  }
-
-  .bento-card-main {
-    grid-column: span 7;
-    padding: 3rem 3rem;
+  .hero-text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    gap: 1.25rem;
-    text-align: left;
+    gap: 1rem;
   }
-
-  .bento-card-main .hero-title,
-  .bento-card-main .hero-subtitle,
-  .bento-card-main .hero-badge {
-    margin: 0;
-  }
-
-  .bento-card-image {
-    grid-column: span 5;
-    position: relative;
-    display: flex;
-  }
-
-  .bento-card-image .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 70%;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .bento-card-image::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.2) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .bento-card-feature {
-    grid-column: span 4;
-    padding: 2.25rem 2rem;
-    display: flex;
-    gap: 1.25rem;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  /* Bento Hover Effects */
-  .bento-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .bento-card-image:hover .hero-image {
-    transform: scale(1.03);
-  }
-
-  /* Text & Elements Inside Bento */
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.45rem 1.15rem;
-    background: var(--bg-surface);
+    padding: 0.35rem 0.75rem;
+    background: var(--bg-hover);
     border: 1px solid var(--border-primary);
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 700;
     border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    box-shadow: var(--shadow-sm);
+    letter-spacing: 0.05em;
+    color: var(--accent-signature);
+    margin-bottom: 0.25rem;
   }
-
-  .hero-badge::before {
-    content: '';
+  .badge-dot {
     width: 6px;
     height: 6px;
-    background-color: var(--accent-signature, #f97316);
+    background: var(--accent-signature);
     border-radius: 50%;
     display: inline-block;
     box-shadow: 0 0 8px var(--accent-signature);
-    animation: badge-pulse 2s infinite;
   }
-
-  @keyframes badge-pulse {
-    0% { transform: scale(0.9); opacity: 0.6; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(0.9); opacity: 0.6; }
-  }
-
   .hero-title {
-    font-size: 3.25rem;
-    line-height: 1.1;
-    font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 900;
+    line-height: 1.15;
     letter-spacing: -0.03em;
     color: var(--text-primary);
+    text-wrap: balance;
   }
-
-  .accent-title-word {
-    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
+  .hero-brand-gradient {
+    background: linear-gradient(135deg, var(--accent-signature) 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     display: inline-block;
   }
-
-  .hero-subtitle {
+  .hero-desc {
     font-size: 1.05rem;
-    color: var(--text-secondary);
     line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 500px;
+    text-wrap: pretty;
   }
-
   .hero-actions {
     display: flex;
-    gap: 1rem;
-    width: 100%;
+    gap: 0.75rem;
     margin-top: 0.5rem;
   }
-
-  .btn {
-    padding: 0.9rem 1.75rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border-radius: 99px;
-    text-decoration: none;
+  .hero-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent-signature) 0%, #ff7a30 100%);
-    color: var(--text-white);
-    box-shadow: 0 4px 14px var(--accent-signature-glow);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--accent-signature-semi);
-    filter: brightness(1.05);
-  }
-
-  .btn-arrow {
-    transition: transform 0.2s ease;
-  }
-
-  .btn-primary:hover .btn-arrow {
-    transform: translateX(3px);
-  }
-
-  .btn-secondary {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-primary);
-  }
-
-  .btn-secondary:hover {
-    background: var(--bg-card-opaque);
-    border-color: var(--border-hover);
-    transform: translateY(-2px);
-  }
-
-  .feature-icon {
-    font-size: 1.5rem;
-    padding: 0.6rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    color: var(--accent-signature, #f97316);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .feature-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.4rem;
-  }
-
-  .feature-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  .hero-glow {
-    position: absolute;
-    top: -10%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-    filter: blur(80px);
-    opacity: 0.6;
-  }
-
-  /* Stats Section */
-  .stats-container {
-    padding: 1rem 0 3rem 0;
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .stat-card {
-    padding: 2.5rem 2rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .stat-number {
-    font-size: 3.5rem;
-    font-weight: 800;
-    line-height: 1;
-    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .stat-label {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-
-  .stat-desc {
+    padding: 0.6rem 1.5rem;
     font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all 0.2s ease;
   }
-
-  /* Anatomy Section */
-  .automation-anatomy-section {
-    position: relative;
-  }
-
-  .anatomy-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-      "steps dashboard"
-      "link dashboard";
-    gap: 2rem;
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-  }
-
-  .anatomy-steps {
-    grid-area: steps;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .anatomy-step-btn {
-    display: flex;
-    text-align: left;
-    gap: 1.25rem;
-    padding: 1.25rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .anatomy-step-btn:hover {
-    border-color: var(--border-hover);
-    background: var(--bg-card-opaque);
-    transform: translateX(4px);
-  }
-
-  .anatomy-step-btn.active {
-    border-color: var(--accent-signature);
-    background: var(--accent-signature-trans);
-    box-shadow: 0 0 0 1px var(--accent-signature);
-  }
-
-  .step-num {
-    font-size: 1.25rem;
-    padding: 0.5rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: 10px;
-    height: 42px;
-    width: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-  }
-
-  .anatomy-step-btn.active .step-num {
+  .primary-btn {
     background: var(--accent-signature);
     color: var(--text-white);
-    border-color: var(--accent-signature);
+    border: 1px solid var(--accent-signature);
   }
-
-  .step-text {
+  .primary-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  .secondary-btn {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+  }
+  .secondary-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-hover);
+  }
+  .hero-search {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .step-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
-    transition: color 0.3s ease;
-  }
-
-  .anatomy-step-btn.active .step-title {
-    color: var(--accent-signature);
-  }
-
-  .step-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .anatomy-link-wrapper {
-    grid-area: link;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .card-link {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--accent-signature);
-    text-decoration: none;
-    display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    transition: color 0.3s ease;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
   }
-
-  .card-link .arrow {
-    transition: transform 0.2s ease;
-  }
-
-  .card-link:hover .arrow {
-    transform: translateX(4px);
-  }
-
-  /* Right Dashboard */
-  .anatomy-dashboard {
-    grid-area: dashboard;
-    padding: 2.25rem;
+  .hero-search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    padding: 0 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
     border-radius: var(--radius-md);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .dashboard-title {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    margin: 0;
-    border-bottom: 1px solid var(--border-primary);
-    padding-bottom: 0.75rem;
-  }
-
-  /* Logic Builder */
-  .logic-scheme {
-    display: flex;
-    flex-direction: column;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
     gap: 0.75rem;
   }
-
-  .logic-block {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
+  .hero-search-box:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
   }
-
-  .logic-label {
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.5rem;
-    border-radius: var(--radius-sm);
+  .search-icon-svg {
+    color: var(--text-muted);
     flex-shrink: 0;
   }
-
-  .logic-if {
-    background-color: rgba(59, 130, 246, 0.07);
-    border: 1px solid rgba(59, 130, 246, 0.15);
+  .hero-search-box:hover .search-icon-svg {
+    color: var(--accent-signature);
   }
-
-  .logic-if .logic-label {
-    background-color: #3b82f6;
-    color: var(--text-white);
+  .hero-search-placeholder {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    flex-grow: 1;
+    user-select: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-
-  .logic-and {
-    background-color: rgba(168, 85, 247, 0.07);
-    border: 1px solid rgba(168, 85, 247, 0.15);
+  .hero-search-shortcut {
+    font-size: 0.75rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-family: monospace;
+    flex-shrink: 0;
   }
-
-  .logic-and .logic-label {
-    background-color: #a855f7;
-    color: var(--text-white);
+  .hero-brands {
+    margin: 0.75rem 0 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    text-align: center;
   }
-
-  .logic-then {
-    background-color: rgba(34, 197, 94, 0.07);
-    border: 1px solid rgba(34, 197, 94, 0.15);
+  .brands-label {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.7rem;
+    margin-right: 0.35rem;
   }
-
-  .logic-then .logic-label {
-    background-color: #22c55e;
-    color: var(--text-white);
-  }
-
-  .logic-value {
-    color: var(--text-primary);
+  .brand-link {
+    color: var(--text-muted);
+    text-decoration: none;
     font-weight: 500;
-    line-height: 1.4;
+  }
+  .brand-link:hover {
+    color: var(--accent-signature);
   }
 
-  /* Dashboard Devices */
-  .dashboard-devices-section {
+  /* Minimalist Stats Section */
+  .stats-section-minimal {
+    border-bottom: 1px solid var(--border-primary);
+    padding: 1.5rem 0;
+    margin: 0 0 2rem 0;
+  }
+  .stats-grid-minimal {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+  .stat-item-minimal {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
   }
-
-  .devices-section-title {
-    font-size: 0.95rem;
+  .stat-item-minimal .stat-number {
+    font-size: 1.75rem;
     font-weight: 700;
-    color: var(--text-muted);
-    margin: 0;
+    color: var(--accent-signature);
+    line-height: 1.2;
+  }
+  .stat-label-minimal {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
-  .dashboard-devices-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-  }
-
-  .device-item-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 0.85rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-sm);
-  }
-
-  .device-item-icon {
-    font-size: 1.2rem;
-  }
-
-  .device-item-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .device-item-name {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .device-item-protocol {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .dashboard-action-wrap {
-    margin-top: auto;
-  }
-
-  .dashboard-action-wrap .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Section Common Elements */
-  .section-container {
-    padding: 5rem 0;
-    text-align: center;
-  }
-
-  .section-title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .section-title .heading-icon {
-    color: var(--accent-signature, #f97316);
-  }
-
-  .section-divider {
-    width: 60px;
-    height: 4px;
-    background: var(--accent-signature);
-    border-radius: 99px;
-    margin: 0 auto 1.5rem auto;
-  }
-
-  .section-desc {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    max-width: 600px;
-    margin: 0 auto 3rem auto;
-    line-height: 1.5;
-  }
-
-  .view-all-container {
-    margin-top: 3rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .view-all-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 2rem;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    border-radius: 99px;
-    color: var(--text-primary);
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .view-all-btn:hover {
-    border-color: var(--accent-signature);
-    background-color: var(--bg-card-opaque);
-    color: var(--accent-signature);
-  }
-
-  .view-all-arrow {
-    transition: transform 0.2s ease;
-  }
-
-  .view-all-btn:hover .view-all-arrow {
-    transform: translateX(4px);
-  }
-
-  /* Troubleshooting Feature Strips */
+  /* Troubleshooting Strips */
   .troubleshooting-strips-section {
+    margin: 4rem 0 5rem 0;
+    scroll-margin-top: 5.5rem;
+  }
+  .articles-list-section {
+    margin: 0 0 5rem 0;
+    scroll-margin-top: 5.5rem;
+  }
+  .section-header {
     position: relative;
+    margin-bottom: 2.5rem;
+    padding: 0.85rem 1.75rem;
+    border: 1px solid var(--border-primary);
+    border-left: 4px solid var(--accent-signature);
+    background: var(--bg-hover);
+    border-radius: 12px;
   }
-
-  .trouble-glow {
-    position: absolute;
-    bottom: -10%;
-    left: -10%;
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-    filter: blur(80px);
-    opacity: 0.4;
+  .section-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--accent-signature);
+    letter-spacing: 0.15em;
+    margin: 0 0 0.35rem 0;
+    text-transform: uppercase;
+    font-weight: 700;
   }
-
-  .troubleshooting-strips-list {
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .section-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  .trouble-strips-container {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
-    z-index: 2;
-    position: relative;
+    gap: 1.5rem;
   }
-
   .trouble-strip {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    border: 1px solid var(--border-primary);
+    background: transparent;
+    border-radius: var(--radius-md);
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+    box-shadow: var(--shadow-sm);
+    padding: 2rem;
+    text-decoration: none;
   }
-
-  .trouble-strip.reverse {
-    grid-template-columns: 1fr 1.2fr;
+  .trouble-strip:hover {
+    border-color: var(--border-hover);
   }
-
-  .trouble-strip.reverse .strip-content {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .trouble-strip.reverse .strip-image-wrap {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
   .strip-content {
-    padding: 3rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 1.25rem;
-    justify-content: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
   }
-
-  .card-header {
+  .strip-meta {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
   }
-
   .difficulty-badge {
+    text-transform: uppercase;
     font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.4rem;
     border-radius: var(--radius-sm);
   }
-
   .difficulty-badge.easy {
-    background-color: var(--diff-easy-bg);
+    background: var(--diff-easy-bg);
     color: var(--diff-easy-text);
     border: 1px solid var(--diff-easy-border);
   }
-
   .difficulty-badge.medium {
-    background-color: var(--diff-medium-bg);
+    background: var(--diff-medium-bg);
     color: var(--diff-medium-text);
     border: 1px solid var(--diff-medium-border);
   }
-
-  .date-badge {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 500;
+  .difficulty-badge.hard {
+    background: var(--diff-hard-bg);
+    color: var(--diff-hard-text);
+    border: 1px solid var(--diff-hard-border);
   }
-
+  .strip-title-link {
+    text-decoration: none;
+    min-width: 0;
+  }
   .strip-title {
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.3;
     margin: 0;
-    transition: color 0.3s ease;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+    line-height: 1.3;
   }
-
-  .trouble-strip:hover .strip-title {
+  .strip-title-link:hover .strip-title {
     color: var(--accent-signature);
   }
-
   .strip-desc {
     font-size: 0.95rem;
     color: var(--text-secondary);
-    line-height: 1.5;
     margin: 0;
+    line-height: 1.5;
+    max-width: 800px; /* Удобная ширина строки для чтения */
   }
-
-  .card-devices {
+  .strip-devices {
     display: flex;
-    gap: 0.5rem;
     flex-wrap: wrap;
+    gap: 0.5rem;
   }
-
   .device-tag {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    background-color: var(--bg-surface);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: var(--bg-hover);
     border: 1px solid var(--border-primary);
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-sm);
-  }
-
-  .trouble-link {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--accent-signature);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px; /* Скругленные теги */
     text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+  }
+  .device-tag:hover {
+    background: var(--accent-alice-trans);
+    border-color: var(--border-hover);
+    color: var(--accent-alice);
+  }
+  .strip-action-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    color: var(--accent-signature);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+  .strip-action-link:hover {
+    background: var(--accent-signature);
+    color: var(--bg-main);
+    border-color: var(--accent-signature);
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
   }
 
-  .trouble-link .arrow {
-    transition: transform 0.2s ease;
+  /* Flat lists timeline & archives */
+  .articles-section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .articles-section-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  .archive-links {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border-primary);
+    padding-top: 1.5rem;
+  }
+  .archive-link {
+    font-size: 0.95rem;
+    color: var(--accent-signature);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  .archive-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
   }
 
-  .trouble-strip:hover .trouble-link .arrow {
-    transform: translateX(4px);
-  }
-
-  .strip-image-wrap {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .strip-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .trouble-strip:hover .strip-image {
-    transform: scale(1.03);
-  }
-
-  /* Latest Publications Section */
-  .latest-publications-section {
-    padding-bottom: 5rem;
-  }
-
-  .latest-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .latest-card {
-    padding: 2.25rem 2rem;
-    border-radius: var(--radius-lg);
+  /* Scenario Flat List (Two-column layout) */
+  .scenario-flat-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 1.25rem;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    gap: 1.75rem;
   }
-
-  .latest-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-signature-semi);
-    box-shadow: 0 8px 24px var(--accent-signature-glow);
-  }
-
-  .card-meta {
+  .scenario-flat-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    gap: 2rem;
+    align-items: flex-start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-primary);
   }
-
-  .category-badge {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-sm);
-    letter-spacing: 0.05em;
+  .scenario-flat-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
-
-  .category-scenario {
-    color: var(--accent-signature);
-    background: var(--accent-signature-trans);
-    border: 1px solid var(--accent-signature-semi);
-  }
-
-  .category-troubleshooting {
-    color: var(--accent-signature);
-    background: var(--accent-signature-trans);
-    border: 1px solid var(--accent-signature-semi);
-  }
-
-  .publish-date {
+  .scenario-item-meta {
+    width: 120px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
     font-size: 0.8rem;
     color: var(--text-muted);
-    font-weight: 500;
   }
-
-  .latest-card .card-title {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.35;
-    margin: 0;
-    transition: color 0.3s ease;
-  }
-
-  .latest-card:hover .card-title {
-    color: var(--accent-signature);
-  }
-
-  .latest-card .card-desc {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-devices-list {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-
-  .device-tag-mini {
-    font-size: 0.75rem;
+  .scenario-item-date {
+    font-size: 0.85rem;
     color: var(--text-muted);
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    padding: 0.15rem 0.5rem;
-    border-radius: var(--radius-sm);
-    font-weight: 500;
   }
-
-  .card-action-wrap {
-    margin-top: auto;
-  }
-
-  .read-more-link {
-    font-size: 0.9rem;
-    font-weight: 700;
+  .scenario-item-category {
     color: var(--accent-signature);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .scenario-item-time {
+    color: var(--text-muted);
+  }
+  .scenario-item-content {
+    flex-grow: 1;
+    min-width: 0;
+  }
+  .scenario-item-link {
     text-decoration: none;
-    transition: color 0.3s ease;
   }
-
-  .read-more-link .arrow {
-    transition: transform 0.2s ease;
+  .scenario-item-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
   }
-
-  .latest-card:hover .read-more-link .arrow {
-    transform: translateX(4px);
+  .scenario-item-link:hover .scenario-item-title {
+    color: var(--accent-signature);
   }
-
-  /* Адаптивность */
-  @media (max-width: 992px) {
-    .latest-cards-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    .trouble-strip, .trouble-strip.reverse {
-      grid-template-columns: 1fr;
-      min-height: auto;
-    }
-
-    .trouble-strip.reverse .strip-content {
-      grid-column: 1;
-    }
-
-    .trouble-strip.reverse .strip-image-wrap {
-      grid-column: 1;
-    }
-
-    .strip-image-wrap {
-      height: 250px;
-    }
+  .scenario-item-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+  .scenario-item-devices {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .devices-label {
+    margin-right: 0.25rem;
   }
 
   @media (max-width: 768px) {
-    .hero-section.bento-grid {
+    .hero-section {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0 2rem 0;
     }
-
-    .bento-card-main {
-      grid-column: span 1;
-      padding: 2.25rem 1.75rem;
-    }
-
-    .bento-card-image {
-      grid-column: span 1;
-      height: 280px;
-    }
-
-    .bento-card-feature {
-      grid-column: span 1;
-      padding: 1.75rem 1.5rem;
-    }
-
     .hero-title {
-      font-size: 2.2rem;
+      font-size: 1.75rem;
     }
-
-    .anatomy-grid {
-      grid-template-columns: 1fr;
-      grid-template-areas: 
-        "steps"
-        "dashboard"
-        "link";
-      padding: 1.5rem;
+    .hero-actions {
+      flex-direction: column;
     }
-
-    .dashboard-devices-list {
-      grid-template-columns: 1fr;
+    .hero-btn {
+      width: 100%;
     }
-
-    .latest-cards-grid {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-    
-    .latest-card {
-      padding: 1.75rem 1.5rem;
-    }
-
-    .strip-content {
-      padding: 2rem 1.5rem;
+    .page-heading {
+      font-size: 2rem;
     }
   }
+
+  @media (max-width: 992px) {
+    .trouble-strip {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+    .strip-action-link {
+      width: 100%;
+      justify-content: center;
+    }
+    .scenario-flat-item {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .scenario-item-meta {
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px dashed var(--border-primary);
+      padding-bottom: 0.35rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid-minimal {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+
 </style>
 
 <script>
   function initHomepageInteractive() {
-    // 1. Scene Switcher Tabs
-    const steps = document.querySelectorAll('.anatomy-step-btn');
-    const dashTitle = document.getElementById('dash-title');
-    const valIf = document.getElementById('logic-val-if');
-    const valAnd = document.getElementById('logic-val-and');
-    const valThen = document.getElementById('logic-val-then');
-    const blockAnd = document.getElementById('logic-block-and');
-    const devicesContainer = document.getElementById('dash-devices');
-    const dashLink = document.getElementById('dash-link');
-    
-    if (steps.length > 0) {
-      const firstStep = steps[0];
-      if (!firstStep.getAttribute('data-initialized')) {
-        firstStep.setAttribute('data-initialized', 'true');
-
-        const sceneData = {
-          morning: {
-            title: 'Утреннее пробуждение',
-            if: 'Датчик движения зафиксировал активность',
-            and: 'Время суток с 07:00 до 09:00',
-            then: 'Сварить кофе, включить лампу, запустить утренний плейлист',
-            devices: [
-              { name: 'Датчик движения Aqara', protocol: 'Zigbee 3.0', icon: '🚶‍♂️' },
-              { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
-              { name: 'Умная розетка Tuya', protocol: 'Zigbee', icon: '☕' },
-              { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi / Matter', icon: '💡' }
-            ],
-            link: '/scenarios/morning-coffee/'
-          },
-          away: {
-            title: 'Все ушли (Режим охраны)',
-            if: 'Датчик двери закрылся и замок заблокирован',
-            and: null,
-            then: 'Активировать камеру, запустить пылесос, выключить все приборы',
-            devices: [
-              { name: 'Датчик открытия Aqara', protocol: 'Zigbee 3.0', icon: '🚪' },
-              { name: 'Умная камера Яндекс', protocol: 'Wi-Fi', icon: '📹' },
-              { name: 'Робот-пылесос Roborock', protocol: 'Wi-Fi', icon: '🧹' }
-            ],
-            link: '/scenarios/leaving-home-scenario/'
-          },
-          cinema: {
-            title: 'Вечерний уют (Кинотеатр)',
-            if: 'Сказано Алисе: "Время кино"',
-            and: null,
-            then: 'Закрыть шторы, включить подсветку, запустить телевизор',
-            devices: [
-              { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
-              { name: 'Умные шторы Aqara', protocol: 'Zigbee 3.0 / Matter', icon: '⛺' },
-              { name: 'Светодиодная лента Tuya', protocol: 'Zigbee', icon: '🌈' },
-              { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi', icon: '💡' }
-            ],
-            link: '/scenarios/light-alarm-clock/'
-          }
-        };
-        
-        steps.forEach(step => {
-          step.addEventListener('click', () => {
-            const scene = step.getAttribute('data-scene');
-            
-            steps.forEach(s => {
-              s.classList.remove('active');
-              s.setAttribute('aria-selected', 'false');
-            });
-            step.classList.add('active');
-            step.setAttribute('aria-selected', 'true');
-            
-            const data = sceneData[scene];
-            if (data) {
-              if (dashTitle) dashTitle.textContent = data.title;
-              if (valIf) valIf.textContent = data.if;
-              if (valThen) valThen.textContent = data.then;
-              
-              if (data.and) {
-                if (valAnd) valAnd.textContent = data.and;
-                if (blockAnd) blockAnd.style.display = 'flex';
-              } else {
-                if (blockAnd) blockAnd.style.display = 'none';
-              }
-              
-              if (devicesContainer) {
-                devicesContainer.innerHTML = data.devices.map(dev => `
-                  <div class="device-item-row">
-                    <span class="device-item-icon">${dev.icon}</span>
-                    <div class="device-item-info">
-                      <span class="device-item-name">${dev.name}</span>
-                      <span class="device-item-protocol">${dev.protocol}</span>
-                    </div>
-                  </div>
-                `).join('');
-              }
-              
-              if (dashLink) {
-                dashLink.setAttribute('href', data.link);
-              }
-            }
-          });
-        });
-      }
+    // Hero Search Trigger
+    const heroTrigger = document.getElementById('hero-search-trigger');
+    const mainTrigger = document.getElementById('search-trigger');
+    if (heroTrigger && mainTrigger) {
+      heroTrigger.addEventListener('click', () => {
+        mainTrigger.click();
+      });
     }
 
-    // 2. Stats Counters Animation
+    // Stats Counters Animation
     const stats = document.querySelectorAll('.stat-number');
     if (stats.length > 0) {
       const observer = new IntersectionObserver((entries) => {

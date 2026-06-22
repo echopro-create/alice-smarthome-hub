@@ -43,10 +43,16 @@
       document.head.appendChild(link);
     }
 
-    // Динамически импортируем скрипт Pagefind
+    // Динамически подгружаем скрипт Pagefind
     try {
-      // @ts-ignore
-      const { PagefindUI } = await new Function('return import("/pagefind/pagefind-ui.js")')();
+      await new Promise<void>((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Failed to load Pagefind'));
+        document.head.appendChild(script);
+      });
+      // @ts-expect-error PagefindUI becomes globally available after script load
       new PagefindUI({
         element: '#search-container',
         showSubResults: true,
@@ -163,23 +169,25 @@
     --pagefind-ui-background: var(--bg-card, rgba(30, 30, 40, 0.6));
     --pagefind-ui-border: var(--border-primary, rgba(255, 255, 255, 0.1));
     --pagefind-ui-tag: var(--bg-hover, rgba(138, 43, 226, 0.15));
-    --pagefind-ui-border-radius: var(--radius-md, 12px);
+    --pagefind-ui-border-radius: 0;
     --pagefind-ui-font: inherit;
   }
 
   #search-container .pagefind-ui__search-input {
-    background: var(--bg-card) !important;
-    border: 1px solid var(--border-primary) !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border-primary) !important;
+    border-radius: 0 !important;
     color: var(--text-primary) !important;
     font-size: 1.1rem !important;
-    padding: 0.8rem 1rem 0.8rem 2.8rem !important;
-    transition: all 0.2s ease !important;
+    padding: 0.8rem 1rem 0.8rem 2rem !important;
+    transition: border-color 0.2s ease !important;
   }
 
   #search-container .pagefind-ui__search-input:focus {
     outline: none !important;
-    border-color: var(--accent-alice) !important;
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.25) !important;
+    border-bottom-color: var(--accent-alice) !important;
+    box-shadow: none !important;
   }
 
   #search-container .pagefind-ui__search-clear {

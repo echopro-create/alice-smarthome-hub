@@ -5,13 +5,40 @@ import Layout from "../layouts/Layout.astro";
 const allEntries = await getCollection("scenarios");
 const scenarios = allEntries.filter((e) => e.data.category === "scenario");
 const troubleshooting = allEntries.filter((e) => e.data.category === "troubleshooting");
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Главная",
+			item: "https://smart-hub.info/",
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Карта сайта",
+			item: "https://smart-hub.info/sitemap/",
+		},
+	],
+};
+
+const jsonLdString = JSON.stringify([breadcrumbSchema]);
 ---
 
 <Layout
   title="Карта сайта"
   description="Полный список всех сценариев автоматизации и руководств по траблшутингу на сайте Умный Дом с Алисой."
+  jsonLd={jsonLdString}
 >
   <div class="sitemap-container">
+    <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
+      <a href="/">Главная</a>
+      <span class="separator">/</span>
+      <span class="current">Карта сайта</span>
+    </nav>
     <h1 class="sitemap-title font-outfit">Карта сайта</h1>
 
     <section class="sitemap-section">
@@ -20,9 +47,8 @@ const troubleshooting = allEntries.filter((e) => e.data.category === "troublesho
         <li><a href="/">Главная</a></li>
         <li><a href="/scenarios/">Сценарии автоматизации</a></li>
         <li><a href="/troubleshooting/">Траблшутинг</a></li>
-        <li><a href="/about">О проекте</a></li>
-        <li><a href="/contacts">Контакты</a></li>
-        <li><a href="/privacy">Политика конфиденциальности</a></li>
+        <li><a href="/about/">О проекте</a></li>
+        <li><a href="/privacy/">Политика конфиденциальности</a></li>
         <li><a href="/sitemap.xml">Sitemap XML</a></li>
       </ul>
     </section>

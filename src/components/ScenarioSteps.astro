@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 interface Step {
 	title: string;
 	text: string;
-	image?: any;
+	image?: import("astro").ImageMetadata;
 }
 
 interface Props {
@@ -135,6 +135,7 @@ const { steps } = Astro.props;
     padding: 2rem;
     position: relative;
     overflow: hidden;
+    scroll-margin-top: 5.5rem;
   }
 
   .step-card::before {
@@ -150,9 +151,7 @@ const { steps } = Astro.props;
   }
 
   .step-card:hover {
-    transform: translateY(-3px);
     border-color: var(--border-hover);
-    box-shadow: 0 10px 30px var(--accent-signature-glow, rgba(249, 115, 22, 0.05));
   }
 
   .step-card:hover::before {

@@ -1034,7 +1034,7 @@ test("[UX 2026] Theme: кнопка переключения темы прису
 	});
 });
 
-test("[UX 2026] Footer: ссылки на /about, /privacy, /contacts ведут на существующие страницы", () => {
+test("[UX 2026] Footer: ссылки на /about, /privacy ведут на существующие страницы", () => {
 	const files = getDistHtmlFiles();
 	if (files.length === 0) return;
 	const pagePaths = new Set(
@@ -1044,7 +1044,7 @@ test("[UX 2026] Footer: ссылки на /about, /privacy, /contacts ведут
 			return rel === "/" ? "/" : `/${rel.replace(/\/$/, "").replace(/^\//, "")}/`;
 		}),
 	);
-	["/about/", "/privacy/", "/contacts/"].forEach((p) => {
+	["/about/", "/privacy/"].forEach((p) => {
 		assert.ok(
 			pagePaths.has(p),
 			`Страница ${p} не собрана, но ссылается из футера (доступные: ${[...pagePaths].join(", ")})`,
