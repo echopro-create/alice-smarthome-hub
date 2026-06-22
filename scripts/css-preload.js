@@ -3,7 +3,7 @@ import path from "node:path";
 
 const DIST = path.resolve("dist");
 
-function addCssPreload(filePath) {
+function injectPreloads(filePath) {
 	let html = fs.readFileSync(filePath, "utf8");
 
 	const cssLinks = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)">/g)];
@@ -24,7 +24,7 @@ function walkDir(dir) {
 		if (entry.isDirectory()) {
 			walkDir(fullPath);
 		} else if (entry.name.endsWith(".html")) {
-			addCssPreload(fullPath);
+			injectPreloads(fullPath);
 		}
 	}
 }
