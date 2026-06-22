@@ -154,30 +154,65 @@ const yandexMetrikaId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID || "";
 		{noindex && <meta name="robots" content="noindex, follow" />}
 		{yandexVerification && <meta name="yandex-verification" content={yandexVerification} />}
 
-		<!-- KaTeX Math Formulas Rendering -->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
-		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+		<!-- KaTeX Math Formulas Rendering (conditional, non-blocking) -->
 		<script is:inline>
-			function renderMath() {
-				if (typeof renderMathInElement === 'function') {
-					renderMathInElement(document.body, {
-						delimiters: [
-							{left: '$$', right: '$$', display: true},
-							{left: '$', right: '$', display: false},
-							{left: '\\(', right: '\\)', display: false},
-							{left: '\\[', right: '\\]', display: true}
-						],
-						throwOnError: false
+			(function() {
+				var KATEX_CSS = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css';
+				var KATEX_JS  = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+				var KATEX_AR  = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
+				var DELIMITERS = [
+					{left: '$$', right: '$$', display: true},
+					{left: '$', right: '$', display: false},
+					{left: '\\(', right: '\\)', display: false},
+					{left: '\\[', right: '\\]', display: true}
+				];
+
+				function hasMath() {
+					var text = document.body.innerText || '';
+					return /\$\$|\\\(|\\\[/.test(text);
+				}
+
+				function loadCSS(href) {
+					var link = document.createElement('link');
+					link.rel = 'stylesheet';
+					link.href = href;
+					link.crossOrigin = 'anonymous';
+					document.head.appendChild(link);
+				}
+
+				function loadScript(src, cb) {
+					var script = document.createElement('script');
+					script.src = src;
+					script.crossOrigin = 'anonymous';
+					script.defer = true;
+					if (cb) script.onload = cb;
+					document.head.appendChild(script);
+				}
+
+				function renderMath() {
+					if (typeof renderMathInElement === 'function') {
+						renderMathInElement(document.body, {
+							delimiters: DELIMITERS,
+							throwOnError: false
+						});
+					}
+				}
+
+				function initKatex() {
+					if (!hasMath()) return;
+					loadCSS(KATEX_CSS);
+					loadScript(KATEX_JS, function() {
+						loadScript(KATEX_AR, renderMath);
 					});
 				}
-			}
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', renderMath);
-			} else {
-				renderMath();
-			}
-			document.addEventListener('astro:page-load', renderMath);
+
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', initKatex);
+				} else {
+					initKatex();
+				}
+				document.addEventListener('astro:page-load', initKatex);
+			})();
 		</script>
 	</head>
 	<body>
