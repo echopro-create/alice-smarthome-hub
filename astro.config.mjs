@@ -5,4 +5,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://smart-hub.info',
   integrations: [sitemap()],
+  markdown: {
+    smartypants: false,
+  },
 });
