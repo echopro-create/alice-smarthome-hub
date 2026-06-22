@@ -33,7 +33,7 @@ const latestEntries = allEntries
   <!-- Hero Section -->
   <section class="hero-section bento-grid">
     <!-- Main Card (Text & Actions) -->
-    <div class="bento-card bento-card-main glass">
+    <div class="bento-card bento-card-main card-elevated">
       <div class="hero-badge font-outfit">База знаний Умного Дома</div>
       <h1 class="hero-title font-outfit">
         Сделайте ваш дом действительно <span class="accent-title-word">Умным</span> с Алисой
@@ -67,8 +67,10 @@ const latestEntries = allEntries
     </div>
 
     <!-- Feature Card 1: Local Automation -->
-    <div class="bento-card bento-card-feature glass">
-      <div class="feature-icon" aria-hidden="true">⚡</div>
+    <div class="bento-card bento-card-feature card-outlined">
+      <div class="feature-icon" aria-hidden="true">
+        <svg class="feature-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      </div>
       <div class="feature-content">
         <div class="feature-title font-outfit">Локальность</div>
         <p class="feature-desc">Настройка сценариев автоматизации, работающих локально без интернета.</p>
@@ -76,8 +78,10 @@ const latestEntries = allEntries
     </div>
 
     <!-- Feature Card 2: Compatibility -->
-    <div class="bento-card bento-card-feature glass">
-      <div class="feature-icon" aria-hidden="true">🔌</div>
+    <div class="bento-card bento-card-feature card-outlined">
+      <div class="feature-icon" aria-hidden="true">
+        <svg class="feature-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+      </div>
       <div class="feature-content">
         <div class="feature-title font-outfit">Совместимость</div>
         <p class="feature-desc">Интеграция Zigbee, Matter и Wi-Fi устройств от разных брендов в единую сеть.</p>
@@ -85,8 +89,10 @@ const latestEntries = allEntries
     </div>
 
     <!-- Feature Card 3: Troubleshooting -->
-    <div class="bento-card bento-card-feature glass">
-      <div class="feature-icon" aria-hidden="true">🔧</div>
+    <div class="bento-card bento-card-feature card-outlined">
+      <div class="feature-icon" aria-hidden="true">
+        <svg class="feature-svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+      </div>
       <div class="feature-content">
         <div class="feature-title font-outfit">Решение проблем</div>
         <p class="feature-desc">Устранение задержек, отвалов беспроводных датчиков и радиопомех.</p>
@@ -96,32 +102,61 @@ const latestEntries = allEntries
     <div class="hero-glow"></div>
   </section>
 
-  <!-- Scenarios Slider Section -->
+  <!-- Stats Counters Section -->
+  <section class="section-container stats-container">
+    <div class="stats-grid">
+      <div class="stat-card card-outlined">
+        <span class="stat-number font-outfit" data-target="69">0</span>
+        <span class="stat-label font-outfit">Инструкций и гайдов</span>
+        <p class="stat-desc">Пошаговые руководства по автоматизации и решению проблем с Алисой.</p>
+      </div>
+      <div class="stat-card card-outlined">
+        <span class="stat-number font-outfit" data-target="150">0</span>
+        <span class="stat-label font-outfit">Устройств в базе</span>
+        <p class="stat-desc">Проверенные на совместимость датчики, реле, лампы и приводы.</p>
+      </div>
+      <div class="stat-card card-outlined">
+        <span class="stat-number font-outfit" data-target="12">0</span>
+        <span class="stat-label font-outfit">Кластеров автоматизации</span>
+        <p class="stat-desc">Тематические направления от климата до комплексной безопасности.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Scenarios Section: Anatomy of Automation -->
   <section id="scenarios" class="section-container automation-anatomy-section">
-    <h2 class="section-title font-outfit"><span aria-hidden="true">🔮</span> Один день с Алисой</h2>
+    <h2 class="section-title font-outfit">
+      <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      Один день с Алисой
+    </h2>
     <div class="section-divider"></div>
     <p class="section-desc">Выберите сценарий, чтобы увидеть работу датчиков и устройств умного дома в реальном времени.</p>
     
-    <div class="anatomy-grid glass">
+    <div class="anatomy-grid card-elevated">
       <!-- Left: Interactive steps (tabs) -->
       <div class="anatomy-steps" role="tablist" aria-label="Сценарии автоматизации">
         <button class="anatomy-step-btn active" data-scene="morning" aria-selected="true" role="tab" id="scene-tab-morning" aria-controls="anatomy-dashboard">
-          <span class="step-num font-outfit">🌅</span>
+          <span class="step-num font-outfit">
+            <svg class="step-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M6.34 17.66l-1.41 1.41"></path><path d="M19.07 4.93l-1.41 1.41"></path></svg>
+          </span>
           <div class="step-text">
             <h3 class="step-title font-outfit">07:30 — Утреннее пробуждение</h3>
             <p class="step-desc">Мягкий старт дня: плавное включение света, свежий кофе и утреннее шоу Алисы.</p>
           </div>
         </button>
         <button class="anatomy-step-btn" data-scene="away" aria-selected="false" role="tab" id="scene-tab-away" aria-controls="anatomy-dashboard">
-          <span class="step-num font-outfit">🚶‍♂️</span>
+          <span class="step-num font-outfit">
+            <svg class="step-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </span>
           <div class="step-text">
             <h3 class="step-title font-outfit">09:00 — Все ушли (Охрана)</h3>
             <p class="step-desc">Автоматическое сбережение энергии, активация видеокамер и запуск уборки.</p>
           </div>
         </button>
         <button class="anatomy-step-btn" data-scene="cinema" aria-selected="false" role="tab" id="scene-tab-cinema" aria-controls="anatomy-dashboard">
-          <span class="step-num font-outfit">🍿</span>
+          <span class="step-num font-outfit">
+            <svg class="step-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="3" rx="2"></rect><path d="M12 18v4"></path><path d="M8 22h8"></path></svg>
+          </span>
           <div class="step-text">
             <h3 class="step-title font-outfit">20:00 — Вечерний уют</h3>
             <p class="step-desc">Создание идеальной атмосферы: закрытие штор, приглушенный неон и включение кино.</p>
@@ -135,7 +170,7 @@ const latestEntries = allEntries
       </div>
       
       <!-- Right: Minimalist Dashboard -->
-      <div class="anatomy-dashboard glass" id="anatomy-dashboard" role="tabpanel" aria-label="Описание сценария">
+      <div class="anatomy-dashboard card-flat" id="anatomy-dashboard" role="tabpanel" aria-label="Описание сценария">
         <h3 class="dashboard-title font-outfit" id="dash-title">Утреннее пробуждение</h3>
         
         <!-- Logic Builder Panel -->
@@ -208,13 +243,16 @@ const latestEntries = allEntries
   <!-- Troubleshooting Section: Feature Strips (Z-pattern) -->
   <section id="troubleshooting" class="section-container troubleshooting-strips-section">
     <div class="trouble-glow" aria-hidden="true"></div>
-    <h2 class="section-title font-outfit"><span aria-hidden="true">🔧</span> База траблшутинга</h2>
+    <h2 class="section-title font-outfit">
+      <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+      База траблшутинга
+    </h2>
     <div class="section-divider"></div>
     <p class="section-desc">Пошаговое решение критических сбоев, борьба с радиопомехами и отвалами беспроводных датчиков.</p>
     
     <div class="troubleshooting-strips-list">
       <!-- Strip 1: Device not responding (Text left, Image right) -->
-      <div class="trouble-strip glass">
+      <div class="trouble-strip card-elevated">
         <div class="strip-content">
           <div class="card-header">
             <span class="difficulty-badge easy">ЛЕГКО</span>
@@ -248,7 +286,7 @@ const latestEntries = allEntries
       </div>
 
       <!-- Strip 2: Wifi drop (Image left, Text right) -->
-      <div class="trouble-strip glass reverse">
+      <div class="trouble-strip card-elevated reverse">
         <div class="strip-content">
           <div class="card-header">
             <span class="difficulty-badge easy">ЛЕГКО</span>
@@ -281,7 +319,7 @@ const latestEntries = allEntries
       </div>
 
       <!-- Strip 3: Battery drain (Text left, Image right) -->
-      <div class="trouble-strip glass">
+      <div class="trouble-strip card-elevated">
         <div class="strip-content">
           <div class="card-header">
             <span class="difficulty-badge medium">СРЕДНЕ</span>
@@ -325,7 +363,10 @@ const latestEntries = allEntries
 
   <!-- Latest Publications Section (SEO Boost) -->
   <section id="latest-publications" class="section-container latest-publications-section">
-    <h2 class="section-title font-outfit"><span aria-hidden="true">⏱️</span> Свежие публикации</h2>
+    <h2 class="section-title font-outfit">
+      <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Свежие публикации
+    </h2>
     <div class="section-divider"></div>
     <p class="section-desc">Новые материалы в нашей базе знаний. Раздел обновляется автоматически.</p>
     
@@ -343,7 +384,7 @@ const latestEntries = allEntries
         });
         
         return (
-          <div class="latest-card glass">
+          <div class="latest-card card-outlined">
             <div class="card-meta">
               <span class={`category-badge ${categoryClass}`}>{categoryLabel}</span>
               <span class="publish-date">{dateStr}</span>
@@ -389,14 +430,6 @@ const latestEntries = allEntries
     z-index: 2;
   }
 
-  .bento-card.glass {
-    background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-md);
-  }
-
   .bento-card-main {
     grid-column: span 7;
     padding: 3rem 3rem;
@@ -416,8 +449,6 @@ const latestEntries = allEntries
 
   .bento-card-image {
     grid-column: span 5;
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-md);
     position: relative;
     display: flex;
   }
@@ -456,16 +487,6 @@ const latestEntries = allEntries
     transform: translateY(-5px);
   }
 
-  .bento-card.glass:hover {
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-lg), 0 0 25px var(--accent-alice-trans);
-    background: var(--bg-hover);
-  }
-
-  .bento-card-image:hover {
-    box-shadow: var(--shadow-lg), 0 0 35px var(--accent-cyan-glow);
-  }
-
   .bento-card-image:hover .hero-image {
     transform: scale(1.03);
   }
@@ -491,26 +512,17 @@ const latestEntries = allEntries
     content: '';
     width: 6px;
     height: 6px;
-    background-color: var(--accent-emerald);
+    background-color: var(--accent-signature, #f97316);
     border-radius: 50%;
     display: inline-block;
-    box-shadow: 0 0 8px var(--accent-emerald);
+    box-shadow: 0 0 8px var(--accent-signature);
     animation: badge-pulse 2s infinite;
   }
 
   @keyframes badge-pulse {
-    0% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
-    }
-    70% {
-      transform: scale(1.1);
-      box-shadow: 0 0 0 6px rgba(5, 150, 105, 0);
-    }
-    100% {
-      transform: scale(0.95);
-      box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
-    }
+    0% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.6; }
   }
 
   .hero-title {
@@ -522,7 +534,7 @@ const latestEntries = allEntries
   }
 
   .accent-title-word {
-    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-cyan) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -538,256 +550,215 @@ const latestEntries = allEntries
   .hero-actions {
     display: flex;
     gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 0.5rem;
   }
 
   .btn {
-    padding: 0.9rem 2rem;
-    border-radius: 99px;
-    font-weight: 600;
+    padding: 0.9rem 1.75rem;
     font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    font-weight: 600;
+    border-radius: 99px;
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-primary {
-    background: #0f172a;
-    color: #ffffff;
-    border: none;
-    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.1);
-  }
-
-  :global(.dark) .btn-primary {
-    background: #f8fafc;
-    color: #0f172a;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+    background: linear-gradient(135deg, var(--accent-signature) 0%, #ff7a30 100%);
+    color: var(--text-white);
+    box-shadow: 0 4px 14px var(--accent-signature-glow);
   }
 
   .btn-primary:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--accent-signature-semi);
     filter: brightness(1.05);
   }
 
-  :global(.dark) .btn-primary:hover {
-    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.12);
-  }
-
   .btn-arrow {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.2s ease;
   }
 
   .btn-primary:hover .btn-arrow {
-    transform: translateX(4px);
+    transform: translateX(3px);
   }
 
   .btn-secondary {
     background: var(--bg-surface);
     color: var(--text-primary);
     border: 1px solid var(--border-primary);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: var(--shadow-sm);
   }
 
   .btn-secondary:hover {
-    background: var(--bg-hover);
-    transform: translateY(-2px) scale(1.02);
+    background: var(--bg-card-opaque);
     border-color: var(--border-hover);
+    transform: translateY(-2px);
   }
 
-  /* Feature Card Inner Styles */
   .feature-icon {
-    font-size: 1.85rem;
-    padding: 0.75rem;
-    background: var(--bg-hover);
-    border-radius: 1.25rem;
-    line-height: 1;
+    font-size: 1.5rem;
+    padding: 0.6rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--border-item);
-    transition: transform 0.3s ease;
-  }
-
-  .bento-card-feature:hover .feature-icon {
-    transform: scale(1.15) rotate(5deg);
-  }
-
-  .feature-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+    color: var(--accent-signature, #f97316);
+    box-shadow: var(--shadow-sm);
   }
 
   .feature-title {
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);
+    margin-bottom: 0.4rem;
   }
 
   .feature-desc {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    line-height: 1.45;
+    line-height: 1.5;
+    margin: 0;
   }
 
   .hero-glow {
     position: absolute;
-    top: -15%;
-    left: -10%;
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(circle, var(--accent-alice-glow) 0%, transparent 70%);
-    z-index: -1;
-    filter: blur(50px);
+    top: -10%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
     pointer-events: none;
-    opacity: 0.8;
+    z-index: 1;
+    filter: blur(80px);
+    opacity: 0.6;
   }
 
+  /* Stats Section */
+  .stats-container {
+    padding: 1rem 0 3rem 0;
+  }
 
-  /* Section Common */
-  .section-container {
-    padding: 5rem 0 2rem 0;
-    position: relative;
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 2.5rem 2rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    gap: 0.75rem;
   }
 
-  .section-title {
-    font-size: 2.25rem;
-    margin-bottom: 0.25rem;
-    background: linear-gradient(135deg, var(--text-primary) 50%, var(--accent-cyan) 100%);
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .section-divider {
-    width: 50px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-cyan-semi) 100%);
-    border-radius: 99px;
-    margin: 0.5rem 0 0.8rem 0;
+  .stat-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
   }
 
-  .section-desc {
+  .stat-desc {
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    font-size: 1.05rem;
-    margin-bottom: 3rem;
-    max-width: 600px;
+    line-height: 1.5;
+    margin: 0;
   }
 
-  /* ==========================================================================
-     Scenarios Section: Anatomy of Automation (Variant 3)
-     ========================================================================== */
+  /* Anatomy Section */
   .automation-anatomy-section {
-    padding: 5rem 0 3rem 0;
-    width: 100%;
+    position: relative;
   }
 
   .anatomy-grid {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: 4rem;
-    align-items: center;
-    padding: 3rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "steps dashboard"
+      "link dashboard";
+    gap: 2rem;
+    padding: 2.5rem;
     border-radius: var(--radius-lg);
-    background: var(--bg-card);
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-md);
-    text-align: left;
-    width: 100%;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 600px;
   }
 
   .anatomy-steps {
+    grid-area: steps;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    align-self: center;
+    gap: 1rem;
   }
 
   .anatomy-step-btn {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    border-radius: var(--radius-md);
-    background: transparent;
-    border: 1px solid transparent;
-    cursor: pointer;
     text-align: left;
-    color: inherit;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    width: 100%;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .anatomy-step-btn:hover {
-    background: var(--bg-hover);
-    border-color: var(--border-primary);
+    border-color: var(--border-hover);
+    background: var(--bg-card-opaque);
+    transform: translateX(4px);
   }
 
   .anatomy-step-btn.active {
-    background: var(--bg-card);
-    border-color: var(--accent-alice-semi);
-    box-shadow: var(--shadow-md), 0 0 15px var(--accent-alice-glow);
+    border-color: var(--accent-signature);
+    background: var(--accent-signature-trans);
+    box-shadow: 0 0 0 1px var(--accent-signature);
   }
 
   .step-num {
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: 10px;
+    height: 42px;
+    width: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--bg-item);
-    border: 1px solid var(--border-item);
-    color: var(--text-secondary);
-    font-size: 1.2rem;
-    transition: all 0.4s ease;
     flex-shrink: 0;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
   }
 
   .anatomy-step-btn.active .step-num {
-    background: var(--accent-alice-trans);
-    border-color: var(--accent-alice-semi);
-    box-shadow: 0 0 10px var(--accent-alice-glow);
-  }
-
-  .anatomy-step-btn[data-scene="morning"].active .step-num {
-    background: rgba(245, 158, 11, 0.12);
-    border-color: rgba(245, 158, 11, 0.35);
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
-  }
-
-  .anatomy-step-btn[data-scene="away"].active .step-num {
-    background: var(--accent-cyan-trans);
-    border-color: var(--accent-cyan-semi);
-    box-shadow: 0 0 10px var(--accent-cyan-glow);
-  }
-
-  .anatomy-step-btn[data-scene="cinema"].active .step-num {
-    background: var(--accent-alice-trans);
-    border-color: var(--accent-alice-semi);
-    box-shadow: 0 0 10px var(--accent-alice-glow);
+    background: var(--accent-signature);
+    color: var(--text-white);
+    border-color: var(--accent-signature);
   }
 
   .step-text {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.25rem;
   }
 
   .step-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 0;
@@ -795,29 +766,31 @@ const latestEntries = allEntries
   }
 
   .anatomy-step-btn.active .step-title {
-    color: var(--accent-alice);
+    color: var(--accent-signature);
   }
 
   .step-desc {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    line-height: 1.45;
     margin: 0;
+    line-height: 1.4;
   }
 
   .anatomy-link-wrapper {
-    margin-top: 0.5rem;
-    padding-left: 1.25rem;
+    grid-area: link;
+    display: flex;
+    align-items: flex-end;
   }
 
   .card-link {
     font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--accent-alice);
+    font-weight: 700;
+    color: var(--accent-signature);
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
+    gap: 0.4rem;
+    transition: color 0.3s ease;
   }
 
   .card-link .arrow {
@@ -828,84 +801,87 @@ const latestEntries = allEntries
     transform: translateX(4px);
   }
 
-  /* Minimalist Dashboard (Right Column) */
+  /* Right Dashboard */
   .anatomy-dashboard {
-    padding: 2.25rem 2rem;
-    border-radius: var(--radius-lg);
-    background: var(--bg-card);
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-sm);
+    grid-area: dashboard;
+    padding: 2.25rem;
+    border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    transition: all 0.6s ease;
-    height: 100%;
-    min-height: 380px;
   }
 
   .dashboard-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
     color: var(--text-primary);
     margin: 0;
-    line-height: 1.2;
-    transition: color 0.4s ease;
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.75rem;
   }
 
-  /* Logic Builder Panel */
+  /* Logic Builder */
   .logic-scheme {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    background: var(--bg-hover);
-    border: 1px solid var(--border-item);
-    border-radius: var(--radius-md);
-    padding: 1.25rem;
   }
 
   .logic-block {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    font-size: 0.875rem;
-    line-height: 1.45;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
   }
 
   .logic-label {
     font-size: 0.75rem;
-    font-weight: 800;
-    padding: 0.2rem 0.6rem;
-    border-radius: 6px;
-    min-width: 48px;
-    text-align: center;
+    font-weight: 900;
     letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
     flex-shrink: 0;
   }
 
+  .logic-if {
+    background-color: rgba(59, 130, 246, 0.07);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+  }
+
   .logic-if .logic-label {
-    background: var(--accent-cyan-trans);
-    color: var(--accent-cyan);
-    border: 1px solid var(--accent-cyan-semi);
+    background-color: #3b82f6;
+    color: var(--text-white);
+  }
+
+  .logic-and {
+    background-color: rgba(168, 85, 247, 0.07);
+    border: 1px solid rgba(168, 85, 247, 0.15);
   }
 
   .logic-and .logic-label {
-    background: var(--text-primary-trans);
-    color: var(--text-primary);
-    border: 1px solid var(--border-primary);
+    background-color: #a855f7;
+    color: var(--text-white);
+  }
+
+  .logic-then {
+    background-color: rgba(34, 197, 94, 0.07);
+    border: 1px solid rgba(34, 197, 94, 0.15);
   }
 
   .logic-then .logic-label {
-    background: var(--accent-alice-trans);
-    color: var(--accent-alice);
-    border: 1px solid var(--accent-alice-semi);
+    background-color: #22c55e;
+    color: var(--text-white);
   }
 
   .logic-value {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     font-weight: 500;
+    line-height: 1.4;
   }
 
-  /* Devices list inside dashboard */
+  /* Dashboard Devices */
   .dashboard-devices-section {
     display: flex;
     flex-direction: column;
@@ -913,9 +889,9 @@ const latestEntries = allEntries
   }
 
   .devices-section-title {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text-muted);
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -930,54 +906,31 @@ const latestEntries = allEntries
   .device-item-row {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    padding: 0.75rem 1rem;
-    background: var(--bg-hover);
-    border: 1px solid var(--border-primary);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-  }
-
-  .device-item-row:hover {
-    border-color: var(--border-hover);
+    gap: 0.75rem;
+    padding: 0.6rem 0.85rem;
     background: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
   }
 
   .device-item-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-primary);
-    font-size: 1.15rem;
-    flex-shrink: 0;
+    font-size: 1.2rem;
   }
 
   .device-item-info {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
-    min-width: 0;
-    flex-grow: 1;
   }
 
   .device-item-name {
-    color: var(--text-primary);
-    font-weight: 600;
     font-size: 0.85rem;
-    line-height: 1.25;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 600;
+    color: var(--text-primary);
   }
 
   .device-item-protocol {
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
   .dashboard-action-wrap {
@@ -987,74 +940,119 @@ const latestEntries = allEntries
   .dashboard-action-wrap .btn {
     width: 100%;
     justify-content: center;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-    background: var(--accent-alice-trans);
-    color: var(--accent-alice);
-    border: 1px solid var(--accent-alice-semi);
-    box-shadow: none;
   }
 
-  .dashboard-action-wrap .btn:hover {
-    background: var(--accent-alice);
-    color: var(--text-white);
-    border-color: var(--accent-alice);
-    transform: translateY(-2px) scale(1.01);
+  /* Section Common Elements */
+  .section-container {
+    padding: 5rem 0;
+    text-align: center;
   }
 
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-  /* ==========================================================================
-     Troubleshooting Section: Feature Strips (Variant 3)
-     ========================================================================== */
+  .section-title .heading-icon {
+    color: var(--accent-signature, #f97316);
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 4px;
+    background: var(--accent-signature);
+    border-radius: 99px;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.5;
+  }
+
+  .view-all-container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 2rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: 99px;
+    color: var(--text-primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .view-all-btn:hover {
+    border-color: var(--accent-signature);
+    background-color: var(--bg-card-opaque);
+    color: var(--accent-signature);
+  }
+
+  .view-all-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .view-all-btn:hover .view-all-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Troubleshooting Feature Strips */
   .troubleshooting-strips-section {
-    padding: 5rem 0 3rem 0;
     position: relative;
-    width: 100%;
   }
 
   .trouble-glow {
     position: absolute;
     bottom: -10%;
-    right: 5%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, var(--accent-cyan-glow) 0%, transparent 75%);
-    z-index: -1;
-    filter: blur(50px);
+    left: -10%;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
     pointer-events: none;
-    opacity: 0.8;
+    z-index: 1;
+    filter: blur(80px);
+    opacity: 0.4;
   }
 
   .troubleshooting-strips-list {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    width: 100%;
-    margin-top: 1rem;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 1200px;
+    z-index: 2;
+    position: relative;
   }
 
   .trouble-strip {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 4.5rem;
-    align-items: center;
-    padding: 3rem;
+    grid-template-columns: 1.2fr 1fr;
     border-radius: var(--radius-lg);
-    background: var(--bg-card);
-    border: 1px solid var(--border-primary);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    text-align: left;
-    width: 100%;
+    overflow: hidden;
+    min-height: 380px;
   }
 
   .trouble-strip.reverse {
-    grid-template-columns: 0.85fr 1.15fr;
+    grid-template-columns: 1fr 1.2fr;
   }
 
   .trouble-strip.reverse .strip-content {
     grid-column: 2;
+    grid-row: 1;
   }
 
   .trouble-strip.reverse .strip-image-wrap {
@@ -1062,75 +1060,105 @@ const latestEntries = allEntries
     grid-row: 1;
   }
 
-  .trouble-strip:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-lg), 0 0 30px var(--accent-cyan-glow);
-    background: var(--bg-hover);
-  }
-
   .strip-content {
+    padding: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.25rem;
+    justify-content: center;
   }
 
-  .strip-content .card-header {
+  .card-header {
     display: flex;
-    justify-content: flex-start;
-    gap: 1.25rem;
     align-items: center;
+    gap: 0.75rem;
+  }
+
+  .difficulty-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .difficulty-badge.easy {
+    background-color: var(--diff-easy-bg);
+    color: var(--diff-easy-text);
+    border: 1px solid var(--diff-easy-border);
+  }
+
+  .difficulty-badge.medium {
+    background-color: var(--diff-medium-bg);
+    color: var(--diff-medium-text);
+    border: 1px solid var(--diff-medium-border);
+  }
+
+  .date-badge {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
   }
 
   .strip-title {
-    font-size: 1.75rem;
-    line-height: 1.25;
+    font-size: 1.6rem;
     font-weight: 800;
     color: var(--text-primary);
+    line-height: 1.3;
     margin: 0;
     transition: color 0.3s ease;
   }
 
   .trouble-strip:hover .strip-title {
-    color: var(--accent-cyan);
+    color: var(--accent-signature);
   }
 
   .strip-desc {
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.5;
     margin: 0;
+  }
+
+  .card-devices {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .device-tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm);
   }
 
   .trouble-link {
     font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--accent-cyan);
+    font-weight: 700;
+    color: var(--accent-signature);
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    align-self: flex-start;
-    text-decoration: none;
-    transition: color 0.2s ease;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
   }
 
   .trouble-link .arrow {
     transition: transform 0.2s ease;
   }
 
-  .trouble-link:hover .arrow {
+  .trouble-strip:hover .trouble-link .arrow {
     transform: translateX(4px);
   }
 
   .strip-image-wrap {
     position: relative;
-    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-md);
-    aspect-ratio: 3 / 2;
-    display: flex;
-    width: 100%;
   }
 
   .strip-image {
@@ -1144,309 +1172,105 @@ const latestEntries = allEntries
     transform: scale(1.03);
   }
 
-
-  /* ==========================================================================
-     Shared Elements & Base View All Button
-     ========================================================================== */
-  .view-all-container {
-    display: flex;
-    justify-content: center;
-    padding: 2.5rem 0 1rem 0;
-    width: 100%;
-  }
-
-  .view-all-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.9rem 2.5rem;
-    background: var(--bg-card);
-    border: 1px solid rgba(14, 165, 233, 0.25);
-    border-radius: 12px;
-    color: var(--accent-cyan);
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.05);
-  }
-
-  .automation-anatomy-section .view-all-btn {
-    color: var(--accent-alice);
-    border-color: rgba(79, 70, 229, 0.25);
-    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.05);
-  }
-
-  .view-all-btn:hover {
-    transform: translateY(-2px);
-    background: var(--accent-cyan);
-    color: var(--bg-main);
-    border-color: var(--accent-cyan);
-    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
-  }
-
-  .automation-anatomy-section .view-all-btn:hover {
-    background: var(--accent-alice);
-    color: #ffffff;
-    border-color: var(--accent-alice);
-    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
-  }
-
-  .view-all-arrow {
-    transition: transform 0.2s ease;
-  }
-
-  .view-all-btn:hover .view-all-arrow {
-    transform: translateX(4px);
-  }
-
-
-  /* ==========================================================================
-     Responsive Media Queries
-     ========================================================================== */
-  @media (max-width: 992px) {
-    .hero-section.bento-grid {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      gap: 1.25rem;
-      padding: 3.5rem 0 2rem 0;
-    }
-
-    .bento-card-main {
-      grid-column: span 1;
-      padding: 3rem 2rem;
-    }
-
-    .bento-card-image {
-      grid-column: span 1;
-      height: 350px;
-    }
-
-    .bento-card-feature {
-      grid-column: span 1;
-      padding: 1.75rem 1.5rem;
-    }
-
-    .hero-title {
-      font-size: 2.75rem;
-    }
-
-    /* Адаптивность для Анатомии автоматизации */
-    .anatomy-grid {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      padding: 2rem;
-    }
-
-    .anatomy-visual {
-      height: 300px;
-      margin-top: 1rem;
-    }
-
-    /* Адаптивность для Feature-полос траблшутинга */
-    .trouble-strip,
-    .trouble-strip.reverse {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      padding: 2.5rem;
-    }
-
-    .trouble-strip.reverse .strip-content {
-      grid-column: 1;
-    }
-
-    .trouble-strip.reverse .strip-image-wrap {
-      grid-column: 1;
-      grid-row: auto;
-    }
-
-    .strip-title {
-      font-size: 1.5rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-section.bento-grid {
-      padding: 2.5rem 0 1.5rem 0;
-      gap: 1rem;
-    }
-
-    .bento-card-main {
-      padding: 2rem 1.5rem;
-      gap: 1.25rem;
-    }
-
-    .bento-card-image {
-      height: 260px;
-    }
-
-    .hero-title {
-      font-size: 2.15rem;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-subtitle {
-      font-size: 0.95rem;
-    }
-
-    .bento-card-feature {
-      padding: 1.5rem 1.25rem;
-      gap: 1rem;
-    }
-
-    .feature-icon {
-      font-size: 1.6rem;
-      padding: 0.6rem;
-      border-radius: 1rem;
-    }
-
-    .anatomy-grid {
-      padding: 1.5rem 1.25rem;
-      gap: 2rem;
-    }
-
-    .anatomy-step-btn {
-      padding: 1rem;
-      gap: 1rem;
-    }
-
-    .step-title {
-      font-size: 1.1rem;
-    }
-
-    .step-desc {
-      font-size: 0.9rem;
-    }
-
-    .trouble-strip,
-    .trouble-strip.reverse {
-      padding: 1.5rem 1.25rem;
-      gap: 1.5rem;
-    }
-
-    .strip-title {
-      font-size: 1.35rem;
-    }
-
-    .strip-desc {
-      font-size: 0.95rem;
-    }
-  }
-
-  /* ==========================================================================
-     Latest Publications Section (SEO Boost)
-     ========================================================================== */
+  /* Latest Publications Section */
   .latest-publications-section {
-    padding: 5rem 0 4rem 0;
-    width: 100%;
+    padding-bottom: 5rem;
   }
 
   .latest-cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    width: 100%;
-    margin-top: 1rem;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 380px;
+    gap: 1.5rem;
   }
 
   .latest-card {
-    display: flex;
-    flex-direction: column;
     padding: 2.25rem 2rem;
     border-radius: var(--radius-lg);
-    background: var(--bg-card);
-    border: 1px solid var(--border-primary);
-    box-shadow: var(--shadow-md);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     text-align: left;
-    height: 100%;
+    gap: 1.25rem;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .latest-card:hover {
     transform: translateY(-5px);
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-lg), 0 0 25px var(--accent-alice-trans);
-    background: var(--bg-hover);
+    border-color: var(--accent-signature-semi);
+    box-shadow: 0 8px 24px var(--accent-signature-glow);
   }
 
   .card-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.25rem;
-    font-size: 0.8rem;
+    width: 100%;
   }
 
   .category-badge {
-    padding: 0.35rem 0.85rem;
-    border-radius: 99px;
-    font-weight: 700;
     font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm);
     letter-spacing: 0.05em;
   }
 
   .category-scenario {
-    background: var(--accent-cyan-semi);
-    color: var(--accent-cyan);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: var(--accent-signature);
+    background: var(--accent-signature-trans);
+    border: 1px solid var(--accent-signature-semi);
   }
 
   .category-troubleshooting {
-    background: var(--accent-alice-trans);
-    color: var(--accent-alice);
-    border: 1px solid rgba(79, 70, 229, 0.2);
+    color: var(--accent-signature);
+    background: var(--accent-signature-trans);
+    border: 1px solid var(--accent-signature-semi);
   }
 
   .publish-date {
+    font-size: 0.8rem;
     color: var(--text-muted);
     font-weight: 500;
   }
 
   .latest-card .card-title {
-    font-size: 1.35rem;
-    line-height: 1.3;
+    font-size: 1.25rem;
     font-weight: 800;
     color: var(--text-primary);
-    margin: 0 0 0.85rem 0;
-  }
-
-  .latest-card .card-title {
+    line-height: 1.35;
+    margin: 0;
     transition: color 0.3s ease;
   }
 
   .latest-card:hover .card-title {
-    color: var(--accent-alice);
-  }
-
-  .latest-card:hover:has(.category-scenario) .card-title {
-    color: var(--accent-cyan);
+    color: var(--accent-signature);
   }
 
   .latest-card .card-desc {
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    font-size: 0.95rem;
     line-height: 1.5;
-    margin: 0 0 1.5rem 0;
-    flex-grow: 1;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .card-devices-list {
     display: flex;
+    gap: 0.4rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
   }
 
   .device-tag-mini {
     font-size: 0.75rem;
-    padding: 0.25rem 0.65rem;
-    background: var(--bg-item);
-    border: 1px solid var(--border-item);
-    border-radius: 6px;
-    color: var(--text-secondary);
+    color: var(--text-muted);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
     font-weight: 500;
   }
 
@@ -1457,16 +1281,12 @@ const latestEntries = allEntries
   .read-more-link {
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--accent-alice);
+    color: var(--accent-signature);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     text-decoration: none;
     transition: color 0.3s ease;
-  }
-
-  .latest-card:has(.category-scenario) .read-more-link {
-    color: var(--accent-cyan);
   }
 
   .read-more-link .arrow {
@@ -1483,9 +1303,62 @@ const latestEntries = allEntries
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
     }
+
+    .trouble-strip, .trouble-strip.reverse {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .trouble-strip.reverse .strip-content {
+      grid-column: 1;
+    }
+
+    .trouble-strip.reverse .strip-image-wrap {
+      grid-column: 1;
+    }
+
+    .strip-image-wrap {
+      height: 250px;
+    }
   }
 
   @media (max-width: 768px) {
+    .hero-section.bento-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bento-card-main {
+      grid-column: span 1;
+      padding: 2.25rem 1.75rem;
+    }
+
+    .bento-card-image {
+      grid-column: span 1;
+      height: 280px;
+    }
+
+    .bento-card-feature {
+      grid-column: span 1;
+      padding: 1.75rem 1.5rem;
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+    }
+
+    .anatomy-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: 
+        "steps"
+        "dashboard"
+        "link";
+      padding: 1.5rem;
+    }
+
+    .dashboard-devices-list {
+      grid-template-columns: 1fr;
+    }
+
     .latest-cards-grid {
       grid-template-columns: 1fr;
       gap: 1.25rem;
@@ -1494,11 +1367,16 @@ const latestEntries = allEntries
     .latest-card {
       padding: 1.75rem 1.5rem;
     }
+
+    .strip-content {
+      padding: 2rem 1.5rem;
+    }
   }
 </style>
 
 <script>
   function initHomepageInteractive() {
+    // 1. Scene Switcher Tabs
     const steps = document.querySelectorAll('.anatomy-step-btn');
     const dashTitle = document.getElementById('dash-title');
     const valIf = document.getElementById('logic-val-if');
@@ -1508,101 +1386,124 @@ const latestEntries = allEntries
     const devicesContainer = document.getElementById('dash-devices');
     const dashLink = document.getElementById('dash-link');
     
-    if (steps.length === 0) return;
-    
-    // Проверка инициализации для предотвращения повторной навески слушателей
-    const firstStep = steps[0];
-    if (firstStep.dataset.initialized) return;
-    firstStep.dataset.initialized = 'true';
+    if (steps.length > 0) {
+      const firstStep = steps[0];
+      if (!firstStep.getAttribute('data-initialized')) {
+        firstStep.setAttribute('data-initialized', 'true');
 
-    const sceneData = {
-      morning: {
-        title: 'Утреннее пробуждение',
-        if: 'Датчик движения зафиксировал активность',
-        and: 'Время суток с 07:00 до 09:00',
-        then: 'Сварить кофе, включить лампу, запустить утренний плейлист',
-        devices: [
-          { name: 'Датчик движения Aqara', protocol: 'Zigbee 3.0', icon: '🚶‍♂️' },
-          { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
-          { name: 'Умная розетка Tuya', protocol: 'Zigbee', icon: '☕' },
-          { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi / Matter', icon: '💡' }
-        ],
-        link: '/scenarios/morning-coffee/'
-      },
-      away: {
-        title: 'Все ушли (Режим охраны)',
-        if: 'Датчик двери закрылся и замок заблокирован',
-        and: null,
-        then: 'Активировать камеру, запустить пылесос, выключить все приборы',
-        devices: [
-          { name: 'Датчик открытия Aqara', protocol: 'Zigbee 3.0', icon: '🚪' },
-          { name: 'Умная камера Яндекс', protocol: 'Wi-Fi', icon: '📹' },
-          { name: 'Робот-пылесос Roborock', protocol: 'Wi-Fi', icon: '🧹' }
-        ],
-        link: '/scenarios/leaving-home-scenario/'
-      },
-      cinema: {
-        title: 'Вечерний уют (Кинотеатр)',
-        if: 'Сказано Алисе: "Время кино"',
-        and: null,
-        then: 'Закрыть шторы, включить подсветку, запустить телевизор',
-        devices: [
-          { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
-          { name: 'Умные шторы Aqara', protocol: 'Zigbee 3.0 / Matter', icon: '⛺' },
-          { name: 'Светодиодная лента Tuya', protocol: 'Zigbee', icon: '🌈' },
-          { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi', icon: '💡' }
-        ],
-        link: '/scenarios/light-alarm-clock/'
-      }
-    };
-    
-    steps.forEach(step => {
-      step.dataset.initialized = 'true';
-      
-      step.addEventListener('click', () => {
-        const scene = step.getAttribute('data-scene');
+        const sceneData = {
+          morning: {
+            title: 'Утреннее пробуждение',
+            if: 'Датчик движения зафиксировал активность',
+            and: 'Время суток с 07:00 до 09:00',
+            then: 'Сварить кофе, включить лампу, запустить утренний плейлист',
+            devices: [
+              { name: 'Датчик движения Aqara', protocol: 'Zigbee 3.0', icon: '🚶‍♂️' },
+              { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
+              { name: 'Умная розетка Tuya', protocol: 'Zigbee', icon: '☕' },
+              { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi / Matter', icon: '💡' }
+            ],
+            link: '/scenarios/morning-coffee/'
+          },
+          away: {
+            title: 'Все ушли (Режим охраны)',
+            if: 'Датчик двери закрылся и замок заблокирован',
+            and: null,
+            then: 'Активировать камеру, запустить пылесос, выключить все приборы',
+            devices: [
+              { name: 'Датчик открытия Aqara', protocol: 'Zigbee 3.0', icon: '🚪' },
+              { name: 'Умная камера Яндекс', protocol: 'Wi-Fi', icon: '📹' },
+              { name: 'Робот-пылесос Roborock', protocol: 'Wi-Fi', icon: '🧹' }
+            ],
+            link: '/scenarios/leaving-home-scenario/'
+          },
+          cinema: {
+            title: 'Вечерний уют (Кинотеатр)',
+            if: 'Сказано Алисе: "Время кино"',
+            and: null,
+            then: 'Закрыть шторы, включить подсветку, запустить телевизор',
+            devices: [
+              { name: 'Яндекс Станция', protocol: 'Wi-Fi', icon: '🔊' },
+              { name: 'Умные шторы Aqara', protocol: 'Zigbee 3.0 / Matter', icon: '⛺' },
+              { name: 'Светодиодная лента Tuya', protocol: 'Zigbee', icon: '🌈' },
+              { name: 'Умная лампа Яндекс', protocol: 'Wi-Fi', icon: '💡' }
+            ],
+            link: '/scenarios/light-alarm-clock/'
+          }
+        };
         
-        steps.forEach(s => {
-          s.classList.remove('active');
-          s.setAttribute('aria-selected', 'false');
+        steps.forEach(step => {
+          step.addEventListener('click', () => {
+            const scene = step.getAttribute('data-scene');
+            
+            steps.forEach(s => {
+              s.classList.remove('active');
+              s.setAttribute('aria-selected', 'false');
+            });
+            step.classList.add('active');
+            step.setAttribute('aria-selected', 'true');
+            
+            const data = sceneData[scene];
+            if (data) {
+              if (dashTitle) dashTitle.textContent = data.title;
+              if (valIf) valIf.textContent = data.if;
+              if (valThen) valThen.textContent = data.then;
+              
+              if (data.and) {
+                if (valAnd) valAnd.textContent = data.and;
+                if (blockAnd) blockAnd.style.display = 'flex';
+              } else {
+                if (blockAnd) blockAnd.style.display = 'none';
+              }
+              
+              if (devicesContainer) {
+                devicesContainer.innerHTML = data.devices.map(dev => `
+                  <div class="device-item-row">
+                    <span class="device-item-icon">${dev.icon}</span>
+                    <div class="device-item-info">
+                      <span class="device-item-name">${dev.name}</span>
+                      <span class="device-item-protocol">${dev.protocol}</span>
+                    </div>
+                  </div>
+                `).join('');
+              }
+              
+              if (dashLink) {
+                dashLink.setAttribute('href', data.link);
+              }
+            }
+          });
         });
-        step.classList.add('active');
-        step.setAttribute('aria-selected', 'true');
-        
-        // Обновляем дашборд
-        const data = sceneData[scene];
-        if (data) {
-          if (dashTitle) dashTitle.textContent = data.title;
-          if (valIf) valIf.textContent = data.if;
-          if (valThen) valThen.textContent = data.then;
-          
-          if (data.and) {
-            if (valAnd) valAnd.textContent = data.and;
-            if (blockAnd) blockAnd.style.display = 'flex';
-          } else {
-            if (blockAnd) blockAnd.style.display = 'none';
+      }
+    }
+
+    // 2. Stats Counters Animation
+    const stats = document.querySelectorAll('.stat-number');
+    if (stats.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+            const targetVal = parseInt(target.getAttribute('data-target') || '0', 10);
+            let current = 0;
+            const step = Math.ceil(targetVal / 40) || 1;
+            const interval = setInterval(() => {
+              current += step;
+              if (current >= targetVal) {
+                current = targetVal;
+                clearInterval(interval);
+                target.textContent = targetVal + (targetVal === 150 ? '+' : '');
+              } else {
+                target.textContent = current.toString();
+              }
+            }, 30);
+            observer.unobserve(target);
           }
-          
-          // Обновляем список устройств
-          if (devicesContainer) {
-            devicesContainer.innerHTML = data.devices.map(dev => `
-              <div class="device-item-row">
-                <span class="device-item-icon">${dev.icon}</span>
-                <div class="device-item-info">
-                  <span class="device-item-name">${dev.name}</span>
-                  <span class="device-item-protocol">${dev.protocol}</span>
-                </div>
-              </div>
-            `).join('');
-          }
-          
-          // Обновляем ссылку
-          if (dashLink) {
-            dashLink.setAttribute('href', data.link);
-          }
-        }
-      });
-    });
+        });
+      }, { threshold: 0.1 });
+
+      stats.forEach(stat => observer.observe(stat));
+    }
   }
 
   // Запуск при первой загрузке
@@ -1610,4 +1511,3 @@ const latestEntries = allEntries
   // Запуск при переходах View Transitions
   document.addEventListener('astro:page-load', initHomepageInteractive);
 </script>
-

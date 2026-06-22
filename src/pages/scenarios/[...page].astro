@@ -3,41 +3,105 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { getDifficultyLabel } from "../../utils/difficulty";
 
-export async function getStaticPaths({ paginate }) {
+// Мы получаем все сценарии и передаем их на одну страницу,
+// где фильтрация и пагинация будут происходить на стороне клиента для плавности 2026 года.
+export async function getStaticPaths() {
 	const allEntries = await getCollection("scenarios");
 	const scenarios = allEntries.filter((entry) => entry.data.category === "scenario");
 
 	// Сортировка по дате публикации (свежие сверху)
 	scenarios.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
-	// PAGE_SIZE равен 9 по стандартам.
-	return paginate(scenarios, { pageSize: 9 });
+	return [
+		{ params: { page: undefined }, props: { scenarios } }
+	];
 }
 
-const { page } = Astro.props;
-const scenarios = page.data;
-const currentPage = page.currentPage;
+const { scenarios } = Astro.props;
 
-// SEO мета-теги с учетом номера страницы
-const title =
-	currentPage > 1 ? `Пошаговые сценарии автоматизации — Страница ${currentPage}` : "Пошаговые сценарии автоматизации";
-const description =
-	currentPage > 1
-		? `Каталог пошаговых сценариев умного дома с Алисой. Страница ${currentPage} из ${page.lastPage}.`
-		: "Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями.";
+// Получаем уникальные устройства для фильтра
+const allDevices = Array.from(
+	new Set(scenarios.flatMap((s) => s.data.devices || []))
+).sort();
+
+// Вспомогательная функция для определения протокола сценария
+const getProtocols = (devices: string[]) => {
+	const p = [];
+	const ds = devices.join(" ").toLowerCase();
+	if (ds.includes("zigbee")) p.push("zigbee");
+	if (ds.includes("wi-fi") || ds.includes("wifi") || ds.includes("станция") || ds.includes("колонка")) p.push("wifi");
+	if (ds.includes("matter") || ds.includes("thread")) p.push("matter");
+	if (p.length === 0) p.push("wifi"); // fallback
+	return p.join(",");
+};
 ---
 
-<Layout title={title} description={description}>
+<Layout title="Пошаговые сценарии автоматизации" description="Полный каталог пошаговых сценариев умного дома с Алисой: от утренних рутин до комплексной безопасности. Пошаговые инструкции с иллюстрациями.">
   <section class="page-section">
     <div class="page-header">
-      <h1 class="page-heading font-outfit"><span aria-hidden="true">🔮</span> Сценарии автоматизации</h1>
+      <h1 class="page-heading font-outfit">Сценарии автоматизации</h1>
       <div class="section-divider"></div>
       <p class="page-desc">Готовые алгоритмы для вашего умного дома: каждый сценарий содержит пошаговую инструкцию, список оборудования и скриншоты приложения «Дом с Алисой».</p>
     </div>
+
+    <!-- Filter Panel -->
+    <div class="filter-panel card-outlined" id="filter-panel">
+      <div class="filter-row">
+        <!-- Difficulty filters (pills) -->
+        <div class="filter-group">
+          <span class="filter-label font-outfit">Сложность:</span>
+          <div class="filter-pills" id="difficulty-pills">
+            <button class="pill-btn active" data-difficulty="all">Все</button>
+            <button class="pill-btn" data-difficulty="easy">Легко</button>
+            <button class="pill-btn" data-difficulty="medium">Средне</button>
+            <button class="pill-btn" data-difficulty="hard">Сложно</button>
+          </div>
+        </div>
+        
+        <!-- Protocol filter -->
+        <div class="filter-group">
+          <label for="protocol-select" class="filter-label font-outfit">Протокол:</label>
+          <select id="protocol-select" class="filter-select">
+            <option value="all">Все протоколы</option>
+            <option value="zigbee">Zigbee</option>
+            <option value="wifi">Wi-Fi</option>
+            <option value="matter">Matter / Thread</option>
+          </select>
+        </div>
+
+        <!-- Device filter -->
+        <div class="filter-group">
+          <label for="device-select" class="filter-label font-outfit">Устройство:</label>
+          <select id="device-select" class="filter-select">
+            <option value="all">Все устройства</option>
+            {allDevices.map(device => (
+              <option value={device}>{device}</option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Sort filter -->
+        <div class="filter-group">
+          <label for="sort-select" class="filter-label font-outfit">Сортировка:</label>
+          <select id="sort-select" class="filter-select">
+            <option value="newest">Сначала новые</option>
+            <option value="oldest">Сначала старые</option>
+          </select>
+        </div>
+      </div>
+    </div>
     
-    <div class="scenarios-grid">
+    <!-- Scenarios Grid Container -->
+    <div class="scenarios-grid" id="scenarios-grid">
       {scenarios.map((scenario) => (
-        <a href={`/scenarios/${scenario.id}`} class="scenario-card glass">
+        <a 
+          href={`/scenarios/${scenario.id}/`} 
+          class="scenario-card card-outlined"
+          data-difficulty={scenario.data.difficulty || 'easy'}
+          data-protocols={getProtocols(scenario.data.devices || [])}
+          data-devices={JSON.stringify(scenario.data.devices || [])}
+          data-date={new Date(scenario.data.publishDate).getTime()}
+        >
           <div class="card-header">
             <span class={`difficulty-badge ${scenario.data.difficulty}`}>
               {getDifficultyLabel(scenario.data.difficulty)}
@@ -67,54 +131,234 @@ const description =
       ))}
     </div>
 
-    {scenarios.length === 0 && (
-      <div class="empty-state glass">
-        <p class="empty-text">Сценарии скоро появятся. Мы активно работаем над наполнением библиотеки.</p>
+    <!-- Empty State -->
+    <div class="empty-state card-outlined" id="empty-state" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="empty-icon" style="color: var(--text-muted); margin-bottom: 1rem;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      <p class="empty-text">Ничего не найдено по выбранным фильтрам.</p>
+    </div>
+
+    <!-- Client-side Pagination -->
+    <nav class="pagination" id="pagination-nav" aria-label="Навигация по страницам">
+      <button class="pagination-arrow prev" id="btn-prev" aria-label="Предыдущая страница">
+        ← <span>Назад</span>
+      </button>
+
+      <div class="pagination-pages" id="pagination-numbers">
+        <!-- Будет генерироваться динамически -->
       </div>
-    )}
 
-    {page.lastPage > 1 && (
-      <nav class="pagination" aria-label="Навигация по страницам">
-        {page.url.prev ? (
-          <a href={page.url.prev} class="pagination-arrow prev" aria-label="Предыдущая страница">
-            ← <span>Назад</span>
-          </a>
-        ) : (
-          <span class="pagination-arrow prev disabled" aria-label="Предыдущая страница">
-            ← <span>Назад</span>
-          </span>
-        )}
-
-        <div class="pagination-pages">
-          {Array.from({ length: page.lastPage }, (_, i) => {
-            const pageNum = i + 1;
-            const href = pageNum === 1 ? '/scenarios/' : `/scenarios/${pageNum}/`;
-            const isCurrent = page.currentPage === pageNum;
-            return isCurrent ? (
-              <span class="pagination-number active" aria-current="page">
-                {pageNum}
-              </span>
-            ) : (
-              <a href={href} class="pagination-number">
-                {pageNum}
-              </a>
-            );
-          })}
-        </div>
-
-        {page.url.next ? (
-          <a href={page.url.next} class="pagination-arrow next" aria-label="Следующая страница">
-            <span>Вперед</span> →
-          </a>
-        ) : (
-          <span class="pagination-arrow next disabled" aria-label="Следующая страница">
-            <span>Вперед</span> →
-          </span>
-        )}
-      </nav>
-    )}
+      <button class="pagination-arrow next" id="btn-next" aria-label="Следующая страница">
+        <span>Вперед</span> →
+      </button>
+    </nav>
   </section>
 </Layout>
+
+<script>
+  let filteredCards: HTMLElement[] = [];
+  let currentPage = 1;
+  const cardsPerPage = 9;
+
+  function initFilters() {
+    const grid = document.getElementById('scenarios-grid');
+    const emptyState = document.getElementById('empty-state');
+    const cards = Array.from(document.querySelectorAll('.scenario-card')) as HTMLElement[];
+    if (cards.length === 0 || !grid) return;
+
+    // Элементы управления
+    const diffPills = document.querySelectorAll('#difficulty-pills .pill-btn');
+    const protocolSelect = document.getElementById('protocol-select') as HTMLSelectElement;
+    const deviceSelect = document.getElementById('device-select') as HTMLSelectElement;
+    const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+    
+    const btnPrev = document.getElementById('btn-prev') as HTMLButtonElement;
+    const btnNext = document.getElementById('btn-next') as HTMLButtonElement;
+    const numbersContainer = document.getElementById('pagination-numbers');
+
+    let currentDifficulty = 'all';
+
+    // Считываем параметры из URL
+    const parseUrlParams = () => {
+      const params = new URLSearchParams(window.location.search);
+      const difficulty = params.get('difficulty');
+      const protocol = params.get('protocol');
+      const device = params.get('device');
+      const sort = params.get('sort');
+
+      if (difficulty) {
+        currentDifficulty = difficulty;
+        diffPills.forEach(pill => {
+          const pillDiff = pill.getAttribute('data-difficulty');
+          if (pillDiff === difficulty) {
+            pill.classList.add('active');
+          } else {
+            pill.classList.remove('active');
+          }
+        });
+      }
+      if (protocol && protocolSelect) protocolSelect.value = protocol;
+      if (device && deviceSelect) deviceSelect.value = device;
+      if (sort && sortSelect) sortSelect.value = sort;
+    };
+
+    // Обновляем параметры в URL
+    const updateUrlParams = () => {
+      const params = new URLSearchParams();
+      if (currentDifficulty !== 'all') params.set('difficulty', currentDifficulty);
+      if (protocolSelect && protocolSelect.value !== 'all') params.set('protocol', protocolSelect.value);
+      if (deviceSelect && deviceSelect.value !== 'all') params.set('device', deviceSelect.value);
+      if (sortSelect && sortSelect.value !== 'newest') params.set('sort', sortSelect.value);
+
+      const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      window.history.pushState(null, '', newRelativePathQuery);
+    };
+
+    const filterAndSort = () => {
+      const activeProtocol = protocolSelect ? protocolSelect.value : 'all';
+      const activeDevice = deviceSelect ? deviceSelect.value : 'all';
+      const activeSort = sortSelect ? sortSelect.value : 'newest';
+
+      // 1. Фильтрация
+      filteredCards = cards.filter(card => {
+        const diff = card.getAttribute('data-difficulty');
+        const protocols = (card.getAttribute('data-protocols') || '').split(',');
+        const devices = JSON.parse(card.getAttribute('data-devices') || '[]');
+
+        const matchDiff = currentDifficulty === 'all' || diff === currentDifficulty;
+        const matchProtocol = activeProtocol === 'all' || protocols.includes(activeProtocol);
+        const matchDevice = activeDevice === 'all' || devices.includes(activeDevice);
+
+        return matchDiff && matchProtocol && matchDevice;
+      });
+
+      // 2. Сортировка
+      filteredCards.sort((a, b) => {
+        const dateA = parseInt(a.getAttribute('data-date') || '0');
+        const dateB = parseInt(b.getAttribute('data-date') || '0');
+        return activeSort === 'newest' ? dateB - dateA : dateA - dateB;
+      });
+
+      // 3. Отображение пустого состояния
+      if (emptyState && grid) {
+        if (filteredCards.length === 0) {
+          emptyState.style.display = 'flex';
+          grid.style.display = 'none';
+        } else {
+          emptyState.style.display = 'none';
+          grid.style.display = 'grid';
+        }
+      }
+
+      currentPage = 1;
+      updatePagination();
+      updateUrlParams();
+    };
+
+    const updatePagination = () => {
+      const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+      
+      // Скрываем/показываем всю пагинацию, если страниц <= 1
+      const paginationNav = document.getElementById('reading-progress'); // wait, page-navigation is #pagination-nav
+      const pagNav = document.getElementById('pagination-nav');
+      if (pagNav) {
+        pagNav.style.display = totalPages <= 1 ? 'none' : 'flex';
+      }
+
+      // Скрываем все карточки
+      cards.forEach(card => card.style.display = 'none');
+
+      // Показываем карточки текущей страницы
+      const startIdx = (currentPage - 1) * cardsPerPage;
+      const endIdx = startIdx + cardsPerPage;
+      const cardsToDisplay = filteredCards.slice(startIdx, endIdx);
+      cardsToDisplay.forEach(card => {
+        card.style.display = 'flex';
+      });
+
+      // Обновляем кнопки вперед/назад
+      if (btnPrev) {
+        if (currentPage === 1) {
+          btnPrev.classList.add('disabled');
+          btnPrev.disabled = true;
+        } else {
+          btnPrev.classList.remove('disabled');
+          btnPrev.disabled = false;
+        }
+      }
+
+      if (btnNext) {
+        if (currentPage === totalPages || totalPages === 0) {
+          btnNext.classList.add('disabled');
+          btnNext.disabled = true;
+        } else {
+          btnNext.classList.remove('disabled');
+          btnNext.disabled = false;
+        }
+      }
+
+      // Генерируем номера страниц
+      if (numbersContainer) {
+        numbersContainer.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.className = `pagination-number ${currentPage === i ? 'active' : ''}`;
+          btn.textContent = String(i);
+          btn.addEventListener('click', () => {
+            currentPage = i;
+            updatePagination();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+          });
+          numbersContainer.appendChild(btn);
+        }
+      }
+    };
+
+    // Слушатели событий сложности
+    diffPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        diffPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentDifficulty = pill.getAttribute('data-difficulty') || 'all';
+        filterAndSort();
+      });
+    });
+
+    // Слушатели остальных селектов
+    if (protocolSelect) protocolSelect.addEventListener('change', filterAndSort);
+    if (deviceSelect) deviceSelect.addEventListener('change', filterAndSort);
+    if (sortSelect) sortSelect.addEventListener('change', filterAndSort);
+
+    // Слушатели кнопок пагинации
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePagination();
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+      });
+    }
+
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePagination();
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Инициализация
+    parseUrlParams();
+    filterAndSort();
+  }
+
+  // Запуск при первой загрузке и при переходе на новые страницы
+  initFilters();
+  document.addEventListener('astro:page-load', initFilters);
+</script>
 
 <style>
   .page-section {
@@ -123,7 +367,7 @@ const description =
 
   .page-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,17 +375,14 @@ const description =
 
   .page-heading {
     font-size: 2.5rem;
-    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-cyan) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
 
   .section-divider {
     width: 50px;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-alice) 100%);
+    background: var(--accent-signature, #f97316);
     border-radius: 99px;
     margin: 0.75rem 0 1rem 0;
   }
@@ -153,28 +394,106 @@ const description =
     line-height: 1.6;
   }
 
+  /* Filter Panel styling */
+  .filter-panel {
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .filter-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .filter-pills {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .pill-btn {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .pill-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--border-hover);
+  }
+
+  .pill-btn.active {
+    background: var(--accent-signature, #f97316);
+    color: var(--text-white);
+    border-color: var(--accent-signature);
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
+  }
+
+  .filter-select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card-opaque);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.85em;
+  }
+
+  .filter-select:focus-visible {
+    border-color: var(--accent-signature);
+  }
+
+  /* Scenarios Grid */
   .scenarios-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
   }
 
   .scenario-card {
     padding: 2rem;
-    border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     text-decoration: none;
     color: inherit;
     text-align: left;
+    height: 100%;
   }
 
   .scenario-card:hover {
     transform: translateY(-4px);
-    border-color: var(--accent-cyan-semi);
-    box-shadow: var(--glow-cyan);
+    border-color: var(--accent-signature-semi);
+    box-shadow: 0 10px 30px var(--accent-signature-glow);
     background: var(--bg-hover);
   }
 
@@ -216,13 +535,14 @@ const description =
   }
 
   .card-title {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     line-height: 1.3;
     transition: color 0.3s ease;
+    color: var(--text-primary);
   }
 
   .scenario-card:hover .card-title {
-    color: var(--accent-cyan);
+    color: var(--accent-signature, #f97316);
   }
 
   .card-desc {
@@ -250,7 +570,7 @@ const description =
 
   .device-tag-more {
     font-size: 0.75rem;
-    color: var(--accent-cyan);
+    color: var(--accent-signature);
     font-weight: 600;
     align-self: center;
   }
@@ -258,7 +578,7 @@ const description =
   .card-link {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--accent-cyan);
+    color: var(--accent-signature);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -273,19 +593,23 @@ const description =
     transform: translateX(4px);
   }
 
+  /* Empty state */
   .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
     text-align: center;
-    padding: 3rem;
-    border-radius: var(--radius-md);
-    border: 1px dashed var(--border-primary);
   }
 
   .empty-text {
-    color: var(--text-muted);
-    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
   }
 
-  /* Пагинация (стили 2026) */
+  /* Pagination */
   .pagination {
     display: flex;
     justify-content: center;
@@ -313,12 +637,15 @@ const description =
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .pagination-arrow:not(.disabled):hover {
     background: var(--bg-hover);
-    color: var(--accent-cyan);
+    color: var(--accent-signature);
   }
 
   .pagination-arrow.disabled {
@@ -333,7 +660,7 @@ const description =
     gap: 0.4rem;
   }
 
-  .pagination-number {
+  :global(.pagination-number) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -342,21 +669,35 @@ const description =
     padding: 0 0.5rem;
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
-    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .pagination-number:hover {
+  :global(.pagination-number:hover) {
     background: var(--bg-hover);
-    color: var(--accent-cyan);
+    color: var(--accent-signature);
   }
 
-  .pagination-number.active {
-    background: var(--accent-cyan);
-    color: var(--bg-main);
-    box-shadow: var(--glow-cyan-heavy);
+  :global(.pagination-number.active) {
+    background: var(--accent-signature, #f97316);
+    color: var(--text-white);
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
+  }
+
+  @media (max-width: 992px) {
+    .filter-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+    
+    .filter-group {
+      justify-content: space-between;
+    }
   }
 
   @media (max-width: 768px) {
@@ -383,7 +724,7 @@ const description =
       padding: 0.6rem 0.9rem;
     }
     
-    .pagination-number {
+    :global(.pagination-number) {
       min-width: 36px;
       height: 36px;
       font-size: 0.9rem;

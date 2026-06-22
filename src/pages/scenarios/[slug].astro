@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 
 const isScenario = entry.data.category === "scenario";
 
@@ -33,6 +33,18 @@ if (relatedEntries.length < 3) {
 		.slice(0, 3 - relatedEntries.length);
 	relatedEntries.push(...fallbackEntries);
 }
+
+// Расчет хронологической навигации (Предыдущая / Следующая статья)
+const categoryEntries = allEntries
+	.filter((e) => e.data.category === entry.data.category)
+	.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+const currentIndex = categoryEntries.findIndex((e) => e.id === entry.id);
+const prevEntry = currentIndex < categoryEntries.length - 1 ? categoryEntries[currentIndex + 1] : null;
+const nextEntry = currentIndex > 0 ? categoryEntries[currentIndex - 1] : null;
+
+// Расчет времени чтения
+const wordCount = entry.body ? entry.body.split(/\s+/).filter(Boolean).length : 0;
+const readingTime = Math.ceil(wordCount / 220) || 1;
 
 // Формирование JSON-LD схем (BreadcrumbList + HowTo)
 const host = Astro.site?.href || "https://smart-hub.info";
@@ -113,10 +125,10 @@ const jsonLdString = JSON.stringify(schemas);
     </nav>
 
     <!-- Header info banner -->
-    <header class="article-hero-banner glass">
+    <header class="article-hero-banner card-elevated">
       <div class="banner-meta">
         <span class="category-badge">
-          {entry.data.category === 'scenario' ? 'Сценарий' : 'Разбор и траблшутинг'}
+          Сценарий автоматизации
         </span>
         {entry.data.difficulty && (
           <span class={`difficulty-badge ${entry.data.difficulty}`}>
@@ -129,6 +141,10 @@ const jsonLdString = JSON.stringify(schemas);
         <div class="meta-item">
           <svg class="meta-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
           <span>Опубликовано: {new Date(entry.data.publishDate).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+        <div class="meta-item">
+          <svg class="meta-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>~{readingTime} мин чтения</span>
         </div>
         {entry.data.updatedDate && (
           <div class="meta-item">
@@ -151,20 +167,84 @@ const jsonLdString = JSON.stringify(schemas);
         <!-- Render visual steps if present -->
         {entry.data.steps && (
           <div class="steps-section">
-            <h2 class="steps-section-title font-outfit"><span aria-hidden="true">📋</span> Инструкция по настройке</h2>
+            <h2 class="steps-section-title font-outfit">
+              <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M9 14h6"></path><path d="M9 18h6"></path><path d="M9 10h6"></path></svg>
+              Инструкция по настройке
+            </h2>
             <ScenarioSteps steps={entry.data.steps} />
+          </div>
+        )}
+
+        <!-- Feedback Box -->
+        <div class="article-feedback-box card-outlined">
+          <h3 class="feedback-title font-outfit">Была ли статья полезна?</h3>
+          <div class="feedback-buttons">
+            <button class="feedback-btn yes" id="feedback-yes">
+              <span>👍 Да, спасибо</span>
+            </button>
+            <button class="feedback-btn no" id="feedback-no">
+              <span>👎 Нет, возникли вопросы</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Share bar -->
+        <div class="article-share-bar">
+          <span class="share-title-text font-outfit">Поделиться:</span>
+          <a href={`https://t.me/share/url?url=${encodeURIComponent(canonicalURL)}&text=${encodeURIComponent(entry.data.title)}`} target="_blank" rel="noopener noreferrer" class="share-social-btn" aria-label="Поделиться в Telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><line x1="22" x2="11" y1="2" y2="13"/></svg>
+          </a>
+          <a href={`https://vk.com/share.php?url=${encodeURIComponent(canonicalURL)}`} target="_blank" rel="noopener noreferrer" class="share-social-btn" aria-label="Поделиться во ВКонтакте">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
+          <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(entry.data.title + ' ' + canonicalURL)}`} target="_blank" rel="noopener noreferrer" class="share-social-btn" aria-label="Поделиться в WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+        </div>
+
+        <!-- Sequential navigation buttons -->
+        {(prevEntry || nextEntry) && (
+          <div class="sequential-nav">
+            {prevEntry ? (
+              <a href={prevEntry.data.category === 'scenario' ? `/scenarios/${prevEntry.id}/` : `/troubleshooting/${prevEntry.id}/`} class="seq-btn prev card-outlined">
+                <span class="seq-label">← Предыдущий гайд</span>
+                <span class="seq-title">{prevEntry.data.title}</span>
+              </a>
+            ) : <div />}
+            {nextEntry ? (
+              <a href={nextEntry.data.category === 'scenario' ? `/scenarios/${nextEntry.id}/` : `/troubleshooting/${nextEntry.id}/`} class="seq-btn next card-outlined">
+                <span class="seq-label">Следующий гайд →</span>
+                <span class="seq-title">{nextEntry.data.title}</span>
+              </a>
+            ) : <div />}
           </div>
         )}
       </div>
 
       <!-- Sidebar -->
       <aside class="article-sidebar">
+        <!-- Table of Contents -->
+        {headings && headings.filter(h => h.depth === 2 || h.depth === 3).length > 0 && (
+          <div class="toc-box card-outlined">
+            <h3 class="toc-title font-outfit">Содержание</h3>
+            <nav class="toc-nav">
+              <ul class="toc-list">
+                {headings.filter(h => h.depth === 2 || h.depth === 3).map(h => (
+                  <li class={`toc-item depth-${h.depth}`}>
+                    <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
+
         <!-- Required Devices widget -->
         {entry.data.devices && <DeviceList devices={entry.data.devices} />}
 
         <!-- Yandex Share Scenario CTA -->
         {entry.data.yandexShareUrl && (
-          <div class="share-cta-box glass">
+          <div class="share-cta-box card-outlined">
             <div class="share-icon" aria-hidden="true">✨</div>
             <h3 class="share-title font-outfit">Добавить в один клик</h3>
             <p class="share-text">Вы можете мгновенно скопировать этот настроенный и протестированный сценарий в свое приложение «Дом с Алисой».</p>
@@ -184,10 +264,13 @@ const jsonLdString = JSON.stringify(schemas);
     <!-- Related articles (Topic Clusters Link Graph) -->
     {relatedEntries.length > 0 && (
       <div class="related-section">
-        <h2 class="related-title font-outfit"><span aria-hidden="true">🔮</span> Читайте также в этом разделе</h2>
+        <h2 class="related-title font-outfit">
+          <svg class="heading-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          Читайте также в этом разделе
+        </h2>
         <div class="related-grid">
           {relatedEntries.map(related => (
-            <a href={related.data.category === 'scenario' ? `/scenarios/${related.id}` : `/troubleshooting/${related.id}`} class="related-card glass">
+            <a href={related.data.category === 'scenario' ? `/scenarios/${related.id}/` : `/troubleshooting/${related.id}/`} class="related-card card-outlined">
               <span class="related-card-category">
                 {related.data.category === 'scenario' ? 'Сценарий' : 'Траблшутинг'}
               </span>
@@ -202,6 +285,63 @@ const jsonLdString = JSON.stringify(schemas);
   </article>
 </Layout>
 
+<script>
+  function initArticleScripts() {
+    // 1. Thumbs helpful feedback
+    const yesBtn = document.getElementById('feedback-yes');
+    const noBtn = document.getElementById('feedback-no');
+    if (yesBtn && noBtn) {
+      const pageId = window.location.pathname;
+      const existing = localStorage.getItem(`feedback_${pageId}`);
+      if (existing === 'yes') yesBtn.classList.add('active');
+      else if (existing === 'no') noBtn.classList.add('active');
+
+      yesBtn.addEventListener('click', () => {
+        yesBtn.classList.add('active');
+        noBtn.classList.remove('active');
+        localStorage.setItem(`feedback_${pageId}`, 'yes');
+      });
+
+      noBtn.addEventListener('click', () => {
+        noBtn.classList.add('active');
+        yesBtn.classList.remove('active');
+        localStorage.setItem(`feedback_${pageId}`, 'no');
+      });
+    }
+
+    // 2. Table of Contents active highlights on scroll
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headings = document.querySelectorAll('.markdown-body h2, .markdown-body h3');
+    
+    if (tocLinks.length > 0 && headings.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            tocLinks.forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0.1
+      });
+
+      headings.forEach(heading => observer.observe(heading));
+    }
+  }
+
+  // Startup runs
+  initArticleScripts();
+  // Runs on page swaps
+  document.addEventListener('astro:page-load', initArticleScripts);
+</script>
+
 <style>
   .article-container {
     max-width: 1100px;
@@ -209,25 +349,10 @@ const jsonLdString = JSON.stringify(schemas);
     padding-top: 1rem;
   }
 
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    font-weight: 500;
-  }
-
-  .back-link:hover {
-    color: var(--accent-alice);
-  }
-
   /* Premium Hero Banner */
   .article-hero-banner {
     position: relative;
     padding: 3rem 2.5rem;
-    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -249,9 +374,9 @@ const jsonLdString = JSON.stringify(schemas);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--accent-alice);
-    background: var(--accent-alice-trans);
-    border: 1px solid var(--accent-alice-semi);
+    color: var(--accent-signature, #f97316);
+    background: var(--accent-signature-trans);
+    border: 1px solid var(--accent-signature-semi);
     padding: 0.25rem 0.75rem;
     border-radius: 99px;
     letter-spacing: 0.05em;
@@ -286,7 +411,7 @@ const jsonLdString = JSON.stringify(schemas);
   .article-title {
     font-size: 2.8rem;
     line-height: 1.25;
-    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-alice) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -312,7 +437,7 @@ const jsonLdString = JSON.stringify(schemas);
   }
 
   .meta-icon {
-    color: var(--accent-alice);
+    color: var(--accent-signature, #f97316);
     opacity: 0.8;
   }
 
@@ -323,7 +448,7 @@ const jsonLdString = JSON.stringify(schemas);
     transform: translateX(-50%);
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, var(--accent-alice-glow) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
     pointer-events: none;
     z-index: -1;
     filter: blur(30px);
@@ -350,7 +475,15 @@ const jsonLdString = JSON.stringify(schemas);
 
   .steps-section-title {
     font-size: 1.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .steps-section-title .heading-icon {
+    color: var(--accent-signature, #f97316);
   }
 
   .article-sidebar {
@@ -358,7 +491,7 @@ const jsonLdString = JSON.stringify(schemas);
     flex-direction: column;
     gap: 2rem;
     position: sticky;
-    top: 5rem;
+    top: 5.5rem;
   }
 
   /* Yandex Share Box */
@@ -370,13 +503,10 @@ const jsonLdString = JSON.stringify(schemas);
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    border: 1px solid var(--border-share);
-    box-shadow: var(--shadow-share);
   }
 
   .share-icon {
     font-size: 2rem;
-    filter: drop-shadow(var(--text-shadow-alice));
   }
 
   .share-title {
@@ -394,17 +524,17 @@ const jsonLdString = JSON.stringify(schemas);
     width: 100%;
     margin-top: 0.5rem;
     padding: 0.75rem;
-    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    background: linear-gradient(135deg, var(--accent-signature) 0%, #ff7a30 100%);
     color: var(--text-white);
     font-weight: 600;
     border-radius: var(--radius-sm);
-    box-shadow: var(--glow-alice);
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
     transition: all 0.2s ease;
   }
 
   .share-btn:hover {
     transform: translateY(-2px);
-    box-shadow: var(--glow-alice-heavy);
+    box-shadow: 0 6px 16px var(--accent-signature-semi);
     filter: brightness(1.1);
   }
 
@@ -424,11 +554,7 @@ const jsonLdString = JSON.stringify(schemas);
   .markdown-body :global(h2) {
     font-size: 1.7rem;
     padding-left: 1rem;
-    border-left: 4px solid var(--accent-alice);
-    background: linear-gradient(135deg, var(--text-primary) 60%, var(--accent-alice) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    border-left: 4px solid var(--accent-signature, #f97316);
     font-weight: 700;
   }
 
@@ -492,7 +618,7 @@ const jsonLdString = JSON.stringify(schemas);
   }
 
   .breadcrumbs a:hover {
-    color: var(--accent-alice);
+    color: var(--accent-signature);
   }
 
   .breadcrumbs .separator {
@@ -518,6 +644,13 @@ const jsonLdString = JSON.stringify(schemas);
     font-size: 1.8rem;
     margin-bottom: 2rem;
     color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .related-title .heading-icon {
+    color: var(--accent-signature, #f97316);
   }
 
   .related-grid {
@@ -528,30 +661,26 @@ const jsonLdString = JSON.stringify(schemas);
 
   .related-card {
     padding: 1.5rem;
-    border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    text-decoration: none;
-    color: inherit;
   }
 
   .related-card:hover {
     transform: translateY(-4px);
-    border-color: var(--border-hover);
-    box-shadow: var(--glow-alice);
+    border-color: var(--accent-signature-semi);
+    box-shadow: 0 8px 24px var(--accent-signature-glow);
   }
 
   .related-card:hover .related-card-title {
-    color: var(--accent-alice);
+    color: var(--accent-signature);
   }
 
   .related-card-category {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--accent-alice);
+    color: var(--accent-signature);
   }
 
   .related-card-title {
@@ -575,7 +704,7 @@ const jsonLdString = JSON.stringify(schemas);
   .related-card-link {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--accent-alice);
+    color: var(--accent-signature);
     margin-top: auto;
   }
 </style>

@@ -1,86 +1,556 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+// SEO метаданные для страницы О проекте
+const title = "О проекте «Умный Дом с Алисой» — независимый хаб знаний";
+const description = "Умный Дом с Алисой — независимый контентный хаб, который систематизирует опыт пользователей экосистемы Яндекса в пошаговые руководства и инструкции.";
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Главная",
+			item: "https://smart-hub.info/",
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "О проекте",
+			item: "https://smart-hub.info/about/",
+		},
+	],
+};
+
+const jsonLdString = JSON.stringify([breadcrumbSchema]);
 ---
 
-<Layout 
-  title="О проекте" 
-  description="Умный Дом с Алисой — независимый контентный хаб, который систематизирует опыт пользователей экосистемы Яндекса в пошаговые руководства и инструкции по автоматизации."
->
-  <article class="page-container">
-    <h1 class="page-title font-outfit">О проекте</h1>
-    
-    <div class="page-content markdown-body">
-      <p>
-        <strong>Умный Дом с Алисой</strong> — это независимый контентный хаб, который систематизирует разрозненный опыт пользователей из профильных форумов, блогов и технических сообществ в структурированные пошаговые руководства.
-      </p>
+<Layout title={title} description={description} jsonLd={jsonLdString}>
+  <div class="about-container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
+      <a href="/">Главная</a>
+      <span class="separator">/</span>
+      <span class="current">О проекте</span>
+    </nav>
 
-      <h2>Наша миссия</h2>
-      <p>
-        Мы собираем, проверяем и документируем реальные сценарии автоматизации, чтобы каждый пользователь — от новичка до продвинутого энтузиаста — мог быстро настроить свой умный дом без чтения десятков форумных веток.
+    <!-- Header Banner -->
+    <header class="about-hero card-elevated">
+      <span class="category-badge">О нас</span>
+      <h1 class="page-title font-outfit">Хаб Знаний Умного Дома</h1>
+      <p class="hero-desc">
+        Мы систематизируем разрозненный опыт пользователей из профильных сообществ в понятные пошаговые руководства, чтобы сделать автоматизацию дома доступной каждому.
       </p>
+      <div class="banner-glow" aria-hidden="true"></div>
+    </header>
 
-      <h2>Что мы делаем</h2>
-      <ul>
-        <li>Пошаговые гайды по настройке сценариев в приложении «Дом с Алисой»</li>
-        <li>Технические разборы проблем и их решений (траблшутинг)</li>
-        <li>Обзоры совместимости устройств Zigbee, Matter и Thread с экосистемой Яндекса</li>
-        <li>Рекомендации по локальной автоматизации без интернета</li>
-      </ul>
+    <!-- Stats Section -->
+    <section class="about-stats-section">
+      <div class="stats-grid">
+        <div class="stat-card card-outlined">
+          <span class="stat-number font-outfit" data-target="69">0</span>
+          <span class="stat-label font-outfit">Инструкций и гайдов</span>
+        </div>
+        <div class="stat-card card-outlined">
+          <span class="stat-number font-outfit" data-target="150">0</span>
+          <span class="stat-label font-outfit">Устройств в базе</span>
+        </div>
+        <div class="stat-card card-outlined">
+          <span class="stat-number font-outfit" data-target="12">0</span>
+          <span class="stat-label font-outfit">Кластеров автоматизации</span>
+        </div>
+      </div>
+    </section>
 
-      <h2>Кто мы</h2>
-      <p>
-        Проект создан энтузиастами умного дома, которые на собственном опыте прошли путь от первых робких сценариев до комплексных систем автоматизации. Мы не аффилированы с Яндексом — мы просто делаем экосистему доступнее.
-      </p>
-    </div>
-  </article>
+    <!-- Mission & Story -->
+    <section class="about-grid">
+      <!-- Mission card -->
+      <div class="story-card card-elevated">
+        <h2 class="section-heading font-outfit">Наша миссия</h2>
+        <p class="story-text">
+          Современный умный дом часто напоминает конструктор для гиков: десятки брендов, несовместимые протоколы, сложные настройки и хаотичный поиск ответов на форумах.
+        </p>
+        <p class="story-text">
+          <strong>Наша миссия</strong> — убрать этот порог входа. Мы собираем, тестируем на реальном оборудовании и документируем лучшие сценарии, предоставляя готовые алгоритмы автоматизации, которые работают локально и надежно.
+        </p>
+      </div>
+
+      <!-- What we do card -->
+      <div class="story-card card-outlined">
+        <h2 class="section-heading font-outfit">Наши принципы</h2>
+        <ul class="principles-list">
+          <li class="principle-item">
+            <span class="principle-bullet"></span>
+            <div>
+              <strong>Практическая точность:</strong> Каждый сценарий проверяется лично нашими авторами перед публикацией.
+            </div>
+          </li>
+          <li class="principle-item">
+            <span class="principle-bullet"></span>
+            <div>
+              <strong>Простота изложения:</strong> Объясняем сложные сетевые технологии и логические операторы человеческим языком.
+            </div>
+          </li>
+          <li class="principle-item">
+            <span class="principle-bullet"></span>
+            <div>
+              <strong>Независимость:</strong> Мы не рекламируем конкретные бренды и открыто пишем о недостатках и «болячках» любого оборудования.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Interactive Timeline -->
+    <section class="timeline-section card-outlined">
+      <h2 class="section-title font-outfit text-center">Путь развития проекта</h2>
+      <div class="timeline">
+        <!-- Milestone 1 -->
+        <div class="timeline-item">
+          <div class="timeline-badge font-outfit">2024</div>
+          <div class="timeline-content card-flat">
+            <h3 class="timeline-item-title font-outfit">Основание и первый гайд</h3>
+            <p>Запустили независимый блог. Опубликовали первую инструкцию по настройке локального умного будильника, которая разошлась по профильным Telegram-каналам.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="timeline-item">
+          <div class="timeline-badge font-outfit">2025</div>
+          <div class="timeline-content card-flat">
+            <h3 class="timeline-item-title font-outfit">База траблшутинга и 50+ сценариев</h3>
+            <p>Создали отдельный раздел для решения типичных проблем (отвалы Zigbee, разряд батареек). База пополнилась проверками совместимости устройств.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="timeline-item">
+          <div class="timeline-badge font-outfit">2026</div>
+          <div class="timeline-content card-flat">
+            <h3 class="timeline-item-title font-outfit">Эра Matter, Thread и новый дизайн</h3>
+            <p>Переработали архитектуру сайта для мгновенной скорости загрузки, добавили поддержку Matter/Thread гайдов и запустили интерактивный чекер совместимости.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <h2 class="section-title font-outfit text-center">Наша команда</h2>
+      <div class="team-grid">
+        <!-- Team Member 1 -->
+        <div class="team-card card-outlined">
+          <div class="team-avatar-wrap">
+            <svg class="team-avatar-svg" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a6 6 0 0 0-12 0"></path><circle cx="12" cy="10" r="4"></circle><path d="M12 2v2"></path></svg>
+          </div>
+          <h3 class="member-name font-outfit">Илья Кузнецов</h3>
+          <span class="member-role">Основатель & Главный редактор</span>
+          <p class="member-bio">Проектирует архитектуру умных домов более 7 лет. Пишет подробные технические лонгриды и тестирует Zigbee/Matter реле.</p>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-card card-outlined">
+          <div class="team-avatar-wrap">
+            <svg class="team-avatar-svg" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3 class="member-name font-outfit">Алексей Романов</h3>
+          <span class="member-role">Инженер & Интегратор</span>
+          <p class="member-bio">Специализируется на прошивках устройств, локальном Home Assistant и интеграции сложного промышленного оборудования в Алису.</p>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
 
+<script>
+  function initAboutScripts() {
+    const stats = document.querySelectorAll('.stat-number');
+    if (stats.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target;
+            const targetVal = parseInt(target.getAttribute('data-target') || '0', 10);
+            let current = 0;
+            const step = Math.ceil(targetVal / 40) || 1;
+            const interval = setInterval(() => {
+              current += step;
+              if (current >= targetVal) {
+                current = targetVal;
+                clearInterval(interval);
+                target.textContent = targetVal + (targetVal === 150 ? '+' : '');
+              } else {
+                target.textContent = current.toString();
+              }
+            }, 30);
+            observer.unobserve(target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      stats.forEach(stat => observer.observe(stat));
+    }
+  }
+
+  initAboutScripts();
+  document.addEventListener('astro:page-load', initAboutScripts);
+</script>
+
 <style>
-  .page-container {
-    max-width: 800px;
+  .about-container {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 2rem 0 4rem 0;
+    padding: 1rem 1rem 4rem 1rem;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--accent-signature, #f97316);
+  }
+
+  .breadcrumbs .separator {
+    color: var(--text-muted);
+  }
+
+  .breadcrumbs .current {
+    color: var(--text-primary);
+  }
+
+  /* Hero Banner */
+  .about-hero {
+    position: relative;
+    padding: 3rem 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    overflow: hidden;
+  }
+
+  .category-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-signature, #f97316);
+    background: var(--accent-signature-trans);
+    border: 1px solid var(--accent-signature-semi);
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    letter-spacing: 0.05em;
   }
 
   .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem;
-    background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-alice) 100%);
+    font-size: 2.8rem;
+    line-height: 1.25;
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 800px;
+    font-weight: 800;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    line-height: 1.6;
+  }
+
+  .banner-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(30px);
+  }
+
+  /* Stats Grid */
+  .about-stats-section {
+    margin-bottom: 4rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .stat-number {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .markdown-body {
-    line-height: 1.7;
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-  }
-
-  .markdown-body p {
-    margin-bottom: 1.5rem;
-  }
-
-  .markdown-body h2 {
-    font-family: 'Outfit', 'Inter', sans-serif;
-    font-size: 1.5rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
+  .stat-label {
+    font-size: 1rem;
+    font-weight: 700;
     color: var(--text-primary);
-    border-bottom: 1px solid var(--border-primary);
-    padding-bottom: 0.5rem;
   }
 
-  .markdown-body ul {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
+  /* Story Grid */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
   }
 
-  .markdown-body li {
+  .story-card {
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .section-heading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .story-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .story-text strong {
+    color: var(--text-primary);
+  }
+
+  /* Principles list */
+  .principles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .principle-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .principle-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-signature);
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--accent-signature);
+  }
+
+  /* Timeline */
+  .timeline-section {
+    padding: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+  }
+
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    border-left: 2px solid var(--border-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+  }
+
+  .timeline-badge {
+    position: absolute;
+    left: -4.25rem;
+    top: 0.5rem;
+    background: var(--bg-surface);
+    border: 2px solid var(--accent-signature);
+    color: var(--accent-signature);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 0.25rem 0.5rem;
+    border-radius: 99px;
+    box-shadow: 0 4px 10px var(--accent-signature-glow);
+  }
+
+  .timeline-content {
+    padding: 1.5rem;
+  }
+
+  .timeline-item-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
   }
 
-  .markdown-body strong {
+  .timeline-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Team */
+  .team-section {
+    margin-bottom: 2rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .team-card {
+    padding: 2.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .team-avatar-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-signature);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover .team-avatar-wrap {
+    border-color: var(--accent-signature);
+    box-shadow: 0 0 16px var(--accent-signature-glow);
+    transform: scale(1.05);
+  }
+
+  .team-avatar-svg {
+    opacity: 0.85;
+  }
+
+  .member-name {
+    font-size: 1.3rem;
+    font-weight: 700;
     color: var(--text-primary);
+    margin: 0;
+  }
+
+  .member-role {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent-signature);
+    letter-spacing: 0.05em;
+  }
+
+  .member-bio {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Responsive styling */
+  @media (max-width: 900px) {
+    .about-grid, .team-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      padding: 2.5rem 1.5rem;
+    }
+
+    .page-title {
+      font-size: 2.2rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .timeline-section {
+      padding: 2rem 1.25rem;
+    }
+
+    .timeline {
+      padding-left: 1.5rem;
+    }
+
+    .timeline-badge {
+      position: static;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
   }
 </style>

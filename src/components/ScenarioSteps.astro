@@ -16,7 +16,7 @@ const { steps } = Astro.props;
 
 <div class="steps-container">
   {steps.map((step, index) => (
-    <div class="step-card glass" id={`step-${index + 1}`}>
+    <div class="step-card card-elevated" id={`step-${index + 1}`}>
       <div class="step-badge-wrapper">
         <div class="step-line-top" style={index === 0 ? "display: none;" : ""}></div>
         <div class="step-number-badge">
@@ -29,7 +29,7 @@ const { steps } = Astro.props;
         <p class="step-text">{step.text}</p>
         
         {step.image && (
-          <div class="step-image-container">
+          <button class="step-image-container step-image-clickable" aria-label="Открыть изображение во весь экран">
             <Image 
               src={step.image} 
               alt={`Инструкция: ${step.title}`} 
@@ -40,13 +40,86 @@ const { steps } = Astro.props;
               height={450} 
               class="step-image"
             />
-            <div class="laser-glow"></div>
-          </div>
+            <div class="zoom-hint">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="zoom-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+          </button>
         )}
       </div>
     </div>
   ))}
 </div>
+
+<!-- Lightbox Modal Dialog -->
+<dialog id="lightbox-dialog" class="lightbox-modal">
+  <div class="lightbox-modal-wrapper">
+    <button id="lightbox-close-btn" class="lightbox-close" aria-label="Закрыть во весь экран">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="" />
+      <p id="lightbox-caption" class="font-outfit"></p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  function initLightbox() {
+    const dialog = document.getElementById('lightbox-dialog') as HTMLDialogElement;
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.getElementById('lightbox-close-btn');
+    const triggers = document.querySelectorAll('.step-image-clickable');
+
+    if (!dialog || !lightboxImg) return;
+
+    triggers.forEach(trigger => {
+      // Снимаем старый обработчик перед добавлением нового, чтобы не дублировать
+      trigger.replaceWith(trigger.cloneNode(true));
+    });
+
+    const activeTriggers = document.querySelectorAll('.step-image-clickable');
+    activeTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const img = trigger.querySelector('img');
+        if (!img) return;
+        
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        if (lightboxCaption) {
+          // Очищаем префикс "Инструкция: " для красивой подписи
+          lightboxCaption.textContent = img.alt.replace("Инструкция: ", "") || '';
+        }
+        
+        dialog.showModal();
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeLightbox = () => {
+      dialog.close();
+    };
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeLightbox);
+    }
+
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        closeLightbox();
+      }
+    });
+
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = '';
+    });
+  }
+
+  // Run on startup
+  initLightbox();
+  // Run on View Transitions page swap
+  document.addEventListener('astro:page-load', initLightbox);
+</script>
 
 <style>
   .steps-container {
@@ -60,8 +133,6 @@ const { steps } = Astro.props;
     display: flex;
     gap: 2rem;
     padding: 2rem;
-    border-radius: var(--radius-md);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
   }
@@ -73,7 +144,7 @@ const { steps } = Astro.props;
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(180deg, var(--accent-alice), transparent);
+    background: linear-gradient(180deg, var(--accent-signature, #f97316), transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -81,7 +152,7 @@ const { steps } = Astro.props;
   .step-card:hover {
     transform: translateY(-3px);
     border-color: var(--border-hover);
-    box-shadow: var(--glow-alice);
+    box-shadow: 0 10px 30px var(--accent-signature-glow, rgba(249, 115, 22, 0.05));
   }
 
   .step-card:hover::before {
@@ -100,7 +171,7 @@ const { steps } = Astro.props;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-alice) 0%, var(--accent-secondary-blue) 100%);
+    background: linear-gradient(135deg, var(--accent-signature, #f97316) 0%, #ff7a30 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,7 +179,7 @@ const { steps } = Astro.props;
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--text-white);
-    box-shadow: 0 0 15px var(--accent-alice-glow);
+    box-shadow: 0 0 15px var(--accent-signature-glow);
     z-index: 2;
     transition: transform 0.3s ease;
   }
@@ -122,7 +193,7 @@ const { steps } = Astro.props;
     top: -2rem;
     bottom: 50%;
     width: 2px;
-    background: var(--accent-alice-semi);
+    background: var(--border-primary);
     z-index: 1;
   }
 
@@ -131,7 +202,7 @@ const { steps } = Astro.props;
     top: 50%;
     bottom: -2rem;
     width: 2px;
-    background: var(--accent-alice-semi);
+    background: var(--border-primary);
     z-index: 1;
   }
 
@@ -153,7 +224,15 @@ const { steps } = Astro.props;
     color: var(--text-secondary);
   }
 
-  .step-image-container {
+  /* Clickable screenshot container */
+  .step-image-clickable {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
     margin-top: 1.25rem;
     position: relative;
     border-radius: var(--radius-md);
@@ -161,14 +240,18 @@ const { steps } = Astro.props;
     aspect-ratio: 16 / 9;
     max-height: 360px;
     border: 1px solid var(--border-primary);
-    background: var(--step-item-bg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
     transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .step-card:hover .step-image-container {
-    border-color: var(--accent-alice-semi);
-    box-shadow: 0 8px 30px var(--accent-alice-glow);
+  .step-image-clickable:focus-visible {
+    outline: 3px solid var(--accent-signature);
+    outline-offset: 4px;
+  }
+
+  .step-card:hover .step-image-clickable {
+    border-color: var(--accent-signature-semi);
+    box-shadow: 0 8px 30px var(--accent-signature-glow);
   }
 
   .step-image {
@@ -179,29 +262,111 @@ const { steps } = Astro.props;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .step-card:hover .step-image {
+  .step-image-clickable:hover .step-image {
     transform: scale(1.02);
   }
 
-  .laser-glow {
+  /* Zoom hover overlay icon */
+  .zoom-hint {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--accent-alice-trans),
-      transparent
-    );
-    transform: skewX(-25deg);
-    animation: shine 4s infinite;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  @keyframes shine {
-    0% { left: -100%; }
-    100% { left: 200%; }
+  .step-image-clickable:hover .zoom-hint {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Lightbox Dialog Styling */
+  .lightbox-modal {
+    border: none;
+    background: transparent;
+    padding: 0;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: visible;
+    outline: none;
+    margin: auto;
+  }
+
+  .lightbox-modal::backdrop {
+    background: rgba(11, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .lightbox-modal-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card-opaque, #1e293b);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    max-width: 100%;
+  }
+
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: var(--radius-md);
+    object-fit: contain;
+    border: 1px solid var(--border-primary);
+  }
+
+  #lightbox-caption {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin: 0;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -3.5rem;
+    right: 0;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .lightbox-close:hover {
+    background: var(--accent-signature, #f97316);
+    border-color: var(--accent-signature);
   }
 
   @media (max-width: 640px) {
@@ -220,6 +385,13 @@ const { steps } = Astro.props;
 
     .step-line-top, .step-line-bottom {
       display: none !important;
+    }
+    
+    .lightbox-close {
+      top: -3rem;
+      right: 0;
+      width: 36px;
+      height: 36px;
     }
   }
 </style>

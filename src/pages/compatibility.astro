@@ -1,0 +1,1074 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// SEO метаданные для страницы совместимости
+const title = "Совместимость устройств с Яндекс Алисой (Zigbee, Wi-Fi, Matter)";
+const description = "Интерактивная таблица совместимости умного дома. Проверьте, какие датчики, реле и лампочки работают с вашей Яндекс Станцией напрямую или через шлюзы.";
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Главная",
+			item: "https://smart-hub.info/",
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Совместимость",
+			item: "https://smart-hub.info/compatibility/",
+		},
+	],
+};
+
+const jsonLdString = JSON.stringify([breadcrumbSchema]);
+---
+
+<Layout title={title} description={description} jsonLd={jsonLdString}>
+  <div class="compatibility-container">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs font-outfit" aria-label="Хлебные крошки">
+      <a href="/">Главная</a>
+      <span class="separator">/</span>
+      <span class="current">Совместимость устройств</span>
+    </nav>
+
+    <!-- Header Banner -->
+    <header class="compatibility-hero card-elevated">
+      <span class="category-badge">Интерактивный инструмент</span>
+      <h1 class="page-title font-outfit">Проверка совместимости устройств</h1>
+      <p class="hero-desc">
+        Выберите вашу Яндекс Станцию или хаб, протокол связи и найдите совместимые датчики, лампочки и реле. База данных актуальна на 2026 год.
+      </p>
+      <div class="banner-glow" aria-hidden="true"></div>
+    </header>
+
+    <!-- Interactive Checker Grid -->
+    <div class="checker-grid">
+      <!-- Controls Panel -->
+      <aside class="controls-panel card-outlined">
+        <h2 class="panel-section-title font-outfit">
+          <svg class="panel-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          Параметры конфигурации
+        </h2>
+
+        <!-- Step 1: Select Hub -->
+        <div class="control-group">
+          <label class="control-label font-outfit">1. Ваш умный хаб / колонка</label>
+          <div class="custom-select-wrapper">
+            <select id="hub-selector" class="custom-select font-outfit">
+              <option value="yandex-midi" selected>Яндекс Станция Миди (встроенный Zigbee)</option>
+              <option value="yandex-max-2">Яндекс Станция Макс с Zigbee</option>
+              <option value="yandex-2">Яндекс Станция 2 (встроенный Zigbee)</option>
+              <option value="yandex-mini-3">Яндекс Станция Мини 3 (только Wi-Fi)</option>
+              <option value="yandex-hub">Яндекс Хаб (Zigbee + Wi-Fi + IR)</option>
+              <option value="aqara-m2">Aqara Hub M2 (для сопряжения через навык Aqara)</option>
+              <option value="tuya-hub">Tuya Zigbee Hub (для сопряжения через Smart Life)</option>
+              <option value="no-hub">Нет хаба (только Wi-Fi и облачные интеграции)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 2: Select Protocol -->
+        <div class="control-group">
+          <label class="control-label font-outfit">2. Протокол подключения</label>
+          <div class="protocol-radio-group">
+            <label class="protocol-radio-card active">
+              <input type="radio" name="protocol" value="all" checked />
+              <span class="protocol-name font-outfit">Все протоколы</span>
+              <span class="protocol-desc">Показать полный список</span>
+            </label>
+            <label class="protocol-radio-card">
+              <input type="radio" name="protocol" value="zigbee" />
+              <span class="protocol-name font-outfit">Zigbee 3.0</span>
+              <span class="protocol-desc">Энергоэффективная локальная сеть</span>
+            </label>
+            <label class="protocol-radio-card">
+              <input type="radio" name="protocol" value="wifi" />
+              <span class="protocol-name font-outfit">Wi-Fi</span>
+              <span class="protocol-desc">Прямое подключение к роутеру</span>
+            </label>
+            <label class="protocol-radio-card">
+              <input type="radio" name="protocol" value="matter-thread" />
+              <span class="protocol-name font-outfit">Matter (Thread)</span>
+              <span class="protocol-desc">Новый стандарт автоматизации 2026</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filter & Search -->
+        <div class="control-group search-group">
+          <label class="control-label font-outfit" for="device-search">Быстрый поиск</label>
+          <div class="search-input-wrapper">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+            <input type="text" id="device-search" class="search-input" placeholder="Поиск по названию или бренду..." />
+          </div>
+        </div>
+      </aside>
+
+      <!-- Results Panel -->
+      <main class="results-panel">
+        <!-- Results Bar -->
+        <div class="results-header card-flat">
+          <div class="results-count font-outfit">
+            Найдено устройств: <span id="match-count">0</span>
+          </div>
+          <div class="filter-badges-row">
+            <button class="status-filter-btn active" data-filter="all">Все</button>
+            <button class="status-filter-btn" data-filter="direct">Напрямую (Zigbee/Wi-Fi)</button>
+            <button class="status-filter-btn" data-filter="bridge">Через шлюз бренда</button>
+            <button class="status-filter-btn" data-filter="incompatible">Не совместимы</button>
+          </div>
+        </div>
+
+        <!-- Grid of Devices -->
+        <div class="devices-grid" id="devices-container">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state card-flat hidden" id="empty-state">
+          <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="8" x2="12" y1="12" y2="12"></line></svg>
+          <h3 class="empty-title font-outfit">Ничего не найдено</h3>
+          <p class="empty-desc">Попробуйте изменить параметры поиска или выбрать другой протокол/хаб.</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="compatibility-faq card-outlined">
+      <h2 class="faq-title font-outfit">Особенности совместимости устройств</h2>
+      
+      <details class="faq-item">
+        <summary class="faq-summary font-outfit">Как Яндекс Станция работает с Zigbee устройствами Aqara и Tuya?</summary>
+        <div class="faq-content">
+          <p>
+            Яндекс Станции со встроенным Zigbee модулем (Миди, Макс с Zigbee, Станция 2, Хаб) могут сопрягать большинство датчиков Aqara, Tuya и Sonoff напрямую без сторонних шлюзов. Устройства будут работать локально, что гарантирует мгновенный отклик даже при отключении интернета. Если же у вас Станция без Zigbee (например, Лайт или Мини 3), вам понадобится фирменный шлюз Aqara/Tuya, который связывается с Алисой через «облако» (навык бренда).
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary font-outfit">Что такое Matter и как это меняет работу Умного Дома в 2026 году?</summary>
+        <div class="faq-content">
+          <p>
+            Matter — это единый прикладной протокол умного дома. Устройства с Matter (работающие по Wi-Fi или Thread) совместимы со всеми экосистемами (Яндекс, Apple Home, Google Home) одновременно. Больше нет необходимости подбирать конкретный бренд под Алису. Яндекс Станции второго поколения и Яндекс Хаб получили поддержку Matter, что позволяет подключать новые датчики и реле напрямую.
+          </p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary font-outfit">Будут ли работать Wi-Fi устройства без хаба Яндекс?</summary>
+        <div class="faq-content">
+          <p>
+            Да, абсолютно любые Wi-Fi лампочки, розетки и пылесосы подключаются напрямую к вашему домашнему роутеру (на частоте 2.4 ГГц) и не требуют никаких умных колонок Яндекса для своей работы. Алиса управляет ими через интернет, отправляя команды на сервера производителя.
+          </p>
+        </div>
+      </details>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  // База данных совместимости
+  const devicesDb = [
+    {
+      id: "aqara-temp",
+      name: "Датчик температуры и влажности Aqara Temperature and Humidity Sensor",
+      brand: "Aqara",
+      category: "Датчики",
+      protocol: "zigbee",
+      specs: "Модель WSDCGQ11LM, протокол Zigbee. Работает от батарейки CR2032 до 2 лет.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Подключается напрямую, передает температуру, влажность и давление." },
+        "yandex-max-2": { status: "direct", notes: "Полная прямая поддержка. Работает в локальных сценариях." },
+        "yandex-2": { status: "direct", notes: "Полная прямая поддержка." },
+        "yandex-hub": { status: "direct", notes: "Подключение по Zigbee напрямую." },
+        "yandex-mini-3": { status: "bridge", notes: "Требуется шлюз Aqara Hub M2/E1 для проброса в Алису." },
+        "aqara-m2": { status: "direct", notes: "Подключается через шлюз Aqara и отображается в Алисе." },
+        "tuya-hub": { status: "incompatible", notes: "Официально сопряжение датчика Aqara с хабом Tuya не поддерживается." },
+        "no-hub": { status: "bridge", notes: "Необходим любой совместимый шлюз Aqara." }
+      }
+    },
+    {
+      id: "aqara-motion-p1",
+      name: "Датчик движения и освещенности Aqara Motion Sensor P1",
+      brand: "Aqara",
+      category: "Датчики",
+      protocol: "zigbee",
+      specs: "Zigbee 3.0. Настройка времени обнаружения (таймаут сброса) до 2 секунд.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Подключение по Zigbee напрямую. В Алисе доступна освещенность и движение." },
+        "yandex-max-2": { status: "direct", notes: "Подключается напрямую. Работает без интернета." },
+        "yandex-2": { status: "direct", notes: "Подключается напрямую." },
+        "yandex-hub": { status: "direct", notes: "Полная прямая поддержка." },
+        "yandex-mini-3": { status: "bridge", notes: "Требуется шлюз Aqara для работы." },
+        "aqara-m2": { status: "direct", notes: "Идеальная совместимость через экосистему Aqara Home." },
+        "tuya-hub": { status: "incompatible", notes: "Не сопрягается со шлюзами Tuya Zigbee." },
+        "no-hub": { status: "bridge", notes: "Требуется хаб Aqara." }
+      }
+    },
+    {
+      id: "yandex-plug",
+      name: "Умная розетка Яндекс с Zigbee",
+      brand: "Яндекс",
+      category: "Розетки",
+      protocol: "zigbee",
+      specs: "16А, измерение энергопотребления, защита от перегрузки, Zigbee 3.0.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Подключается напрямую. Измеряет ток, напряжение, мощность." },
+        "yandex-max-2": { status: "direct", notes: "Прямая поддержка. Измерение энергопотребления." },
+        "yandex-2": { status: "direct", notes: "Поддерживается напрямую." },
+        "yandex-hub": { status: "direct", notes: "Поддерживается напрямую." },
+        "yandex-mini-3": { status: "incompatible", notes: "У колонки нет Zigbee. Данная розетка не сможет подключиться." },
+        "aqara-m2": { status: "incompatible", notes: "Хаб Aqara не поддерживает сопряжение Zigbee-устройств Яндекса." },
+        "tuya-hub": { status: "bridge", notes: "Может сопрягаться как стандартное Tuya-совместимое реле, но без мониторинга питания." },
+        "no-hub": { status: "incompatible", notes: "Требуется Zigbee-хаб от Яндекса." }
+      }
+    },
+    {
+      id: "tuya-relay-2ch",
+      name: "Двухканальное реле Tuya Zigbee с сухими контактами",
+      brand: "Tuya",
+      category: "Реле",
+      protocol: "zigbee",
+      specs: "Подходит для управления откатными воротами, сухие контакты (no-voltage), Zigbee.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Определяется напрямую как два отдельных выключателя." },
+        "yandex-max-2": { status: "direct", notes: "Прямая поддержка." },
+        "yandex-2": { status: "direct", notes: "Прямая поддержка." },
+        "yandex-hub": { status: "direct", notes: "Прямая поддержка." },
+        "yandex-mini-3": { status: "bridge", notes: "Необходимо сопрячь с хабом Tuya и связать аккаунт Smart Life." },
+        "aqara-m2": { status: "incompatible", notes: "Хаб Aqara не работает со сторонними реле Tuya." },
+        "tuya-hub": { status: "direct", notes: "Подключается к Tuya Hub, пробрасывается в Яндекс через облако." },
+        "no-hub": { status: "bridge", notes: "Требуется Tuya / Smart Life Zigbee шлюз." }
+      }
+    },
+    {
+      id: "yeelight-bulb-color",
+      name: "Умная светодиодная лампа Yeelight Smart LED Bulb M2 (Wi-Fi)",
+      brand: "Yeelight",
+      category: "Освещение",
+      protocol: "wifi",
+      specs: "Цветовая температура 1700-6500К, RGB, цоколь E27, Wi-Fi 2.4 ГГц.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Управляется Алисой через облако Mi Home / Yeelight. Хаб не требуется." },
+        "yandex-max-2": { status: "direct", notes: "Управление напрямую по сети Wi-Fi." },
+        "yandex-2": { status: "direct", notes: "Управление по Wi-Fi." },
+        "yandex-hub": { status: "direct", notes: "Управление по Wi-Fi." },
+        "yandex-mini-3": { status: "direct", notes: "Управление голосом через колонку и приложение." },
+        "aqara-m2": { status: "direct", notes: "Управление идет напрямую через домашний роутер Wi-Fi." },
+        "tuya-hub": { status: "direct", notes: "Управление идет напрямую через домашний роутер Wi-Fi." },
+        "no-hub": { status: "direct", notes: "Работает без хабов. Требуется только доступ лампы к Wi-Fi роутеру." }
+      }
+    },
+    {
+      id: "aqara-t1-relay",
+      name: "Одноканальное реле Aqara Single Switch Module T1 (с нейтралью / без нейтрали)",
+      brand: "Aqara",
+      category: "Реле",
+      protocol: "zigbee",
+      specs: "Zigbee 3.0. Позволяет сделать обычный выключатель умным. Защита от перегрева.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Подключается напрямую по Zigbee. Полное управление из приложения Яндекс." },
+        "yandex-max-2": { status: "direct", notes: "Прямая локальная поддержка." },
+        "yandex-2": { status: "direct", notes: "Прямая локальная поддержка." },
+        "yandex-hub": { status: "direct", notes: "Прямое подключение по Zigbee." },
+        "yandex-mini-3": { status: "bridge", notes: "Требуется шлюз Aqara Hub." },
+        "aqara-m2": { status: "direct", notes: "Отличная штатная работа в экосистеме Aqara с Алисой." },
+        "tuya-hub": { status: "incompatible", notes: "Шлюзы Tuya некорректно работают с реле Aqara T1." },
+        "no-hub": { status: "bridge", notes: "Необходим шлюз Aqara." }
+      }
+    },
+    {
+      id: "sonoff-minir4-wifi",
+      name: "Мини-реле Sonoff MINIR4 (Wi-Fi)",
+      brand: "Sonoff",
+      category: "Реле",
+      protocol: "wifi",
+      specs: "Сверхкомпактный размер, поддержка внешних выключателей, Wi-Fi 2.4 ГГц.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Управление по Wi-Fi через интеграцию eWeLink в Яндекс." },
+        "yandex-max-2": { status: "direct", notes: "Совместимо напрямую по Wi-Fi." },
+        "yandex-2": { status: "direct", notes: "Совместимо напрямую по Wi-Fi." },
+        "yandex-hub": { status: "direct", notes: "Совместимо напрямую по Wi-Fi." },
+        "yandex-mini-3": { status: "direct", notes: "Полная интеграция через приложение eWeLink." },
+        "aqara-m2": { status: "direct", notes: "Управляется параллельно по Wi-Fi, хаб Aqara не требуется." },
+        "tuya-hub": { status: "direct", notes: "Управляется параллельно по Wi-Fi." },
+        "no-hub": { status: "direct", notes: "Не требует аппаратных хабов умного дома. Достаточно Wi-Fi сети." }
+      }
+    },
+    {
+      id: "tuya-temp-matter",
+      name: "Датчик температуры и влажности Tuya Matter over Thread",
+      brand: "Tuya",
+      category: "Датчики",
+      protocol: "matter-thread",
+      specs: "Протокол Matter-over-Thread. Требует пограничный маршрутизатор Thread.",
+      compatibility: {
+        "yandex-midi": { status: "direct", notes: "Подключается напрямую по протоколу Thread, используя встроенный хаб Станции Миди." },
+        "yandex-max-2": { status: "incompatible", notes: "У Станции Макс нет аппаратного Thread-контроллера (только Zigbee)." },
+        "yandex-2": { status: "direct", notes: "Поддерживается напрямую (Станция 2 имеет встроенный Thread)." },
+        "yandex-hub": { status: "direct", notes: "Поддерживается напрямую (Яндекс Хаб работает как Thread Border Router)." },
+        "yandex-mini-3": { status: "incompatible", notes: "Мини 3 не имеет Zigbee или Thread модулей." },
+        "aqara-m2": { status: "incompatible", notes: "Aqara Hub M2 не является пограничным Thread-роутером для Matter сторонних брендов." },
+        "tuya-hub": { status: "direct", notes: "Работает при наличии специализированного Tuya Thread/Matter шлюза." },
+        "no-hub": { status: "incompatible", notes: "Для Thread-устройств физический шлюз обязателен." }
+      }
+    }
+  ];
+
+  function renderDevices() {
+    const hubSelector = document.getElementById("hub-selector") as HTMLSelectElement;
+    const protocolRadios = document.getElementsByName("protocol") as NodeListOf<HTMLInputElement>;
+    const searchInput = document.getElementById("device-search") as HTMLInputElement;
+    const devicesContainer = document.getElementById("devices-container");
+    const emptyState = document.getElementById("empty-state");
+    const matchCountSpan = document.getElementById("match-count");
+
+    if (!devicesContainer || !hubSelector || !searchInput || !emptyState || !matchCountSpan) return;
+
+    // Получаем текущие значения фильтров
+    const selectedHub = hubSelector.value;
+    
+    let selectedProtocol = "all";
+    for (const radio of protocolRadios) {
+      if (radio.checked) {
+        selectedProtocol = radio.value;
+        // Обновляем визуальный класс active
+        radio.closest(".protocol-radio-card")?.classList.add("active");
+      } else {
+        radio.closest(".protocol-radio-card")?.classList.remove("active");
+      }
+    }
+
+    const searchQuery = searchInput.value.toLowerCase().trim();
+
+    // Получаем активный фильтр по статусу совместимости
+    const activeStatusFilterBtn = document.querySelector(".status-filter-btn.active");
+    const statusFilter = activeStatusFilterBtn ? activeStatusFilterBtn.getAttribute("data-filter") : "all";
+
+    // Фильтруем устройства
+    const filteredDevices = devicesDb.filter(device => {
+      // 1. Фильтр по протоколу
+      if (selectedProtocol !== "all" && device.protocol !== selectedProtocol) {
+        return false;
+      }
+
+      // 2. Фильтр по поисковому запросу
+      if (searchQuery) {
+        const nameMatch = device.name.toLowerCase().includes(searchQuery);
+        const brandMatch = device.brand.toLowerCase().includes(searchQuery);
+        const categoryMatch = device.category.toLowerCase().includes(searchQuery);
+        if (!nameMatch && !brandMatch && !categoryMatch) {
+          return false;
+        }
+      }
+
+      // 3. Получаем статус для выбранного хаба
+      const hubData = device.compatibility[selectedHub as keyof typeof device.compatibility];
+      const status = hubData ? hubData.status : "incompatible";
+
+      // 4. Фильтр по статусу совместимости
+      if (statusFilter !== "all" && status !== statusFilter) {
+        return false;
+      }
+
+      return true;
+    });
+
+    // Очищаем контейнер
+    devicesContainer.innerHTML = "";
+    matchCountSpan.textContent = filteredDevices.length.toString();
+
+    if (filteredDevices.length === 0) {
+      emptyState.classList.remove("hidden");
+      return;
+    }
+
+    emptyState.classList.add("hidden");
+
+    // Рендерим карточки
+    filteredDevices.forEach(device => {
+      const hubData = device.compatibility[selectedHub as keyof typeof device.compatibility];
+      const status = hubData ? hubData.status : "incompatible";
+      const notes = hubData ? hubData.notes : "Устройства не совместимы в данной конфигурации.";
+
+      let statusBadgeClass = "";
+      let statusText = "";
+      let statusIcon = "";
+
+      if (status === "direct") {
+        statusBadgeClass = "status-direct";
+        statusText = "Напрямую";
+        statusIcon = `<svg class="status-svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      } else if (status === "bridge") {
+        statusBadgeClass = "status-bridge";
+        statusText = "Через шлюз";
+        statusIcon = `<svg class="status-svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`;
+      } else {
+        statusBadgeClass = "status-incompatible";
+        statusText = "Несовместимо";
+        statusIcon = `<svg class="status-svg" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>`;
+      }
+
+      // Получаем красивый бейдж протокола
+      let protocolBadge = "";
+      if (device.protocol === "zigbee") {
+        protocolBadge = '<span class="protocol-badge protocol-zigbee">Zigbee 3.0</span>';
+      } else if (device.protocol === "wifi") {
+        protocolBadge = '<span class="protocol-badge protocol-wifi">Wi-Fi 2.4G</span>';
+      } else if (device.protocol === "matter-thread") {
+        protocolBadge = '<span class="protocol-badge protocol-matter">Matter Thread</span>';
+      }
+
+      const card = document.createElement("div");
+      card.className = "device-compat-card card-outlined";
+      card.innerHTML = `
+        <div class="device-card-header">
+          <div class="device-info-left">
+            <span class="device-brand">${device.brand}</span>
+            <h3 class="device-title font-outfit">${device.name}</h3>
+          </div>
+          <div class="device-status-badge ${statusBadgeClass}">
+            ${statusIcon}
+            <span>${statusText}</span>
+          </div>
+        </div>
+        
+        <div class="device-card-body">
+          <p class="device-specs">${device.specs}</p>
+          <div class="device-compatibility-note">
+            <strong>Совместимость:</strong> ${notes}
+          </div>
+        </div>
+
+        <div class="device-card-footer">
+          ${protocolBadge}
+          <span class="device-category-badge">${device.category}</span>
+        </div>
+      `;
+      devicesContainer.appendChild(card);
+    });
+  }
+
+  function initCompatibilityChecker() {
+    const hubSelector = document.getElementById("hub-selector");
+    const protocolRadios = document.getElementsByName("protocol");
+    const searchInput = document.getElementById("device-search");
+    const statusFilterBtns = document.querySelectorAll(".status-filter-btn");
+
+    if (hubSelector) {
+      hubSelector.addEventListener("change", renderDevices);
+    }
+
+    if (protocolRadios) {
+      protocolRadios.forEach(radio => {
+        radio.addEventListener("change", renderDevices);
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", renderDevices);
+    }
+
+    if (statusFilterBtns) {
+      statusFilterBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          statusFilterBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderDevices();
+        });
+      });
+    }
+
+    renderDevices();
+  }
+
+  // Запуск скриптов при первой загрузке и смене страниц Astro
+  initCompatibilityChecker();
+  document.addEventListener("astro:page-load", initCompatibilityChecker);
+</script>
+
+<style>
+  .compatibility-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1rem 4rem 1rem;
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--accent-signature, #f97316);
+  }
+
+  .breadcrumbs .separator {
+    color: var(--text-muted);
+  }
+
+  .breadcrumbs .current {
+    color: var(--text-primary);
+  }
+
+  /* Hero Banner */
+  .compatibility-hero {
+    position: relative;
+    padding: 3rem 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    overflow: hidden;
+  }
+
+  .category-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-signature, #f97316);
+    background: var(--accent-signature-trans);
+    border: 1px solid var(--accent-signature-semi);
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    letter-spacing: 0.05em;
+  }
+
+  .page-title {
+    font-size: 2.8rem;
+    line-height: 1.25;
+    background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-signature, #f97316) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 800px;
+    font-weight: 800;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    line-height: 1.6;
+  }
+
+  .banner-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent-signature-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(30px);
+  }
+
+  /* Grid Layout */
+  .checker-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-bottom: 4rem;
+  }
+
+  /* Controls Panel */
+  .controls-panel {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 5.5rem;
+  }
+
+  .panel-section-title {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 0.75rem;
+  }
+
+  .panel-icon {
+    color: var(--accent-signature, #f97316);
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .control-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  /* Custom Select */
+  .custom-select-wrapper {
+    position: relative;
+  }
+
+  .custom-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .custom-select:focus {
+    border-color: var(--accent-signature);
+    box-shadow: 0 0 0 3px var(--accent-signature-glow);
+  }
+
+  .custom-select-wrapper::after {
+    content: "▼";
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  /* Radio Group */
+  .protocol-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .protocol-radio-card {
+    position: relative;
+    padding: 1rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .protocol-radio-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .protocol-radio-card:hover {
+    border-color: var(--border-hover);
+    background-color: var(--bg-card-opaque);
+  }
+
+  .protocol-radio-card.active {
+    border-color: var(--accent-signature);
+    background-color: var(--accent-signature-trans);
+    box-shadow: 0 0 0 1px var(--accent-signature);
+  }
+
+  .protocol-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .protocol-radio-card.active .protocol-name {
+    color: var(--accent-signature);
+  }
+
+  .protocol-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  /* Search Group */
+  .search-input-wrapper {
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent-signature);
+    box-shadow: 0 0 0 3px var(--accent-signature-glow);
+  }
+
+  /* Results Panel */
+  .results-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .results-header {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .results-count {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .results-count span {
+    color: var(--accent-signature);
+    font-weight: 800;
+  }
+
+  .filter-badges-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .status-filter-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .status-filter-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+  }
+
+  .status-filter-btn.active {
+    background-color: var(--accent-signature);
+    border-color: var(--accent-signature);
+    color: var(--text-white);
+  }
+
+  /* Devices Grid */
+  .devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .device-compat-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .device-compat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-signature-semi);
+    box-shadow: 0 8px 24px var(--accent-signature-glow);
+  }
+
+  .device-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .device-info-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .device-brand {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .device-title {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  /* Status Badges */
+  .device-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .status-svg {
+    flex-shrink: 0;
+  }
+
+  .status-direct {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  .status-bridge {
+    background-color: rgba(234, 179, 8, 0.1);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.2);
+  }
+
+  .status-incompatible {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+
+  /* Card Body */
+  .device-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .device-specs {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .device-compatibility-note {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    background-color: var(--bg-surface);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent-signature);
+  }
+
+  /* Card Footer */
+  .device-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-primary);
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+
+  .protocol-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .protocol-zigbee {
+    background-color: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+  }
+
+  .protocol-wifi {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+
+  .protocol-matter {
+    background-color: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+  }
+
+  .device-category-badge {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Empty State */
+  .empty-state {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .empty-icon {
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  .empty-title {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+  }
+
+  .empty-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 400px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* FAQ section */
+  .compatibility-faq {
+    padding: 3rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .faq-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  /* Details Accordion */
+  .faq-item {
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 1rem;
+  }
+
+  .faq-summary {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding: 0.5rem 0;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-summary::after {
+    content: "+";
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--accent-signature, #f97316);
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] .faq-summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-summary:hover {
+    color: var(--accent-signature, #f97316);
+  }
+
+  .faq-content {
+    padding: 1rem 0 0.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .faq-content p {
+    margin: 0;
+  }
+
+  /* Responsive Grid */
+  @media (max-width: 1024px) {
+    .checker-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .controls-panel {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .compatibility-hero {
+      padding: 2rem 1.5rem;
+    }
+
+    .page-title {
+      font-size: 2.2rem;
+    }
+
+    .devices-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .compatibility-faq {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
