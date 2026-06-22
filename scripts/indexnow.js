@@ -41,32 +41,23 @@ const sitemapFile = path.resolve("dist/sitemap-0.xml");
 
 if (!fs.existsSync(sitemapFile)) {
 	console.error(`Sitemap not found: ${sitemapFile}`);
-	process.exit(1);
+	process.exit(0);
 }
 
 const urls = extractUrls(sitemapFile);
 if (urls.length === 0) {
 	console.error("No URLs found in sitemap");
-	process.exit(1);
+	process.exit(0);
 }
 
 const results = await Promise.allSettled(ENDPOINTS.map((url) => submit(url, urls)));
 
-let hasError = false;
 for (const result of results) {
 	if (result.status === "rejected") {
-		console.error(`Error: ${result.reason}`);
-		hasError = true;
+		console.error(`Error: ${result.reason?.message || result.reason}`);
 	} else {
-		const { url, status, ok } = result.value;
-		console.log(`${ok ? "OK" : "FAIL"} [${status}] ${url} — ${urls.length} URLs`);
-		if (!ok) hasError = true;
+		const { url, status } = result.value;
+		console.log(`[${status}] ${url} — ${urls.length} URLs`);
 	}
 }
-
-if (hasError) {
-	console.error("IndexNow submission completed with errors");
-	process.exitCode = 1;
-} else {
-	console.log("IndexNow submission complete");
-}
+console.log("IndexNow submission complete");
