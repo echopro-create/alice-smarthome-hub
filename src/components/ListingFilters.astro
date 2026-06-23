@@ -7,7 +7,12 @@ interface Props {
 
 const { gridId, cardClass, difficultyPillsId } = Astro.props;
 ---
-<script define:vars={{ gridId, cardClass, difficultyPillsId }}>
+<span data-grid-id={gridId} data-card-class={cardClass} data-difficulty-pills-id={difficultyPillsId} aria-hidden="true" style="display:none"></span>
+<script is:inline>
+  const gridId = "{gridId}";
+  const cardClass = "{cardClass}";
+  const difficultyPillsId = "{difficultyPillsId}";
+
   let filteredCards = [];
   let currentPage = 1;
   const cardsPerPage = 9;
