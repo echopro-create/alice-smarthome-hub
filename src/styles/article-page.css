@@ -381,15 +381,28 @@
 	margin-top: auto;
 }
 
+:root {
+	--bg-table-header: #f2f7f7;
+	--bg-table-even: #ededed;
+}
+
+:root.dark {
+	--bg-table-header: #141b1b;
+	--bg-table-even: #181818;
+}
+
 /* Premium Table Styling for Markdown Articles */
 .markdown-body table {
+	display: block;
 	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
 	margin: 2rem 0;
 	border-collapse: separate;
 	border-spacing: 0;
 	border: 1px solid var(--border-primary);
 	border-radius: var(--radius-lg, 8px);
-	overflow: hidden;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 	background: var(--bg-card-opaque);
 }
@@ -447,8 +460,8 @@
 	background: var(--accent-signature);
 }
 
-/* Mobile responsive styling for tables */
-@media (max-width: 768px) {
+/* Mobile/Tablet responsive styling for tables */
+@media (max-width: 1024px) {
 	.markdown-body table {
 		display: block;
 		width: 100%;
@@ -462,12 +475,21 @@
 
 	.markdown-body th,
 	.markdown-body td {
-		padding: 0.75rem 1rem;
-		font-size: 0.88rem;
-		white-space: nowrap;
+		padding: 0.75rem 0.85rem;
+		font-size: 0.85rem;
+		white-space: normal;
+		word-break: normal;
+		overflow-wrap: break-word;
+		min-width: 115px;
 	}
 
-	/* Sticky first column on mobile for superior readability */
+	.markdown-body th:first-child,
+	.markdown-body td:first-child {
+		min-width: 100px;
+		max-width: 120px;
+	}
+
+	/* Sticky first column for superior readability */
 	.markdown-body th:first-child,
 	.markdown-body td:first-child {
 		position: sticky;
@@ -478,15 +500,15 @@
 	}
 
 	.markdown-body td:first-child {
-		background: var(--bg-main) !important;
-	}
-
-	.markdown-body tr:nth-child(even) td:first-child {
 		background: var(--bg-card-opaque) !important;
 	}
 
+	.markdown-body tr:nth-child(even) td:first-child {
+		background: var(--bg-table-even) !important;
+	}
+
 	.markdown-body th:first-child {
-		background: var(--bg-main) !important;
+		background: var(--bg-table-header) !important;
 		z-index: 3;
 	}
 }
