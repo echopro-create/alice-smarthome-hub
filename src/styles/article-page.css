@@ -382,3 +382,89 @@
 	color: var(--accent-signature);
 	margin-top: auto;
 }
+
+/* Premium Table Styling for Markdown Articles */
+.markdown-body table {
+	width: 100%;
+	margin: 2rem 0;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-lg, 8px);
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+	background: var(--bg-card-opaque);
+}
+
+.markdown-body thead {
+	background: var(--accent-signature-trans);
+}
+
+.markdown-body th {
+	color: var(--text-primary);
+	font-weight: 700;
+	text-align: left;
+	padding: 1rem 1.25rem;
+	border-bottom: 2px solid var(--border-primary);
+	font-size: 0.95rem;
+	letter-spacing: 0.02em;
+}
+
+.markdown-body td {
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid var(--border-item);
+	color: var(--text-secondary);
+	font-size: 0.92rem;
+	line-height: 1.5;
+	vertical-align: middle;
+}
+
+.markdown-body tr:last-child td {
+	border-bottom: none;
+}
+
+.markdown-body tr:nth-child(even) {
+	background: var(--bg-hover);
+}
+
+.markdown-body tr:hover td {
+	background: var(--accent-signature-glow);
+	color: var(--text-primary);
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.markdown-body table::-webkit-scrollbar {
+	height: 6px;
+}
+.markdown-body table::-webkit-scrollbar-track {
+	background: var(--bg-main);
+}
+.markdown-body table::-webkit-scrollbar-thumb {
+	background: var(--border-hover);
+	border-radius: 3px;
+}
+.markdown-body table::-webkit-scrollbar-thumb:hover {
+	background: var(--accent-signature);
+}
+
+/* Mobile responsive styling for tables */
+@media (max-width: 768px) {
+	.markdown-body table {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		border-radius: var(--radius-md, 6px);
+		box-shadow: none;
+		margin: 1.5rem 0;
+	}
+
+	.markdown-body th,
+	.markdown-body td {
+		padding: 0.75rem 1rem;
+		font-size: 0.88rem;
+		white-space: nowrap;
+	}
+}
