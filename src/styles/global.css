@@ -563,8 +563,6 @@ input:focus-visible,
 .toc-box {
 	padding: 1.5rem;
 	margin-bottom: 2rem;
-	position: sticky;
-	top: 6rem;
 }
 .toc-title {
 	font-size: 0.9rem;
