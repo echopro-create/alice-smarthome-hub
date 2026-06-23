@@ -647,3 +647,45 @@
 	content: "🚫  ОПАСНО";
 	color: #b91c1c;
 }
+
+/* 5. Premium Code Block Styling (Shiki & Astro-code) */
+.markdown-body pre,
+.markdown-body .astro-code {
+	margin: 2rem 0;
+	padding: 1.5rem !important;
+	border-radius: var(--radius-lg, 8px);
+	overflow-x: auto;
+	border: 1px solid var(--border-primary);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+	font-family: var(--font-mono, "SF Mono", "Fira Code", monospace);
+	font-size: 0.9rem;
+	line-height: 1.6;
+}
+
+/* Reduced margins for code blocks nested inside lists or alerts */
+.markdown-body li pre,
+.markdown-body li .astro-code,
+.markdown-body .markdown-alert pre,
+.markdown-body .markdown-alert .astro-code {
+	margin: 1rem 0;
+}
+
+/* Custom Scrollbars for Code Blocks */
+.markdown-body pre::-webkit-scrollbar,
+.markdown-body .astro-code::-webkit-scrollbar {
+	height: 6px;
+	width: 6px;
+}
+.markdown-body pre::-webkit-scrollbar-track,
+.markdown-body .astro-code::-webkit-scrollbar-track {
+	background: transparent;
+}
+.markdown-body pre::-webkit-scrollbar-thumb,
+.markdown-body .astro-code::-webkit-scrollbar-thumb {
+	background: var(--border-hover);
+	border-radius: 3px;
+}
+.markdown-body pre::-webkit-scrollbar-thumb:hover,
+.markdown-body .astro-code::-webkit-scrollbar-thumb:hover {
+	background: var(--accent-signature);
+}
