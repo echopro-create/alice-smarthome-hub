@@ -112,7 +112,7 @@
 /* Grid Layout for article and sidebar */
 .article-grid {
 	display: grid;
-	grid-template-columns: 1fr 340px;
+	grid-template-columns: minmax(0, 1fr) 340px;
 	gap: 3rem;
 	align-items: start;
 }
@@ -257,7 +257,7 @@
 
 @media (max-width: 900px) {
 	.article-grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 2.5rem;
 	}
 
