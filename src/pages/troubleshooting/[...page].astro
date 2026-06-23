@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
 import ListingFilters from "../../components/ListingFilters.astro";
+import Layout from "../../layouts/Layout.astro";
 import { getDifficultyLabel } from "../../utils/difficulty";
 
 // Получаем все разборы неисправностей на одну страницу,
@@ -13,17 +13,13 @@ export async function getStaticPaths() {
 	// Сортировка по дате публикации (свежие сверху)
 	troubleshooting.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
-	return [
-		{ params: { page: undefined }, props: { troubleshooting } }
-	];
+	return [{ params: { page: undefined }, props: { troubleshooting } }];
 }
 
 const { troubleshooting } = Astro.props;
 
 // Получаем уникальные устройства для фильтра
-const allDevices = Array.from(
-	new Set(troubleshooting.flatMap((s) => s.data.devices || []))
-).sort();
+const allDevices = Array.from(new Set(troubleshooting.flatMap((s) => s.data.devices || []))).sort();
 
 // Вспомогательная функция для определения протокола сценария
 const getProtocols = (devices: string[]) => {

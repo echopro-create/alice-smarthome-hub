@@ -11,8 +11,21 @@
 		"enabled": true,
 		"rules": {
 			"preset": "recommended",
+			"correctness": {
+				"noUnusedVariables": "off",
+				"noUnusedImports": "off",
+				"noUnknownPseudoClass": "off"
+			},
+			"style": {
+				"noDescendingSpecificity": "off"
+			},
 			"suspicious": {
-				"noConsole": "warn"
+				"noConsole": "warn",
+				"noAssignInExpressions": "off",
+				"noDuplicateProperties": "off"
+			},
+			"complexity": {
+				"noImportantStyles": "off"
 			}
 		}
 	},

@@ -293,14 +293,18 @@ img {
 	background: transparent;
 	border: 1px solid var(--border-primary);
 	border-radius: var(--radius-sm);
-	transition: border-color 0.2s ease, opacity 0.2s ease;
+	transition:
+		border-color 0.2s ease,
+		opacity 0.2s ease;
 }
 
 .card-outlined {
 	background: transparent;
 	border: 1px solid var(--border-primary);
 	border-radius: var(--radius-sm);
-	transition: border-color 0.2s ease, opacity 0.2s ease;
+	transition:
+		border-color 0.2s ease,
+		opacity 0.2s ease;
 }
 
 .card-flat {
@@ -590,7 +594,8 @@ input:focus-visible,
 	transition: all 0.2s ease;
 	display: block;
 }
-.toc-link:hover, .toc-link.active {
+.toc-link:hover,
+.toc-link.active {
 	color: var(--accent-signature, #f97316);
 	transform: translateX(3px);
 }
@@ -661,7 +666,7 @@ input:focus-visible,
 }
 .markdown-body summary {
 	font-weight: 700;
-	font-family: 'Outfit', 'Inter', sans-serif;
+	font-family: "Outfit", "Inter", sans-serif;
 	cursor: pointer;
 	outline: none;
 	user-select: none;
@@ -881,8 +886,12 @@ input:focus-visible,
 	box-shadow: 0 0 12px var(--accent-signature-glow);
 }
 @keyframes marquee-scroll {
-	0% { transform: translate3d(0, 0, 0); }
-	100% { transform: translate3d(-50%, 0, 0); }
+	0% {
+		transform: translate3d(0, 0, 0);
+	}
+	100% {
+		transform: translate3d(-50%, 0, 0);
+	}
 }
 
 /* 5. Editorial Ghost Numbers */
@@ -906,7 +915,8 @@ input:focus-visible,
 }
 
 /* 6. Card Hover (Flat styling) */
-.card-elevated:hover, .card-outlined:hover {
+.card-elevated:hover,
+.card-outlined:hover {
 	border-color: var(--accent-signature);
 }
 .card-flat:hover {
@@ -922,9 +932,12 @@ input:focus-visible,
 }
 
 /* Make sure inner items are above ghost number */
-.section-title, .section-desc, .stats-grid, .anatomy-grid, .troubleshooting-strips-list, .latest-cards-grid {
+.section-title,
+.section-desc,
+.stats-grid,
+.anatomy-grid,
+.troubleshooting-strips-list,
+.latest-cards-grid {
 	position: relative;
 	z-index: 1;
 }
-
-

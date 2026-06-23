@@ -84,10 +84,9 @@ const techArticleSchema = {
 	description: entry.data.description,
 	datePublished: entry.data.publishDate.toISOString(),
 	...(entry.data.updatedDate ? { dateModified: entry.data.updatedDate.toISOString() } : {}),
-	image:
-		entry.data.steps && entry.data.steps[0]?.image
-			? new URL(entry.data.steps[0].image.src, host).href
-			: new URL("/og-image.png", host).href,
+	image: entry.data.steps?.[0]?.image
+		? new URL(entry.data.steps[0].image.src, host).href
+		: new URL("/og-image.png", host).href,
 	author: {
 		"@type": "Person",
 		name: "Илья Кузнецов",

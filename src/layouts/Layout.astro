@@ -20,9 +20,12 @@ const pathname = Astro.url.pathname.toLowerCase().replace(/\/$/, "");
 const canonicalURLString = pathname === "" ? `${host}/` : `${host}${pathname}/`;
 
 const brand = "Умный Дом с Алисой";
-const finalTitle = title.toLowerCase().includes("алисо") || title.toLowerCase().includes("умный дом") || (title.length + brand.length + 3 > 70)
-	? title
-	: `${title} | ${brand}`;
+const finalTitle =
+	title.toLowerCase().includes("алисо") ||
+	title.toLowerCase().includes("умный дом") ||
+	title.length + brand.length + 3 > 70
+		? title
+		: `${title} | ${brand}`;
 
 const yandexVerification = import.meta.env.PUBLIC_YANDEX_VERIFICATION || "";
 const yandexMetrikaId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID || "";

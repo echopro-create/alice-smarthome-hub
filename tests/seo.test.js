@@ -109,8 +109,8 @@ function getImageDimensions(filePath) {
 			stdio: ["pipe", "pipe", "ignore"],
 		});
 		return {
-			width: parseInt(stdout.match(/pixelWidth:\s*(\d+)/)?.[1] || "0"),
-			height: parseInt(stdout.match(/pixelHeight:\s*(\d+)/)?.[1] || "0"),
+			width: parseInt(stdout.match(/pixelWidth:\s*(\d+)/)?.[1] || "0", 10),
+			height: parseInt(stdout.match(/pixelHeight:\s*(\d+)/)?.[1] || "0", 10),
 		};
 	} catch {
 		return null;
@@ -435,7 +435,11 @@ test("[SEO 2026] Images: все <img> в .astro файлах имеют loading=
 			const attrs = m[1] || "";
 			const isLCP = /fetchpriority=["']high["']/.test(attrs);
 			if (!isLCP && !/loading=["']lazy["']/.test(attrs))
-				violations.push({ file: path.basename(fp), tag: m[0], error: "Missing loading='lazy' (no fetchpriority='high')" });
+				violations.push({
+					file: path.basename(fp),
+					tag: m[0],
+					error: "Missing loading='lazy' (no fetchpriority='high')",
+				});
 			if (!/decoding=["']async["']/.test(attrs))
 				violations.push({ file: path.basename(fp), tag: m[0], error: "Missing decoding='async'" });
 			if (!/alt=/i.test(attrs)) violations.push({ file: path.basename(fp), tag: m[0], error: "Missing alt" });
@@ -577,8 +581,9 @@ test("[SEO 2026] HTML: длина мета-описания на всех стр
 	if (files.length === 0) return;
 	files.forEach((fp) => {
 		const content = fs.readFileSync(fp, "utf8");
-		const m = content.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) || 
-		          content.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i);
+		const m =
+			content.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) ||
+			content.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i);
 		assert.ok(m, `${fp}: отсутствует мета-описание`);
 		const descText = m[1].trim();
 		const len = descText.length;
@@ -660,7 +665,6 @@ test("[PERF 2026] HTML: LCP-изображение имеет fetchpriority=high
 	while ((mi = imgRegex.exec(content)) !== null) {
 		const attrs = mi[1] || "";
 		if (/class=["'][^"']*hero-image[^"']*["']/i.test(attrs)) {
-			console.log("DEBUG LCP test attrs:", attrs);
 			foundLCP = true;
 			assert.ok(/fetchpriority=["']high["']/i.test(attrs), "Hero image без fetchpriority=high");
 			assert.ok(!/loading=["']lazy["']/i.test(attrs), "Hero image не должна иметь loading=lazy");
@@ -763,7 +767,7 @@ test("[SEO 2026] Sitemap: sitemap-0.xml содержит все страницы
 	const pages = getDistHtmlFiles();
 	const pageUrls = new Set(
 		pages.map((p) => {
-			let rel = "/" + path.relative(DIST_DIR, p);
+			let rel = `/${path.relative(DIST_DIR, p)}`;
 			rel = rel.replace(/index\.html$/, "");
 			if (rel === "/") rel = "/";
 			if (rel !== "/" && rel.endsWith("/")) rel = rel.replace(/\/$/, "");
@@ -814,10 +818,7 @@ test("[SEO 2026] Sitemap: vercel.json содержит редирект /sitemap
 	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
 	assert.ok(Array.isArray(vercel.redirects), "vercel.json: нет redirects");
 	const hasSitemapRedirect = vercel.redirects.some(
-		(r) =>
-			r.source === "/sitemap.xml" &&
-			r.destination === "/sitemap-index.xml" &&
-			r.permanent === true,
+		(r) => r.source === "/sitemap.xml" && r.destination === "/sitemap-index.xml" && r.permanent === true,
 	);
 	assert.ok(hasSitemapRedirect, "vercel.json: нет редиректа /sitemap.xml → /sitemap-index.xml");
 });
@@ -1042,12 +1043,12 @@ test("[SEO 2026] JSON-LD: страницы статей имеют BreadcrumbLis
 				hasBreadcrumb = true;
 				// Проверяем, что ни один itemListElement не содержит # (hash-фрагмент)
 				(bc.itemListElement || []).forEach((item) => {
-					if (item.item && item.item.includes("#")) {
+					if (item.item?.includes("#")) {
 						breadcrumbOk = false;
 					}
 				});
 				// Проверяем, что позиция 2 ссылается на /scenarios/ или /troubleshooting/
-				if (bc.itemListElement && bc.itemListElement[1]) {
+				if (bc.itemListElement?.[1]) {
 					const pos2url = bc.itemListElement[1].item;
 					assert.ok(
 						pos2url.includes("/scenarios/") || pos2url.includes("/troubleshooting/"),
@@ -1113,7 +1114,7 @@ test("[UX 2026] Footer: ссылки на /about, /privacy ведут на су�
 	if (files.length === 0) return;
 	const pagePaths = new Set(
 		files.map((f) => {
-			let rel = "/" + path.relative(DIST_DIR, f);
+			let rel = `/${path.relative(DIST_DIR, f)}`;
 			rel = rel.replace(/index\.html$/, "");
 			return rel === "/" ? "/" : `/${rel.replace(/\/$/, "").replace(/^\//, "")}/`;
 		}),
@@ -1273,7 +1274,8 @@ test("[SEO 2026] JSON-LD: страницы troubleshooting имеют TechArticl
 
 test("[SEO 2026] JSON-LD: HowTo сценарии содержат image (главное изображение) и step.url с #step-N", () => {
 	const files = getDistHtmlFiles().filter(
-		(f) => f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
 	);
 	if (files.length === 0) return;
 	files.forEach((fp) => {
@@ -1299,7 +1301,8 @@ test("[SEO 2026] JSON-LD: HowTo сценарии содержат image (гла�
 
 test("[SEO 2026] JSON-LD: dateModified присутствует в HowTo/TechArticle если updatedDate задана", () => {
 	const files = getDistHtmlFiles().filter(
-		(f) => f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
 	);
 	if (files.length === 0) return;
 	let checkedCount = 0;
@@ -1360,11 +1363,14 @@ test("[SEO 2026] JSON-LD: BreadcrumbList itemListElement[0] — Главная �
 			const bc = schemas.find((n) => n["@type"] === "BreadcrumbList");
 			if (bc) {
 				breadcrumbCount++;
-				const item0 = bc.itemListElement && bc.itemListElement[0];
+				const item0 = bc.itemListElement?.[0];
 				assert.ok(item0, `${fp}: BreadcrumbList без itemListElement[0]`);
 				assert.equal(item0.position, 1, `${fp}: BreadcrumbList позиция 1 не равна 1`);
 				assert.equal(item0.name, "Главная", `${fp}: BreadcrumbList позиция 1 не "Главная"`);
-				assert.ok(item0.item && item0.item.replace(/\/$/, "").endsWith("smart-hub.info"), `${fp}: BreadcrumbList позиция 1 URL не на smart-hub.info`);
+				assert.ok(
+					item0.item?.replace(/\/$/, "").endsWith("smart-hub.info"),
+					`${fp}: BreadcrumbList позиция 1 URL не на smart-hub.info`,
+				);
 			}
 		});
 	});
@@ -1423,8 +1429,7 @@ test("[Security 2026] Vercel: www → non-www редирект настроен"
 	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
 	const hasWwwRedirect = vercel.redirects.some(
 		(r) =>
-			r.has &&
-			r.has.some((h) => h.type === "host" && h.value === "www.smart-hub.info") &&
+			r.has?.some((h) => h.type === "host" && h.value === "www.smart-hub.info") &&
 			r.destination === "https://smart-hub.info/:path*" &&
 			r.permanent === true,
 	);
@@ -1569,10 +1574,7 @@ test("[SEO 2026] HTML: canonical URL заканчивается на / (trailing
 		const m = content.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
 		if (!m) return;
 		const url = m[1];
-		assert.ok(
-			url.endsWith("/") || url === "https://smart-hub.info",
-			`${fp}: canonical без trailing slash: ${url}`,
-		);
+		assert.ok(url.endsWith("/") || url === "https://smart-hub.info", `${fp}: canonical без trailing slash: ${url}`);
 	});
 });
 
@@ -1596,9 +1598,15 @@ test("[SEO 2026] Artifacts: PWA иконки icon-192.png и icon-512.png сущ
 	assert.ok(fs.existsSync(`${PUBLIC_DIR}/icon-192.png`), "icon-192.png не найден в public/");
 	assert.ok(fs.existsSync(`${PUBLIC_DIR}/icon-512.png`), "icon-512.png не найден в public/");
 	const dims192 = getImageDimensions(`${PUBLIC_DIR}/icon-192.png`);
-	assert.ok(dims192 && dims192.width === 192 && dims192.height === 192, `icon-192.png: размеры ${dims192?.width}x${dims192?.height}, ожидается 192x192`);
+	assert.ok(
+		dims192 && dims192.width === 192 && dims192.height === 192,
+		`icon-192.png: размеры ${dims192?.width}x${dims192?.height}, ожидается 192x192`,
+	);
 	const dims512 = getImageDimensions(`${PUBLIC_DIR}/icon-512.png`);
-	assert.ok(dims512 && dims512.width === 512 && dims512.height === 512, `icon-512.png: размеры ${dims512?.width}x${dims512?.height}, ожидается 512x512`);
+	assert.ok(
+		dims512 && dims512.width === 512 && dims512.height === 512,
+		`icon-512.png: размеры ${dims512?.width}x${dims512?.height}, ожидается 512x512`,
+	);
 });
 
 test("[SEO 2026] Artifacts: PWA иконки скопированы в dist/ после сборки", () => {
@@ -1803,10 +1811,6 @@ test("[SEO 2026] Sitemap: sitemap-0.xml содержит lastmod для всех
 	const locs = content.match(/<loc>/g) || [];
 	const lastmods = content.match(/<lastmod>/g) || [];
 	if (lastmods.length < locs.length * 0.9) {
-		console.warn(
-			`⚠ [SEO WARNING] sitemap: только ${lastmods.length}/${locs.length} URL имеют <lastmod>. ` +
-			`Рекомендуется добавить lastmod через кастомную sitemap-интеграцию Astro или вручную.`,
-		);
 	}
 });
 

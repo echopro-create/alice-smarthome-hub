@@ -8,7 +8,7 @@ const allEntries = await getCollection("scenarios");
 
 // Сортируем все записи по дате (самые свежие первые)
 const sortedEntries = allEntries.sort(
-	(a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+	(a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime(),
 );
 
 // Разделяем на сценарии и траблшутинг
