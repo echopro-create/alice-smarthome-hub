@@ -514,6 +514,33 @@ test("[SEO 2026] HTML: каждая страница имеет ровно 1 <h1
 	});
 });
 
+test("[SEO 2026] HTML: длина тега <title> на всех страницах от 20 до 70 символов", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const m = content.match(/<title>([\s\S]*?)<\/title>/i);
+		assert.ok(m, `${fp}: отсутствует тег <title>`);
+		const titleText = m[1].trim();
+		const len = titleText.length;
+		assert.ok(len >= 20 && len <= 70, `${fp}: title "${titleText}" ${len} симв. (ожидается 20–70)`);
+	});
+});
+
+test("[SEO 2026] HTML: длина мета-описания на всех страницах от 100 до 170 символов", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const m = content.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i) || 
+		          content.match(/<meta\s+content=["']([^"']+)["']\s+name=["']description["']/i);
+		assert.ok(m, `${fp}: отсутствует мета-описание`);
+		const descText = m[1].trim();
+		const len = descText.length;
+		assert.ok(len >= 100 && len <= 170, `${fp}: description "${descText}" ${len} симв. (ожидается 100–170)`);
+	});
+});
+
 test("[SEO 2026] HTML: canonical URL уникален, в нижнем регистре, без ?/#", () => {
 	const files = getDistHtmlFiles();
 	if (files.length === 0) return;
