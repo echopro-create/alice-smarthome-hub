@@ -1236,3 +1236,616 @@ test("[SEO 2026] Viral: все scenario-статьи имеют yandexShareUrl (
 		);
 	});
 });
+
+// ============================================================
+// 16. JSON-LD: TechArticle для траблшутинга + дополнительные проверки
+// ============================================================
+
+test("[SEO 2026] JSON-LD: страницы troubleshooting имеют TechArticle с author, publisher, logo", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) => f.includes("/troubleshooting/") && /\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html$/.test(f),
+	);
+	if (files.length === 0) return;
+	let hasTechArticle = false;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+		scripts.forEach((s) => {
+			const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
+			const schemas = Array.isArray(json) ? json : [json];
+			const ta = schemas.find((n) => n["@type"] === "TechArticle");
+			if (ta) {
+				hasTechArticle = true;
+				assert.ok(ta.headline, `${fp}: TechArticle без headline`);
+				assert.ok(ta.description, `${fp}: TechArticle без description`);
+				assert.ok(ta.datePublished, `${fp}: TechArticle без datePublished`);
+				assert.ok(ta.author, `${fp}: TechArticle без author`);
+				assert.ok(ta.author.name, `${fp}: TechArticle author без name`);
+				assert.ok(ta.publisher, `${fp}: TechArticle без publisher`);
+				assert.ok(ta.publisher.name, `${fp}: TechArticle publisher без name`);
+				assert.ok(ta.publisher.logo, `${fp}: TechArticle publisher без logo`);
+				assert.ok(ta.publisher.logo.url, `${fp}: TechArticle publisher logo без url`);
+			}
+		});
+	});
+	assert.ok(hasTechArticle, "Ни одна troubleshooting-статья не содержит TechArticle JSON-LD");
+});
+
+test("[SEO 2026] JSON-LD: HowTo сценарии содержат image (главное изображение) и step.url с #step-N", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) => f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+		scripts.forEach((s) => {
+			const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
+			const schemas = Array.isArray(json) ? json : [json];
+			const howTo = schemas.find((n) => n["@type"] === "HowTo");
+			if (howTo) {
+				assert.ok(howTo.image, `${fp}: HowTo без image (главное изображение)`);
+				assert.ok(howTo.step && howTo.step.length > 0, `${fp}: HowTo без шагов`);
+				howTo.step.forEach((step, i) => {
+					assert.ok(step.name, `${fp}: HowToStep ${i + 1} без name`);
+					assert.ok(step.text, `${fp}: HowToStep ${i + 1} без text`);
+					assert.ok(step.url, `${fp}: HowToStep ${i + 1} без url`);
+					assert.ok(step.url.includes("#step-"), `${fp}: HowToStep ${i + 1} url без #step-якоря`);
+				});
+			}
+		});
+	});
+});
+
+test("[SEO 2026] JSON-LD: dateModified присутствует в HowTo/TechArticle если updatedDate задана", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) => f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	let checkedCount = 0;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+		scripts.forEach((s) => {
+			const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
+			const schemas = Array.isArray(json) ? json : [json];
+			const mainSchema = schemas.find((n) => n["@type"] === "HowTo" || n["@type"] === "TechArticle");
+			if (mainSchema) {
+				checkedCount++;
+				if (mainSchema.dateModified) {
+					const d1 = new Date(mainSchema.datePublished);
+					const d2 = new Date(mainSchema.dateModified);
+					assert.ok(d2 >= d1, `${fp}: dateModified раньше datePublished в JSON-LD`);
+				}
+			}
+		});
+	});
+	assert.ok(checkedCount > 0, "Не найдено ни одной HowTo/TechArticle схемы в dist");
+});
+
+test("[SEO 2026] JSON-LD: статьи troubleshooting с шагами содержат HowTo (не только scenario)", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) => f.includes("/troubleshooting/") && /\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html$/.test(f),
+	);
+	if (files.length === 0) return;
+	let troubleshootingWithSteps = 0;
+	let troubleshootingWithHowTo = 0;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const hasSteps = content.includes("steps-section") || content.includes('id="step-');
+		if (!hasSteps) return;
+		troubleshootingWithSteps++;
+		const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+		scripts.forEach((s) => {
+			const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
+			const schemas = Array.isArray(json) ? json : [json];
+			if (schemas.some((n) => n["@type"] === "HowTo")) troubleshootingWithHowTo++;
+		});
+	});
+	if (troubleshootingWithSteps > 0) {
+		assert.ok(troubleshootingWithHowTo > 0, "Есть troubleshooting со шагами, но без HowTo JSON-LD");
+	}
+});
+
+test("[SEO 2026] JSON-LD: BreadcrumbList itemListElement[0] — Главная с корректным URL на всех страницах", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	let breadcrumbCount = 0;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const scripts = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+		scripts.forEach((s) => {
+			const json = JSON.parse(s.replace(/<script type="application\/ld\+json">/, "").replace(/<\/script>/, ""));
+			const schemas = Array.isArray(json) ? json : [json];
+			const bc = schemas.find((n) => n["@type"] === "BreadcrumbList");
+			if (bc) {
+				breadcrumbCount++;
+				const item0 = bc.itemListElement && bc.itemListElement[0];
+				assert.ok(item0, `${fp}: BreadcrumbList без itemListElement[0]`);
+				assert.equal(item0.position, 1, `${fp}: BreadcrumbList позиция 1 не равна 1`);
+				assert.equal(item0.name, "Главная", `${fp}: BreadcrumbList позиция 1 не "Главная"`);
+				assert.ok(item0.item && item0.item.replace(/\/$/, "").endsWith("smart-hub.info"), `${fp}: BreadcrumbList позиция 1 URL не на smart-hub.info`);
+			}
+		});
+	});
+	assert.ok(breadcrumbCount > 0, "Ни одна страница не содержит BreadcrumbList");
+});
+
+// ============================================================
+// 17. ARTICLE METADATA (modified_time, pagefind)
+// ============================================================
+
+test("[SEO 2026] Article: article:modified_time присутствует на страницах статей (сигнал свежести)", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	const articlePages = files.filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (articlePages.length === 0) return;
+	let withModified = 0;
+	articlePages.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		if (content.includes("article:modified_time")) withModified++;
+	});
+	assert.ok(
+		withModified >= articlePages.length * 0.8,
+		`article:modified_time найден только на ${withModified}/${articlePages.length} страницах статей`,
+	);
+});
+
+test("[SEO 2026] Pagefind: data-pagefind-body присутствует на страницах статей", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	const articlePages = files.filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (articlePages.length === 0) return;
+	articlePages.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /data-pagefind-body/, `${fp}: отсутствует data-pagefind-body (Pagefind не проиндексирует)`);
+	});
+});
+
+test("[SEO 2026] Pagefind: pagefind-ui.js и pagefind-ui.css существуют в dist/", () => {
+	assert.ok(fs.existsSync(`${DIST_DIR}/pagefind/pagefind-ui.js`), "pagefind-ui.js не найден в dist/pagefind/");
+	assert.ok(fs.existsSync(`${DIST_DIR}/pagefind/pagefind-ui.css`), "pagefind-ui.css не найден в dist/pagefind/");
+});
+
+// ============================================================
+// 18. SECURITY HEADERS & VERCEL CONFIG
+// ============================================================
+
+test("[Security 2026] Vercel: www → non-www редирект настроен", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	assert.ok(fs.existsSync(fp), "vercel.json не найден");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const hasWwwRedirect = vercel.redirects.some(
+		(r) =>
+			r.has &&
+			r.has.some((h) => h.type === "host" && h.value === "www.smart-hub.info") &&
+			r.destination === "https://smart-hub.info/:path*" &&
+			r.permanent === true,
+	);
+	assert.ok(hasWwwRedirect, "vercel.json: нет редиректа www → non-www");
+});
+
+test("[Security 2026] Vercel: Strict-Transport-Security (HSTS) заголовок настроен", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	assert.ok(fs.existsSync(fp), "vercel.json не найден");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const globalHeaders = vercel.headers.find((h) => h.source === "/(.*)");
+	assert.ok(globalHeaders, "vercel.json: нет глобальной секции headers для '/(.*)'");
+	const sts = globalHeaders.headers.find((h) => h.key === "Strict-Transport-Security");
+	assert.ok(sts, "vercel.json: нет заголовка Strict-Transport-Security");
+	assert.match(sts.value, /max-age=31536000/, "HSTS: неверный max-age");
+	assert.match(sts.value, /includeSubDomains/, "HSTS: нет includeSubDomains");
+});
+
+test("[Security 2026] Vercel: X-Content-Type-Options: nosniff настроен", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const globalHeaders = vercel.headers.find((h) => h.source === "/(.*)");
+	const xcto = globalHeaders.headers.find((h) => h.key === "X-Content-Type-Options");
+	assert.ok(xcto, "vercel.json: нет X-Content-Type-Options");
+	assert.equal(xcto.value, "nosniff", "X-Content-Type-Options: должно быть nosniff");
+});
+
+test("[Security 2026] Vercel: X-Frame-Options: DENY настроен", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const globalHeaders = vercel.headers.find((h) => h.source === "/(.*)");
+	const xfo = globalHeaders.headers.find((h) => h.key === "X-Frame-Options");
+	assert.ok(xfo, "vercel.json: нет X-Frame-Options");
+	assert.equal(xfo.value, "DENY", "X-Frame-Options: должно быть DENY");
+});
+
+test("[Security 2026] Vercel: Referrer-Policy: strict-origin-when-cross-origin", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const globalHeaders = vercel.headers.find((h) => h.source === "/(.*)");
+	const rp = globalHeaders.headers.find((h) => h.key === "Referrer-Policy");
+	assert.ok(rp, "vercel.json: нет Referrer-Policy");
+	assert.equal(rp.value, "strict-origin-when-cross-origin", "Referrer-Policy: неверное значение");
+});
+
+test("[Security 2026] Vercel: Content-Security-Policy содержит основные директивы", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const globalHeaders = vercel.headers.find((h) => h.source === "/(.*)");
+	const csp = globalHeaders.headers.find((h) => h.key === "Content-Security-Policy");
+	assert.ok(csp, "vercel.json: нет Content-Security-Policy");
+	assert.match(csp.value, /default-src/, "CSP: нет default-src");
+	assert.match(csp.value, /style-src/, "CSP: нет style-src");
+	assert.match(csp.value, /script-src/, "CSP: нет script-src");
+	assert.match(csp.value, /img-src/, "CSP: нет img-src");
+	assert.match(csp.value, /font-src/, "CSP: нет font-src");
+});
+
+test("[Security 2026] Vercel: Cache-Control immutable для _astro ресурсов", () => {
+	const fp = path.join(__dirname, "../vercel.json");
+	const vercel = JSON.parse(fs.readFileSync(fp, "utf8"));
+	const astroHeaders = vercel.headers.find((h) => h.source === "/_astro/(.*)");
+	assert.ok(astroHeaders, "vercel.json: нет секции headers для /_astro/ ресурсов");
+	const cc = astroHeaders.headers.find((h) => h.key === "Cache-Control");
+	assert.ok(cc, "vercel.json: нет Cache-Control для _astro/");
+	assert.match(cc.value, /max-age=31536000/, "Cache-Control: нет max-age=31536000");
+	assert.match(cc.value, /immutable/, "Cache-Control: нет immutable");
+});
+
+// ============================================================
+// 19. SECURITY: все внешние ссылки (расширенная проверка)
+// ============================================================
+
+test("[Security 2026] External: ВСЕ внешние ссылки в .astro содержат rel='noopener noreferrer'", () => {
+	const allAstro = getAstroFiles(SRC_DIR);
+	const violations = [];
+	allAstro.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const aRegex = /<a\s[^>]*href="(https?:\/\/(?!smart-hub)[^"]*)"[^>]*>/g;
+		let m;
+		while ((m = aRegex.exec(content)) !== null) {
+			const tag = m[0];
+			const href = m[1];
+			if (href.includes("preconnect") || href.includes("astatic") || href.includes("yastatic")) return;
+			if (!/rel=["'][^"']*(?:noopener|noreferrer)[^"']*["']/.test(tag)) {
+				violations.push({ file: path.basename(fp), tag: tag.substring(0, 120) });
+			}
+		}
+	});
+	assert.deepEqual(violations, [], "Внешние ссылки без rel=noopener/noreferrer");
+});
+
+// ============================================================
+// 20. HTML: фундаментальные мета-теги (viewport, charset, generator)
+// ============================================================
+
+test("[SEO 2026] HTML: все страницы имеют viewport мета-тег", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /<meta\s+name=["']viewport["'][^>]*>/, `${fp}: нет viewport мета-тега`);
+	});
+});
+
+test("[SEO 2026] HTML: все страницы имеют meta charset UTF-8", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /<meta\s+charset=["']UTF-8["']/i, `${fp}: нет meta charset UTF-8`);
+	});
+});
+
+test("[SEO 2026] HTML: meta name='title' присутствует наравне с <title>", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /<meta\s+name=["']title["']/i, `${fp}: нет meta name="title"`);
+	});
+});
+
+test("[SEO 2026] HTML: og:type = 'website' на всех страницах", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /og:type["']\s+content=["']website["']/i, `${fp}: нет og:type website`);
+	});
+});
+
+// ============================================================
+// 21. CANONICAL: trailing slash и консистентность
+// ============================================================
+
+test("[SEO 2026] HTML: canonical URL заканчивается на / (trailing slash)", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const m = content.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+		if (!m) return;
+		const url = m[1];
+		assert.ok(
+			url.endsWith("/") || url === "https://smart-hub.info",
+			`${fp}: canonical без trailing slash: ${url}`,
+		);
+	});
+});
+
+test("[SEO 2026] HTML: canonical URL не содержит index.html", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const m = content.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+		if (!m) return;
+		const url = m[1];
+		assert.ok(!url.includes("index.html"), `${fp}: canonical содержит index.html: ${url}`);
+	});
+});
+
+// ============================================================
+// 22. ARTIFACTS: PWA иконки, верификация, шрифты
+// ============================================================
+
+test("[SEO 2026] Artifacts: PWA иконки icon-192.png и icon-512.png существуют в public/", () => {
+	assert.ok(fs.existsSync(`${PUBLIC_DIR}/icon-192.png`), "icon-192.png не найден в public/");
+	assert.ok(fs.existsSync(`${PUBLIC_DIR}/icon-512.png`), "icon-512.png не найден в public/");
+	const dims192 = getImageDimensions(`${PUBLIC_DIR}/icon-192.png`);
+	assert.ok(dims192 && dims192.width === 192 && dims192.height === 192, `icon-192.png: размеры ${dims192?.width}x${dims192?.height}, ожидается 192x192`);
+	const dims512 = getImageDimensions(`${PUBLIC_DIR}/icon-512.png`);
+	assert.ok(dims512 && dims512.width === 512 && dims512.height === 512, `icon-512.png: размеры ${dims512?.width}x${dims512?.height}, ожидается 512x512`);
+});
+
+test("[SEO 2026] Artifacts: PWA иконки скопированы в dist/ после сборки", () => {
+	assert.ok(fs.existsSync(`${DIST_DIR}/icon-192.png`), "icon-192.png не найден в dist/");
+	assert.ok(fs.existsSync(`${DIST_DIR}/icon-512.png`), "icon-512.png не найден в dist/");
+});
+
+test("[SEO 2026] Artifacts: файлы верификации Google и Яндекс существуют", () => {
+	assert.ok(fs.existsSync(`${PUBLIC_DIR}/google13719b92e35599e0.html`), "Google verification file not found");
+	const yandexFiles = fs.readdirSync(PUBLIC_DIR).filter((f) => f.startsWith("yandex_") && f.endsWith(".html"));
+	assert.ok(yandexFiles.length >= 1, "Yandex verification file not found");
+});
+
+test("[SEO 2026] Artifacts: Google и Яндекс верификация скопированы в dist/", () => {
+	assert.ok(fs.existsSync(`${DIST_DIR}/google13719b92e35599e0.html`), "Google verification not in dist/");
+	const yandexDistFiles = fs.readdirSync(DIST_DIR).filter((f) => f.startsWith("yandex_") && f.endsWith(".html"));
+	assert.ok(yandexDistFiles.length >= 1, "Yandex verification not in dist/");
+});
+
+test("[PERF 2026] Fonts: self-hosted шрифты (woff2) существуют в public/fonts/", () => {
+	const fontDir = `${PUBLIC_DIR}/fonts`;
+	assert.ok(fs.existsSync(fontDir), "public/fonts/ не существует");
+	const woff2Files = fs.readdirSync(fontDir).filter((f) => f.endsWith(".woff2"));
+	assert.ok(woff2Files.length >= 3, `Найдено ${woff2Files.length} woff2 шрифтов, ожидается >= 3`);
+});
+
+test("[PERF 2026] Fonts: self-hosted шрифты скопированы в dist/fonts/", () => {
+	const fontDir = `${DIST_DIR}/fonts`;
+	assert.ok(fs.existsSync(fontDir), "dist/fonts/ не существует");
+	const woff2Files = fs.readdirSync(fontDir).filter((f) => f.endsWith(".woff2"));
+	assert.ok(woff2Files.length >= 3, `Найдено ${woff2Files.length} woff2 шрифтов в dist, ожидается >= 3`);
+});
+
+test("[PERF 2026] Fonts: font-display: swap используется в @font-face", () => {
+	const fp = path.join(DIST_DIR, "index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	assert.match(content, /font-display:\s*swap/, "font-display: swap не найден в HTML");
+});
+
+test("[PERF 2026] Fonts: шрифты preloaded с crossorigin для ускорения LCP", () => {
+	const fp = path.join(DIST_DIR, "index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	const preloadFonts = content.match(/<link[^>]*rel=["']preload["'][^>]*as=["']font["'][^>]*>/gi) || [];
+	assert.ok(preloadFonts.length >= 2, `Найдено ${preloadFonts.length} preload шрифтов, ожидается >= 2`);
+	preloadFonts.forEach((tag) => {
+		assert.match(tag, /crossorigin/i, `Font preload без crossorigin: ${tag.substring(0, 80)}`);
+	});
+});
+
+// ============================================================
+// 23. UX: reading time, feedback, social share, TOC
+// ============================================================
+
+test("[UX 2026] Article: время чтения отображается на страницах статей", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /мин чтения/, `${fp}: нет индикатора 'мин чтения'`);
+	});
+});
+
+test("[UX 2026] Article: блок обратной связи (фидбек) присутствует", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /Была ли статья полезна/, `${fp}: нет блока обратной связи`);
+		assert.match(content, /feedback-btn/, `${fp}: нет кнопок фидбека`);
+	});
+});
+
+test("[UX 2026] Article: социальные кнопки (Telegram, VK, WhatsApp) присутствуют", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /t\.me\/share/, `${fp}: нет кнопки Telegram`);
+		assert.match(content, /vk\.com\/share/, `${fp}: нет кнопки VK`);
+		assert.match(content, /whatsapp\.com\/send/, `${fp}: нет кнопки WhatsApp`);
+	});
+});
+
+test("[UX 2026] Article: оглавление (TOC) присутствует на статьях с заголовками", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	let tocCount = 0;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const hasHeadings = (content.match(/<h[23][^>]*>/gi) || []).length >= 1;
+		if (!hasHeadings) return;
+		if (content.includes("toc-box") || content.includes("toc-link")) tocCount++;
+	});
+	assert.ok(tocCount > 0, "Ни одна статья с заголовками не имеет TOC-оглавления");
+});
+
+test("[UX 2026] Article: DeviceList рендерится на страницах с устройствами", () => {
+	const files = getDistHtmlFiles().filter(
+		(f) =>
+			f.match(/\/scenarios\/(?!\d+\b)[^/]+\/index\.html/) || f.match(/\/troubleshooting\/(?!\d+\b)[^/]+\/index\.html/),
+	);
+	if (files.length === 0) return;
+	let deviceListCount = 0;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		if (content.includes("device-list") || content.includes("Необходимое оборудование")) deviceListCount++;
+	});
+	assert.ok(deviceListCount > 0, "DeviceList не отрендерен ни на одной странице");
+});
+
+// ============================================================
+// 24. BREADCRUMB & SITEMAP HTML PAGE
+// ============================================================
+
+test("[SEO 2026] Nav: страницы /about, /privacy, /compatibility, /sitemap имеют хлебные крошки", () => {
+	const pages = ["about", "privacy", "compatibility", "sitemap"];
+	pages.forEach((page) => {
+		const fp = path.join(DIST_DIR, page, "index.html");
+		if (!fs.existsSync(fp)) return;
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /aria-label=["']Хлебные крошки["']/, `/${page}/: нет хлебных крошек`);
+	});
+});
+
+test("[SEO 2026] Nav: страница /sitemap/ имеет все секции карты сайта", () => {
+	const fp = path.join(DIST_DIR, "sitemap/index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	assert.match(content, /<h1[^>]*>[\s\S]*?Карта сайта/, "/sitemap/: нет h1");
+	assert.match(content, /Основные страницы/, "/sitemap/: нет секции основных страниц");
+	assert.match(content, /Сценарии автоматизации/, "/sitemap/: нет секции сценариев");
+	assert.match(content, /Траблшутинг/, "/sitemap/: нет секции траблшутинга");
+	assert.match(content, /sitemap\.xml/, "/sitemap/: нет ссылки на sitemap.xml");
+});
+
+// ============================================================
+// 25. LISTING PAGES: пагинация и фильтры
+// ============================================================
+
+test("[UX 2026] Listing: страницы /scenarios/ и /troubleshooting/ имеют пагинацию", () => {
+	["scenarios", "troubleshooting"].forEach((section) => {
+		const fp = path.join(DIST_DIR, section, "index.html");
+		if (!fs.existsSync(fp)) return;
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /pagination/, `/${section}/: нет блока пагинации`);
+	});
+});
+
+test("[UX 2026] Listing: страницы /scenarios/ и /troubleshooting/ имеют фильтры", () => {
+	["scenarios", "troubleshooting"].forEach((section) => {
+		const fp = path.join(DIST_DIR, section, "index.html");
+		if (!fs.existsSync(fp)) return;
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /filter-panel/, `/${section}/: нет панели фильтров`);
+	});
+});
+
+test("[UX 2026] Listing: страницы /scenarios/ и /troubleshooting/ имеют empty state", () => {
+	["scenarios", "troubleshooting"].forEach((section) => {
+		const fp = path.join(DIST_DIR, section, "index.html");
+		if (!fs.existsSync(fp)) return;
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /empty-state/, `/${section}/: нет empty-state компонента`);
+	});
+});
+
+// ============================================================
+// 26. BACK-TO-TOP BUTTON
+// ============================================================
+
+test("[UX 2026] Article: кнопка 'Наверх' (back-to-top) присутствует на всех страницах", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		assert.match(content, /back-to-top/, `${fp}: нет кнопки back-to-top`);
+	});
+});
+
+// ============================================================
+// 27. ДОПОЛНИТЕЛЬНЫЕ SEO
+// ============================================================
+
+test("[SEO 2026] Sitemap: sitemap-0.xml содержит lastmod для всех URL (чтобы Google знал свежесть)", () => {
+	const fp = path.join(DIST_DIR, "sitemap-0.xml");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	const locs = content.match(/<loc>/g) || [];
+	const lastmods = content.match(/<lastmod>/g) || [];
+	if (lastmods.length < locs.length * 0.9) {
+		console.warn(
+			`⚠ [SEO WARNING] sitemap: только ${lastmods.length}/${locs.length} URL имеют <lastmod>. ` +
+			`Рекомендуется добавить lastmod через кастомную sitemap-интеграцию Astro или вручную.`,
+		);
+	}
+});
+
+test("[SEO 2026] OG: og:url совпадает с canonical URL на всех страницах", () => {
+	const files = getDistHtmlFiles();
+	if (files.length === 0) return;
+	files.forEach((fp) => {
+		const content = fs.readFileSync(fp, "utf8");
+		const canonicalMatch = content.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+		const ogUrlMatch = content.match(/og:url["']\s+content=["']([^"']+)["']/i);
+		if (canonicalMatch && ogUrlMatch) {
+			assert.equal(
+				ogUrlMatch[1],
+				canonicalMatch[1],
+				`${fp}: og:url "${ogUrlMatch[1]}" не совпадает с canonical "${canonicalMatch[1]}"`,
+			);
+		}
+	});
+});
+
+test("[SEO 2026] Coverage: все статьи имеют difficulty (не осталось без сложности)", () => {
+	const noDifficulty = articleFiles.filter((a) => !a.data.difficulty);
+	if (noDifficulty.length > 0) {
+		const names = noDifficulty.map((a) => a.name).join(", ");
+		assert.fail(`${noDifficulty.length} статей без difficulty: ${names}`);
+	}
+});
+
+test("[UX 2026] Mobile: hamburger menu присутствует в разметке", () => {
+	const fp = path.join(DIST_DIR, "index.html");
+	if (!fs.existsSync(fp)) return;
+	const content = fs.readFileSync(fp, "utf8");
+	assert.match(content, /menu-toggle/, "Нет кнопки мобильного меню");
+	assert.match(content, /mobile-menu/, "Нет мобильного меню");
+});
+
+test("[SEO 2026] Content: статьи не содержат markdown-комментариев (<!-- -->) в теле", () => {
+	articleFiles.forEach((a) => {
+		const hasComment = /<!--[\s\S]*?-->/.test(a.body);
+		assert.ok(!hasComment, `${a.name}: содержит HTML/Markdown комментарий в теле статьи`);
+	});
+});
