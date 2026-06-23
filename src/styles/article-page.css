@@ -512,3 +512,138 @@
 		z-index: 3;
 	}
 }
+
+/* Premium Typography & Article Layout Enhancements (2026 UX Standards) */
+
+/* 1. Lead Paragraph (First Paragraph in Article) */
+.markdown-body > p:first-of-type {
+	font-size: 1.125rem;
+	line-height: 1.8;
+	color: var(--text-primary);
+	font-weight: 500;
+	opacity: 0.95;
+	margin-bottom: 1.75rem;
+}
+
+/* 2. Premium Inline Code Badges */
+.markdown-body code:not(pre code) {
+	font-family: var(--font-mono, "SF Mono", "Fira Code", monospace);
+	font-size: 0.88em;
+	background: var(--bg-hover);
+	border: 1px solid var(--border-primary);
+	padding: 0.15rem 0.4rem;
+	border-radius: var(--radius-sm, 4px);
+	color: var(--accent-signature);
+	word-break: break-word;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+}
+
+/* 3. List Style Enhancements */
+.markdown-body ul,
+.markdown-body ol {
+	margin-top: 0.5rem;
+	margin-bottom: 1.75rem;
+}
+
+.markdown-body li {
+	margin-bottom: 0.75rem;
+	line-height: 1.7;
+}
+
+.markdown-body ul li::marker {
+	color: var(--accent-signature);
+}
+
+.markdown-body ol li::marker {
+	color: var(--accent-signature);
+	font-weight: 700;
+}
+
+/* 4. GitHub-style Alert Callouts with CSS-based Russian Translations */
+.markdown-body .markdown-alert {
+	margin: 2.25rem 0;
+	padding: 1.25rem 1.5rem;
+	border-left: 4px solid transparent;
+	border-radius: 0 var(--radius-lg, 8px) var(--radius-lg, 8px) 0;
+	background: var(--bg-hover);
+	position: relative;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+}
+
+.markdown-body .markdown-alert p {
+	margin-bottom: 0.75rem;
+	line-height: 1.7;
+	color: var(--text-secondary);
+}
+
+.markdown-body .markdown-alert p:last-child {
+	margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert-title {
+	font-weight: 800;
+	font-family: "Bricolage Grotesque", "Outfit", "Inter", sans-serif;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.65rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-size: 0px; /* Hide original English text */
+}
+
+/* Pseudo-element translation for English headers to Russian */
+.markdown-body .markdown-alert-title::after {
+	font-size: 0.85rem;
+}
+
+/* Note Alert (Blue/Teal Info) */
+.markdown-body .markdown-alert.markdown-alert-note {
+	background: rgba(3, 105, 161, 0.03);
+	border-left-color: var(--accent-cyan, #0369a1);
+}
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title::after {
+	content: "ℹ️  ПРИМЕЧАНИЕ";
+	color: var(--accent-cyan, #0369a1);
+}
+
+/* Tip Alert (Green/Emerald Success) */
+.markdown-body .markdown-alert.markdown-alert-tip {
+	background: rgba(5, 150, 105, 0.03);
+	border-left-color: var(--accent-emerald, #059669);
+}
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title::after {
+	content: "💡  СОВЕТ";
+	color: var(--accent-emerald, #059669);
+}
+
+/* Important Alert (Signature Teal Accent) */
+.markdown-body .markdown-alert.markdown-alert-important {
+	background: rgba(29, 115, 112, 0.03);
+	border-left-color: var(--accent-signature, #1d7370);
+}
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title::after {
+	content: "🔑  ВАЖНО";
+	color: var(--accent-signature, #1d7370);
+}
+
+/* Warning Alert (Amber/Orange Warning) */
+.markdown-body .markdown-alert.markdown-alert-warning {
+	background: rgba(245, 158, 11, 0.03);
+	border-left-color: #f59e0b;
+}
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title::after {
+	content: "⚠️  ВНИМАНИЕ";
+	color: #f59e0b;
+}
+
+/* Caution Alert (Red Danger) */
+.markdown-body .markdown-alert.markdown-alert-caution {
+	background: rgba(220, 38, 38, 0.03);
+	border-left-color: #b91c1c;
+}
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title::after {
+	content: "🚫  ОПАСНО";
+	color: #b91c1c;
+}
