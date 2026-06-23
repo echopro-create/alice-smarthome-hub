@@ -446,6 +446,51 @@ test("[SEO 2026] Images: все <img> в .astro файлах имеют loading=
 	assert.deepEqual(violations, [], "Нарушения CLS/SEO в img-тегах");
 });
 
+test("[SEO 2026] Content Images: каждая статья имеет ровно одну картинку в шагах", () => {
+	articleFiles.forEach((a) => {
+		let imgCount = 0;
+		if (Array.isArray(a.data.steps)) {
+			a.data.steps.forEach((step) => {
+				if (step.image) imgCount++;
+			});
+		}
+		assert.equal(imgCount, 1, `${a.name}: найдено ${imgCount} изображений в steps (должно быть ровно 1)`);
+	});
+});
+
+test("[SEO 2026] Content Images: файлы картинок существуют, имена в нижнем регистре, уникальны", () => {
+	const seenImages = new Map();
+	articleFiles.forEach((a) => {
+		if (Array.isArray(a.data.steps)) {
+			a.data.steps.forEach((step) => {
+				if (step.image) {
+					const absPath = path.resolve(SCENARIOS_DIR, step.image);
+					assert.ok(fs.existsSync(absPath), `${a.name}: файл изображения ${step.image} не найден на диске`);
+
+					const filename = path.basename(absPath);
+					const isLowercase = filename === filename.toLowerCase();
+					assert.ok(isLowercase, `${a.name}: имя файла изображения "${filename}" должно быть строго в нижнем регистре`);
+
+					if (seenImages.has(filename)) {
+						assert.fail(`${a.name}: изображение "${filename}" дублируется со статьей ${seenImages.get(filename)}`);
+					}
+					seenImages.set(filename, a.name);
+				}
+			});
+		}
+	});
+});
+
+test("[SEO 2026] Content Images: отсутствие лишних inline-изображений в теле Markdown", () => {
+	articleFiles.forEach((a) => {
+		const hasHtmlImg = /<img\s+/i.test(a.body);
+		assert.ok(!hasHtmlImg, `${a.name}: обнаружены HTML-теги <img> в теле статьи`);
+
+		const hasMarkdownImg = /!\[.*?\]\(.*?\)/.test(a.body);
+		assert.ok(!hasMarkdownImg, `${a.name}: обнаружена Markdown-разметка изображений в теле статьи`);
+	});
+});
+
 // ============================================================
 // 6. OG-IMAGE
 // ============================================================

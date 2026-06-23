@@ -16,13 +16,10 @@ steps:
     image: "../../assets/images/steps/ha-integration-1.png"
   - title: "Инсталляция компонента через HACS"
     text: "Откройте HACS ➡️ Интеграции. Найдите в поиске кастомный компонент «Yandex Smart Home» от dmitry-kazakov и нажмите «Скачать». После завершения процесса обязательно перезапустите сервер Home Assistant."
-    image: "../../assets/images/steps/ha-integration-1.png"
   - title: "Конфигурация entities в YAML"
     text: "В файле configuration.yaml пропишите блок yandex_smart_home. Настройте фильтры include_entities, чтобы передать в Алису только нужные датчики, выключатели и климатические приборы, избежав мусора в интерфейсе."
-    image: "../../assets/images/steps/ha-integration-1.png"
   - title: "Связывание аккаунтов в приложении"
     text: "В приложении «Дом с Алисой» нажмите «+» ➡️ «Устройство другого производителя». Найдите «Home Assistant», введите адрес вашего сервера (https://yourdomain.duckdns.org) и ваши учетные данные HA для авторизации."
-    image: "../../assets/images/steps/ha-integration-1.png"
 ---
 
 Сервер **Home Assistant** (HA) — это признанный отраслевой стандарт для создания гибкого, сложного и полностью локального умного дома. Однако когда дело доходит до голосового управления на русском языке, Яндекс Станция с Алисой остается безоговорочным лидером. 
