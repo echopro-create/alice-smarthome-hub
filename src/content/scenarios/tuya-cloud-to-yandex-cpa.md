@@ -8,6 +8,7 @@ category: "scenario"
 devices:
   - "Умное устройство Tuya"
   - "Яндекс Станция"
+  - "Локальный сервер (Home Assistant)"
 yandexShareUrl: "https://yandex.ru/alice/shared-scenarios/details/tuya-cloud-to-yandex-cpa"
 steps:
   - title: "Регистрация в приложении-доноре"
