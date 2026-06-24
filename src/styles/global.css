@@ -184,6 +184,7 @@ html {
 	color: var(--text-primary);
 	scroll-behavior: smooth;
 	-webkit-font-smoothing: antialiased;
+	text-wrap: pretty;
 	transition:
 		background-color 0.3s ease,
 		color 0.3s ease;
@@ -226,6 +227,7 @@ h6 {
 	font-weight: 800;
 	letter-spacing: -0.03em;
 	color: var(--text-primary);
+	text-wrap: balance;
 }
 
 h1 {

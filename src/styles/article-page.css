@@ -198,6 +198,7 @@
 	line-height: 1.7;
 	font-size: 1.05rem;
 	color: var(--text-primary);
+	text-wrap: pretty;
 }
 
 .markdown-body :global(hr) {
@@ -218,6 +219,7 @@
 	padding-left: 1rem;
 	border-left: 5px solid var(--accent-signature, #1d7370);
 	color: var(--text-primary);
+	text-wrap: balance;
 }
 
 .markdown-body :global(h3) {
@@ -229,6 +231,7 @@
 	margin-top: 2.75rem;
 	margin-bottom: 0.85rem;
 	color: var(--text-primary);
+	text-wrap: balance;
 }
 
 .markdown-body :global(p) {
