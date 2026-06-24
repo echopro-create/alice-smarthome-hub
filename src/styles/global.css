@@ -184,7 +184,11 @@ html {
 	color: var(--text-primary);
 	scroll-behavior: smooth;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	text-wrap: pretty;
+	hyphens: auto;
+	hyphenate-limit-chars: 8 3 3;
+	font-optical-sizing: auto;
 	transition:
 		background-color 0.3s ease,
 		color 0.3s ease;
@@ -223,16 +227,18 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Bricolage Grotesque", "Outfit", "Inter", sans-serif;
+	font-family: "Outfit", "Inter", sans-serif;
 	font-weight: 800;
 	letter-spacing: -0.03em;
 	color: var(--text-primary);
 	text-wrap: balance;
+	font-optical-sizing: auto;
 }
 
 h1 {
 	font-size: clamp(2.25rem, 5vw, 4.25rem);
 	line-height: 1.05;
+	font-weight: 800;
 }
 
 h2.section-title {
@@ -241,7 +247,7 @@ h2.section-title {
 }
 
 .font-outfit {
-	font-family: "Bricolage Grotesque", "Outfit", "Inter", sans-serif;
+	font-family: "Outfit", "Inter", sans-serif;
 }
 
 .font-mono {
@@ -866,8 +872,8 @@ input:focus-visible,
 	padding-right: 4rem;
 }
 .marquee-item {
-	font-family: "Bricolage Grotesque", sans-serif;
-	font-weight: 800;
+	font-family: "Outfit", "Inter", sans-serif;
+	font-weight: 700;
 	font-size: 1.65rem;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
@@ -901,7 +907,7 @@ input:focus-visible,
 }
 .ghost-number {
 	position: absolute;
-	font-family: "Bricolage Grotesque", sans-serif;
+	font-family: "Outfit", "Inter", sans-serif;
 	font-weight: 900;
 	font-size: clamp(8rem, 22vw, 16rem);
 	line-height: 1;
