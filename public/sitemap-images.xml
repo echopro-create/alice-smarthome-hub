@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://smart-hub.info/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/og-image.png</image:loc>
+      <image:caption>Smart Hub — Умный дом с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/icon-192.png</image:loc>
+      <image:caption>Smart Hub — Иконка 192x192</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/icon-512.png</image:loc>
+      <image:caption>Smart Hub — Иконка 512x512</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/favicon.svg</image:loc>
+      <image:caption>Smart Hub — Favicon SVG</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/apple-touch-icon.png</image:loc>
+      <image:caption>Smart Hub — Apple Touch Icon</image:caption>
+    </image:image>
+  </url>
+</urlset>
