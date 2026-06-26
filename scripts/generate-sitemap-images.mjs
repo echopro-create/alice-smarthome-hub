@@ -63,11 +63,8 @@ function scanDistImages() {
     const ext = path.extname(file).toLowerCase();
     if (!IMG_EXT.has(ext)) continue;
 
-    // Astro hashed filenames: slug.hash.ext or slug.hash_XXXXXX.ext
-    // Extract the original slug by removing hash and size suffixes
-    const clean = file
-      .replace(/\.[a-f0-9]{8,}(?:_\d+x\d+)?\./, '.')  // remove hash
-      .replace(/\.\w+$/, '');  // remove extension
+    // Astro hashed: {slug}.{hash}.ext or {slug}.{hash}_{hash2}.ext
+    const clean = file.replace(/\.[A-Za-z0-9_-]{6,}(?:_[A-Za-z0-9]+)?\.\w+$/, '');
 
     if (!images.has(clean)) {
       images.set(clean, []);

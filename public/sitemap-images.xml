@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://smart-hub.info/</loc>
+    <loc>https://smart-hub.info</loc>
     <image:image>
       <image:loc>https://smart-hub.info/og-image.png</image:loc>
       <image:caption>Smart Hub — Умный дом с Алисой</image:caption>
@@ -22,6 +22,1216 @@
     <image:image>
       <image:loc>https://smart-hub.info/apple-touch-icon.png</image:loc>
       <image:caption>Smart Hub — Apple Touch Icon</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/air-purifier-automation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/purifier_automation.DlXl9XTn.png</image:loc>
+      <image:caption>Автоматическое управление очистителем воздуха по датчику PM2.5</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/purifier_automation.DlXl9XTn_24QFdL.webp</image:loc>
+      <image:caption>Автоматическое управление очистителем воздуха по датчику PM2.5</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/alice-offline-local-scenarios/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/alice_offline.JVqzQ1Ia.png</image:loc>
+      <image:caption>Почему сценарии не работают без интернета на Яндекс Хабе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/alice_offline.JVqzQ1Ia_Z2hCw7z.webp</image:loc>
+      <image:caption>Почему сценарии не работают без интернета на Яндекс Хабе</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/alice-tv-control-cec/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tv_cec_control.DDX_rvGq.png</image:loc>
+      <image:caption>Управление телевизором через Алису и HDMI-CEC</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tv_cec_control.DDX_rvGq_8skSV.webp</image:loc>
+      <image:caption>Управление телевизором через Алису и HDMI-CEC</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/alice-voice-command-errors/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/alice_voice_command_errors.D2fJaBll.png</image:loc>
+      <image:caption>Алиса путает команды или не находит устройства: решение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/alice_voice_command_errors.D2fJaBll_6pBGy.webp</image:loc>
+      <image:caption>Алиса путает команды или не находит устройства: решение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/aqara-fp2-yandex-presence/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/aqara_fp2.Cpqz_SyY.png</image:loc>
+      <image:caption>Датчик присутствия Aqara FP2: интеграция с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/aqara_fp2.Cpqz_SyY_ZwsUv8.webp</image:loc>
+      <image:caption>Датчик присутствия Aqara FP2: интеграция с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/aqara-temp-sensor-incorrect/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/aqara_temp_sensor_incorrect.C0-KeXBA.png</image:loc>
+      <image:caption>Неверные показания датчика температуры Aqara: решение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/aqara_temp_sensor_incorrect.C0-KeXBA_ahE5F.webp</image:loc>
+      <image:caption>Неверные показания датчика температуры Aqara: решение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/aqara-troubleshooting/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/aqara_trouble.wYq7viaB.png</image:loc>
+      <image:caption>Почему датчики Aqara отключаются от хаба Яндекса и как это исправить</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/aqara_trouble.wYq7viaB_Z2btONT.webp</image:loc>
+      <image:caption>Почему датчики Aqara отключаются от хаба Яндекса и как это исправить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/bathroom-ventilation-delay/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bath_vent_delay.BRcOdlzX.png</image:loc>
+      <image:caption>Задержка выключения вытяжки в ванной с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bath_vent_delay.BRcOdlzX_dW2V7.webp</image:loc>
+      <image:caption>Задержка выключения вытяжки в ванной с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/bathroom-ventilation-humidity/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bathroom_ventilation.BZeOQhmp.png</image:loc>
+      <image:caption>Автоматическая вентиляция в ванной по датчику влажности с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bathroom_ventilation.BZeOQhmp_1UcgQ7.webp</image:loc>
+      <image:caption>Автоматическая вентиляция в ванной по датчику влажности с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/battery-drain-troubleshooting/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/battery_drain.CZ5CW7hf.png</image:loc>
+      <image:caption>Почему быстро разряжается батарейка в датчиках умного дома: решение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/battery_drain.CZ5CW7hf_Z1wMBIJ.webp</image:loc>
+      <image:caption>Почему быстро разряжается батарейка в датчиках умного дома: решение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/boiler-smart-heating/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_boiler.vLfq9xun.png</image:loc>
+      <image:caption>Умный бойлер с Алисой: экономия на отоплении по ночному тарифу</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_boiler.vLfq9xun_1pUijr.webp</image:loc>
+      <image:caption>Умный бойлер с Алисой: экономия на отоплении по ночному тарифу</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/bulb-dim-glow-fix/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bulb_dim_glow_fix.CLJjGArJ.png</image:loc>
+      <image:caption>Почему умная лампочка слабо светится при выключении</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bulb_dim_glow_fix.CLJjGArJ_Z1yTlca.webp</image:loc>
+      <image:caption>Почему умная лампочка слабо светится при выключении</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/button-scene-switch/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/button_scene.BpI7VidW.png</image:loc>
+      <image:caption>Настройка трех сценариев на одну кнопку умного дома</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/button_scene.BpI7VidW_Um3SM.webp</image:loc>
+      <image:caption>Настройка трех сценариев на одну кнопку умного дома</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/cinema-mode-setup/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/cinema_mode_setup.ohI8_hEV.png</image:loc>
+      <image:caption>Настройка сценария кинотеатра со шторами и Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/cinema_mode_setup.ohI8_hEV_1tAavo.webp</image:loc>
+      <image:caption>Настройка сценария кинотеатра со шторами и Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/co2-air-exchange/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/co2_ventilation.C-lO3eTV.png</image:loc>
+      <image:caption>Автоматическое проветривание комнат по датчику углекислого газа CO2</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/co2_ventilation.C-lO3eTV_23rUn6.webp</image:loc>
+      <image:caption>Автоматическое проветривание комнат по датчику углекислого газа CO2</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/co2-bedroom-ventilation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/co2_bedroom_ventilation.UFBMNi7H.png</image:loc>
+      <image:caption>Настройка автопроветривания спальни по CO2 с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/co2_bedroom_ventilation.UFBMNi7H_2r6KhF.webp</image:loc>
+      <image:caption>Настройка автопроветривания спальни по CO2 с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/conditioner-smart-control/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/conditioner-smart-control-1.cjBQ78et.png</image:loc>
+      <image:caption>Автоматическое управление кондиционером в умном доме Яндекс</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/conditioner-smart-control-1.cjBQ78et_VtvTO.webp</image:loc>
+      <image:caption>Автоматическое управление кондиционером в умном доме Яндекс</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/corridor-pass-through/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/pass_through_switch.jba43IjI.png</image:loc>
+      <image:caption>Беспроводной проходной выключатель в коридоре с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/pass_through_switch.jba43IjI_Z1Lh7gs.webp</image:loc>
+      <image:caption>Беспроводной проходной выключатель в коридоре с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/cottage-freeze-prevention/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/cottage_heating.C6cpYW1q.png</image:loc>
+      <image:caption>Отопление дачи зимой: сценарий «Антизамерзание» с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/cottage_heating.C6cpYW1q_Z1hlCD.webp</image:loc>
+      <image:caption>Отопление дачи зимой: сценарий «Антизамерзание» с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/curtain-closing-by-sun-position/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/curtain_sun.DULCB4_8.png</image:loc>
+      <image:caption>Автоматическое закрытие штор от солнца: защита мебели и климата</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/curtain_sun.DULCB4_8_25FxMf.webp</image:loc>
+      <image:caption>Автоматическое закрытие штор от солнца: защита мебели и климата</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/curtain-motor-calibration/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/curtain_motor_calibration.aoaTQI-9.png</image:loc>
+      <image:caption>Не полностью закрываются умные шторы в Алисе: калибровка мотора</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/curtain_motor_calibration.aoaTQI-9_28va4n.webp</image:loc>
+      <image:caption>Не полностью закрываются умные шторы в Алисе: калибровка мотора</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/curtain-sensor-illuminance/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/curtain_illuminance.C0eo-TVw.png</image:loc>
+      <image:caption>Управление умными шторами по датчику освещенности</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/curtain_illuminance.C0eo-TVw_2fX66z.webp</image:loc>
+      <image:caption>Управление умными шторами по датчику освещенности</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/device-not-responding/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/device_not_responding.D-CX2Z5K.png</image:loc>
+      <image:caption>Алиса пишет Устройство не отвечает: причины и решение ошибки</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/device_not_responding.D-CX2Z5K_Z1E22BQ.webp</image:loc>
+      <image:caption>Алиса пишет Устройство не отвечает: причины и решение ошибки</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/doorbell-mute-audio/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/doorbell_mute.C3UE2_QP.png</image:loc>
+      <image:caption>Автоматическое приглушение звука при звонке в дверь с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/doorbell_mute.C3UE2_QP_Z2w0cIF.webp</image:loc>
+      <image:caption>Автоматическое приглушение звука при звонке в дверь с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/esphome-relay-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/esphome_relay.Blu8rt2x.png</image:loc>
+      <image:caption>Умное реле на ESP8266 с прошивкой ESPHome и Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/esphome_relay.Blu8rt2x_Z1TxiTU.webp</image:loc>
+      <image:caption>Умное реле на ESP8266 с прошивкой ESPHome и Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/fan-cooling-by-temperature/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_fan.BBqcqh9t.png</image:loc>
+      <image:caption>Автоматическое включение умного вентилятора по температуре</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_fan.BBqcqh9t_1TkQKR.webp</image:loc>
+      <image:caption>Автоматическое включение умного вентилятора по температуре</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/feed-pets-automation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/pet_feeder.BoIZp8y8.png</image:loc>
+      <image:caption>Умная кормушка для питомцев: сценарии автоматического кормления</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/pet_feeder.BoIZp8y8_Zf034c.webp</image:loc>
+      <image:caption>Умная кормушка для питомцев: сценарии автоматического кормления</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/fridge-door-open-warning/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/fridge_door_open_warning.CUnEbXny.png</image:loc>
+      <image:caption>Оповещение об открытой двери холодильника с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/fridge_door_open_warning.CUnEbXny_nCxlF.webp</image:loc>
+      <image:caption>Оповещение об открытой двери холодильника с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/heater-floor-control/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/heater-floor-control-1.D2sEbEkU.png</image:loc>
+      <image:caption>Автоматическое управление обогревателем и теплыми полами с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/heater-floor-control-1.D2sEbEkU_Z2ey4AJ.webp</image:loc>
+      <image:caption>Автоматическое управление обогревателем и теплыми полами с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/holiday-decorations-timer/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/holiday_decorations_timer.ClEUpzWr.png</image:loc>
+      <image:caption>Автоматическое управление новогодней гирляндой по расписанию</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/holiday_decorations_timer.ClEUpzWr_2brNuh.webp</image:loc>
+      <image:caption>Автоматическое управление новогодней гирляндой по расписанию</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/home-assistant-integration/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha-integration-1.DWfNShuI.png</image:loc>
+      <image:caption>Как прокинуть датчики и реле из Home Assistant в Алису бесплатно</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha-integration-1.DWfNShuI_2690uV.webp</image:loc>
+      <image:caption>Как прокинуть датчики и реле из Home Assistant в Алису бесплатно</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/home-office-automation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/home_office.CuwDTBCF.png</image:loc>
+      <image:caption>Сценарий «Рабочий кабинет»: автоматизация освещения и микроклимата</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/home_office.CuwDTBCF_94pxp.webp</image:loc>
+      <image:caption>Сценарий «Рабочий кабинет»: автоматизация освещения и микроклимата</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/homeassistant-local-control/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_local_homekit.De-TJJpg.png</image:loc>
+      <image:caption>Локальное управление Home Assistant в Яндексе через HomeKit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_local_homekit.De-TJJpg_Z1hKHFS.webp</image:loc>
+      <image:caption>Локальное управление Home Assistant в Яндексе через HomeKit</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/homeassistant-yandex-cloud/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_yandex_cloud.BIvlQ3Fh.png</image:loc>
+      <image:caption>Интеграция Home Assistant с Алисой через Yandex Dialogs</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_yandex_cloud.BIvlQ3Fh_Bx8a0.webp</image:loc>
+      <image:caption>Интеграция Home Assistant с Алисой через Yandex Dialogs</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/humidity-bathroom-fan/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bath_humidity_fan.CgY-YC4_.png</image:loc>
+      <image:caption>Автоматическая вытяжка в ванной по датчику влажности</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bath_humidity_fan.CgY-YC4__Z2lWPQC.webp</image:loc>
+      <image:caption>Автоматическая вытяжка в ванной по датчику влажности</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/humidity-humidifier-control/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/humidity_humidifier_control.DKC-WE9F.png</image:loc>
+      <image:caption>Автоматическое управление увлажнителем воздуха с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/humidity_humidifier_control.DKC-WE9F_Zq6QJ7.webp</image:loc>
+      <image:caption>Автоматическое управление увлажнителем воздуха с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/iron-safety-off/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/iron-safety-1.D_yylgGP.png</image:loc>
+      <image:caption>Автоматическое выключение утюга и плойки с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/iron-safety-1.D_yylgGP_ZThE7t.webp</image:loc>
+      <image:caption>Автоматическое выключение утюга и плойки с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/kids-come-home/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kids_home.Bl8ABuog.png</image:loc>
+      <image:caption>Сценарий «Ребенок дома» в Доме с Алисой: пуш и Voice Match</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kids_home.Bl8ABuog_Z1lmQY3.webp</image:loc>
+      <image:caption>Сценарий «Ребенок дома» в Доме с Алисой: пуш и Voice Match</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/kitchen-hood-automation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kitchen_hood.CW4FOdIm.png</image:loc>
+      <image:caption>Автоматизация кухонной вытяжки в Доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kitchen_hood.CW4FOdIm_2poD1t.webp</image:loc>
+      <image:caption>Автоматизация кухонной вытяжки в Доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/kitchen-stove-hood-auto/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kitchen_stove_hood_auto.Jg3py6-7.png</image:loc>
+      <image:caption>Автоматическое включение вытяжки над плитой с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kitchen_stove_hood_auto.Jg3py6-7_1c5kDH.webp</image:loc>
+      <image:caption>Автоматическое включение вытяжки над плитой с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/leak-sensor-false-positive/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_sensor_false_positive.Dpfn3-8_.png</image:loc>
+      <image:caption>Ложные срабатывания датчика протечки воды: причины и устранение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_sensor_false_positive.Dpfn3-8__ZMj4Cs.webp</image:loc>
+      <image:caption>Ложные срабатывания датчика протечки воды: причины и устранение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/leak-shutoff-valve/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_shutoff.BMlomtbv.png</image:loc>
+      <image:caption>Локальный сценарий защиты от протечек с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_shutoff.BMlomtbv_MMOnp.webp</image:loc>
+      <image:caption>Локальный сценарий защиты от протечек с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/leak-water-prevention/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak-water-1.BVd2GwUO.png</image:loc>
+      <image:caption>Автоматическое перекрытие воды при протечке с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak-water-1.BVd2GwUO_Z1Kxrhp.webp</image:loc>
+      <image:caption>Автоматическое перекрытие воды при протечке с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/leakage-protection-weekly-check/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/valve_check.BEuph5_g.png</image:loc>
+      <image:caption>Автоматический проворот шаровых кранов от закисания: сценарий Алисы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/valve_check.BEuph5_g_1KJjUb.webp</image:loc>
+      <image:caption>Автоматический проворот шаровых кранов от закисания: сценарий Алисы</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/leaving-home-scenario/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leaving-home-scenario-1.DMMmDva9.png</image:loc>
+      <image:caption>Настройка сценария «Я ушел» в умном доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leaving-home-scenario-1.DMMmDva9_oAfvA.webp</image:loc>
+      <image:caption>Настройка сценария «Я ушел» в умном доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/led-bulb-glow-trouble/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/led_bulb_glow.CmR4LfWY.png</image:loc>
+      <image:caption>Почему умная светодиодная лампа тускло светится или мигает выключенной</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/led_bulb_glow.CmR4LfWY_Z1yDvW.webp</image:loc>
+      <image:caption>Почему умная светодиодная лампа тускло светится или мигает выключенной</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/light-alarm-clock/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/light-alarm-1.Cyv3sYeq.png</image:loc>
+      <image:caption>Световой будильник в умном доме Яндекс</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/light-alarm-1.Cyv3sYeq_1S1cHA.webp</image:loc>
+      <image:caption>Световой будильник в умном доме Яндекс</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/local-scenarios-setup/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/local-scenarios-1.iAChMvKH.png</image:loc>
+      <image:caption>Локальные сценарии умного дома Алисы без интернета: настройка</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/local-scenarios-1.iAChMvKH_2tnxfo.webp</image:loc>
+      <image:caption>Локальные сценарии умного дома Алисы без интернета: настройка</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/matter-devices-lag-trouble/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter_devices_lag_trouble.DdsP0DXH.png</image:loc>
+      <image:caption>Решение проблем с откликом Matter-устройств в Алисе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter_devices_lag_trouble.DdsP0DXH_Z1a8cFd.webp</image:loc>
+      <image:caption>Решение проблем с откликом Matter-устройств в Алисе</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/matter-thread-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter-thread-1.C02Ns4IO.png</image:loc>
+      <image:caption>Протоколы Matter и Thread в Доме с Алисой: настройка сети</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter-thread-1.C02Ns4IO_Zb7wtP.webp</image:loc>
+      <image:caption>Протоколы Matter и Thread в Доме с Алисой: настройка сети</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/matter-yandex-station-2/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter_station2.D5x4vTsU.png</image:loc>
+      <image:caption>Подключение Matter-устройств к Яндекс Станции 2 напрямую</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter_station2.D5x4vTsU_1QWG04.webp</image:loc>
+      <image:caption>Подключение Matter-устройств к Яндекс Станции 2 напрямую</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/morning-coffee/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/morning-coffee-1.feyWxnGn.png</image:loc>
+      <image:caption>Автоматический запуск кофемашины утром с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/morning-coffee-1.feyWxnGn_ZekOhO.webp</image:loc>
+      <image:caption>Автоматический запуск кофемашины утром с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/motion-sensor-battery-drain/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_battery.Bq1BMhBy.png</image:loc>
+      <image:caption>Почему датчик движения Zigbee быстро разряжает батарейку</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_battery.Bq1BMhBy_ZSqvdD.webp</image:loc>
+      <image:caption>Почему датчик движения Zigbee быстро разряжает батарейку</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/motion-sensor-false-triggers/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_setup.Bpxrb_W-.png</image:loc>
+      <image:caption>Ложные срабатывания датчика движения в Алисе: как исправить</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_setup.Bpxrb_W-_1j5rqY.webp</image:loc>
+      <image:caption>Ложные срабатывания датчика движения в Алисе: как исправить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/motion-sensor-ghost-trigger/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_ghost_trigger.Cvcqj5qg.png</image:loc>
+      <image:caption>Почему датчик движения постоянно срабатывает без людей</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_ghost_trigger.Cvcqj5qg_1L47m9.webp</image:loc>
+      <image:caption>Почему датчик движения постоянно срабатывает без людей</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/movie-time-scenario/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/movie_time_scenario.CY7sWWeg.png</image:loc>
+      <image:caption>Сценарий «Кинотеатр» с Алисой: автоматизация света и ТВ</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/movie_time_scenario.CY7sWWeg_HifxM.webp</image:loc>
+      <image:caption>Сценарий «Кинотеатр» с Алисой: автоматизация света и ТВ</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/night-light-motion/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/night-light-motion-1.CfA-TnIv.png</image:loc>
+      <image:caption>Ночной режим подсветки по датчику движения с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/night-light-motion-1.CfA-TnIv_1rv7G8.webp</image:loc>
+      <image:caption>Ночной режим подсветки по датчику движения с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/nodered-yandex-setup/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/nodered_setup.DfmsXK3K.png</image:loc>
+      <image:caption>Установка Node-RED и интеграция с Яндекс Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/nodered_setup.DfmsXK3K_217B0r.webp</image:loc>
+      <image:caption>Установка Node-RED и интеграция с Яндекс Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/presence-simulation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/presence-simulation-1.DW7I1Rqk.png</image:loc>
+      <image:caption>Сценарий имитации присутствия с Алисой во время отпуска</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/presence-simulation-1.DW7I1Rqk_Z1vuM7w.webp</image:loc>
+      <image:caption>Сценарий имитации присутствия с Алисой во время отпуска</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/robot-vacuum-away/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/robot-vacuum-1.2jTWDCCg.png</image:loc>
+      <image:caption>Автозапуск робота-пылесоса с Алисой, когда все ушли</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/robot-vacuum-1.2jTWDCCg_1hmH3.webp</image:loc>
+      <image:caption>Автозапуск робота-пылесоса с Алисой, когда все ушли</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/room-left-light-off/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/room_left_light_off.DDp3hr6f.png</image:loc>
+      <image:caption>Умное выключение света при уходе из комнаты с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/room_left_light_off.DDp3hr6f_6ijmO.webp</image:loc>
+      <image:caption>Умное выключение света при уходе из комнаты с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/scenario-delay-lag/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/scenario-delay-1.CauY7Fym.png</image:loc>
+      <image:caption>Задержки в сценариях Алисы: причины лагов и локальное выполнение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/scenario-delay-1.CauY7Fym_2uGgaH.webp</image:loc>
+      <image:caption>Задержки в сценариях Алисы: причины лагов и локальное выполнение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/security-perimeter-check/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/security-check-1.Czha6ZKP.png</image:loc>
+      <image:caption>Охрана периметра и проверка окон в Доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/security-check-1.Czha6ZKP_UBwbS.webp</image:loc>
+      <image:caption>Охрана периметра и проверка окон в Доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/security-presence-simulation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/security_presence_simulation.DNvm7uKS.png</image:loc>
+      <image:caption>Сценарий имитации присутствия Антивор с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/security_presence_simulation.DNvm7uKS_Z1pBqGu.webp</image:loc>
+      <image:caption>Сценарий имитации присутствия Антивор с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/sensor-offline-troubleshooting/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/sensor_offline_fix.Dz-2BR4s.png</image:loc>
+      <image:caption>Как вернуть датчик протечки в сценарии Алисы без удаления</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/sensor_offline_fix.Dz-2BR4s_ehOqb.webp</image:loc>
+      <image:caption>Как вернуть датчик протечки в сценарии Алисы без удаления</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-bulb-flickering/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bulb-flickering-1.EqgxKgWc.png</image:loc>
+      <image:caption>Почему мигает умная лампа в выключенном состоянии: решение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/bulb-flickering-1.EqgxKgWc_Z140rJw.webp</image:loc>
+      <image:caption>Почему мигает умная лампа в выключенном состоянии: решение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-bulb-unpairing-loop/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_bulb_unpairing.CmczkNPF.png</image:loc>
+      <image:caption>Почему умная лампа постоянно мигает и сбрасывается в сопряжение</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_bulb_unpairing.CmczkNPF_1UlxSy.webp</image:loc>
+      <image:caption>Почему умная лампа постоянно мигает и сбрасывается в сопряжение</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-climate-hubs/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/climate_hubs_compare.g34qfShE.png</image:loc>
+      <image:caption>Сравнение датчиков климата Aqara, Tuya и Яндекса</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/climate_hubs_compare.g34qfShE_OBPj.webp</image:loc>
+      <image:caption>Сравнение датчиков климата Aqara, Tuya и Яндекса</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-dimming-night-hallway/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/night_dimming.CTz-jIGH.png</image:loc>
+      <image:caption>Автоматический ночной свет в коридоре: плавное диммирование</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/night_dimming.CTz-jIGH_Z1Dexr0.webp</image:loc>
+      <image:caption>Автоматический ночной свет в коридоре: плавное диммирование</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-kettle-morning/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_kettle_morning.CrWQnwt0.png</image:loc>
+      <image:caption>Утренний сценарий: автоматический запуск чайника по датчику движения</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_kettle_morning.CrWQnwt0_3eT71.webp</image:loc>
+      <image:caption>Утренний сценарий: автоматический запуск чайника по датчику движения</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-lighting-circadian/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/circadian_lighting.DwK333js.png</image:loc>
+      <image:caption>Биодинамическое циркадное освещение с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/circadian_lighting.DwK333js_1mF5pf.webp</image:loc>
+      <image:caption>Биодинамическое циркадное освещение с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-locks-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_locks.8P75gr7W.png</image:loc>
+      <image:caption>Интеграция умных замков (Aqara, Kaadas) с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_locks.8P75gr7W_Z1tN3jg.webp</image:loc>
+      <image:caption>Интеграция умных замков (Aqara, Kaadas) с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-plants-watering/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/plants_watering.hy2Maybf.png</image:loc>
+      <image:caption>Автоматический полив комнатных растений по датчику влажности почвы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/plants_watering.hy2Maybf_nJUaQ.webp</image:loc>
+      <image:caption>Автоматический полив комнатных растений по датчику влажности почвы</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-plug-overload/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_plug_overload.D6_gEct1.png</image:loc>
+      <image:caption>Почему умная розетка отключается под нагрузкой и как это решить</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_plug_overload.D6_gEct1_Z1JNtWq.webp</image:loc>
+      <image:caption>Почему умная розетка отключается под нагрузкой и как это решить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-switch-no-neutral/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_switch_no_neutral.CoLdR81z.png</image:loc>
+      <image:caption>Подключение умного выключателя без нуля: мигание ламп и конденсатор</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_switch_no_neutral.CoLdR81z_Z1VXL0T.webp</image:loc>
+      <image:caption>Подключение умного выключателя без нуля: мигание ламп и конденсатор</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-thermostats-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_thermostats.CnQHihV8.png</image:loc>
+      <image:caption>Настройка Zigbee-термоголовок в Умном Доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_thermostats.CnQHihV8_ZdEhB4.webp</image:loc>
+      <image:caption>Настройка Zigbee-термоголовок в Умном Доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-valve-stuck-closed/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_valve_stuck.CfLCIhgk.png</image:loc>
+      <image:caption>Электропривод шарового крана не открывается: причины и ремонт</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_valve_stuck.CfLCIhgk_Zihpa0.webp</image:loc>
+      <image:caption>Электропривод шарового крана не открывается: причины и ремонт</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smoke-gas-alarm/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smoke_gas_alarm.CIJm-r6V.png</image:loc>
+      <image:caption>Сценарий безопасности при утечке газа и задымлении с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smoke_gas_alarm.CIJm-r6V_4iUY1.webp</image:loc>
+      <image:caption>Сценарий безопасности при утечке газа и задымлении с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/soil-moisture-watering/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/soil_moisture_watering.d0dcIrBC.png</image:loc>
+      <image:caption>Автоматический полив растений по датчику влажности почвы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/soil_moisture_watering.d0dcIrBC_dSl9G.webp</image:loc>
+      <image:caption>Автоматический полив растений по датчику влажности почвы</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/thread-no-border-router/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/thread_border_router.CBdhr-AS.png</image:loc>
+      <image:caption>Ошибки работы Thread-устройств без Border Router Яндекса</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/thread_border_router.CBdhr-AS_Z2mf1MT.webp</image:loc>
+      <image:caption>Ошибки работы Thread-устройств без Border Router Яндекса</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/towel-dryer-schedule/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/towel_dryer_schedule.DbpzERSM.png</image:loc>
+      <image:caption>Умное управление полотенцесушителем в Доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/towel_dryer_schedule.DbpzERSM_ZhDRNF.webp</image:loc>
+      <image:caption>Умное управление полотенцесушителем в Доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/tuya-cloud-to-yandex-cpa/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_alternative.CSkzNVyS.png</image:loc>
+      <image:caption>Альтернативные способы привязки Tuya к Алисе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_alternative.CSkzNVyS_Z1Q6p8y.webp</image:loc>
+      <image:caption>Альтернативные способы привязки Tuya к Алисе</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/tuya-cloud-vs-local-latencies/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_cloud_vs_local.CpNl2EU7.png</image:loc>
+      <image:caption>Почему датчики Tuya в Алисе срабатывают с задержкой: облако vs локаль</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_cloud_vs_local.CpNl2EU7_Z2b4N8L.webp</image:loc>
+      <image:caption>Почему датчики Tuya в Алисе срабатывают с задержкой: облако vs локаль</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/tuya-devices-to-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_to_yandex.DZKr3fr9.png</image:loc>
+      <image:caption>Подключение датчиков Tuya Zigbee к хабу Яндекса напрямую</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_to_yandex.DZKr3fr9_Z1JSFSl.webp</image:loc>
+      <image:caption>Подключение датчиков Tuya Zigbee к хабу Яндекса напрямую</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/tuya-integration-problems/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_integration.D_AVWk4c.png</image:loc>
+      <image:caption>Проблемы интеграции Tuya Smart Life с Алисой: причины задержек</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_integration.D_AVWk4c_Zo5ThO.webp</image:loc>
+      <image:caption>Проблемы интеграции Tuya Smart Life с Алисой: причины задержек</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/tuya-skill-linking-error/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_skill_linking_error.CZdu5xr2.png</image:loc>
+      <image:caption>Ошибки авторизации и привязки навыка Tuya в Алисе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_skill_linking_error.CZdu5xr2_Z2brTVm.webp</image:loc>
+      <image:caption>Ошибки авторизации и привязки навыка Tuya в Алисе</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/tuya-skill-token-expired/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_skill_token_expired.DzsFfoMG.png</image:loc>
+      <image:caption>Отвал авторизации навыка Tuya Smart / Smart Life в Доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tuya_skill_token_expired.DzsFfoMG_ZYR6VP.webp</image:loc>
+      <image:caption>Отвал авторизации навыка Tuya Smart / Smart Life в Доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/underbed-night-light/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/underbed_night_light.QDM80-9S.png</image:loc>
+      <image:caption>Автоматическая подсветка под кроватью с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/underbed_night_light.QDM80-9S_17PKaB.webp</image:loc>
+      <image:caption>Автоматическая подсветка под кроватью с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/water-leak-notifications/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_notifications.bJXeA0_8.png</image:loc>
+      <image:caption>Сценарии оповещения при протечке: сирены, Станции и push-уведомления</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_notifications.bJXeA0_8_Z1IHxRF.webp</image:loc>
+      <image:caption>Сценарии оповещения при протечке: сирены, Станции и push-уведомления</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/welcome-home-station/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/welcome_home_station.BwMDQZ_Y.png</image:loc>
+      <image:caption>Сценарий «Добро пожаловать»: приветствие Станции при открытии двери</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/welcome_home_station.BwMDQZ_Y_ZyTB3R.webp</image:loc>
+      <image:caption>Сценарий «Добро пожаловать»: приветствие Станции при открытии двери</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/wifi-24ghz-congestion/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/wifi_congestion.BOIGeIfo.png</image:loc>
+      <image:caption>Анализ эфира Wi-Fi 2.4 ГГц для умного дома с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/wifi_congestion.BOIGeIfo_Z1uXHEc.webp</image:loc>
+      <image:caption>Анализ эфира Wi-Fi 2.4 ГГц для умного дома с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/window-open-heater-off/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/window_open_heater_off.90CvsO0d.png</image:loc>
+      <image:caption>Отключение обогревателя при открытии окна на проветривание с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/window_open_heater_off.90CvsO0d_eQqI3.webp</image:loc>
+      <image:caption>Отключение обогревателя при открытии окна на проветривание с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-account-merge/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_account_merge.jy6ntM-x.png</image:loc>
+      <image:caption>Семейный доступ к умному дому Яндекса: настройка и права</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_account_merge.jy6ntM-x_ZVO6Bn.webp</image:loc>
+      <image:caption>Семейный доступ к умному дому Яндекса: настройка и права</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-alice-homebridge/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/homebridge_setup.BArnIM_v.png</image:loc>
+      <image:caption>Проброс устройств Яндекса в Apple HomeKit через Homebridge</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/homebridge_setup.BArnIM_v_ZiLUUn.webp</image:loc>
+      <image:caption>Проброс устройств Яндекса в Apple HomeKit через Homebridge</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/yandex-hub-vs-station-midi/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_hub_midi.CqyBLDuD.png</image:loc>
+      <image:caption>Яндекс Хаб против Станции Миди: что выбрать для Zigbee?</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_hub_midi.CqyBLDuD_Z27PoT8.webp</image:loc>
+      <image:caption>Яндекс Хаб против Станции Миди: что выбрать для Zigbee?</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-ir-remote-issues/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ir_remote_issues.Dz3wmF2c.png</image:loc>
+      <image:caption>Почему ИК-пульт Яндекса не управляет техникой и как исправить</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ir_remote_issues.Dz3wmF2c_1s4uMo.webp</image:loc>
+      <image:caption>Почему ИК-пульт Яндекса не управляет техникой и как исправить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-remote-custom-codes/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_remote_custom_codes.Bd4YnSiZ.png</image:loc>
+      <image:caption>Обучение умного ИК-пульта Яндекс кастомным командам</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_remote_custom_codes.Bd4YnSiZ_Z1ITawQ.webp</image:loc>
+      <image:caption>Обучение умного ИК-пульта Яндекс кастомным командам</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-bluetooth-pairing/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_bluetooth.0CepLSOG.png</image:loc>
+      <image:caption>Ошибки подключения Bluetooth на Яндекс Станциях</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_bluetooth.0CepLSOG_VI0H5.webp</image:loc>
+      <image:caption>Ошибки подключения Bluetooth на Яндекс Станциях</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-equalizer-setup/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_equalizer.CR2Qej2b.png</image:loc>
+      <image:caption>Настройка звука и эквалайзера Яндекс Станции</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_equalizer.CR2Qej2b_Zvhsr6.webp</image:loc>
+      <image:caption>Настройка звука и эквалайзера Яндекс Станции</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-kids-mode/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kids_mode_setup.BFjE-BPz.png</image:loc>
+      <image:caption>Настройка родительского контроля на Яндекс Станции</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kids_mode_setup.BFjE-BPz_ATWd1.webp</image:loc>
+      <image:caption>Настройка родительского контроля на Яндекс Станции</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-microphones-deaf/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_station_microphones.DKMZwGJB.png</image:loc>
+      <image:caption>Алиса не слышит голос: диагностика и чистка микрофонов Станции</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_station_microphones.DKMZwGJB_Z15FOns.webp</image:loc>
+      <image:caption>Алиса не слышит голос: диагностика и чистка микрофонов Станции</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-sound-lag/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_station_sound_lag.BS50XCh9.png</image:loc>
+      <image:caption>Рассинхронизация звука и видео на Яндекс Станции: как исправить</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_station_sound_lag.BS50XCh9_Z2scKH6.webp</image:loc>
+      <image:caption>Рассинхронизация звука и видео на Яндекс Станции: как исправить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-stereo-pair/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/stereo_pair_trouble.CVGxZC4z.png</image:loc>
+      <image:caption>Проблемы со стереопарой из Яндекс Станций</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/stereo_pair_trouble.CVGxZC4z_wg7XI.webp</image:loc>
+      <image:caption>Проблемы со стереопарой из Яндекс Станций</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-voice-profiles/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/voice_profiles_setup.CNf67iav.png</image:loc>
+      <image:caption>Алиса не узнает членов семьи по голосу: настройка профилей</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/voice_profiles_setup.CNf67iav_23EGwa.webp</image:loc>
+      <image:caption>Алиса не узнает членов семьи по голосу: настройка профилей</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-station-wifi-drop/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/wifi_drop_trouble.e0OcrVf9.png</image:loc>
+      <image:caption>Почему Яндекс Станция теряет Wi-Fi: техническое руководство</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/wifi_drop_trouble.e0OcrVf9_JlgtS.webp</image:loc>
+      <image:caption>Почему Яндекс Станция теряет Wi-Fi: техническое руководство</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/zigbee-button-settings/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee-button-1.BFR9o58m.png</image:loc>
+      <image:caption>Настройка Zigbee-кнопки в Доме с Алисой: три клика</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee-button-1.BFR9o58m_Z1Rfu6G.webp</image:loc>
+      <image:caption>Настройка Zigbee-кнопки в Доме с Алисой: три клика</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/zigbee-channel-mapping/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee-channel-mapping-1.tiRWE03V.png</image:loc>
+      <image:caption>Таблица каналов Wi-Fi и Zigbee: как устранить помехи датчиков</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee-channel-mapping-1.tiRWE03V_1gaerj.webp</image:loc>
+      <image:caption>Таблица каналов Wi-Fi и Zigbee: как устранить помехи датчиков</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/zigbee-mesh-range-issues/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_mesh_range.DBSRBORy.png</image:loc>
+      <image:caption>Датчики на даче теряют связь: как расширить сеть Zigbee на улице</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_mesh_range.DBSRBORy_Z1TiO87.webp</image:loc>
+      <image:caption>Датчики на даче теряют связь: как расширить сеть Zigbee на улице</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/zigbee-relay-no-neutral/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/no_neutral_flicker.Cww1P3hV.png</image:loc>
+      <image:caption>Почему мерцают лампы с выключателем без нейтрали</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/no_neutral_flicker.Cww1P3hV_Z21jf7X.webp</image:loc>
+      <image:caption>Почему мерцают лампы с выключателем без нейтрали</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/zigbee-routers-vs-end-devices/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_routers.BqwGsNWv.png</image:loc>
+      <image:caption>Роутеры и конечные устройства в сети Zigbee умного дома</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_routers.BqwGsNWv_Z1TBzzN.webp</image:loc>
+      <image:caption>Роутеры и конечные устройства в сети Zigbee умного дома</image:caption>
     </image:image>
   </url>
 </urlset>
