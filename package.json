@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist && node scripts/css-preload.js",
+    "build": "astro build && pagefind --site dist && node scripts/css-preload.js && node scripts/generate-sitemap-images.mjs",
     "postbuild": "node scripts/indexnow.js",
     "preview": "astro preview",
     "astro": "astro",
