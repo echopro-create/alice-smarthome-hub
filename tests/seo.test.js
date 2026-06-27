@@ -1866,7 +1866,7 @@ test("[SEO 2026] sitemap-images.xml сгенерирован, валиден и 
 	const imageCount = (xml.match(/<image:image>/g) || []).length;
 	assert.ok(imageCount >= 50, `только ${imageCount} изображений, ожидалось минимум 50`);
 
-	const locs = [...xml.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map(m => m[1]);
+	const locs = [...xml.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((m) => m[1]);
 	for (const loc of locs) {
 		assert.ok(loc.startsWith(SITE_URL + "/"), `image:loc не абсолютный: ${loc}`);
 	}

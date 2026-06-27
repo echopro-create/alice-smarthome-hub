@@ -135,6 +135,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/boiler-anti-freeze/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/boiler_anti_freeze.DlZE4RW-.png</image:loc>
+      <image:caption>Защита труб дачи от замерзания: сценарии отопления с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/boiler_anti_freeze.DlZE4RW-_Z1wdhWC.webp</image:loc>
+      <image:caption>Защита труб дачи от замерзания: сценарии отопления с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/boiler-smart-heating/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/smart_boiler.vLfq9xun.png</image:loc>
@@ -176,6 +187,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/cinema_mode_setup.ohI8_hEV_1tAavo.webp</image:loc>
       <image:caption>Настройка сценария кинотеатра со шторами и Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/climate-multi-sensor/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/climate_multi_sensor.nsAIOKE8.png</image:loc>
+      <image:caption>Усреднение показаний температуры с нескольких датчиков в Алисе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/climate_multi_sensor.nsAIOKE8_Z2lxFU5.webp</image:loc>
+      <image:caption>Усреднение показаний температуры с нескольких датчиков в Алисе</image:caption>
     </image:image>
   </url>
   <url>
@@ -289,6 +311,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/dry-air-alarm/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/dry_air_alarm.C-rhwaKf.png</image:loc>
+      <image:caption>Голосовое предупреждение Алисы о сухом воздухе в квартире</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/dry_air_alarm.C-rhwaKf_8XBcl.webp</image:loc>
+      <image:caption>Голосовое предупреждение Алисы о сухом воздухе в квартире</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/esphome-relay-yandex/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/esphome_relay.Blu8rt2x.png</image:loc>
@@ -311,6 +344,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/fan-speed-rules/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/fan_speed_rules.CesRRVUk.png</image:loc>
+      <image:caption>Управление скоростью очистителя воздуха по датчику пыли PM2.5</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/fan_speed_rules.CesRRVUk_WB6Vq.webp</image:loc>
+      <image:caption>Управление скоростью очистителя воздуха по датчику пыли PM2.5</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/feed-pets-automation/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/pet_feeder.BoIZp8y8.png</image:loc>
@@ -330,6 +374,39 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/fridge_door_open_warning.CUnEbXny_nCxlF.webp</image:loc>
       <image:caption>Оповещение об открытой двери холодильника с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/gentle-wake-up/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/gentle_wake_up.CkBgumMG.png</image:loc>
+      <image:caption>Световой будильник: плавное нарастание яркости ламп с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/gentle_wake_up.CkBgumMG_ZiPsJz.webp</image:loc>
+      <image:caption>Световой будильник: плавное нарастание яркости ламп с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/greenhouse-climate/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/greenhouse_climate.Bho8IlfD.png</image:loc>
+      <image:caption>Автоматизация полива и климата домашней оранжереи с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/greenhouse_climate.Bho8IlfD_Z24Rf3y.webp</image:loc>
+      <image:caption>Автоматизация полива и климата домашней оранжереи с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/guest-mode-override/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/guest_mode_override.CuNPdYL6.png</image:loc>
+      <image:caption>Режим гостей в умном доме с Алисой: временное отключение сценариев</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/guest_mode_override.CuNPdYL6_qEJ4n.webp</image:loc>
+      <image:caption>Режим гостей в умном доме с Алисой: временное отключение сценариев</image:caption>
     </image:image>
   </url>
   <url>
@@ -440,6 +517,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/kids_home.Bl8ABuog_Z1lmQY3.webp</image:loc>
       <image:caption>Сценарий «Ребенок дома» в Доме с Алисой: пуш и Voice Match</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/kids-room-night/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kids_room_night.DMhGu7hn.png</image:loc>
+      <image:caption>Автоматическое выключение ночника в детской комнате с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/kids_room_night.DMhGu7hn_yyaTV.webp</image:loc>
+      <image:caption>Автоматическое выключение ночника в детской комнате с Алисой</image:caption>
     </image:image>
   </url>
   <url>
@@ -594,6 +682,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/morning-coffee-1.feyWxnGn_ZekOhO.webp</image:loc>
       <image:caption>Автоматический запуск кофемашины утром с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/motion-camera-trigger/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_camera_trigger.CQPp9Ymi.png</image:loc>
+      <image:caption>Запуск записи видеокамеры и включение прожектора по движению</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_camera_trigger.CQPp9Ymi_Z1pkoWF.webp</image:loc>
+      <image:caption>Запуск записи видеокамеры и включение прожектора по движению</image:caption>
     </image:image>
   </url>
   <url>
@@ -839,6 +938,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/smart-siren-rules/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_siren_rules.d_TquYel.png</image:loc>
+      <image:caption>Настройка умной сирены Zigbee в сценариях безопасности Алисы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_siren_rules.d_TquYel_iMeTN.webp</image:loc>
+      <image:caption>Настройка умной сирены Zigbee в сценариях безопасности Алисы</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/smart-switch-no-neutral/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/smart_switch_no_neutral.CoLdR81z.png</image:loc>
@@ -872,6 +982,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/smart-weather-station/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_weather_station.Dl3wdGuV.png</image:loc>
+      <image:caption>Интеграция уличной метеостанции в сценарии климата с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_weather_station.Dl3wdGuV_i1S9b.webp</image:loc>
+      <image:caption>Интеграция уличной метеостанции в сценарии климата с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/smoke-gas-alarm/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/smoke_gas_alarm.CIJm-r6V.png</image:loc>
@@ -891,6 +1012,28 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/soil_moisture_watering.d0dcIrBC_dSl9G.webp</image:loc>
       <image:caption>Автоматический полив растений по датчику влажности почвы</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/summer-cooling-night/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/summer_cooling_night.CknEHrze.png</image:loc>
+      <image:caption>Сценарий Ночная прохлада: автоматический тихий режим кондиционера</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/summer_cooling_night.CknEHrze_Z1UXwPf.webp</image:loc>
+      <image:caption>Сценарий Ночная прохлада: автоматический тихий режим кондиционера</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/sunset-sunrise-triggers/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/sunset_sunrise_triggers.DgUTekVA.png</image:loc>
+      <image:caption>Управление уличным освещением по астрономическому времени с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/sunset_sunrise_triggers.DgUTekVA_ZdiOGg.webp</image:loc>
+      <image:caption>Управление уличным освещением по астрономическому времени с Алисой</image:caption>
     </image:image>
   </url>
   <url>
@@ -993,6 +1136,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/voice-activation-rules/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/voice_activation_rules.ByOD2D6_.png</image:loc>
+      <image:caption>Как настроить фразы-активаторы, чтобы Алиса не путала команды</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/voice_activation_rules.ByOD2D6__Z187HN.webp</image:loc>
+      <image:caption>Как настроить фразы-активаторы, чтобы Алиса не путала команды</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/water-leak-notifications/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/leak_notifications.bJXeA0_8.png</image:loc>
@@ -1034,6 +1188,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/window_open_heater_off.90CvsO0d_eQqI3.webp</image:loc>
       <image:caption>Отключение обогревателя при открытии окна на проветривание с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/window-unclosed-warning/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/window_unclosed_warning.B_vs7L_T.png</image:loc>
+      <image:caption>Оповещение Алисы о незакрытом окне в детской комнате зимой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/window_unclosed_warning.B_vs7L_T_SFDXi.webp</image:loc>
+      <image:caption>Оповещение Алисы о незакрытом окне в детской комнате зимой</image:caption>
     </image:image>
   </url>
   <url>
