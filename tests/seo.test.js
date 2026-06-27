@@ -1853,3 +1853,24 @@ test("[SEO 2026] Content: статьи не содержат markdown-комме
 		assert.ok(!hasComment, `${a.name}: содержит HTML/Markdown комментарий в теле статьи`);
 	});
 });
+
+test("[SEO 2026] sitemap-images.xml сгенерирован, валиден и содержит изображения", () => {
+	const sitemapPath = path.join(PUBLIC_DIR, "sitemap-images.xml");
+	assert.ok(fs.existsSync(sitemapPath), "public/sitemap-images.xml отсутствует");
+
+	const xml = fs.readFileSync(sitemapPath, "utf8");
+	assert.ok(xml.includes("<urlset"), "нет urlset root");
+	assert.ok(xml.includes('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"'), "нет image namespace");
+	assert.ok(xml.includes("</urlset>"), "нет закрывающего urlset");
+
+	const imageCount = (xml.match(/<image:image>/g) || []).length;
+	assert.ok(imageCount >= 50, `только ${imageCount} изображений, ожидалось минимум 50`);
+
+	const locs = [...xml.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map(m => m[1]);
+	for (const loc of locs) {
+		assert.ok(loc.startsWith(SITE_URL + "/"), `image:loc не абсолютный: ${loc}`);
+	}
+
+	const robotsTxt = fs.readFileSync(path.join(PUBLIC_DIR, "robots.txt"), "utf8");
+	assert.ok(robotsTxt.includes("sitemap-images.xml"), "robots.txt не ссылается на sitemap-images.xml");
+});
