@@ -9,16 +9,17 @@ const { gridId, cardClass, difficultyPillsId } = Astro.props;
 ---
 <span id="filters-data-bridge" data-grid-id={gridId} data-card-class={cardClass} data-difficulty-pills-id={difficultyPillsId} aria-hidden="true" style="display:none"></span>
 <script is:inline>
-  const bridge = document.getElementById('filters-data-bridge');
-  const gridId = bridge.getAttribute('data-grid-id');
-  const cardClass = bridge.getAttribute('data-card-class');
-  const difficultyPillsId = bridge.getAttribute('data-difficulty-pills-id');
-
   let filteredCards = [];
   let currentPage = 1;
   const cardsPerPage = 9;
 
   function initFilters() {
+    const bridge = document.getElementById('filters-data-bridge');
+    if (!bridge) return;
+    const gridId = bridge.getAttribute('data-grid-id');
+    const cardClass = bridge.getAttribute('data-card-class');
+    const difficultyPillsId = bridge.getAttribute('data-difficulty-pills-id');
+
     const grid = document.getElementById(gridId);
     const emptyState = document.getElementById('empty-state');
     const cards = Array.from(document.querySelectorAll(`.${cardClass}`));
