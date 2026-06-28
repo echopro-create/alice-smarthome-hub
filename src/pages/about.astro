@@ -1,10 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
 // SEO метаданные для страницы О проекте
 const title = "О проекте «Умный Дом с Алисой» — независимый хаб знаний";
 const description =
 	"Умный Дом с Алисой — независимый контентный хаб, который систематизирует опыт пользователей экосистемы Яндекса в пошаговые руководства и инструкции.";
+
+const allEntries = await getCollection("scenarios");
 
 const breadcrumbSchema = {
 	"@context": "https://schema.org",
@@ -51,7 +54,7 @@ const jsonLdString = JSON.stringify([breadcrumbSchema]);
     <section class="about-stats-section">
       <div class="stats-grid">
         <div class="stat-card card-outlined">
-          <span class="stat-number font-outfit" data-target="69">0</span>
+          <span class="stat-number font-outfit" data-target={allEntries.length}>0</span>
           <span class="stat-label font-outfit">Инструкций и гайдов</span>
         </div>
         <div class="stat-card card-outlined">
