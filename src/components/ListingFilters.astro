@@ -7,11 +7,12 @@ interface Props {
 
 const { gridId, cardClass, difficultyPillsId } = Astro.props;
 ---
-<span data-grid-id={gridId} data-card-class={cardClass} data-difficulty-pills-id={difficultyPillsId} aria-hidden="true" style="display:none"></span>
+<span id="filters-data-bridge" data-grid-id={gridId} data-card-class={cardClass} data-difficulty-pills-id={difficultyPillsId} aria-hidden="true" style="display:none"></span>
 <script is:inline>
-  const gridId = "{gridId}";
-  const cardClass = "{cardClass}";
-  const difficultyPillsId = "{difficultyPillsId}";
+  const bridge = document.getElementById('filters-data-bridge');
+  const gridId = bridge.getAttribute('data-grid-id');
+  const cardClass = bridge.getAttribute('data-card-class');
+  const difficultyPillsId = bridge.getAttribute('data-difficulty-pills-id');
 
   let filteredCards = [];
   let currentPage = 1;
