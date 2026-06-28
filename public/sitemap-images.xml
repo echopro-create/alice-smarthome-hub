@@ -300,6 +300,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/dishwasher-night-tariff/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/dishwasher_night_tariff.Sp5xhkq4.png</image:loc>
+      <image:caption>Запуск посудомойки по ночному тарифу через розетку</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/dishwasher_night_tariff.Sp5xhkq4_2iESWC.webp</image:loc>
+      <image:caption>Запуск посудомойки по ночному тарифу через розетку</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/doorbell-mute-audio/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/doorbell_mute.C3UE2_QP.png</image:loc>
@@ -330,6 +341,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/esphome_relay.Blu8rt2x_Z1TxiTU.webp</image:loc>
       <image:caption>Умное реле на ESP8266 с прошивкой ESPHome и Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/family-member-tracker/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/family_member_tracker.DlLRU_-u.png</image:loc>
+      <image:caption>Сценарии по геолокации членов семьи в умном доме Яндекс</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/family_member_tracker.DlLRU_-u_ZEnONk.webp</image:loc>
+      <image:caption>Сценарии по геолокации членов семьи в умном доме Яндекс</image:caption>
     </image:image>
   </url>
   <url>
@@ -374,6 +396,28 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/fridge_door_open_warning.CUnEbXny_nCxlF.webp</image:loc>
       <image:caption>Оповещение об открытой двери холодильника с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/gas-leak-shutoff/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/gas_leak_shutoff.CX3XyG5r.png</image:loc>
+      <image:caption>Безопасность при утечке газа: датчик и клапан с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/gas_leak_shutoff.CX3XyG5r_Z2fErg.webp</image:loc>
+      <image:caption>Безопасность при утечке газа: датчик и клапан с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/gate-automation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/gate_automation.BKmfMlJR.png</image:loc>
+      <image:caption>Интеграция откатных ворот в Умный Дом с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/gate_automation.BKmfMlJR_FLVst.webp</image:loc>
+      <image:caption>Интеграция откатных ворот в Умный Дом с Алисой</image:caption>
     </image:image>
   </url>
   <url>
@@ -553,6 +597,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/leak-sensor-bathroom-floor/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_sensor_bathroom_floor.BfJIzTX2.png</image:loc>
+      <image:caption>Защита от протечек под кухонным гарнитуром и ванной</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/leak_sensor_bathroom_floor.BfJIzTX2_1oYBzG.webp</image:loc>
+      <image:caption>Защита от протечек под кухонным гарнитуром и ванной</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/leak-sensor-false-positive/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/leak_sensor_false_positive.Dpfn3-8_.png</image:loc>
@@ -561,17 +616,6 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/leak_sensor_false_positive.Dpfn3-8__ZMj4Cs.webp</image:loc>
       <image:caption>Ложные срабатывания датчика протечки воды: причины и устранение</image:caption>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://smart-hub.info/scenario/leak-shutoff-valve/</loc>
-    <image:image>
-      <image:loc>https://smart-hub.info/_astro/leak_shutoff.BMlomtbv.png</image:loc>
-      <image:caption>Локальный сценарий защиты от протечек с Алисой</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://smart-hub.info/_astro/leak_shutoff.BMlomtbv_MMOnp.webp</image:loc>
-      <image:caption>Локальный сценарий защиты от протечек с Алисой</image:caption>
     </image:image>
   </url>
   <url>
@@ -707,6 +751,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/troubleshooting/motion-sensor-blindspots/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_blindspots.ClQFDuA2.png</image:loc>
+      <image:caption>Как правильно установить датчик движения без мертвых зон</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_blindspots.ClQFDuA2_ZFvNjo.webp</image:loc>
+      <image:caption>Как правильно установить датчик движения без мертвых зон</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/motion-sensor-false-triggers/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/motion_sensor_setup.Bpxrb_W-.png</image:loc>
@@ -759,6 +814,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/nodered_setup.DfmsXK3K_217B0r.webp</image:loc>
       <image:caption>Установка Node-RED и интеграция с Яндекс Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/power-loss-protection/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/power_loss_protection.C0e8D_E0.png</image:loc>
+      <image:caption>Оповещение о пропадании электричества на даче через Алису</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/power_loss_protection.C0e8D_E0_Z20tGEo.webp</image:loc>
+      <image:caption>Оповещение о пропадании электричества на даче через Алису</image:caption>
     </image:image>
   </url>
   <url>
@@ -883,6 +949,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/smart-doorbell-alice/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_doorbell_alice.D3rEnJkY.png</image:loc>
+      <image:caption>Интеграция видеодомофона с Яндекс Станцией Макс</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_doorbell_alice.D3rEnJkY_1HEzk1.webp</image:loc>
+      <image:caption>Интеграция видеодомофона с Яндекс Станцией Макс</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/smart-kettle-morning/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/smart_kettle_morning.CrWQnwt0.png</image:loc>
@@ -902,6 +979,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/circadian_lighting.DwK333js_1mF5pf.webp</image:loc>
       <image:caption>Биодинамическое циркадное освещение с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/smart-lock-scenarios/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_lock_scenarios.C3jlgC9g.png</image:loc>
+      <image:caption>Сценарии автоматизации с умным замком и Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_lock_scenarios.C3jlgC9g_Z1XzQtp.webp</image:loc>
+      <image:caption>Сценарии автоматизации с умным замком и Алисой</image:caption>
     </image:image>
   </url>
   <url>
@@ -1125,6 +1213,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/tv-power-state-sync/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tv_power_state_sync.B-224rqd.png</image:loc>
+      <image:caption>Синхронизация фоновой подсветки со статусом телевизора</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/tv_power_state_sync.B-224rqd_19Av9m.webp</image:loc>
+      <image:caption>Синхронизация фоновой подсветки со статусом телевизора</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/underbed-night-light/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/underbed_night_light.QDM80-9S.png</image:loc>
@@ -1136,6 +1235,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/vibration-sensor-mailbox/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/vibration_sensor_mailbox.C227-RK6.png</image:loc>
+      <image:caption>Умный почтовый ящик: датчик вибрации в сценариях Алисы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/vibration_sensor_mailbox.C227-RK6_Z279ndC.webp</image:loc>
+      <image:caption>Умный почтовый ящик: датчик вибрации в сценариях Алисы</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/voice-activation-rules/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/voice_activation_rules.ByOD2D6_.png</image:loc>
@@ -1144,6 +1254,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/voice_activation_rules.ByOD2D6__Z187HN.webp</image:loc>
       <image:caption>Как настроить фразы-активаторы, чтобы Алиса не путала команды</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/water-filter-reminder/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/water_filter_reminder.Dl-V0ese.png</image:loc>
+      <image:caption>Напоминание о замене фильтра для воды через Алису</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/water_filter_reminder.Dl-V0ese_XRCUR.webp</image:loc>
+      <image:caption>Напоминание о замене фильтра для воды через Алису</image:caption>
     </image:image>
   </url>
   <url>
