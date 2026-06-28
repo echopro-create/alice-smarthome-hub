@@ -1,5 +1,16 @@
 ---
 import Search from "./Search.astro";
+
+const { pathname } = Astro.url;
+const normalizedPathname = pathname.endsWith("/") ? pathname : `${pathname}/`;
+
+const isActive = (path: string) => {
+	const normalizedPath = path.endsWith("/") ? path : `${path}/`;
+	if (normalizedPath === "/") {
+		return normalizedPathname === "/";
+	}
+	return normalizedPathname.startsWith(normalizedPath);
+};
 ---
 <header class="glass glass-header-nav">
   <div class="container header-container">
@@ -10,11 +21,11 @@ import Search from "./Search.astro";
       <span class="logo-text font-outfit">Умный Дом <span class="coral-highlight">Алисы</span></span>
     </a>
     <nav class="nav-links" aria-label="Главное меню">
-      <a href="/" class="nav-link">Главная</a>
-      <a href="/scenarios/" class="nav-link">Сценарии</a>
-      <a href="/troubleshooting/" class="nav-link">Траблшутинг</a>
-      <a href="/compatibility/" class="nav-link">Совместимость</a>
-      <a href="/about/" class="nav-link">О проекте</a>
+      <a href="/" class={`nav-link ${isActive('/') ? 'active' : ''}`}>Главная</a>
+      <a href="/scenarios/" class={`nav-link ${isActive('/scenarios/') ? 'active' : ''}`}>Сценарии</a>
+      <a href="/troubleshooting/" class={`nav-link ${isActive('/troubleshooting/') ? 'active' : ''}`}>Траблшутинг</a>
+      <a href="/compatibility/" class={`nav-link ${isActive('/compatibility/') ? 'active' : ''}`}>Совместимость</a>
+      <a href="/about/" class={`nav-link ${isActive('/about/') ? 'active' : ''}`}>О проекте</a>
     </nav>
 
     <div class="header-actions">
@@ -50,11 +61,11 @@ import Search from "./Search.astro";
   <!-- Mobile Navigation Drawer -->
   <div id="mobile-menu" class="mobile-drawer card-elevated" aria-hidden="true" style="display: none;">
     <div class="mobile-drawer-content">
-      <a href="/" class="mobile-nav-link">Главная</a>
-      <a href="/scenarios/" class="mobile-nav-link">Все сценарии</a>
-      <a href="/troubleshooting/" class="mobile-nav-link">База неисправностей</a>
-      <a href="/compatibility/" class="mobile-nav-link">Таблица совместимости</a>
-      <a href="/about/" class="mobile-nav-link">О проекте</a>
+      <a href="/" class={`mobile-nav-link ${isActive('/') ? 'active' : ''}`}>Главная</a>
+      <a href="/scenarios/" class={`mobile-nav-link ${isActive('/scenarios/') ? 'active' : ''}`}>Все сценарии</a>
+      <a href="/troubleshooting/" class={`mobile-nav-link ${isActive('/troubleshooting/') ? 'active' : ''}`}>База неисправностей</a>
+      <a href="/compatibility/" class={`mobile-nav-link ${isActive('/compatibility/') ? 'active' : ''}`}>Таблица совместимости</a>
+      <a href="/about/" class={`mobile-nav-link ${isActive('/about/') ? 'active' : ''}`}>О проекте</a>
     </div>
   </div>
 
@@ -249,6 +260,23 @@ import Search from "./Search.astro";
     color: var(--text-primary);
   }
 
+  .nav-link.active {
+    color: var(--accent-signature, #f97316);
+    position: relative;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-signature, #f97316);
+    border-radius: 99px;
+    box-shadow: 0 0 8px var(--accent-signature-glow);
+  }
+
 
 
   /* Hamburger & Drawer button */
@@ -316,6 +344,12 @@ import Search from "./Search.astro";
 
   .mobile-nav-link:hover {
     color: var(--accent-signature, #a855f7);
+  }
+
+  .mobile-nav-link.active {
+    color: var(--accent-signature, #f97316);
+    border-left: 3px solid var(--accent-signature, #f97316);
+    padding-left: 0.5rem;
   }
 
   /* Theme Toggle icons */
