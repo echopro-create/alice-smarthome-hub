@@ -3,10 +3,10 @@
 ## Предстоящие задачи
 - [x] Создать `implementation_plan.md` с подробным описанием структуры и содержания 5 новых сценариев
 - [x] Получить одобрение плана от пользователя/родительского агента
-- [ ] Написать сценарий 6: `leak-sensor-bathroom-floor.md`
-- [ ] Написать сценарий 7: `smart-doorbell-alice.md`
-- [ ] Написать сценарий 8: `gas-leak-shutoff.md`
-- [ ] Написать сценарий 9: `family-member-tracker.md`
-- [ ] Написать сценарий 10: `tv-power-state-sync.md`
-- [ ] Запустить тесты/линтер проекта для проверки корректности
-- [ ] Выполнить git commit и push изменений
+- [x] Написать сценарий 6: `leak-sensor-bathroom-floor.md`
+- [x] Написать сценарий 7: `smart-doorbell-alice.md`
+- [x] Написать сценарий 8: `gas-leak-shutoff.md`
+- [x] Написать сценарий 9: `family-member-tracker.md`
+- [x] Написать сценарий 10: `tv-power-state-sync.md`
+- [x] Запустить тесты/линтер проекта для проверки корректности
+- [x] Выполнить git commit и push изменений
