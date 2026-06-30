@@ -223,6 +223,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/coffee-machine-limitations/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/coffee_machine_limitations.DipbJR8w.png</image:loc>
+      <image:caption>Как подключить обычную кофемашину к умной розетке Алисы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/coffee_machine_limitations.DipbJR8w_18swn0.webp</image:loc>
+      <image:caption>Как подключить обычную кофемашину к умной розетке Алисы</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/conditioner-smart-control/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/conditioner-smart-control-1.cjBQ78et.png</image:loc>
@@ -487,6 +498,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/home-assistant-to-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/home_assistant_to_yandex.B2myfIw7.png</image:loc>
+      <image:caption>Как пробросить устройства из Home Assistant в Алису через мост</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/home_assistant_to_yandex.B2myfIw7_1NqLCO.webp</image:loc>
+      <image:caption>Как пробросить устройства из Home Assistant в Алису через мост</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/home-office-automation/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/home_office.CuwDTBCF.png</image:loc>
@@ -685,6 +707,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/matter-bridge-setup/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter_bridge_setup.BE5cBPu6.png</image:loc>
+      <image:caption>Интеграция мостов Matter для объединения Apple HomeKit и Алисы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/matter_bridge_setup.BE5cBPu6_1qoLnG.webp</image:loc>
+      <image:caption>Интеграция мостов Matter для объединения Apple HomeKit и Алисы</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/matter-devices-lag-trouble/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/matter_devices_lag_trouble.DdsP0DXH.png</image:loc>
@@ -715,6 +748,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/matter_station2.D5x4vTsU_1QWG04.webp</image:loc>
       <image:caption>Подключение Matter-устройств к Яндекс Станции 2 напрямую</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/microwave-smart-plug/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/microwave_smart_plug.CmlZjxAv.png</image:loc>
+      <image:caption>Детекция окончания работы микроволновки через умную розетку</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/microwave_smart_plug.CmlZjxAv_Z2wojKc.webp</image:loc>
+      <image:caption>Детекция окончания работы микроволновки через умную розетку</image:caption>
     </image:image>
   </url>
   <url>
@@ -806,6 +850,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/nodered-yandex-dialogs/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/nodered_yandex_dialogs.CG1Sfj_C.png</image:loc>
+      <image:caption>Сложные сценарии Node-RED и управление голосом через Алису</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/nodered_yandex_dialogs.CG1Sfj_C_ZPdLMo.webp</image:loc>
+      <image:caption>Сложные сценарии Node-RED и управление голосом через Алису</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/nodered-yandex-setup/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/nodered_setup.DfmsXK3K.png</image:loc>
@@ -814,6 +869,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/nodered_setup.DfmsXK3K_217B0r.webp</image:loc>
       <image:caption>Установка Node-RED и интеграция с Яндекс Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/plant-watering-soil-sensor/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/plant_watering_soil_sensor.BAnQPfWk.png</image:loc>
+      <image:caption>Автоматический полив комнатных цветов по датчику влажности почвы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/plant_watering_soil_sensor.BAnQPfWk_Z24uzrA.webp</image:loc>
+      <image:caption>Автоматический полив комнатных цветов по датчику влажности почвы</image:caption>
     </image:image>
   </url>
   <url>
@@ -1004,6 +1070,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/smart-mirror-backlight/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_mirror_backlight.DT4wz8gp.png</image:loc>
+      <image:caption>Автоматическая мягкая подсветка зеркала в ванной при входе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_mirror_backlight.DT4wz8gp_Z1WyXkT.webp</image:loc>
+      <image:caption>Автоматическая мягкая подсветка зеркала в ванной при входе</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/smart-plants-watering/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/plants_watering.hy2Maybf.png</image:loc>
@@ -1144,6 +1221,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/towel_dryer_schedule.DbpzERSM_ZhDRNF.webp</image:loc>
       <image:caption>Умное управление полотенцесушителем в Доме с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/trash-bin-sensor/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/trash_bin_sensor.KBYyJbsf.png</image:loc>
+      <image:caption>Подсветка шкафа под мойкой при открытии мусорного ведра</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/trash_bin_sensor.KBYyJbsf_KKa2d.webp</image:loc>
+      <image:caption>Подсветка шкафа под мойкой при открытии мусорного ведра</image:caption>
     </image:image>
   </url>
   <url>
@@ -1323,6 +1411,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/xiaomi-gateway-integration/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/xiaomi_gateway_integration.HitKmkmr.png</image:loc>
+      <image:caption>Подключение шлюзов Xiaomi и Aqara к Алисе: пошаговый гид</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/xiaomi_gateway_integration.HitKmkmr_2mpGP4.webp</image:loc>
+      <image:caption>Подключение шлюзов Xiaomi и Aqara к Алисе: пошаговый гид</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/yandex-account-merge/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/yandex_account_merge.jy6ntM-x.png</image:loc>
@@ -1411,6 +1510,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/yandex-station-max-zigbee/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_station_max_zigbee.BZnJSRTE.png</image:loc>
+      <image:caption>Обзор и настройка модуля Zigbee в Яндекс Станции Макс</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_station_max_zigbee.BZnJSRTE_ZXCvdh.webp</image:loc>
+      <image:caption>Обзор и настройка модуля Zigbee в Яндекс Станции Макс</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/yandex-station-microphones-deaf/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/yandex_station_microphones.DKMZwGJB.png</image:loc>
@@ -1488,6 +1598,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/troubleshooting/zigbee-channel-selection/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_channel_selection.DH0TmZWa.png</image:loc>
+      <image:caption>Как сменить радиоканал Zigbee на Станции для обхода помех Wi-Fi</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_channel_selection.DH0TmZWa_1pQsDf.webp</image:loc>
+      <image:caption>Как сменить радиоканал Zigbee на Станции для обхода помех Wi-Fi</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/zigbee-mesh-range-issues/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/zigbee_mesh_range.DBSRBORy.png</image:loc>
@@ -1518,6 +1639,28 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/zigbee_routers.BqwGsNWv_Z1TBzzN.webp</image:loc>
       <image:caption>Роутеры и конечные устройства в сети Zigbee умного дома</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/zigbee-sensor-reset/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_sensor_reset.CLC4gxJG.png</image:loc>
+      <image:caption>Как заново спарить и настроить датчик Zigbee без потери графиков</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_sensor_reset.CLC4gxJG_2ffIP2.webp</image:loc>
+      <image:caption>Как заново спарить и настроить датчик Zigbee без потери графиков</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/zigbee-signal-interference/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_signal_interference.BCsodKPF.png</image:loc>
+      <image:caption>Борьба с затуханием сигнала Zigbee в бетонных стенах</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_signal_interference.BCsodKPF_Z2ahHhl.webp</image:loc>
+      <image:caption>Борьба с затуханием сигнала Zigbee в бетонных стенах</image:caption>
     </image:image>
   </url>
 </urlset>
