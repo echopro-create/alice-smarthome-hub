@@ -60,3 +60,5 @@ steps:
 В ванной комнате для дополнительного комфорта можно настроить [автоматическую мягкую подсветку зеркала при входе](/scenarios/smart-mirror-backlight), а на кухне — [подсветку шкафа под мойкой при открытии мусорного ведра](/scenarios/trash-bin-sensor).
 
 Для быстрого управления сценариями без открытия приложения настройте [запуск сценариев через быстрые команды Siri на iPhone](/scenarios/ios-shortcuts-alice) или выведите [кнопки сценариев на рабочий стол Android](/scenarios/android-widgets-alice).
+
+Сделайте свой дом интерактивнее, настроив [голосовые уведомления TTS на Яндекс Станции из Home Assistant](/scenarios/ha-yandex-tts-notifications), [запуск сценариев по GPS-зонам Home Assistant](/scenarios/ha-zone-tracking-gps) или [проброс выпадающих списков из HA в Алису](/scenarios/ha-input-select-yandex).

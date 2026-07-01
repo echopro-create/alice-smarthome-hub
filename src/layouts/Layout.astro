@@ -37,10 +37,12 @@ const yandexMetrikaId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID || "";
 		<!-- Global Metadata -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="32x32" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="icon" type="image/svg+xml" href={`${host}/favicon.svg`} />
+		<link rel="icon" type="image/png" sizes="120x120" href={`${host}/favicon-120.png`} />
+		<link rel="icon" type="image/x-icon" href={`${host}/favicon.ico`} sizes="32x32" />
+		<link rel="apple-touch-icon" href={`${host}/apple-touch-icon.png`} />
+		<link rel="manifest" href={`${host}/site.webmanifest`} />
+		<link rel="alternate" type="application/rss+xml" title="Умный Дом с Алисой" href="/rss.xml" />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- View Transitions -->

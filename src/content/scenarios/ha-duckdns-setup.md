@@ -1,6 +1,6 @@
 ---
 title: "Использование DuckDNS для бесплатного SSL-сертификата в HA"
-description: "Настройка бесплатного динамического DNS и шифрования Let's Encrypt для безопасного подключения Алисы к локальному Home Assistant."
+description: "Настройка бесплатного динамического DNS и шифрования Lets Encrypt для безопасного подключения Алисы к локальному Home Assistant."
 category: "scenario"
 difficulty: "medium"
 publishDate: 2026-07-01

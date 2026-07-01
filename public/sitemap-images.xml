@@ -509,6 +509,171 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/ha-binary-sensors-mapping/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_binary_sensors_mapping.oiVuuQ_d.png</image:loc>
+      <image:caption>Маппинг бинарных датчиков HA в типы устройств Дома с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_binary_sensors_mapping.oiVuuQ_d_ZL2DPT.webp</image:loc>
+      <image:caption>Маппинг бинарных датчиков HA в типы устройств Дома с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-climate-sync-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_climate_sync_yandex.EyEjSQ44.png</image:loc>
+      <image:caption>Синхронизация климата и кондиционеров из HA с Яндекс Домом</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_climate_sync_yandex.EyEjSQ44_1LF1nV.webp</image:loc>
+      <image:caption>Синхронизация климата и кондиционеров из HA с Яндекс Домом</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-custom-media-players/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_custom_media_players.DXKi21X2.png</image:loc>
+      <image:caption>Интеграция сторонних медиаплееров из HA в Алису как колонок</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_custom_media_players.DXKi21X2_ZjOrJb.webp</image:loc>
+      <image:caption>Интеграция сторонних медиаплееров из HA в Алису как колонок</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-duckdns-setup/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_duckdns_setup.CJHJxl1g.png</image:loc>
+      <image:caption>Использование DuckDNS для бесплатного SSL-сертификата в HA</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_duckdns_setup.CJHJxl1g_Z1OnrdH.webp</image:loc>
+      <image:caption>Использование DuckDNS для бесплатного SSL-сертификата в HA</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-hacs-installation/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_hacs_installation.CqmVyMyA.png</image:loc>
+      <image:caption>Установка магазина HACS в Home Assistant: пошаговый гид</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_hacs_installation.CqmVyMyA_Zsk6bm.webp</image:loc>
+      <image:caption>Установка магазина HACS в Home Assistant: пошаговый гид</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-input-select-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_input_select_yandex.DYN2EtCP.png</image:loc>
+      <image:caption>Проброс выпадающих списков из HA в Алису как режимов работы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_input_select_yandex.DYN2EtCP_Z1HBFyc.webp</image:loc>
+      <image:caption>Проброс выпадающих списков из HA в Алису как режимов работы</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-proxy-nginx-ssl/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_proxy_nginx_ssl.CpaU9pQQ.png</image:loc>
+      <image:caption>Настройка Nginx Proxy Manager для работы внешнего доступа к HA</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_proxy_nginx_ssl.CpaU9pQQ_Z19CHOX.webp</image:loc>
+      <image:caption>Настройка Nginx Proxy Manager для работы внешнего доступа к HA</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-sensor-history-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_sensor_history-yandex.2au9hrto.png</image:loc>
+      <image:caption>Как сохранить графики и историю датчиков HA при передаче в Алису</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_sensor_history-yandex.2au9hrto_1P4KRU.webp</image:loc>
+      <image:caption>Как сохранить графики и историю датчиков HA при передаче в Алису</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-supervisor-backups/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_supervisor_backups.D-QupEtu.png</image:loc>
+      <image:caption>Автоматическое резервное копирование Home Assistant на Яндекс Диск</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_supervisor_backups.D-QupEtu_qfHj4.webp</image:loc>
+      <image:caption>Автоматическое резервное копирование Home Assistant на Яндекс Диск</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-tuya-local-alice/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_tuya_local_alice.BPQX8358.png</image:loc>
+      <image:caption>Локальная интеграция Tuya в Home Assistant с пробросом в Яндекс</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_tuya_local_alice.BPQX8358_ZbMQqM.webp</image:loc>
+      <image:caption>Локальная интеграция Tuya в Home Assistant с пробросом в Яндекс</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-virtual-switches-alice/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_virtual_switches_alice.CnRw4awB.png</image:loc>
+      <image:caption>Создание виртуальных переключателей в Home Assistant для Алисы</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_virtual_switches_alice.CnRw4awB_14wLul.webp</image:loc>
+      <image:caption>Создание виртуальных переключателей в Home Assistant для Алисы</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-xiaomi-tokens-extract/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_xiaomi_tokens_extract.CAqVYFwX.png</image:loc>
+      <image:caption>Как извлечь токены устройств Xiaomi для интеграции в Home Assistant</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_xiaomi_tokens_extract.CAqVYFwX_ZvQgmk.webp</image:loc>
+      <image:caption>Как извлечь токены устройств Xiaomi для интеграции в Home Assistant</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-yandex-tts-notifications/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_yandex_tts_notifications.O2jGsyj2.png</image:loc>
+      <image:caption>Голосовые уведомления TTS на Яндекс Станции из Home Assistant</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_yandex_tts_notifications.O2jGsyj2_Z14jJja.webp</image:loc>
+      <image:caption>Голосовые уведомления TTS на Яндекс Станции из Home Assistant</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-zigbee2mqtt-yandex/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_zigbee2mqtt_yandex.CBqxF3Ny.png</image:loc>
+      <image:caption>Проброс устройств из Zigbee2MQTT в Алису через Home Assistant</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_zigbee2mqtt_yandex.CBqxF3Ny_1nep4d.webp</image:loc>
+      <image:caption>Проброс устройств из Zigbee2MQTT в Алису через Home Assistant</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ha-zone-tracking-gps/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_zone_tracking_gps.CFRd4MhM.png</image:loc>
+      <image:caption>Запуск сценариев Дома в Алисе по GPS-зонам Home Assistant</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ha_zone_tracking_gps.CFRd4MhM_ZtCthj.webp</image:loc>
+      <image:caption>Запуск сценариев Дома в Алисе по GPS-зонам Home Assistant</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/heater-floor-control/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/heater-floor-control-1.D2sEbEkU.png</image:loc>

@@ -1,15 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <style>
-    .bg { fill: #2b164c; }
-    .house { stroke: #ffffff; stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-    .bolt { fill: #00f0ff; }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #1c0d35; }
       .bolt { fill: #00ffff; }
     }
   </style>
-  <rect width="440" height="440" x="36" y="36" rx="96" class="bg" />
-  <path d="M136 248 L256 138 L376 248" class="house" />
-  <path d="M164 228 L164 360 L348 360 L348 228" class="house" />
-  <path d="M275 198 L215 278 L265 278 L237 348 L297 268 L247 268 Z" class="bolt" />
+  <rect width="440" height="440" x="36" y="36" rx="96" class="bg" fill="#2b164c" />
+  <path d="M136 248 L256 138 L376 248" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none" class="house" />
+  <path d="M164 228 L164 360 L348 360 L348 228" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" fill="none" class="house" />
+  <path d="M275 198 L215 278 L265 278 L237 348 L297 268 L247 268 Z" fill="#00f0ff" class="bolt" />
 </svg>

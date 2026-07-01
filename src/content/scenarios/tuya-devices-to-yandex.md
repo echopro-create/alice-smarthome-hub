@@ -97,3 +97,5 @@ steps:
 Подробнее о локальном управлении читайте в гайде по [настройке локальных сценариев Алисы](/scenarios/local-scenarios-setup). Если у вас регулярно отваливается синхронизация аккаунта Tuya, изучите статью про [решение проблем с токенами интеграции Tuya](/troubleshooting/tuya-skill-token-expired). 
 
 Также рекомендуем ознакомиться с анализом [задержек облачного и локального управления](/troubleshooting/tuya-cloud-vs-local-latencies), общими [проблемами интеграции Tuya](/troubleshooting/tuya-integration-problems) и [альтернативными способами привязки Tuya к Алисе](/scenarios/tuya-cloud-to-yandex-cpa).
+
+Для полного избавления от облачных зависимостей настройте [локальную интеграцию Tuya в Home Assistant с пробросом в Яндекс](/scenarios/ha-tuya-local-alice).
