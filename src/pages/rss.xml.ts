@@ -1,5 +1,5 @@
-import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
+import rss from "@astrojs/rss";
 
 export async function GET(context) {
 	const entries = await getCollection("scenarios");
@@ -9,8 +9,7 @@ export async function GET(context) {
 
 	return rss({
 		title: "Умный Дом с Алисой",
-		description:
-			"Сценарии автоматизации и руководства по траблшутингу умного дома с Алисой от Яндекса",
+		description: "Сценарии автоматизации и руководства по траблшутингу умного дома с Алисой от Яндекса",
 		site: context.site ?? "https://smart-hub.info",
 		items: sorted.map((entry) => ({
 			title: entry.data.title,

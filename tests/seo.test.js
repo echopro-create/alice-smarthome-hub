@@ -1868,7 +1868,7 @@ test("[SEO 2026] sitemap-images.xml сгенерирован, валиден и 
 
 	const locs = [...xml.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((m) => m[1]);
 	for (const loc of locs) {
-		assert.ok(loc.startsWith(SITE_URL + "/"), `image:loc не абсолютный: ${loc}`);
+		assert.ok(loc.startsWith(`${SITE_URL}/`), `image:loc не абсолютный: ${loc}`);
 	}
 
 	const robotsTxt = fs.readFileSync(path.join(PUBLIC_DIR, "robots.txt"), "utf8");
