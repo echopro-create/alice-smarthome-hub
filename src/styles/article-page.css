@@ -199,9 +199,9 @@
 
 /* Markdown body — типографика статьи */
 .markdown-body {
-	max-width: 72ch;
-	line-height: 1.8;
-	font-size: 1.1875rem;
+	max-width: 64ch;
+	line-height: 1.65;
+	font-size: 1.125rem;
 	color: var(--text-primary);
 	text-wrap: pretty;
 	overflow-wrap: break-word;
@@ -284,10 +284,10 @@
 }
 
 .markdown-body :global(p) {
-	margin-bottom: 1.5rem;
+	margin-bottom: 1.65rem;
 	color: var(--text-primary);
 	text-align: left;
-	line-height: 1.8;
+	line-height: 1.65;
 	hyphens: auto;
 	overflow-wrap: break-word;
 }
@@ -302,7 +302,7 @@
 .markdown-body :global(li) {
 	margin-bottom: 0.625rem;
 	text-align: left;
-	line-height: 1.75;
+	line-height: 1.6;
 }
 
 .markdown-body :global(strong) {
@@ -572,7 +572,7 @@
 /* 1. Lead Paragraph (First Paragraph in Article) */
 .markdown-body > p:first-of-type {
 	font-size: 1.15rem;
-	line-height: 1.8;
+	line-height: 1.65;
 	color: var(--text-primary);
 	font-weight: 500;
 	margin-bottom: 1.75rem;
@@ -623,7 +623,7 @@
 
 .markdown-body li {
 	margin-bottom: 0.75rem;
-	line-height: 1.7;
+	line-height: 1.6;
 }
 
 .markdown-body ul li::marker {
