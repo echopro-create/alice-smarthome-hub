@@ -124,8 +124,8 @@ ${staticBlock}
     const fullPath = path.join(CONTENT_DIR, file);
     const content = fs.readFileSync(fullPath, 'utf8');
     const fm = parseFrontmatter(content);
-    const category = fm.category || 'scenarios';
-    const pageUrl = `${SITE_URL}/${category}/${slug}/`;
+    const categoryPath = fm.category === "scenario" ? "scenarios" : "troubleshooting";
+    const pageUrl = `${SITE_URL}/${categoryPath}/${slug}/`;
     const imageRefs = findImageRefs(content);
 
     if (imageRefs.length === 0) continue;
