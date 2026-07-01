@@ -69,6 +69,28 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/troubleshooting/alice-whisper-mode-issues/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/alice_whisper_mode_issues.COZvZz0K.png</image:loc>
+      <image:caption>Алиса шепчет слишком тихо или не распознает шепот: решение проблем</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/alice_whisper_mode_issues.COZvZz0K_1hbSeU.webp</image:loc>
+      <image:caption>Алиса шепчет слишком тихо или не распознает шепот: решение проблем</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/android-widgets-alice/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/android_widgets_alice.CLfuVUPn.png</image:loc>
+      <image:caption>Вывод кнопок запуска сценариев Алисы на рабочий стол Android</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/android_widgets_alice.CLfuVUPn_1QYcWi.webp</image:loc>
+      <image:caption>Вывод кнопок запуска сценариев Алисы на рабочий стол Android</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/aqara-fp2-yandex-presence/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/aqara_fp2.Cpqz_SyY.png</image:loc>
@@ -300,6 +322,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/custom-yandex-skills/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/custom_yandex_skills.BP2_AkE7.png</image:loc>
+      <image:caption>Создание приватных навыков Алисы для нестандартного управления</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/custom_yandex_skills.BP2_AkE7_Z34Dh4.webp</image:loc>
+      <image:caption>Создание приватных навыков Алисы для нестандартного управления</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/device-not-responding/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/device_not_responding.D-CX2Z5K.png</image:loc>
@@ -396,6 +429,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/pet_feeder.BoIZp8y8_Zf034c.webp</image:loc>
       <image:caption>Умная кормушка для питомцев: сценарии автоматического кормления</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/firmware-update-zigbee/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/firmware_update_zigbee.BV6yOmSo.png</image:loc>
+      <image:caption>Как обновлять прошивки Zigbee датчиков сторонних брендов в Алисе</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/firmware_update_zigbee.BV6yOmSo_ZWnbxG.webp</image:loc>
+      <image:caption>Как обновлять прошивки Zigbee датчиков сторонних брендов в Алисе</image:caption>
     </image:image>
   </url>
   <url>
@@ -561,6 +605,28 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/humidity_humidifier_control.DKC-WE9F_Zq6QJ7.webp</image:loc>
       <image:caption>Автоматическое управление увлажнителем воздуха с Алисой</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/infrared-remote-angle/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/infrared_remote_angle.CjE2nbXJ.png</image:loc>
+      <image:caption>Почему умный ИК-пульт Яндекса не управляет техникой: как настроить</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/infrared_remote_angle.CjE2nbXJ_1MqHGK.webp</image:loc>
+      <image:caption>Почему умный ИК-пульт Яндекса не управляет техникой: как настроить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/ios-shortcuts-alice/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ios_shortcuts_alice.BwbKH__A.png</image:loc>
+      <image:caption>Запуск сценариев Умного Дома Яндекса через Siri на iPhone</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/ios_shortcuts_alice.BwbKH__A_Z3ipkb.webp</image:loc>
+      <image:caption>Запуск сценариев Умного Дома Яндекса через Siri на iPhone</image:caption>
     </image:image>
   </url>
   <url>
@@ -806,6 +872,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/troubleshooting/motion-sensor-cats/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_cats.DcsMslCs.png</image:loc>
+      <image:caption>Как настроить датчик движения, чтобы он не реагировал на кошек</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/motion_sensor_cats.DcsMslCs_Z13Gx3V.webp</image:loc>
+      <image:caption>Как настроить датчик движения, чтобы он не реагировал на кошек</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/motion-sensor-false-triggers/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/motion_sensor_setup.Bpxrb_W-.png</image:loc>
@@ -1037,6 +1114,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-kettle-no-bluetooth/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_kettle_no_bluetooth.DNM1B6W5.png</image:loc>
+      <image:caption>Почему умный чайник Redmond отваливается от шлюза Bluetooth</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_kettle_no_bluetooth.DNM1B6W5_1iIlj3.webp</image:loc>
+      <image:caption>Почему умный чайник Redmond отваливается от шлюза Bluetooth</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/smart-lighting-circadian/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/circadian_lighting.DwK333js.png</image:loc>
@@ -1092,6 +1180,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/smart-plug-mesh-node/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_plug_mesh_node.DeO0ZYpo.png</image:loc>
+      <image:caption>Использование умных розеток как ретрансляторов Zigbee-сигнала</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_plug_mesh_node.DeO0ZYpo_17Qvp7.webp</image:loc>
+      <image:caption>Использование умных розеток как ретрансляторов Zigbee-сигнала</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/troubleshooting/smart-plug-overload/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/smart_plug_overload.D6_gEct1.png</image:loc>
@@ -1100,6 +1199,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/smart_plug_overload.D6_gEct1_Z1JNtWq.webp</image:loc>
       <image:caption>Почему умная розетка отключается под нагрузкой и как это решить</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/smart-relay-sticking/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_relay_sticking.BLireTO3.png</image:loc>
+      <image:caption>Почему залипают контакты умного реле при включении LED ламп</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/smart_relay_sticking.BLireTO3_7rt1s.webp</image:loc>
+      <image:caption>Почему залипают контакты умного реле при включении LED ламп</image:caption>
     </image:image>
   </url>
   <url>
@@ -1323,6 +1433,17 @@
     </image:image>
   </url>
   <url>
+    <loc>https://smart-hub.info/scenario/uninterruptible-power-smart-home/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/uninterruptible_power_smart_home.HVlKyCx-.png</image:loc>
+      <image:caption>Резервное питание для роутера, хаба и Станции при отключении 220В</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/uninterruptible_power_smart_home.HVlKyCx-_Z2p1AMm.webp</image:loc>
+      <image:caption>Резервное питание для роутера, хаба и Станции при отключении 220В</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://smart-hub.info/scenario/vibration-sensor-mailbox/</loc>
     <image:image>
       <image:loc>https://smart-hub.info/_astro/vibration_sensor_mailbox.C227-RK6.png</image:loc>
@@ -1441,6 +1562,28 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/homebridge_setup.BArnIM_v_ZiLUUn.webp</image:loc>
       <image:caption>Проброс устройств Яндекса в Apple HomeKit через Homebridge</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/troubleshooting/yandex-app-no-widgets/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_app_no_widgets.CmMDVC1Y.png</image:loc>
+      <image:caption>Что делать, если в приложении Дом с Алисой пропали графики датчиков</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_app_no_widgets.CmMDVC1Y_Z2pq3Ol.webp</image:loc>
+      <image:caption>Что делать, если в приложении Дом с Алисой пропали графики датчиков</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/yandex-devices-without-cloud/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_devices_without_cloud.eNLoSDiR.png</image:loc>
+      <image:caption>Какие устройства работают локально без интернета в Доме с Алисой</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/yandex_devices_without_cloud.eNLoSDiR_16ont9.webp</image:loc>
+      <image:caption>Какие устройства работают локально без интернета в Доме с Алисой</image:caption>
     </image:image>
   </url>
   <url>
@@ -1606,6 +1749,17 @@
     <image:image>
       <image:loc>https://smart-hub.info/_astro/zigbee_channel_selection.DH0TmZWa_1pQsDf.webp</image:loc>
       <image:caption>Как сменить радиоканал Zigbee на Станции для обхода помех Wi-Fi</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://smart-hub.info/scenario/zigbee-dongle-flashing/</loc>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_dongle_flashing.ChS-ogCX.png</image:loc>
+      <image:caption>Как прошить Zigbee стик Sonoff 3.0 для интеграции в умный дом</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://smart-hub.info/_astro/zigbee_dongle_flashing.ChS-ogCX_ZbPXuI.webp</image:loc>
+      <image:caption>Как прошить Zigbee стик Sonoff 3.0 для интеграции в умный дом</image:caption>
     </image:image>
   </url>
   <url>
